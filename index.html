@@ -2334,6 +2334,11 @@
         return r.json();
       })
       .then(json => {
+        if (!json || !json.pliego) {
+          console.warn("[ORPMI] JSON recibido pero sin estructura válida:", json);
+          mostrarBanner("⚠️ JSON sin datos válidos — revisa el archivo", "warn");
+          return;
+        }
         const nuevosArchivos = [];
 
         // 1. Archivo UE (Bloques 1 y 3)
@@ -2377,16 +2382,21 @@
           nuevosArchivos.push(arch);
         }
 
-        // 4. Rubros Sede Central (Bloque 6B)
-        if (json.rubros_sede_central && json.rubros_sede_central.length) {
-          const arch = construirArchivoVirtual(
-            "RUBRO",
-            jsonRubroaRegistros(json.rubros_sede_central),
-            [{ nivel: "UNIDAD", nombre: "001-855: REGION LAMBAYEQUE-SEDE CENTRAL" }],
-            "rubro_sede_central.xls [JSON]"
-          );
-          arch.esRubroSedeCentral = true;
-          nuevosArchivos.push(arch);
+        // 4. Rubros por UE (Bloque 6B) — viene como array [{ue, rubros}, ...]
+        if (json.rubros_por_ue && json.rubros_por_ue.length) {
+          json.rubros_por_ue.forEach(ueObj => {
+            if (!ueObj.rubros || !ueObj.rubros.length) return;
+            const arch = construirArchivoVirtual(
+              "RUBRO",
+              jsonRubroaRegistros(ueObj.rubros),
+              [{ nivel: "UNIDAD", nombre: ueObj.nombre_ue || ueObj.ue }],
+              "rubro_" + ueObj.ue.replace(/\s+/g,"_").toLowerCase() + ".xls [JSON]"
+            );
+            arch.esRubroSedeCentral = ueObj.ue.includes("001-855");
+            arch.esRubroUE = true;
+            arch.nombreUE = ueObj.ue;
+            nuevosArchivos.push(arch);
+          });
         }
 
         // 5. Funciones (Bloque 7)
@@ -2458,6 +2468,8 @@
       .catch(err => {
         console.warn("[ORPMI] JSON no encontrado o error:", err.message,
           "- Modo manual activo (carga de XLS)");
+        console.error("[ORPMI] Error completo:", err);
+        mostrarBanner("⚠️ Error cargando datos: " + err.message, "error");
       });
   })();
 
@@ -2607,4 +2619,3 @@
 </script>
 </body>
 </html>
- 
