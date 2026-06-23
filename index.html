@@ -2508,13 +2508,18 @@
 
   async function capturar(el){
     return html2canvas(el, {
-      scale:2,
+      scale:3,
       useCORS:true,
+      allowTaint:true,
       backgroundColor:"#ffffff",
       logging:false,
+      imageTimeout:0,
       onclone: (doc) => {
-        // asegurar fondo blanco en el clon
         doc.body.style.background = "#fff";
+        // Forzar fuentes y bordes nítidos
+        doc.querySelectorAll("*").forEach(n=>{
+          n.style.webkitFontSmoothing = "antialiased";
+        });
       }
     });
   }
@@ -2557,7 +2562,7 @@
         try { canvas = await capturar(el); }
         catch(e){ console.warn("Error capturando", sec.query, e); continue; }
 
-        const imgData = canvas.toDataURL("image/jpeg", 0.93);
+        const imgData = canvas.toDataURL("image/png");
         const cw = canvas.width, ch = canvas.height;
 
         if(!primera) pdf.addPage("a4", "landscape");
@@ -2588,7 +2593,7 @@
         const imgX = areaX + (areaW - imgW)/2;
         const imgY = areaY + (areaH - imgH)/2;
 
-        pdf.addImage(imgData, "JPEG", imgX, imgY, imgW, imgH, undefined, "FAST");
+        pdf.addImage(imgData, "PNG", imgX, imgY, imgW, imgH, undefined, "SLOW");
 
         // Pie de página: fuente + numeración
         pdf.setTextColor(0x88, 0x88, 0x88);
@@ -2627,5 +2632,22 @@
   });
 })();
 </script>
+  <!-- ====== BOTÓN FLOTANTE DESCARGA PDF ====== -->
+  <button id="btnPdfFlotante" onclick="document.getElementById('btnPdf').click()"
+    title="Descargar reporte en PDF"
+    style="
+      position:fixed; bottom:28px; right:28px; z-index:9999;
+      background:#5a1414; color:#FFD166;
+      border:none; border-radius:50px;
+      padding:14px 24px; font-size:15px; font-weight:700;
+      cursor:pointer; box-shadow:0 4px 18px rgba(0,0,0,0.35);
+      display:flex; align-items:center; gap:8px;
+      transition:background 0.2s, transform 0.15s;
+    "
+    onmouseover="this.style.background='#7a1c1c';this.style.transform='scale(1.05)'"
+    onmouseout="this.style.background='#5a1414';this.style.transform='scale(1)'"
+  >
+    ⬇ Descargar PDF
+  </button>
 </body>
 </html>
