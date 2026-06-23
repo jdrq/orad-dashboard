@@ -2508,7 +2508,7 @@
 
   async function capturar(el){
     return html2canvas(el, {
-      scale:3,
+      scale:2,
       useCORS:true,
       allowTaint:true,
       backgroundColor:"#ffffff",
@@ -2516,7 +2516,6 @@
       imageTimeout:0,
       onclone: (doc) => {
         doc.body.style.background = "#fff";
-        // Forzar fuentes y bordes nítidos
         doc.querySelectorAll("*").forEach(n=>{
           n.style.webkitFontSmoothing = "antialiased";
         });
@@ -2562,7 +2561,7 @@
         try { canvas = await capturar(el); }
         catch(e){ console.warn("Error capturando", sec.query, e); continue; }
 
-        const imgData = canvas.toDataURL("image/png");
+        const imgData = canvas.toDataURL("image/jpeg", 0.92);
         const cw = canvas.width, ch = canvas.height;
 
         if(!primera) pdf.addPage("a4", "landscape");
@@ -2593,7 +2592,7 @@
         const imgX = areaX + (areaW - imgW)/2;
         const imgY = areaY + (areaH - imgH)/2;
 
-        pdf.addImage(imgData, "PNG", imgX, imgY, imgW, imgH, undefined, "SLOW");
+        pdf.addImage(imgData, "JPEG", imgX, imgY, imgW, imgH, undefined, "FAST");
 
         // Pie de página: fuente + numeración
         pdf.setTextColor(0x88, 0x88, 0x88);
