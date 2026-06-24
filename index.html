@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ORPMI · Ejecución Financiera del Pliego — GORE Lambayeque</title>
+<title>ORAD · Ejecución Financiera del Pliego — GORE Lambayeque</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -126,9 +126,18 @@
   /* ── Bloque 2 y 3: tabla tipo PDF ── */
   /* cabecera de sección estilo PDF */
   .pdf-section{margin-top:36px;break-inside:avoid}
-  .pdf-header{background:var(--vino);padding:12px 18px 10px;border-radius:10px 10px 0 0}
+  .pdf-header{background:var(--vino);padding:12px 18px 10px;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .pdf-header .pdf-header-left{flex:1;min-width:0}
   .pdf-header h2{margin:0;color:#fff;font-family:"Barlow Condensed";font-weight:800;font-size:22px;text-transform:uppercase;letter-spacing:.04em}
   .pdf-header .sub{color:var(--naranja-h);font-family:"Barlow Condensed";font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+  /* Stamp institucional ORAD */
+  .orad-stamp{flex:0 0 auto;text-align:right;border-left:2px solid rgba(255,255,255,.2);padding-left:14px;margin-left:4px}
+  .orad-stamp .os-sigla{font-family:"Barlow Condensed";font-weight:800;font-size:26px;color:#FFD166;letter-spacing:.08em;line-height:1}
+  .orad-stamp .os-texto{font-size:9px;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:.04em;font-weight:700;line-height:1.3;margin-top:2px;max-width:120px}
+  /* Stamp en b1-header — franja título oscura con flex */
+  .b1-header{position:relative}
+  .b1-title{display:flex;align-items:center;justify-content:center;position:relative}
+  .b1-title .orad-stamp{position:absolute;right:16px;top:50%;transform:translateY(-50%)}
   .pdf-body{background:var(--blanco);border:1px solid var(--linea);border-top:0;border-radius:0 0 10px 10px;overflow:hidden}
 
   /* tabla sin scroll — toda la data visible */
@@ -265,8 +274,8 @@
         </div>
       </div>
       <div class="orpmi">
-        <div class="o1">ORPMI</div>
-        <div class="o2">Oficina Regional de Programación Multianual de Inversiones</div>
+        <div class="o1">ORAD</div>
+        <div class="o2">Oficina Regional de Administración</div>
       </div>
     </div>
   </div>
@@ -327,7 +336,12 @@
 
       <!-- Cabecera tipo PDF del Bloque 1 -->
       <div class="b1-header">
-        <div class="b1-title">Ejecución Financiera</div>
+        <div class="b1-title">Ejecución Financiera
+          <div class="orad-stamp">
+            <div class="os-sigla">ORAD</div>
+            <div class="os-texto">Oficina Regional de Administración</div>
+          </div>
+        </div>
         <div class="b1-subtitle">Del Gobierno Regional de Lambayeque</div>
       </div>
       <!-- Franja de fecha del Bloque 1 -->
@@ -378,10 +392,8 @@
 
       <!-- ═══════════════ BLOQUE 2-A: Devengado % ═══════════════ -->
       <div class="pdf-section" id="b2secDevP">
-        <div class="pdf-header">
-          <h2>Ejecución Presupuestal de Inversiones</h2>
-          <div class="sub">A Nivel Gobiernos Regionales — Por Devengado en %</div>
-        </div>
+        <div class="pdf-header"><div class="pdf-header-left"><h2>Ejecución Presupuestal de Inversiones</h2>
+          <div class="sub">A Nivel Gobiernos Regionales — Por Devengado en %</div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body">
           <div class="pdf-date-row">
             <span id="b2fechaA">—</span>
@@ -411,10 +423,8 @@
 
       <!-- ═══════════════ BLOQUE 2-B: Devengado S/ ═══════════════ -->
       <div class="pdf-section" id="b2secDevS">
-        <div class="pdf-header">
-          <h2>Ejecución Presupuestal de Inversiones</h2>
-          <div class="sub">A Nivel Gobiernos Regionales — Por Devengado en Monto</div>
-        </div>
+        <div class="pdf-header"><div class="pdf-header-left"><h2>Ejecución Presupuestal de Inversiones</h2>
+          <div class="sub">A Nivel Gobiernos Regionales — Por Devengado en Monto</div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body">
           <div class="pdf-date-row">
             <span id="b2fechaB">—</span>
@@ -441,10 +451,8 @@
 
       <!-- ═══════════════ BLOQUE 2-C: Certificación % ═══════════════ -->
       <div class="pdf-section" id="b2secCert">
-        <div class="pdf-header">
-          <h2>Ejecución Presupuestal de Inversiones</h2>
-          <div class="sub">A Nivel Gobiernos Regionales — Por Certificación en %</div>
-        </div>
+        <div class="pdf-header"><div class="pdf-header-left"><h2>Ejecución Presupuestal de Inversiones</h2>
+          <div class="sub">A Nivel Gobiernos Regionales — Por Certificación en %</div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body">
           <div class="pdf-date-row">
             <span id="b2fechaC">—</span>
@@ -473,10 +481,8 @@
 
       <!-- ═══════════════ BLOQUE 3: Tabla UE ═══════════════ -->
       <div class="pdf-section" id="b3secTabla">
-        <div class="pdf-header">
-          <h2>Ejecución Presupuestal de Inversiones a Nivel UE</h2>
-          <div class="sub" style="color:#FFD166">Enero — Diciembre</div>
-        </div>
+        <div class="pdf-header"><div class="pdf-header-left"><h2>Ejecución Presupuestal de Inversiones a Nivel UE</h2>
+          <div class="sub" style="color:#FFD166">Enero — Diciembre</div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body">
           <div class="pdf-date-row">
             <span id="b3fecha">—</span>
@@ -513,16 +519,9 @@
 
       <!-- ═══════════════ BLOQUE 3: Gráfico de barras por UE ═══════════════ -->
       <div class="pdf-section" id="b3secGrafico">
-        <div class="pdf-header" style="display:flex;align-items:center;justify-content:space-between">
-          <h2 style="margin:0">PIM Asignado según Unidad Ejecutora</h2>
-          <div class="pdf-header-logo">
-            <svg viewBox="0 0 100 100" aria-hidden="true" style="width:30px;height:30px">
-              <path d="M50 8 L92 26 V52 C92 74 73 90 50 96 C27 90 8 74 8 52 V26 Z" fill="#fff"/>
-              <path d="M50 14 L86 29 V52 C86 70 70 84 50 90 C30 84 14 70 14 52 V29 Z" fill="#FFD166"/>
-              <rect x="22" y="40" width="56" height="34" fill="#D4A373"/>
-            </svg>
-            <span>GOBIERNO REGIONAL DE<br><b>LAMBAYEQUE</b></span>
-          </div>
+        <div class="pdf-header">
+          <div class="pdf-header-left"><h2 style="margin:0">PIM Asignado según Unidad Ejecutora</h2></div>
+          <div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div>
         </div>
         <div class="b3-chart-wrap">
           <div class="b3-chart-title-big">Ejecución Presupuestal por Unidad Ejecutora</div>
@@ -566,10 +565,8 @@
 
       <!-- ═══════════════ BLOQUE 6A: Rubro / Fuente — Pliego ═══════════════ -->
       <div class="pdf-section" id="b6secPliego">
-        <div class="pdf-header">
-          <h2>Ejecución Presupuestal por Rubro</h2>
-          <div class="sub">Ejecución Presupuestal de Inversiones por Rubro — <span id="b6subtitulo">Gobierno Regional de Lambayeque</span></div>
-        </div>
+        <div class="pdf-header"><div class="pdf-header-left"><h2>Ejecución Presupuestal por Rubro</h2>
+          <div class="sub">Ejecución Presupuestal de Inversiones por Rubro — <span id="b6subtitulo">Gobierno Regional de Lambayeque</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body">
           <!-- Donas individuales por rubro + dona total -->
           <div class="b6-donuts-wrap" id="b6Donuts">
@@ -610,10 +607,8 @@
            BLOQUE 6 — SUB-SECCIÓN 1: Sede Central + PEOT
       ══════════════════════════════════════════════════════════════ -->
       <div class="pdf-section" id="b6rubro1">
-        <div class="pdf-header" style="background:#5a1414">
-          <h2>Ejecución Presupuestal por Rubro</h2>
-          <div class="sub" style="color:#FFD166">Sede Central / PEOT &nbsp;·&nbsp; <span id="b6rubro1fecha">—</span></div>
-        </div>
+        <div class="pdf-header" style="background:#5a1414"><div class="pdf-header-left"><h2>Ejecución Presupuestal por Rubro</h2>
+          <div class="sub" style="color:#FFD166">Sede Central / PEOT &nbsp;·&nbsp; <span id="b6rubro1fecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body" id="b6rubro1Paneles">
           <div style="padding:40px;text-align:center;color:#888">
             Carga los archivos XLS para ver la ejecución por rubro.
@@ -625,10 +620,8 @@
            BLOQUE 6 — SUB-SECCIÓN 2: Agricultura + Transporte + GERESA
       ══════════════════════════════════════════════════════════════ -->
       <div class="pdf-section" id="b6rubro2">
-        <div class="pdf-header" style="background:#5a1414">
-          <h2>Ejecución Presupuestal por Rubro</h2>
-          <div class="sub" style="color:#FFD166">Agricultura / Transporte / GERESA &nbsp;·&nbsp; <span id="b6rubro2fecha">—</span></div>
-        </div>
+        <div class="pdf-header" style="background:#5a1414"><div class="pdf-header-left"><h2>Ejecución Presupuestal por Rubro</h2>
+          <div class="sub" style="color:#FFD166">Agricultura / Transporte / GERESA &nbsp;·&nbsp; <span id="b6rubro2fecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body" id="b6rubro2Paneles">
           <div style="padding:40px;text-align:center;color:#888">
             Carga los archivos XLS para ver la ejecución por rubro.
@@ -640,10 +633,8 @@
            BLOQUE 6 — SUB-SECCIÓN 3: H. Mercedes + H. Belén + H. Regional
       ══════════════════════════════════════════════════════════════ -->
       <div class="pdf-section" id="b6rubro3">
-        <div class="pdf-header" style="background:#5a1414">
-          <h2>Ejecución Presupuestal por Rubro</h2>
-          <div class="sub" style="color:#FFD166">H. Mercedes / H. Belén / H. Regional &nbsp;·&nbsp; <span id="b6rubro3fecha">—</span></div>
-        </div>
+        <div class="pdf-header" style="background:#5a1414"><div class="pdf-header-left"><h2>Ejecución Presupuestal por Rubro</h2>
+          <div class="sub" style="color:#FFD166">H. Mercedes / H. Belén / H. Regional &nbsp;·&nbsp; <span id="b6rubro3fecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body" id="b6rubro3Paneles">
           <div style="padding:40px;text-align:center;color:#888">
             Carga los archivos XLS para ver la ejecución por rubro.
@@ -653,10 +644,8 @@
 
       <!-- ═══════════════ BLOQUE 7: Funciones a nivel Pliego ═══════════════ -->
       <div class="pdf-section" id="b7secFunciones">
-        <div class="pdf-header">
-          <h2>Funciones a Nivel Pliego</h2>
-          <div class="sub">Ejecución Presupuestal de Inversiones por Función — Gobierno Regional de Lambayeque</div>
-        </div>
+        <div class="pdf-header"><div class="pdf-header-left"><h2>Funciones a Nivel Pliego</h2>
+          <div class="sub">Ejecución Presupuestal de Inversiones por Función — Gobierno Regional de Lambayeque</div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body">
           <div class="b6-table-wrap">
             <div class="pdf-date-row">
@@ -687,14 +676,12 @@
 
       <!-- ═══════════════ BLOQUE 8: Histórico 2016-2026 (datos fijos del PDF institucional) ═══════════════ -->
       <div class="pdf-section" id="b8secHistorico">
-        <div class="pdf-header">
-          <h2>Ejecución Presupuestal de Inversiones</h2>
-          <div class="sub">Comparativo Histórico de Enero — Diciembre — Gobierno Regional de Lambayeque &nbsp;·&nbsp; <span id="b8fecha">—</span></div>
-        </div>
+        <div class="pdf-header"><div class="pdf-header-left"><h2>Ejecución Presupuestal de Inversiones</h2>
+          <div class="sub">Comparativo Histórico de Enero — Diciembre — Gobierno Regional de Lambayeque &nbsp;·&nbsp; <span id="b8fecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body" style="padding:20px 24px 24px">
           <!-- Etiqueta del año actual en vivo -->
           <div id="b8vivo" style="font-family:'Barlow Condensed';font-weight:700;color:var(--gris);font-size:13px;margin-bottom:10px">
-            El año 2026 se actualiza en tiempo real con los archivos cargados. Los datos 2016–2025 provienen del informe institucional ORPMI.
+            El año 2026 se actualiza en tiempo real con los archivos cargados. Los datos 2016–2025 provienen del informe institucional ORAD.
           </div>
           <!-- GRÁFICO DEVENGADO -->
           <div style="background:#fff;border:1px solid #e4e7ec;border-radius:10px;padding:16px 14px 10px;margin-bottom:20px">
@@ -719,10 +706,8 @@
 
       <!-- ═══════════════ BLOQUE 9: PROYECCIÓN ACUMULADA AL 31/12/2026 ═══════════════ -->
       <div class="pdf-section" id="b9secProyeccion">
-        <div class="pdf-header" style="background:#3a1a00">
-          <h2>Proyección Acumulada al 31/12/2026</h2>
-          <div class="sub" style="color:#FFD166">Junio — Diciembre · Gobierno Regional de Lambayeque &nbsp;·&nbsp; <span id="b9fechaSub">—</span></div>
-        </div>
+        <div class="pdf-header" style="background:#3a1a00"><div class="pdf-header-left"><h2>Proyección Acumulada al 31/12/2026</h2>
+          <div class="sub" style="color:#FFD166">Junio — Diciembre · Gobierno Regional de Lambayeque &nbsp;·&nbsp; <span id="b9fechaSub">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body" style="padding:20px 24px 28px">
           <!-- KPIs ejecutado a la fecha -->
           <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px">
@@ -757,14 +742,14 @@
 
     <footer><div class="wrap">
       <span><b>Fuente:</b> SIAF — Consulta Amigable / Gasto Diario BI — MEF · apps5.mineco.gob.pe</span>
-      <span><b>Elaborado por:</b> ORPMI — GORE Lambayeque · <span id="fecha"></span></span>
+      <span><b>Elaborado por:</b> ORAD — GORE Lambayeque · <span id="fecha"></span></span>
     </div></footer>
   </main>
 
 <!-- ====== LECTOR UNIVERSAL (validado) — se inyecta aquí ====== -->
 <script id="mef-reader">/* ============================================================================
  *  LECTOR UNIVERSAL DE ARCHIVOS .XLS DEL MEF  (Consulta Amigable / SIAF)
- *  ORPMI - Gobierno Regional de Lambayeque
+ *  ORAD - Gobierno Regional de Lambayeque
  *
  *  Problema que resuelve:
  *   Las descargas del MEF que tienen extensión .xls NO son homogéneas.
@@ -1611,8 +1596,8 @@
 
     const vivo=$("#b8vivo");
     if(vivo){
-      if(dev26>0) vivo.innerHTML=`El año 2026 se actualiza en tiempo real: <b>Devengado S/ ${Math.round(dev26).toLocaleString("es-PE")}</b> · <b>PIM S/ ${Math.round(pim26).toLocaleString("es-PE")}</b>. Los datos 2016–2025 provienen del informe institucional ORPMI.`;
-      else vivo.textContent="Carga los archivos XLS para actualizar el año 2026 en tiempo real. Los datos 2016–2025 provienen del informe institucional ORPMI.";
+      if(dev26>0) vivo.innerHTML=`El año 2026 se actualiza en tiempo real: <b>Devengado S/ ${Math.round(dev26).toLocaleString("es-PE")}</b> · <b>PIM S/ ${Math.round(pim26).toLocaleString("es-PE")}</b>. Los datos 2016–2025 provienen del informe institucional ORAD.`;
+      else vivo.textContent="Carga los archivos XLS para actualizar el año 2026 en tiempo real. Los datos 2016–2025 provienen del informe institucional ORAD.";
     }
 
     const comOpts = (label, color, dashed)=>({
@@ -2546,9 +2531,9 @@
 
       const pdf = new jsPDFCtor({ orientation:"landscape", unit:"mm", format:"a4" });
       pdf.setProperties({
-        title:"Reporte ORPMI — Gobierno Regional de Lambayeque",
+        title:"Reporte ORAD — Gobierno Regional de Lambayeque",
         subject:"Ejecución de Inversiones",
-        author:"ORPMI - GORE Lambayeque"
+        author:"ORAD - GORE Lambayeque"
       });
 
       let primera = true;
@@ -2602,7 +2587,7 @@
         pdf.setFont("helvetica", "normal");
         pdf.setFontSize(8);
         pdf.text(
-          "Fuente: SIAF — Consulta Amigable MEF  |  Elaborado por: ORPMI — GORE Lambayeque",
+          "Fuente: SIAF — Consulta Amigable MEF  |  Elaborado por: ORAD — GORE Lambayeque",
           PAGE_W/2, PAGE_H - FOOT_H/2, { align:"center", baseline:"middle" }
         );
       }
@@ -2615,7 +2600,7 @@
       }
 
       btn.textContent = "⏳ Guardando archivo...";
-      const nombre = `ORPMI_Lambayeque_${new Date().toLocaleDateString("es-PE").replace(/\//g,"-")}.pdf`;
+      const nombre = `ORAD_Lambayeque_${new Date().toLocaleDateString("es-PE").replace(/\//g,"-")}.pdf`;
       pdf.save(nombre);
       btn.textContent = "✓ Descargado";
       setTimeout(()=>{ btn.disabled=false; btn.textContent="⬇ Exportar a PDF"; },2500);
