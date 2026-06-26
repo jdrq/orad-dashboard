@@ -249,10 +249,10 @@
   .pdf-header-logo span b{color:#FFD166;font-size:11px}
   .ue-bars-grid{display:flex;align-items:flex-end;justify-content:center;gap:18px;min-height:300px;padding:30px 10px 10px;flex-wrap:nowrap;overflow-x:auto}
   .ue-bar-col{display:flex;flex-direction:column;align-items:center;flex:1 1 0;min-width:74px;max-width:120px}
-  .ue-bar-col .ubc-pim{font-family:"Barlow Condensed";font-weight:800;font-size:11px;color:var(--vino);white-space:nowrap;margin-bottom:6px;text-align:center}
+  .ue-bar-col .ubc-pim{font-family:"Barlow Condensed";font-weight:800;font-size:13px;color:var(--vino);white-space:nowrap;margin-bottom:6px;text-align:center}
   .ue-bar-col .ubc-bars{display:flex;align-items:flex-end;gap:4px;height:220px;width:100%;justify-content:center}
   .ue-bar-col .ubc-bar-wrap{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;width:24px}
-  .ue-bar-col .ubc-pct{font-family:"Barlow Condensed";font-weight:800;font-size:11px;margin-bottom:3px;white-space:nowrap}
+  .ue-bar-col .ubc-pct{font-family:"Barlow Condensed";font-weight:800;font-size:13px;margin-bottom:3px;white-space:nowrap}
   .ue-bar-col .ubc-bar{width:100%;border-radius:3px 3px 0 0;min-height:2px}
   .ue-bar-col .ubc-bar.pim{background:linear-gradient(180deg,#f4c4c4,#fbe5e5);height:220px;opacity:.9}
   .ue-bar-col .ubc-bar.dev{background:var(--naranja-h)}
@@ -1817,7 +1817,15 @@
                 label: ctx=>`S/ ${Math.round(ctx.parsed.y||0).toLocaleString("es-PE")}`
               }
             },
-            datalabels:{ display:false }
+            datalabels:{
+              display: true,
+              align: "top",
+              anchor: "end",
+              offset: 4,
+              color: "#000",
+              font: { family:"Barlow Condensed", size:11, weight:"700" },
+              formatter: v => v != null ? "S/ "+(v/1e6).toFixed(1)+"M" : ""
+            }
           },
           scales:{
             y:{
@@ -1825,8 +1833,10 @@
               grid:{color:"#f0f0f0"}
             },
             x:{ grid:{display:false}, ticks:{font:{family:"Barlow Condensed",size:13,weight:"bold"}} }
-          }
-        }
+          },
+          layout:{ padding:{ top:30 } }
+        },
+        plugins: [ ChartDataLabels ]
       });
     }
     // ── Gráfico Devengado ─────────────────────────────────────────────────────
@@ -1922,7 +1932,22 @@
                 filter: item => item.parsed.y != null
               }
             },
-            datalabels:{ display:false }
+            datalabels:{
+              display: ctx => {
+                const v = ctx.dataset.data[ctx.dataIndex];
+                return v != null;
+              },
+              align: "top",
+              anchor: "end",
+              offset: 4,
+              color: ctx => {
+                if(ctx.datasetIndex===2) return "#e8821e";
+                if(ctx.datasetIndex===1) return "#c0392b";
+                return "#000";
+              },
+              font: { family:"Barlow Condensed", size:11, weight:"700" },
+              formatter: v => v != null ? "S/ "+(v/1e6).toFixed(1)+"M" : ""
+            }
           },
           scales:{
             y:{
@@ -1930,8 +1955,10 @@
               grid:{color:"#f0f0f0"}
             },
             x:{ grid:{display:false}, ticks:{font:{family:"Barlow Condensed",size:13,weight:"bold"}} }
-          }
-        }
+          },
+          layout:{ padding:{ top:30 } }
+        },
+        plugins: [ ChartDataLabels ]
       });
     }
     b8ChartPim = makeChart("b8ChartPim", pimData, "#e8821e", "PIM", b8ChartPim);
@@ -2329,20 +2356,20 @@
             align: "top",
             anchor: "end",
             offset: 4,
-            color: ctx => ctx.dataIndex === años.indexOf(RB1_ANIO) ? "#5a1414" : "#666",
+            color: ctx => ctx.dataIndex === años.indexOf(RB1_ANIO) ? "#5a1414" : "#000",
             font: ctx => ({
               family: "'Barlow Condensed'",
-              size: ctx.dataIndex === años.indexOf(RB1_ANIO) ? 13 : 11,
-              weight: ctx.dataIndex === años.indexOf(RB1_ANIO) ? "800" : "600"
+              size: ctx.dataIndex === años.indexOf(RB1_ANIO) ? 16 : 13,
+              weight: ctx.dataIndex === años.indexOf(RB1_ANIO) ? "800" : "700"
             }),
             formatter: v => v !== null ? v.toFixed(1)+"%" : ""
           }
         },
         scales: {
-          x: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow Condensed'",weight:"700",size:12}} },
+          x: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow Condensed'",weight:"700",size:14}, color:"#000"} },
           y: {
             grid:{color:"#f0f2f5"},
-            ticks:{ font:{family:"'Barlow'",size:11}, callback: v => v.toFixed(0)+"%" },
+            ticks:{ font:{family:"'Barlow'",size:13}, color:"#000", callback: v => v.toFixed(0)+"%" },
             suggestedMin: 0, suggestedMax: 40
           }
         },
@@ -3401,13 +3428,28 @@
           animation: { duration: 500, easing: "easeOutQuart" },
           plugins: {
             legend: { display: false },
-            tooltip: { callbacks: { label: ctx => " S/ "+fmt(ctx.raw)+"  —  "+fmtM(ctx.raw) }}
+            tooltip: { callbacks: { label: ctx => " S/ "+fmt(ctx.raw)+"  —  "+fmtM(ctx.raw) }},
+            datalabels: {
+              display: true,
+              align: "top",
+              anchor: "end",
+              offset: 4,
+              color: ctx => ctx.dataIndex === años.indexOf(STATE.anioB) ? "#5a1414" : "#000",
+              font: ctx => ({
+                family: "'Barlow Condensed'",
+                size: ctx.dataIndex === años.indexOf(STATE.anioB) ? 14 : 12,
+                weight: ctx.dataIndex === años.indexOf(STATE.anioB) ? "800" : "700"
+              }),
+              formatter: v => v !== null ? fmtM(v) : ""
+            }
           },
           scales: {
-            x: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow Condensed'",weight:"700",size:12}} },
-            y: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow'",size:11}, callback: v=>fmtM(v)} }
-          }
-        }
+            x: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow Condensed'",weight:"700",size:14}, color:"#000"} },
+            y: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow'",size:13}, color:"#000", callback: v=>fmtM(v)} }
+          },
+          layout: { padding: { top: 32 } }
+        },
+        plugins: [ ChartDataLabels ]
       });
       const notaEl = document.getElementById("tendenciaNota");
       if (notaEl) notaEl.textContent = "Fuente: Consulta Amigable MEF · 2022–2025: T1+T2 / PIM anual · 2026: acumulado diario";
