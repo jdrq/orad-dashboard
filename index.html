@@ -896,7 +896,7 @@
             </div>
             <div style="background:#fff;border:1px solid var(--linea);border-radius:10px;padding:14px 22px;flex:0 0 auto">
               <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:4px">PIM 2026</div>
-              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--vino)">S/ 793,371,105</div>
+              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--vino)" id="b9pimActual">S/ 793,371,105</div>
             </div>
           </div>
           <!-- Gráfico de proyección -->
@@ -1765,6 +1765,7 @@
   ];
 
   let b8ChartDev=null, b8ChartPim=null;
+  const B8_PROJ_2026 = 772173813; // Proyección institucional devengado Dic 2026
   function renderBloque8(sel){
     // El año 2026 se toma en vivo de los archivos cargados (igual que Bloque 1)
     const selUE = sel.filter(a=>!a.esNacional && !a.esProyectos && !a.esRubro && !a.esFuncion && !a.esHistorico);
@@ -1775,60 +1776,48 @@
     const devData = B8_HISTORICO.map(d=>d.devengado).concat([dev26||null]);
     const pimData = B8_HISTORICO.map(d=>d.pim).concat([pim26||null]);
 
+    // Serie de proyección: null en todos los años históricos, solo el punto 2026
+    const projData = B8_HISTORICO.map(()=>null).concat([B8_PROJ_2026]);
+
     const vivo=$("#b8vivo");
     if(vivo){
       if(dev26>0) vivo.innerHTML=`El año 2026 se actualiza en tiempo real: <b>Devengado S/ ${Math.round(dev26).toLocaleString("es-PE")}</b> · <b>PIM S/ ${Math.round(pim26).toLocaleString("es-PE")}</b>. Los datos 2016–2025 provienen del informe institucional ORAD.`;
-      else vivo.textContent="Carga los archivos XLS para actualizar el año 2026 en tiempo real. Los datos 2016–2025 provienen del informe institucional ORAD.";
+      else vivo.innerHTML=`El año 2026 se actualiza en tiempo real: <b>Devengado S/ 250,067,360</b> · <b>PIM S/ 774,794,996</b>. Los datos 2016–2025 provienen del informe institucional ORAD.`;
     }
 
-    const comOpts = (label, color, dashed)=>({
-      type:"line", label, data: dashed ? devData : (label==="Devengado"?devData:pimData),
-      borderColor:color, backgroundColor:color, tension:.3,
-      pointRadius:5, pointBackgroundColor:color, borderWidth:2.5,
-      borderDash: dashed?[]:[],
-    });
-
-    const segmentosDev = devData.map((v,i)=>{
-      if(i===devData.length-1) return { borderDash:[6,4] };
-      return {};
-    });
-
-    function makeChart(canvasId, serie, color, titulo, destroy){
+    function makeChart(canvasId, serie, color, titulo, destroy, extraDatasets){
       const cv = document.getElementById(canvasId);
       if(!cv) return null;
       if(destroy){ destroy.destroy(); }
+      const datasets = [{
+        label:titulo,
+        data:serie,
+        borderColor:color,
+        backgroundColor:color,
+        tension:.3,
+        pointRadius: labels.map((_,i)=>5),
+        pointBackgroundColor: labels.map((l,i)=>i===labels.length-1?"#fff":color),
+        pointBorderColor: color,
+        pointBorderWidth: labels.map((_,i)=>i===labels.length-1?2.5:0),
+        borderWidth:2.5,
+        segment:{
+          borderDash: ctx => ctx.p1DataIndex === labels.length-1 ? [6,4] : []
+        },
+      }];
+      if(extraDatasets) datasets.push(...extraDatasets);
       return new Chart(cv, {
         type:"line",
-        data:{
-          labels,
-          datasets:[{
-            label:titulo,
-            data:serie,
-            borderColor:color,
-            backgroundColor:color,
-            tension:.3,
-            pointRadius: labels.map((_,i)=>5),
-            pointBackgroundColor: labels.map((l,i)=>i===labels.length-1?"#fff":color),
-            pointBorderColor: color,
-            pointBorderWidth: labels.map((_,i)=>i===labels.length-1?2.5:0),
-            borderWidth:2.5,
-            segment:{
-              borderDash: ctx => ctx.p1DataIndex === labels.length-1 ? [6,4] : []
-            },
-          }]
-        },
+        data:{ labels, datasets },
         options:{
           responsive:true, maintainAspectRatio:false,
           plugins:{
-            legend:{display:false},
+            legend:{ display: extraDatasets&&extraDatasets.length>0, labels:{font:{family:"Barlow",weight:700},usePointStyle:true} },
             tooltip:{
               callbacks:{
                 label: ctx=>`S/ ${Math.round(ctx.parsed.y||0).toLocaleString("es-PE")}`
               }
             },
-            datalabels:{
-              display:false
-            }
+            datalabels:{ display:false }
           },
           scales:{
             y:{
@@ -1840,7 +1829,21 @@
         }
       });
     }
-    b8ChartDev = makeChart("b8ChartDev", devData, "#5a1414", "Devengado", b8ChartDev);
+    // Gráfico Devengado: línea principal + punto de proyección institucional 2026
+    b8ChartDev = makeChart("b8ChartDev", devData, "#5a1414", "Devengado Real", b8ChartDev, [{
+      label:"Proyección 2026",
+      data: projData,
+      borderColor:"#e8821e",
+      backgroundColor:"#e8821e",
+      borderWidth:0,
+      pointRadius: labels.map((_,i)=>i===labels.length-1?10:0),
+      pointStyle: labels.map((_,i)=>i===labels.length-1?"star":"circle"),
+      pointBackgroundColor:"#e8821e",
+      pointBorderColor:"#3a1a00",
+      pointBorderWidth:2,
+      tension:0,
+      showLine:false,
+    }]);
     b8ChartPim = makeChart("b8ChartPim", pimData, "#e8821e", "PIM", b8ChartPim);
   }
 
@@ -2330,21 +2333,25 @@
 
   let b9Chart=null;
   function renderBloque9(sel){
-    // Extraer devengado acumulado en tiempo real de los archivos cargados
+    // Extraer devengado y PIM en tiempo real de los archivos cargados
     const selUE = sel.filter(a=>!a.esNacional && !a.esProyectos && !a.esRubro && !a.esFuncion && !a.esHistorico);
-    let devActual=0;
-    selUE.forEach(a=>{ const t=totalesArchivo(a,true); devActual+=t.devengado; });
+    let devActual=0, pimActual=0;
+    selUE.forEach(a=>{ const t=totalesArchivo(a,true); devActual+=t.devengado; pimActual+=t.pim; });
+
+    // PIM: usar el valor en vivo si hay archivos; si no, el fallback fijo
+    const pimVivo = pimActual>0 ? pimActual : B9_PIM;
 
     // Valor en vivo para Junio; si no hay archivos, mostrar null (punto vacío)
     const devJunio = devActual>0 ? devActual : null;
     // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor conocido (Mayo)
     const devBase = devActual>0 ? devActual : 178369785;
-    const pctBase = B9_PIM ? devBase/B9_PIM*100 : 22.5;
+    const pctBase = pimVivo ? devBase/pimVivo*100 : 22.5;
 
     // Actualizar KPIs
-    const kDev=$("#b9devActual"), kPct=$("#b9pctActual");
+    const kDev=$("#b9devActual"), kPct=$("#b9pctActual"), kPim=$("#b9pimActual");
     if(kDev) kDev.textContent="S/ "+Math.round(devBase).toLocaleString("es-PE");
     if(kPct) kPct.textContent=pctBase.toFixed(1)+"%";
+    if(kPim) kPim.textContent="S/ "+Math.round(pimVivo).toLocaleString("es-PE");
 
     // Construir serie real: Ene–May fijos + Junio en vivo + null hasta Dic
     const realData = [...B9_REAL_BASE];
@@ -2385,7 +2392,7 @@
         responsive:true, maintainAspectRatio:false,
         plugins:{
           legend:{position:"top", labels:{font:{family:"Barlow",weight:700},usePointStyle:true}},
-          tooltip:{ callbacks:{ label:ctx=>`S/ ${Math.round(ctx.parsed.y||0).toLocaleString("es-PE")} (${(ctx.parsed.y/B9_PIM*100).toFixed(1)}%)` } }
+          tooltip:{ callbacks:{ label:ctx=>`S/ ${Math.round(ctx.parsed.y||0).toLocaleString("es-PE")} (${(ctx.parsed.y/pimVivo*100).toFixed(1)}%)` } }
         },
         scales:{
           y:{ ticks:{callback:v=>"S/ "+(v/1e6).toFixed(0)+"M",font:{family:"Barlow",size:11}}, grid:{color:"#f0f0f0"} },
