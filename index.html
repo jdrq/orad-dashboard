@@ -2079,6 +2079,7 @@
   function ueRubrosHistoricoPanel(anioKey) {
     const d = RB_HIST_SC[anioKey];
     if (!d) return "";
+    const fmt  = n => Math.round(n||0).toLocaleString("es-PE"); // scope local — no depende del IIFE externo
     const tp   = d.pim || 1;          // PIM total de la UE para ese año
     const td   = d.dev_sem;            // Devengado semestral total (T1+T2)
     const pct  = d.av_pct;             // Avance % = td/tp*100
