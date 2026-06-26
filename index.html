@@ -297,6 +297,43 @@
   .b6ue-etiqueta.hbelen{background:#1a6060}
   .b6ue-etiqueta.hregional{background:#334466}
   .b6ue-prom-pill{font-family:"Barlow Condensed";font-weight:800;font-size:18px;color:var(--naranja-h);background:#5a1414;padding:4px 14px;border-radius:6px}
+
+  /* ── Selector de año en bloque de Rubro ── */
+  .rubro-yr-selector{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px 14px 0;background:#fff}
+  .rubro-yr-label{font-family:"Barlow Condensed";font-weight:700;font-size:12px;
+    text-transform:uppercase;letter-spacing:.06em;color:var(--gris);margin-right:4px}
+  .yr-btn-rb{
+    font-family:"Barlow Condensed";font-weight:700;font-size:13px;
+    padding:5px 14px;border-radius:6px;border:1px solid var(--linea);
+    background:#fff;color:var(--texto);cursor:pointer;transition:all .15s;letter-spacing:.04em
+  }
+  .yr-btn-rb:hover{border-color:var(--naranja-h);color:var(--vino);background:#fff7ef}
+  .yr-btn-rb.activo{background:var(--vino);color:#FFD166;border-color:var(--vino);font-weight:800}
+  .yr-btn-rb.activo:hover{background:var(--vino2)}
+  .rubro-yr-nota{font-size:11px;color:var(--gris);font-style:italic;margin-left:4px}
+
+  /* ── Gráfico lineal de rubro ── */
+  .rubro-chart-wrap{
+    margin:14px 14px 10px;background:#fff;
+    border:1px solid var(--linea);border-radius:10px;
+    padding:14px 18px 12px;
+  }
+  .rubro-chart-titulo{
+    font-family:"Barlow Condensed";font-weight:700;font-size:13px;
+    text-transform:uppercase;letter-spacing:.07em;color:var(--vino2);
+    margin-bottom:12px;display:flex;align-items:center;gap:8px;
+  }
+  .rubro-chart-titulo::before{
+    content:"";width:16px;height:3px;background:var(--naranja-h);
+    display:inline-block;flex-shrink:0;
+  }
+  .rubro-chart-canvas-wrap{position:relative;height:180px;width:100%}
+  .rubro-chart-badge{
+    display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;
+    color:var(--vino);background:#f7ecec;border:1px solid #ecd6d6;
+    border-radius:999px;padding:2px 10px;margin-top:8px;
+  }
+  .rubro-chart-badge i{width:12px;height:3px;background:var(--vino);display:inline-block;border-radius:2px}
   /* ── Bloque 9: proyección ── */
 
   /* ── Footer ── */
@@ -716,22 +753,53 @@
       <div class="pdf-section" id="b6rubro1">
         <div class="pdf-header" style="background:#5a1414"><div class="pdf-header-left"><h2>Ejecución Presupuestal por Rubro</h2>
           <div class="sub" style="color:#FFD166">Sede Central &nbsp;·&nbsp; <span id="b6rubro1fecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
-        <div class="pdf-body" id="b6rubro1Paneles">
-          <div style="padding:40px;text-align:center;color:#888">
-            Carga los archivos XLS para ver la ejecución por rubro.
+        <div class="pdf-body">
+          <!-- Selector de año -->
+          <div class="rubro-yr-selector">
+            <span class="rubro-yr-label">Período:</span>
+            <button class="yr-btn-rb" data-rbyr="2022" data-grupo="1">2022</button>
+            <button class="yr-btn-rb" data-rbyr="2023" data-grupo="1">2023</button>
+            <button class="yr-btn-rb" data-rbyr="2024" data-grupo="1">2024</button>
+            <button class="yr-btn-rb" data-rbyr="2025" data-grupo="1">2025</button>
+            <button class="yr-btn-rb activo" data-rbyr="2026" data-grupo="1">2026</button>
+            <span class="rubro-yr-nota" id="b6rb1nota">Dato diario acumulado</span>
+          </div>
+          <!-- Paneles de tabla -->
+          <div id="b6rubro1Paneles">
+            <div style="padding:40px;text-align:center;color:#888">
+              Carga los archivos XLS para ver la ejecución por rubro.
+            </div>
+          </div>
+          <!-- Gráfico lineal semestral Sede Central -->
+          <div class="rubro-chart-wrap" id="b6rb1ChartWrap" style="display:none">
+            <div class="rubro-chart-titulo">Gráfico Lineal &nbsp;·&nbsp; Avance % Semestral (Ene–Jun) — Sede Central</div>
+            <div class="rubro-chart-canvas-wrap">
+              <canvas id="chartRubroSC"></canvas>
+            </div>
+            <div style="margin-top:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+              <span class="rubro-chart-badge"><i></i>UE 001-855 — Sede Central</span>
+              <span style="font-size:11px;color:var(--gris);font-style:italic">Fuente: Consulta Amigable MEF · 2022–2025: T1+T2 / PIM semestral · 2026: acumulado diario</span>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- ══════════════════════════════════════════════════════════════
-           BLOQUE 6 — SUB-SECCIÓN 2: Agricultura + Transporte + GERESA
+           BLOQUE 6 — SUB-SECCIÓN 2: PEOT + Agricultura + Transporte + GERESA
       ══════════════════════════════════════════════════════════════ -->
       <div class="pdf-section" id="b6rubro2">
         <div class="pdf-header" style="background:#5a1414"><div class="pdf-header-left"><h2>Ejecución Presupuestal por Rubro</h2>
           <div class="sub" style="color:#FFD166">PEOT / Agricultura / Transporte / GERESA &nbsp;·&nbsp; <span id="b6rubro2fecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
-        <div class="pdf-body" id="b6rubro2Paneles">
-          <div style="padding:40px;text-align:center;color:#888">
-            Carga los archivos XLS para ver la ejecución por rubro.
+        <div class="pdf-body">
+          <div class="rubro-yr-selector">
+            <span class="rubro-yr-label">Período:</span>
+            <button class="yr-btn-rb activo" data-rbyr="2026" data-grupo="2">2026</button>
+            <span class="rubro-yr-nota">Dato diario acumulado</span>
+          </div>
+          <div id="b6rubro2Paneles">
+            <div style="padding:40px;text-align:center;color:#888">
+              Carga los archivos XLS para ver la ejecución por rubro.
+            </div>
           </div>
         </div>
       </div>
@@ -742,9 +810,16 @@
       <div class="pdf-section" id="b6rubro3">
         <div class="pdf-header" style="background:#5a1414"><div class="pdf-header-left"><h2>Ejecución Presupuestal por Rubro</h2>
           <div class="sub" style="color:#FFD166">H. Mercedes / H. Belén / H. Regional &nbsp;·&nbsp; <span id="b6rubro3fecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
-        <div class="pdf-body" id="b6rubro3Paneles">
-          <div style="padding:40px;text-align:center;color:#888">
-            Carga los archivos XLS para ver la ejecución por rubro.
+        <div class="pdf-body">
+          <div class="rubro-yr-selector">
+            <span class="rubro-yr-label">Período:</span>
+            <button class="yr-btn-rb activo" data-rbyr="2026" data-grupo="3">2026</button>
+            <span class="rubro-yr-nota">Dato diario acumulado</span>
+          </div>
+          <div id="b6rubro3Paneles">
+            <div style="padding:40px;text-align:center;color:#888">
+              Carga los archivos XLS para ver la ejecución por rubro.
+            </div>
           </div>
         </div>
       </div>
@@ -1495,6 +1570,11 @@
     try { renderBloque3(selUE, soloInv); } catch(e){ console.error("Bloque 3:", e); }
     try { renderBloque6(sel); }            catch(e){ console.error("Bloque 6 Pliego:", e); }
     try { renderBloque6Rubros(sel); }      catch(e){ console.error("Bloque 6 Rubros:", e); }
+    // Actualizar gráfico y tabla de Sede Central para año 2026 en vivo
+    try {
+      if (RB1_ANIO === "2026") actualizarGraficoRubroSC("2026", sel);
+      else                      actualizarGraficoRubroSC(RB1_ANIO, null);
+    } catch(e){ console.warn("Gráfico Rubro SC:", e); }
     try { renderBloque7(sel); }            catch(e){ console.error("Bloque 7:", e); }
     try { renderBloque8(sel); }            catch(e){ console.error("Bloque 8:", e); }
     try { renderBloque9(sel); }            catch(e){ console.error("Bloque 9:", e); }
@@ -1922,7 +2002,275 @@
     });
   }
 
-  // -------- Bloque 9: Proyección Acumulada al 31/12/2026 --------
+  // ════════════════════════════════════════════════════════════════
+  // BLOQUE 6 RUBRO — Histórico Sede Central (001-855) por semestre
+  // Datos precalculados: T1+T2 / PIM_UE
+  // Fuente: Consulta Amigable MEF — archivos NTrim_RUBRO_AAAA.xls
+  // ════════════════════════════════════════════════════════════════
+  const RB_HIST_SC = {
+    "2022": {
+      label:   "Ene–Jun 2022",
+      pim:     212350484,
+      dev_t1:  14736065,
+      dev_t2:  24420754,
+      dev_sem: 39156819,
+      av_pct:  18.4,
+      rubros: [
+        { codigo:"00", nombre:"Recursos Ordinarios",                             dev: 139405  },
+        { codigo:"09", nombre:"Rec. Directamente Recaudados",                   dev: 0       },
+        { codigo:"18", nombre:"Canon y Sobrecanon / Regalías",                  dev: 25280604},
+        { codigo:"19", nombre:"Rec. por Operaciones Oficiales de Crédito",      dev: 13736809},
+      ]
+    },
+    "2023": {
+      label:   "Ene–Jun 2023",
+      pim:     322883063,
+      dev_t1:  8323158,
+      dev_t2:  7530087,
+      dev_sem: 15853245,
+      av_pct:  4.9,
+      rubros: [
+        { codigo:"00", nombre:"Recursos Ordinarios",         dev: 788497  },
+        { codigo:"15", nombre:"FONCOR",                      dev: 15064748},
+      ]
+    },
+    "2024": {
+      label:   "Ene–Jun 2024",
+      pim:     346739967,
+      dev_t1:  49239025,
+      dev_t2:  36927229,
+      dev_sem: 86166254,
+      av_pct:  24.9,
+      rubros: [
+        { codigo:"00", nombre:"Recursos Ordinarios",        dev: 302978  },
+        { codigo:"15", nombre:"FONCOR",                     dev: 85856276},
+        { codigo:"18", nombre:"Canon y Sobrecanon",         dev: 7000    },
+      ]
+    },
+    "2025": {
+      label:   "Ene–Jun 2025",
+      pim:     359757196,
+      dev_t1:  24659052,
+      dev_t2:  76906719,
+      dev_sem: 101565771,
+      av_pct:  28.2,
+      rubros: [
+        { codigo:"00", nombre:"Recursos Ordinarios",        dev: 18562907},
+        { codigo:"15", nombre:"FONCOR",                     dev: 82840667},
+        { codigo:"18", nombre:"Canon y Sobrecanon",         dev: 162198  },
+      ]
+    },
+    // "2026" se inyecta en tiempo real desde los archivos XLS cargados
+  };
+
+  // Estado del año activo en el bloque rubro1
+  let RB1_ANIO = "2026";
+  let chartRubroSC = null;
+
+  // Construye el HTML de la tabla histórica para un año dado de Sede Central
+  function ueRubrosHistoricoPanel(anioKey) {
+    const d = RB_HIST_SC[anioKey];
+    if (!d) return "";
+    const tp  = d.pim || 1;
+    const td  = d.dev_sem;
+    const pct = d.av_pct;
+    const fecha = d.label;
+
+    const rubroRows = d.rubros.filter(r => r.dev > 0).map(r => {
+      const rpct = tp ? r.dev/tp*100 : 0;
+      const col  = rpct >= 30 ? "var(--verde)" : rpct >= 15 ? "var(--naranja-h)" : "var(--rojo)";
+      return `<tr>
+        <td class="center">${r.codigo}</td>
+        <td class="left">${r.nombre}</td>
+        <td class="num">S/ ${fmt(tp)}</td>
+        <td class="num">${(r.dev/tp*100).toFixed(1)}%</td>
+        <td class="num">—</td><td class="num">—</td>
+        <td class="num" style="background:#fce8e8;color:var(--vino)">—</td>
+        <td class="num">—</td><td class="num">—</td>
+        <td class="num" style="color:var(--naranja-h);font-weight:800">S/ ${fmt(r.dev)}</td>
+        <td class="num" style="background:#fce8e8;color:var(--vino)">S/ ${fmt(tp-td)}</td>
+        <td><div class="av-wrap">
+          <div class="av-bar"><span style="width:${Math.min(100,rpct).toFixed(1)}%;background:${col}"></span></div>
+          <span class="av-pct" style="color:${col}">${rpct.toFixed(1)}%</span>
+        </div></td>
+      </tr>`;
+    }).join("");
+
+    const footColor = pct>=30?"var(--verde)":pct>=15?"var(--naranja-h)":"var(--rojo)";
+
+    return `<div class="b6ue-panel">
+      <div class="b6ue-header">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span class="b6ue-etiqueta">SEDE CENTRAL</span>
+          <span style="font-family:'Barlow Condensed';font-size:12px;color:var(--gris)">${fecha} &nbsp;·&nbsp; T1: S/ ${fmt(d.dev_t1)} &nbsp;+&nbsp; T2: S/ ${fmt(d.dev_t2)}</span>
+        </div>
+        <span class="b6ue-prom-pill">${pct.toFixed(1)}%<span style="font-size:11px;font-weight:600;color:#e8c17a"> EJEC.</span></span>
+      </div>
+      <table class="pdf-table">
+        <thead><tr>
+          <th style="width:40px">N°</th>
+          <th class="left">DESCRIPCIÓN</th>
+          <th class="num">PIM</th><th class="num">% PIM</th>
+          <th class="num">CERTIFICACIÓN</th><th class="num">% CERT</th>
+          <th class="num" style="background:#fce8e8;color:var(--vino)">POR CERTIF.</th>
+          <th class="num">COMPROMISO</th><th class="num">% COMP</th>
+          <th class="num" style="color:var(--naranja-h);font-weight:800">DEVENGADO</th>
+          <th class="num" style="background:#fce8e8;color:var(--vino)">POR DEVENGAR</th>
+          <th class="num" style="width:110px">AVANCE %</th>
+        </tr></thead>
+        <tbody>${rubroRows}</tbody>
+        <tfoot><tr>
+          <td colspan="2" style="text-align:left">TOTAL</td>
+          <td class="num">S/ ${fmt(tp)}</td>
+          <td class="num">100%</td>
+          <td class="num">—</td><td class="num">—</td><td class="num">—</td>
+          <td class="num">—</td><td class="num">—</td>
+          <td class="num">S/ ${fmt(td)}</td>
+          <td class="num">S/ ${fmt(tp-td)}</td>
+          <td style="text-align:right;color:${footColor};font-weight:800">${pct.toFixed(1)}%</td>
+        </tr></tfoot>
+      </table>
+      <div style="padding:8px 14px;font-size:11px;color:var(--gris);font-style:italic">
+        ⓘ Datos de rubros: T1+T2 (no acumulativos). Cert./Compromiso no disponible en histórico trimestral.
+      </div>
+    </div>`;
+  }
+
+  // Renderiza el bloque 1 según el año seleccionado
+  function renderRubro1(anio, sel) {
+    RB1_ANIO = anio;
+
+    // Actualizar botones activos
+    document.querySelectorAll(".yr-btn-rb[data-grupo='1']").forEach(b =>
+      b.classList.toggle("activo", b.dataset.rbyr === anio));
+
+    // Nota
+    const nota = document.getElementById("b6rb1nota");
+    if (nota) nota.textContent = anio === "2026" ? "Dato diario acumulado" : `Primer semestre ${anio} (Ene–Jun) · T1+T2`;
+
+    // Fecha en header
+    const fechaEl = document.getElementById("b6rubro1fecha");
+    if (fechaEl) fechaEl.textContent = anio === "2026"
+      ? new Date().toLocaleDateString("es-PE",{weekday:"long",day:"numeric",month:"long",year:"numeric"})
+      : RB_HIST_SC[anio]?.label || anio;
+
+    const paneles = document.getElementById("b6rubro1Paneles");
+    if (!paneles) return;
+
+    if (anio === "2026") {
+      // Renderizar con los archivos cargados en vivo (comportamiento original)
+      if (sel && sel.length) {
+        renderBloque6Rubros(sel);
+      } else {
+        paneles.innerHTML = '<div style="padding:32px;text-align:center;color:#888">Carga los archivos XLS de rubros para ver 2026.</div>';
+      }
+      actualizarGraficoRubroSC("2026", sel);
+    } else {
+      // Renderizar con datos históricos hardcodeados
+      const html = ueRubrosHistoricoPanel(anio);
+      paneles.innerHTML = html || '<div style="padding:32px;text-align:center;color:#888">Sin datos para ' + anio + '.</div>';
+      actualizarGraficoRubroSC(anio, null);
+    }
+  }
+
+  // Inicia o actualiza el gráfico lineal de avance % semestral (Sede Central)
+  function iniciarGraficoRubroSC() {
+    const wrap = document.getElementById("b6rb1ChartWrap");
+    const canvas = document.getElementById("chartRubroSC");
+    if (!canvas) return;
+    if (chartRubroSC) { chartRubroSC.destroy(); chartRubroSC = null; }
+
+    const años  = ["2022","2023","2024","2025","2026"];
+    const data2026 = RB_HIST_SC["2026"]; // puede no existir aún
+    const pcts  = años.map(a => a==="2026" ? (data2026?.av_pct ?? null) : (RB_HIST_SC[a]?.av_pct ?? null));
+    const labels= años.map(a => a==="2026" ? (data2026?.label || "Ene–Jun 2026") : (RB_HIST_SC[a]?.label || `Ene–Jun ${a}`));
+
+    // Solo mostrar si hay al menos un dato
+    if (pcts.every(v => v === null)) { if(wrap) wrap.style.display="none"; return; }
+    if (wrap) wrap.style.display="block";
+
+    chartRubroSC = new Chart(canvas, {
+      type: "line",
+      data: {
+        labels,
+        datasets: [{
+          label: "Avance % Semestral — Sede Central",
+          data: pcts,
+          borderColor: "#5a1414",
+          backgroundColor: "rgba(90,20,20,0.07)",
+          borderWidth: 2.5,
+          pointRadius:          años.map(a => a===RB1_ANIO ? 8 : 5),
+          pointHoverRadius:     7,
+          pointBackgroundColor: años.map(a => a===RB1_ANIO ? "#FFD166" : "#5a1414"),
+          pointBorderColor:     años.map(a => a===RB1_ANIO ? "#5a1414" : "#fff"),
+          pointBorderWidth:     años.map(a => a===RB1_ANIO ? 2 : 1.5),
+          fill: true, tension: 0.35, spanGaps: true
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        animation: { duration: 500, easing: "easeOutQuart" },
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: ctx => ` ${ctx.raw !== null ? ctx.raw.toFixed(1)+"%" : "—"}` } }
+        },
+        scales: {
+          x: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow Condensed'",weight:"700",size:12}} },
+          y: {
+            grid:{color:"#f0f2f5"},
+            ticks:{ font:{family:"'Barlow'",size:11}, callback: v => v.toFixed(0)+"%" },
+            suggestedMin: 0, suggestedMax: 40
+          }
+        }
+      }
+    });
+  }
+
+  function actualizarGraficoRubroSC(anioActivo, sel) {
+    // Si 2026 está activo, extraer avance en vivo de los archivos
+    if (anioActivo === "2026" && sel) {
+      try {
+        const sedeFiles = sel.filter(a => {
+          if (!a.res || !a.res.contexto) return false;
+          const ueCtx = a.res.contexto.find(c => c.nivel==="UNIDAD");
+          return ueCtx && String(ueCtx.descripcion||ueCtx.nombre||"").includes("001-855");
+        });
+        let devVivo=0, pimVivo=0;
+        sedeFiles.forEach(a => {
+          const t = totalesArchivo(a, false);
+          devVivo += t.devengado; pimVivo += t.pim;
+        });
+        // Fallback: usar el resultado del Bloque 6 pliego (sede central tiene nivel UNIDAD)
+        if (pimVivo === 0) {
+          const rubroArchivos = sel.filter(x=>x.esRubro);
+          const aSedeRubro = rubroArchivos.find(x => x !== rubroArchivos.find(x2=>rubroNivel(x2.res)==="PLIEGO") && rubroNivel(x.res)==="UNIDAD");
+          if (aSedeRubro) {
+            const t = totalesArchivo(aSedeRubro, false);
+            devVivo = t.devengado; pimVivo = t.pim;
+          }
+        }
+        if (pimVivo > 0) {
+          RB_HIST_SC["2026"] = {
+            label: `Ene–Jun 2026 (al ${new Date().toLocaleDateString("es-PE",{day:"numeric",month:"short",year:"numeric"})})`,
+            pim: pimVivo, dev_t1: devVivo, dev_t2: 0,
+            dev_sem: devVivo, av_pct: devVivo/pimVivo*100
+          };
+        }
+      } catch(e) { console.warn("[ORPMI] actualizarGraficoRubroSC:", e.message); }
+    }
+    iniciarGraficoRubroSC();
+    // Actualizar punto activo si ya existe
+    if (chartRubroSC) {
+      const años = ["2022","2023","2024","2025","2026"];
+      const ds = chartRubroSC.data.datasets[0];
+      ds.pointBackgroundColor = años.map(a => a===anioActivo ? "#FFD166" : "#5a1414");
+      ds.pointBorderColor     = años.map(a => a===anioActivo ? "#5a1414" : "#fff");
+      ds.pointRadius          = años.map(a => a===anioActivo ? 8 : 5);
+      chartRubroSC.update("active");
+    }
+  }
+
+    // -------- Bloque 9: Proyección Acumulada al 31/12/2026 --------
   // Datos fijos del PDF institucional (proyeccionacumulada.png)
   // PIM 2026: 793,371,105 (de la tabla de rubros pliego)
   const B9_PIM = 793371105;
@@ -2610,6 +2958,8 @@
         inyectar2026();
         renderA("2026"); renderB("2026"); renderC("2026");
         iniciarTendencia();
+        // Iniciar gráfico de avance % rubro Sede Central
+        try { iniciarGraficoRubroSC(); } catch(e){ console.warn("GráficoRubroSC:", e); }
       })
       .catch(err => console.warn("[ORPMI-Hist] No se pudo cargar:", err.message));
 
@@ -2951,6 +3301,12 @@
         btn.addEventListener("click", function(){ renderB(this.dataset.yr); }));
       document.querySelectorAll(".yr-btn-c").forEach(btn =>
         btn.addEventListener("click", function(){ renderC(this.dataset.yr); }));
+
+      // ── Selector de año en bloque de Rubro (solo grupo 1 tiene histórico) ──
+      document.querySelectorAll(".yr-btn-rb[data-grupo='1']").forEach(btn =>
+        btn.addEventListener("click", function(){
+          renderRubro1(this.dataset.rbyr, typeof archivos !== "undefined" ? archivos : []);
+        }));
     });
 
     // ── Hook: cuando ejecucion.json termina de cargar ────────────
