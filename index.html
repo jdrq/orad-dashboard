@@ -1819,9 +1819,16 @@
             },
             datalabels:{
               display: true,
-              align: "top",
-              anchor: "end",
-              offset: 5,
+              align: ctx => {
+                if(ctx.dataIndex === 0) return "right";
+                if(ctx.dataIndex === ctx.dataset.data.length - 1) return "left";
+                return "top";
+              },
+              anchor: ctx => {
+                if(ctx.dataIndex === 0 || ctx.dataIndex === ctx.dataset.data.length - 1) return "center";
+                return "end";
+              },
+              offset: ctx => (ctx.dataIndex === 0 || ctx.dataIndex === ctx.dataset.data.length - 1) ? 10 : 5,
               color: "#000",
               font: { family:"Barlow Condensed", size:14, weight:"800" },
               formatter: v => v != null ? "S/ "+(v/1e6).toFixed(1)+"M" : ""
@@ -1834,7 +1841,7 @@
             },
             x:{ grid:{display:false}, ticks:{font:{family:"Barlow Condensed",size:13,weight:"bold"}} }
           },
-          layout:{ padding:{ top:44 } }
+          layout:{ padding:{ top:44, right:80 } }
         },
         plugins: [ ChartDataLabels ]
       });
@@ -1946,9 +1953,18 @@
                 if(ctx.datasetIndex===1 || ctx.datasetIndex===2) return ctx.dataIndex === n-1;
                 return true;
               },
-              align: "top",
-              anchor: "end",
-              offset: 5,
+              align: ctx => {
+                // Primer punto → derecha, último → izquierda, resto → arriba
+                if(ctx.datasetIndex===0 && ctx.dataIndex===0) return "right";
+                if(ctx.dataIndex === n-1) return "left";
+                return "top";
+              },
+              anchor: ctx => {
+                if(ctx.datasetIndex===0 && ctx.dataIndex===0) return "center";
+                if(ctx.dataIndex === n-1) return "center";
+                return "end";
+              },
+              offset: ctx => (ctx.dataIndex === 0 || ctx.dataIndex === n-1) ? 10 : 5,
               color: ctx => {
                 if(ctx.datasetIndex===2) return "#b85e00";
                 if(ctx.datasetIndex===1) return "#c0392b";
@@ -1965,7 +1981,7 @@
             },
             x:{ grid:{display:false}, ticks:{font:{family:"Barlow Condensed",size:13,weight:"bold"}} }
           },
-          layout:{ padding:{ top:44 } }
+          layout:{ padding:{ top:44, right:80 } }
         },
         plugins: [ ChartDataLabels ]
       });
@@ -2362,9 +2378,16 @@
           tooltip: { callbacks: { label: ctx => ` ${ctx.raw !== null ? ctx.raw.toFixed(1)+"%" : "—"}` } },
           datalabels: {
             display: true,
-            align: "top",
-            anchor: "end",
-            offset: 4,
+            align: ctx => {
+              if(ctx.dataIndex === 0) return "right";
+              if(ctx.dataIndex === ctx.dataset.data.length - 1) return "left";
+              return "top";
+            },
+            anchor: ctx => {
+              if(ctx.dataIndex === 0 || ctx.dataIndex === ctx.dataset.data.length - 1) return "center";
+              return "end";
+            },
+            offset: ctx => (ctx.dataIndex === 0 || ctx.dataIndex === ctx.dataset.data.length - 1) ? 10 : 4,
             color: ctx => ctx.dataIndex === años.indexOf(RB1_ANIO) ? "#5a1414" : "#000",
             font: ctx => ({
               family: "'Barlow Condensed'",
@@ -2382,7 +2405,7 @@
             suggestedMin: 0, suggestedMax: 40
           }
         },
-        layout: { padding: { top: 28 } }
+        layout: { padding: { top: 28, right: 70 } }
       },
       plugins: [ ChartDataLabels ]
     });
@@ -3440,9 +3463,17 @@
             tooltip: { callbacks: { label: ctx => " S/ "+fmt(ctx.raw)+"  —  "+fmtM(ctx.raw) }},
             datalabels: {
               display: true,
-              align: "top",
-              anchor: "end",
-              offset: 4,
+              align: ctx => {
+                if(ctx.dataIndex === 0) return "right";
+                if(ctx.dataIndex === ctx.dataset.data.length - 1) return "left";
+                return "top";
+              },
+              anchor: ctx => {
+                if(ctx.dataIndex === 0) return "center";
+                if(ctx.dataIndex === ctx.dataset.data.length - 1) return "center";
+                return "end";
+              },
+              offset: ctx => (ctx.dataIndex === 0 || ctx.dataIndex === ctx.dataset.data.length - 1) ? 10 : 4,
               color: ctx => ctx.dataIndex === años.indexOf(STATE.anioB) ? "#5a1414" : "#000",
               font: ctx => ({
                 family: "'Barlow Condensed'",
@@ -3456,7 +3487,7 @@
             x: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow Condensed'",weight:"700",size:14}, color:"#000"} },
             y: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow'",size:13}, color:"#000", callback: v=>fmtM(v)} }
           },
-          layout: { padding: { top: 32 } }
+          layout: { padding: { top: 32, right: 80 } }
         },
         plugins: [ ChartDataLabels ]
       });
