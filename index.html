@@ -1811,7 +1811,7 @@
         options:{
           responsive:true, maintainAspectRatio:false,
           plugins:{
-            legend:{ display: extraDatasets&&extraDatasets.length>0, labels:{font:{family:"Barlow",weight:700},usePointStyle:true} },
+            legend:{ display: extraDatasets&&extraDatasets.length>0, onClick: null, labels:{font:{family:"Barlow",weight:700},usePointStyle:true} },
             tooltip:{
               callbacks:{
                 label: ctx=>`S/ ${Math.round(ctx.parsed.y||0).toLocaleString("es-PE")}`
@@ -1905,6 +1905,7 @@
           plugins:{
             legend:{
               display:true,
+              onClick: null,
               labels:{
                 filter: item => item.text !== null && item.text !== "null",
                 font:{family:"Barlow",weight:700},
@@ -2479,7 +2480,7 @@
       options:{
         responsive:true, maintainAspectRatio:false,
         plugins:{
-          legend:{position:"top", labels:{font:{family:"Barlow",weight:700},usePointStyle:true}},
+          legend:{position:"top", onClick: null, labels:{font:{family:"Barlow",weight:700},usePointStyle:true}},
           tooltip:{ callbacks:{ label:ctx=>`S/ ${Math.round(ctx.parsed.y||0).toLocaleString("es-PE")} (${(ctx.parsed.y/pimVivo*100).toFixed(1)}%)` } }
         },
         scales:{
