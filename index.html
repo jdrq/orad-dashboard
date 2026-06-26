@@ -1811,7 +1811,7 @@
         options:{
           responsive:true, maintainAspectRatio:false,
           plugins:{
-            legend:{ display: extraDatasets&&extraDatasets.length>0, onClick: ()=>{}, labels:{font:{family:"Barlow",weight:700},usePointStyle:true} },
+            legend:{ display: extraDatasets&&extraDatasets.length>0, onClick: ()=>{}, labels:{font:{family:"Barlow Condensed", size:15, weight:"700"}, usePointStyle:true, pointStyleWidth:14, padding:20} },
             tooltip:{
               callbacks:{
                 label: ctx=>`S/ ${Math.round(ctx.parsed.y||0).toLocaleString("es-PE")}`
@@ -1876,11 +1876,11 @@
             {
               label: dev26 ? "Devengado 2026 (a la fecha)" : null,
               data: dReal,
-              borderColor:"#5a1414", backgroundColor:"#5a1414",
+              borderColor:"#c0392b", backgroundColor:"#c0392b",
               tension:0, borderWidth:2.5,
               pointRadius: dReal.map((v,i) => (v!==null && i===n-1) ? 6 : 0),
-              pointBackgroundColor: dReal.map((_,i) => i===n-1 ? "#fff" : "#5a1414"),
-              pointBorderColor:"#5a1414",
+              pointBackgroundColor: dReal.map((_,i) => i===n-1 ? "#fff" : "#c0392b"),
+              pointBorderColor:"#c0392b",
               pointBorderWidth:2,
               spanGaps:false,
             },
@@ -1908,9 +1908,10 @@
               onClick: () => {},
               labels:{
                 filter: item => item.text !== null && item.text !== "null",
-                font:{family:"Barlow",weight:700},
+                font:{family:"Barlow Condensed", size:15, weight:"700"},
                 usePointStyle:true,
-                padding:16
+                pointStyleWidth:14,
+                padding:20
               }
             },
             tooltip:{
@@ -2480,7 +2481,7 @@
       options:{
         responsive:true, maintainAspectRatio:false,
         plugins:{
-          legend:{position:"top", onClick: ()=>{}, labels:{font:{family:"Barlow",weight:700},usePointStyle:true}},
+          legend:{position:"top", onClick: ()=>{}, labels:{font:{family:"Barlow Condensed", size:15, weight:"700"}, usePointStyle:true, pointStyleWidth:14, padding:20}},
           tooltip:{ callbacks:{ label:ctx=>`S/ ${Math.round(ctx.parsed.y||0).toLocaleString("es-PE")} (${(ctx.parsed.y/pimVivo*100).toFixed(1)}%)` } }
         },
         scales:{
