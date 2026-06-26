@@ -2021,13 +2021,12 @@
       pim:     212350484,
       dev_t1:  14736065,
       dev_t2:  24420754,
-      dev_sem: 39156819,
+      dev_sem: 39156818,
       av_pct:  18.4,
       rubros: [
-        { codigo:"00", nombre:"Recursos Ordinarios",                             dev: 139405  },
-        { codigo:"09", nombre:"Rec. Directamente Recaudados",                   dev: 0       },
-        { codigo:"18", nombre:"Canon y Sobrecanon / Regalías",                  dev: 25280604},
-        { codigo:"19", nombre:"Rec. por Operaciones Oficiales de Crédito",      dev: 13736809},
+        { codigo:"00", nombre:"Recursos Ordinarios",                        pim:212350484, cert:182532,    comp:171093,    dev:139405   },
+        { codigo:"18", nombre:"Canon y Sobrecanon / Regalías",              pim:212350484, cert:114322553, comp:62836121,  dev:25280604 },
+        { codigo:"19", nombre:"Rec. por Operaciones Oficiales de Crédito",  pim:212350484, cert:16968754,  comp:16096300,  dev:13736809 },
       ]
     },
     "2023": {
@@ -2038,8 +2037,8 @@
       dev_sem: 15853245,
       av_pct:  4.9,
       rubros: [
-        { codigo:"00", nombre:"Recursos Ordinarios",         dev: 788497  },
-        { codigo:"15", nombre:"FONCOR",                      dev: 15064748},
+        { codigo:"00", nombre:"Recursos Ordinarios", pim:322883063, cert:10760424,  comp:4443707,   dev:788497   },
+        { codigo:"15", nombre:"FONCOR",              pim:322883063, cert:179672059, comp:-14004615, dev:15064748 },
       ]
     },
     "2024": {
@@ -2050,9 +2049,9 @@
       dev_sem: 86166254,
       av_pct:  24.9,
       rubros: [
-        { codigo:"00", nombre:"Recursos Ordinarios",        dev: 302978  },
-        { codigo:"15", nombre:"FONCOR",                     dev: 85856276},
-        { codigo:"18", nombre:"Canon y Sobrecanon",         dev: 7000    },
+        { codigo:"00", nombre:"Recursos Ordinarios",           pim:346739967, cert:8395425,   comp:-170858,   dev:302978   },
+        { codigo:"15", nombre:"FONCOR",                        pim:346739967, cert:311398117, comp:123194516, dev:85856276 },
+        { codigo:"18", nombre:"Canon y Sobrecanon / Regalías", pim:346739967, cert:410146,    comp:-157083,   dev:7000     },
       ]
     },
     "2025": {
@@ -2060,12 +2059,12 @@
       pim:     359757196,
       dev_t1:  24659052,
       dev_t2:  76906719,
-      dev_sem: 101565771,
+      dev_sem: 101565772,
       av_pct:  28.2,
       rubros: [
-        { codigo:"00", nombre:"Recursos Ordinarios",        dev: 18562907},
-        { codigo:"15", nombre:"FONCOR",                     dev: 82840667},
-        { codigo:"18", nombre:"Canon y Sobrecanon",         dev: 162198  },
+        { codigo:"00", nombre:"Recursos Ordinarios",           pim:359757196, cert:36466926,  comp:27333067,  dev:18562907 },
+        { codigo:"15", nombre:"FONCOR",                        pim:359757196, cert:299695635, comp:157118153, dev:82840667 },
+        { codigo:"18", nombre:"Canon y Sobrecanon / Regalías", pim:359757196, cert:199931,    comp:162198,    dev:162198   },
       ]
     },
     // "2026" se inyecta en tiempo real desde los archivos XLS cargados
@@ -2085,22 +2084,32 @@
     const pct  = d.av_pct;             // Avance % = td/tp*100
     const fecha = d.label;
 
-    // Cada rubro muestra su devengado real y su % respecto al PIM TOTAL de la UE
-    // (el histórico trimestral no tiene PIM por rubro, solo devengado)
-    const rubroRows = d.rubros.filter(r => r.dev > 0).map(r => {
-      const rpct = tp ? r.dev / tp * 100 : 0;   // avance del rubro vs PIM total UE
-      const pctPim = td ? r.dev / td * 100 : 0; // participación en el devengado total
+    // Totales acumulados del semestre
+    const cert_total = d.rubros.reduce((s,r) => s + (r.cert||0), 0);
+    const comp_total = d.rubros.reduce((s,r) => s + (r.comp||0), 0);
+
+    const rubroRows = d.rubros.filter(r => r.dev > 0 || r.cert > 0).map(r => {
+      const cert  = r.cert || 0;
+      const comp  = r.comp || 0;
+      const dev   = r.dev  || 0;
+      const pctPim  = tp   ? r.dev  / tp * 100 : 0;  // % DEV vs PIM UE
+      const pctCert = tp   ? cert   / tp * 100 : 0;
+      const pctComp = tp   ? comp   / tp * 100 : 0;
+      const porCert = Math.max(0, cert - dev);
+      const rpct    = tp   ? dev    / tp * 100 : 0;   // avance barra
       const col = rpct >= 30 ? "var(--verde)" : rpct >= 15 ? "var(--naranja-h)" : "var(--rojo)";
       return `<tr>
         <td class="center">${r.codigo}</td>
         <td class="left">${r.nombre}</td>
-        <td class="num" style="color:var(--gris);font-style:italic" title="PIM total UE — no disponible por rubro en histórico">S/ ${fmt(tp)}</td>
+        <td class="num">S/ ${fmt(tp)}</td>
         <td class="num">${pctPim.toFixed(1)}%</td>
-        <td class="num">—</td><td class="num">—</td>
-        <td class="num" style="background:#fce8e8;color:var(--vino)">—</td>
-        <td class="num">—</td><td class="num">—</td>
-        <td class="num" style="color:var(--naranja-h);font-weight:800">S/ ${fmt(r.dev)}</td>
-        <td class="num" style="background:#fce8e8;color:var(--vino)">—</td>
+        <td class="num">S/ ${fmt(cert)}</td>
+        <td class="num">${pctCert.toFixed(1)}%</td>
+        <td class="num" style="background:#fce8e8;color:var(--vino)">S/ ${fmt(porCert)}</td>
+        <td class="num">S/ ${fmt(comp)}</td>
+        <td class="num">${pctComp.toFixed(1)}%</td>
+        <td class="num" style="color:var(--naranja-h);font-weight:800">S/ ${fmt(dev)}</td>
+        <td class="num" style="background:#fce8e8;color:var(--vino)">S/ ${fmt(tp - dev)}</td>
         <td><div class="av-wrap">
           <div class="av-bar"><span style="width:${Math.min(100,rpct).toFixed(1)}%;background:${col}"></span></div>
           <span class="av-pct" style="color:${col}">${rpct.toFixed(1)}%</span>
@@ -2109,6 +2118,9 @@
     }).join("");
 
     const footColor = pct>=30?"var(--verde)":pct>=15?"var(--naranja-h)":"var(--rojo)";
+    const pctCertTot = tp ? cert_total / tp * 100 : 0;
+    const pctCompTot = tp ? comp_total / tp * 100 : 0;
+    const porCertTot = Math.max(0, cert_total - td);
 
     return `<div class="b6ue-panel">
       <div class="b6ue-header">
@@ -2138,16 +2150,18 @@
           <td colspan="2" style="text-align:left">TOTAL</td>
           <td class="num">S/ ${fmt(tp)}</td>
           <td class="num">100%</td>
-          <td class="num">—</td><td class="num">—</td><td class="num">—</td>
-          <td class="num">—</td><td class="num">—</td>
+          <td class="num">S/ ${fmt(cert_total)}</td>
+          <td class="num">${pctCertTot.toFixed(1)}%</td>
+          <td class="num">S/ ${fmt(porCertTot)}</td>
+          <td class="num">S/ ${fmt(comp_total)}</td>
+          <td class="num">${pctCompTot.toFixed(1)}%</td>
           <td class="num">S/ ${fmt(td)}</td>
           <td class="num">S/ ${fmt(tp - td)}</td>
           <td style="text-align:right;color:${footColor};font-weight:800">${pct.toFixed(1)}%</td>
         </tr></tfoot>
       </table>
       <div style="padding:8px 14px;font-size:11px;color:var(--gris);font-style:italic;background:#fffbe6;border-top:1px solid #f0e0c0">
-        ⓘ Histórico semestral (T1+T2). PIM UE es el total de la Unidad Ejecutora para ${anioKey}.
-        Cert./Compromiso/Por Devengar por rubro no disponibles en el histórico trimestral del MEF.
+        ⓘ Histórico semestral (T1+T2) · Sede Central ${anioKey}. PIM UE = total de la Unidad Ejecutora. Certificación y Compromiso = acumulado semestral (T1+T2).
       </div>
     </div>`;
   }
@@ -2174,15 +2188,11 @@
     if (!paneles) return;
 
     if (anio === "2026") {
-      // Para 2026: renderBloque6Rubros ya gestiona este panel desde el flujo principal.
-      // Aquí solo re-renderizamos si hay archivos cargados y el panel está vacío.
-      const yaRenderizado = paneles.querySelector(".b6ue-panel");
-      if (!yaRenderizado) {
-        if (sel && sel.length) {
-          renderBloque6Rubros(sel);
-        } else {
-          paneles.innerHTML = '<div style="padding:32px;text-align:center;color:#888">Carga los archivos XLS de rubros para ver 2026.</div>';
-        }
+      // Siempre re-renderizar 2026 para que refleje los archivos actuales
+      if (sel && sel.length) {
+        renderBloque6Rubros(sel);
+      } else {
+        paneles.innerHTML = '<div style="padding:32px;text-align:center;color:#888">Carga los archivos XLS de rubros para ver 2026.</div>';
       }
       actualizarGraficoRubroSC("2026", sel);
     } else {
