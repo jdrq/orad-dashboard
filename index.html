@@ -792,11 +792,6 @@
         <div class="pdf-header" style="background:#5a1414"><div class="pdf-header-left"><h2>Ejecución Presupuestal por Rubro</h2>
           <div class="sub" style="color:#FFD166">PEOT / Agricultura / Transporte / GERESA &nbsp;·&nbsp; <span id="b6rubro2fecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body">
-          <div class="rubro-yr-selector">
-            <span class="rubro-yr-label">Período:</span>
-            <button class="yr-btn-rb activo" data-rbyr="2026" data-grupo="2">2026</button>
-            <span class="rubro-yr-nota">Dato diario acumulado</span>
-          </div>
           <div id="b6rubro2Paneles">
             <div style="padding:40px;text-align:center;color:#888">
               Carga los archivos XLS para ver la ejecución por rubro.
@@ -812,11 +807,6 @@
         <div class="pdf-header" style="background:#5a1414"><div class="pdf-header-left"><h2>Ejecución Presupuestal por Rubro</h2>
           <div class="sub" style="color:#FFD166">H. Mercedes / H. Belén / H. Regional &nbsp;·&nbsp; <span id="b6rubro3fecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body">
-          <div class="rubro-yr-selector">
-            <span class="rubro-yr-label">Período:</span>
-            <button class="yr-btn-rb activo" data-rbyr="2026" data-grupo="3">2026</button>
-            <span class="rubro-yr-nota">Dato diario acumulado</span>
-          </div>
           <div id="b6rubro3Paneles">
             <div style="padding:40px;text-align:center;color:#888">
               Carga los archivos XLS para ver la ejecución por rubro.
@@ -2129,9 +2119,7 @@
       <div class="b6ue-header">
         <div style="display:flex;align-items:center;gap:10px">
           <span class="b6ue-etiqueta">SEDE CENTRAL</span>
-          <span style="font-family:'Barlow Condensed';font-size:12px;color:var(--gris)">
-            ${fecha} &nbsp;·&nbsp; T1: S/ ${fmt(d.dev_t1)} &nbsp;+&nbsp; T2: S/ ${fmt(d.dev_t2)}
-          </span>
+          <span style="font-family:'Barlow Condensed';font-size:12px;color:var(--gris)">${fecha}</span>
         </div>
         <span class="b6ue-prom-pill">${pct.toFixed(1)}%<span style="font-size:11px;font-weight:600;color:#e8c17a"> EJEC.</span></span>
       </div>
@@ -2163,9 +2151,6 @@
           <td style="text-align:right;color:${footColor};font-weight:800">${pct.toFixed(1)}%</td>
         </tr></tfoot>
       </table>
-      <div style="padding:8px 14px;font-size:11px;color:var(--gris);font-style:italic;background:#fffbe6;border-top:1px solid #f0e0c0">
-        ⓘ Histórico semestral (T1+T2) · Sede Central ${anioKey}. PIM UE = total de la Unidad Ejecutora. Certificación y Compromiso = acumulado semestral (T1+T2).
-      </div>
     </div>`;
   }
 
@@ -2179,7 +2164,7 @@
 
     // Nota
     const nota = document.getElementById("b6rb1nota");
-    if (nota) nota.textContent = anio === "2026" ? "Dato diario acumulado" : `Primer semestre ${anio} (Ene–Jun) · T1+T2`;
+    if (nota) nota.textContent = anio === "2026" ? "Dato diario acumulado" : `Primer semestre ${anio} (Ene–Jun)`;
 
     // Fecha en header
     const fechaEl = document.getElementById("b6rubro1fecha");
