@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
@@ -327,7 +328,7 @@
     content:"";width:16px;height:3px;background:var(--naranja-h);
     display:inline-block;flex-shrink:0;
   }
-  .rubro-chart-canvas-wrap{position:relative;height:180px;width:100%}
+  .rubro-chart-canvas-wrap{position:relative;height:210px;width:100%}
   .rubro-chart-badge{
     display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;
     color:var(--vino);background:#f7ecec;border:1px solid #ecd6d6;
@@ -2230,7 +2231,20 @@
         animation: { duration: 500, easing: "easeOutQuart" },
         plugins: {
           legend: { display: false },
-          tooltip: { callbacks: { label: ctx => ` ${ctx.raw !== null ? ctx.raw.toFixed(1)+"%" : "—"}` } }
+          tooltip: { callbacks: { label: ctx => ` ${ctx.raw !== null ? ctx.raw.toFixed(1)+"%" : "—"}` } },
+          datalabels: {
+            display: true,
+            align: "top",
+            anchor: "end",
+            offset: 4,
+            color: ctx => ctx.dataIndex === años.indexOf(RB1_ANIO) ? "#5a1414" : "#666",
+            font: ctx => ({
+              family: "'Barlow Condensed'",
+              size: ctx.dataIndex === años.indexOf(RB1_ANIO) ? 13 : 11,
+              weight: ctx.dataIndex === años.indexOf(RB1_ANIO) ? "800" : "600"
+            }),
+            formatter: v => v !== null ? v.toFixed(1)+"%" : ""
+          }
         },
         scales: {
           x: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow Condensed'",weight:"700",size:12}} },
@@ -2239,8 +2253,10 @@
             ticks:{ font:{family:"'Barlow'",size:11}, callback: v => v.toFixed(0)+"%" },
             suggestedMin: 0, suggestedMax: 40
           }
-        }
-      }
+        },
+        layout: { padding: { top: 28 } }
+      },
+      plugins: [ ChartDataLabels ]
     });
   }
 
