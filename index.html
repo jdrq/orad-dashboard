@@ -388,44 +388,66 @@
   <main>
     <div class="wrap">
 
-      <!-- Panel de carga / consolidador -->
-      <p class="eyebrow">Paso 1 · Consolidar archivos del MEF</p>
-      <section class="card loader">
-        <div class="drop">
-          <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Cargar archivos .xls">
-            <div class="ic">📥</div>
-            <div><b>Arrastra aquí</b> tus archivos <b>.xls</b></div>
-            <div class="hint">o haz clic para elegirlos</div>
+      <!-- Barra superior visible para el jefe: solo el botón de exportar -->
+      <div class="pdf-toolbar" style="display:flex;justify-content:flex-end;align-items:center;gap:10px;margin:6px 0 10px">
+        <button class="btn btn-pdf" id="btnPdf" title="Exporta cada sección como una página horizontal del PDF">⬇ Exportar a PDF</button>
+        <button id="btnAdminToggle" title="Panel técnico (solo ORPMI)"
+          style="background:transparent;border:1px solid #ddd;border-radius:6px;width:30px;height:30px;cursor:pointer;font-size:14px;opacity:.45">⚙</button>
+      </div>
+
+      <!-- Panel de carga / consolidador — oculto al jefe, solo visible si ORPMI lo activa -->
+      <div id="panelTecnico" style="display:none">
+        <p class="eyebrow">Paso 1 · Consolidar archivos del MEF</p>
+        <section class="card loader">
+          <div class="drop">
+            <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Cargar archivos .xls">
+              <div class="ic">📥</div>
+              <div><b>Arrastra aquí</b> tus archivos <b>.xls</b></div>
+              <div class="hint">o haz clic para elegirlos</div>
+            </div>
+            <input type="file" id="file" accept=".xls,.xlsx" multiple hidden />
+            <button class="btn" id="pick">Seleccionar archivos</button>
+            <button class="btn ghost" id="clear">Limpiar todo</button>
+            <div class="invnote" title="El tablero muestra siempre proyectos de inversión">Mostrando <b>solo inversiones</b> <small>(proyectos)</small></div>
+            <input type="checkbox" id="soloInv" checked hidden />
+            <span hidden>Solo inversiones <small>(proyectos)</small></span>
           </div>
-          <input type="file" id="file" accept=".xls,.xlsx" multiple hidden />
-          <button class="btn" id="pick">Seleccionar archivos</button>
-          <button class="btn ghost" id="clear">Limpiar todo</button>
-          <button class="btn btn-pdf" id="btnPdf" title="Exporta cada sección como una página horizontal del PDF">⬇ Exportar a PDF</button>
-          <div class="invnote" title="El tablero muestra siempre proyectos de inversión">Mostrando <b>solo inversiones</b> <small>(proyectos)</small></div>
-          <input type="checkbox" id="soloInv" checked hidden />
-          <span hidden>Solo inversiones <small>(proyectos)</small></span>
-        </div>
-        <div class="files">
-          <div class="scroll">
-            <table>
-              <thead>
-                <tr>
-                  <th style="width:34px"></th>
-                  <th>Archivo</th>
-                  <th>Tipo</th>
-                  <th>Alcance detectado</th>
-                  <th class="num">PIM (S/)</th>
-                  <th class="num">Avance</th>
-                  <th>Consistencia</th>
-                </tr>
-              </thead>
-              <tbody id="rows">
-                <tr><td colspan="7"><div class="empty">Aún no hay archivos. <b>Carga tus .xls</b> (gen_, proy_, RESUMEN o ReporteGasto) y el tablero los consolidará al instante.</div></td></tr>
-              </tbody>
-            </table>
+          <div class="files">
+            <div class="scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:34px"></th>
+                    <th>Archivo</th>
+                    <th>Tipo</th>
+                    <th>Alcance detectado</th>
+                    <th class="num">PIM (S/)</th>
+                    <th class="num">Avance</th>
+                    <th>Consistencia</th>
+                  </tr>
+                </thead>
+                <tbody id="rows">
+                  <tr><td colspan="7"><div class="empty">Aún no hay archivos. <b>Carga tus .xls</b> (gen_, proy_, RESUMEN o ReporteGasto) y el tablero los consolidará al instante.</div></td></tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
+
+      <script>
+        // Panel técnico oculto por defecto. Se muestra solo si:
+        //  (a) ORPMI hace clic en el engranaje ⚙, o
+        //  (b) se abre la URL con ?admin=1 (útil para revisar desde el celular sin buscar el botón).
+        (function(){
+          const panel = document.getElementById("panelTecnico");
+          const btn = document.getElementById("btnAdminToggle");
+          if (new URLSearchParams(location.search).get("admin") === "1") panel.style.display = "";
+          btn.addEventListener("click", () => {
+            panel.style.display = panel.style.display === "none" ? "" : "none";
+          });
+        })();
+      </script>
 
 
       <!-- KPIs + Donas Bloque 1 -->
