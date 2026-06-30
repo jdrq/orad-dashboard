@@ -1,4 +1,4 @@
-# Dashboard BI — ORPMI · Gobierno Regional de Lambayeque
+# Dashboard BI — ORAD · Gobierno Regional de Lambayeque
 
 Dashboard web de ejecución presupuestal de inversiones del **Pliego 452 - GORE Lambayeque**, construido con HTML + JavaScript + Chart.js, publicado vía GitHub Pages.
 
