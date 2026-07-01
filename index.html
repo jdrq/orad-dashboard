@@ -531,7 +531,7 @@
             <button class="yr-btn-a" data-yr="2024">2024</button>
             <button class="yr-btn-a" data-yr="2025">2025</button>
             <button class="yr-btn-a activo" data-yr="2026">2026</button>
-            <span class="yr-nota" id="b2ayrNota">Dato diario acumulado</span>
+            <span class="yr-nota" id="b2ayrNota">Primer semestre 2026 (Ene–Jun)</span>
           </div>
 
           <div class="pdf-date-row">
@@ -574,7 +574,7 @@
             <button class="yr-btn" data-yr="2024">2024</button>
             <button class="yr-btn" data-yr="2025">2025</button>
             <button class="yr-btn activo" data-yr="2026">2026</button>
-            <span class="yr-nota" id="b2yrNota">Dato diario acumulado</span>
+            <span class="yr-nota" id="b2yrNota">Primer semestre 2026 (Ene–Jun)</span>
           </div>
 
           <div class="pdf-date-row">
@@ -626,7 +626,7 @@
             <button class="yr-btn-c" data-yr="2024">2024</button>
             <button class="yr-btn-c" data-yr="2025">2025</button>
             <button class="yr-btn-c activo" data-yr="2026">2026</button>
-            <span class="yr-nota" id="b2cyrNota">Dato diario acumulado</span>
+            <span class="yr-nota" id="b2cyrNota">Primer semestre 2026 (Ene–Jun)</span>
           </div>
 
           <div class="pdf-date-row">
@@ -862,7 +862,7 @@
             <button class="yr-btn-rb" data-rbyr="2024" data-grupo="1">2024</button>
             <button class="yr-btn-rb" data-rbyr="2025" data-grupo="1">2025</button>
             <button class="yr-btn-rb activo" data-rbyr="2026" data-grupo="1">2026</button>
-            <span class="rubro-yr-nota" id="b6rb1nota">Dato diario acumulado</span>
+            <span class="rubro-yr-nota" id="b6rb1nota">Primer semestre 2026 (Ene–Jun)</span>
           </div>
           <!-- Paneles de tabla -->
           <div id="b6rubro1Paneles">
@@ -1387,18 +1387,31 @@
   // ni les importa si los datos vienen del repo diario o del snapshot.
   let archivosLive = null;         // respaldo de la vista en vivo mientras se ve el semestre
   let archivosCongelados = null;   // cache del snapshot, se descarga solo una vez
+  let archivosCongeladosPromise = null; // evita descargas duplicadas si varias partes lo piden a la vez
   let MODO_SEMESTRAL = false;
   const FECHA_CIERRE_SEMESTRE = new Date(2026, 5, 30); // 30-jun-2026 (mes 0-indexado)
+
+  // Cargador compartido: lo usan tanto el botón "Ver Primer Semestre" como
+  // los paneles de comparación histórica (ranking GORE, tendencia Sede
+  // Central), que SIEMPRE deben mostrar el cierre congelado del 1er
+  // semestre 2026 — nunca datos "en vivo" — sin importar el toggle principal.
+  function obtenerArchivosCongelados(){
+    if (archivosCongelados) return Promise.resolve(archivosCongelados);
+    if (archivosCongeladosPromise) return archivosCongeladosPromise;
+    archivosCongeladosPromise = fetch("data/semestre1_2026.json", { cache:"no-store" })
+      .then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+      .then(data => { archivosCongelados = data; return data; })
+      .catch(e => { console.warn("[ORPMI] No se pudo cargar semestre1_2026.json:", e.message); return null; })
+      .finally(() => { archivosCongeladosPromise = null; });
+    return archivosCongeladosPromise;
+  }
 
   async function activarModoSemestral(){
     const btn = $("#btnSemestral");
     if(!archivosCongelados){
       if(btn){ btn.disabled=true; btn.textContent="⏳ Cargando..."; }
-      try{
-        const resp = await fetch("data/semestre1_2026.json", { cache:"no-store" });
-        if(!resp.ok) throw new Error("HTTP "+resp.status);
-        archivosCongelados = await resp.json();
-      }catch(e){
+      const data = await obtenerArchivosCongelados();
+      if(!data){
         alert("No se pudo cargar el snapshot del Primer Semestre. Verifica tu conexión a internet.");
         if(btn){ btn.disabled=false; btn.textContent="📅 Ver Primer Semestre (Ene–Jun)"; }
         return;
@@ -2489,12 +2502,12 @@
 
     // Nota
     const nota = document.getElementById("b6rb1nota");
-    if (nota) nota.textContent = anio === "2026" ? "Dato diario acumulado" : `Primer semestre ${anio} (Ene–Jun)`;
+    if (nota) nota.textContent = anio === "2026" ? "Primer semestre 2026 (Ene–Jun)" : `Primer semestre ${anio} (Ene–Jun)`;
 
     // Fecha en header
     const fechaEl = document.getElementById("b6rubro1fecha");
     if (fechaEl) fechaEl.textContent = anio === "2026"
-      ? new Date().toLocaleDateString("es-PE",{weekday:"long",day:"numeric",month:"long",year:"numeric"})
+      ? "martes, 30 de junio de 2026 (cierre 1er semestre)"
       : RB_HIST_SC[anio]?.label || anio;
 
     const paneles = document.getElementById("b6rubro1Paneles");
@@ -2585,39 +2598,47 @@
   }
 
   function actualizarGraficoRubroSC(anioActivo, sel) {
-    // Si 2026 está activo, extraer avance en vivo de los archivos
-    if (anioActivo === "2026" && sel) {
-      try {
-        const sedeFiles = sel.filter(a => {
-          if (!a.res || !a.res.contexto) return false;
-          const ueCtx = a.res.contexto.find(c => c.nivel==="UNIDAD");
-          return ueCtx && String(ueCtx.descripcion||ueCtx.nombre||"").includes("001-855");
-        });
-        let devVivo=0, pimVivo=0;
-        sedeFiles.forEach(a => {
-          const t = totalesArchivo(a, false);
-          devVivo += t.devengado; pimVivo += t.pim;
-        });
-        // Fallback: usar el resultado del Bloque 6 pliego (sede central tiene nivel UNIDAD)
-        if (pimVivo === 0) {
-          const rubroArchivos = sel.filter(x=>x.esRubro);
-          const aSedeRubro = rubroArchivos.find(x => x !== rubroArchivos.find(x2=>rubroNivel(x2.res)==="PLIEGO") && rubroNivel(x.res)==="UNIDAD");
-          if (aSedeRubro) {
-            const t = totalesArchivo(aSedeRubro, false);
-            devVivo = t.devengado; pimVivo = t.pim;
+    // El punto "2026" de esta comparación SIEMPRE debe ser el cierre del
+    // Primer Semestre (30/06/2026), igual que 2022-2025 — nunca datos en
+    // vivo, para que la comparación año a año sea justa. Se calcula una
+    // sola vez (queda en caché en RB_HIST_SC) desde el snapshot congelado.
+    if (anioActivo === "2026") {
+      if (RB_HIST_SC["2026"]) {
+        try { iniciarGraficoRubroSC(); } catch(e){ console.warn("GráficoRubroSC:", e); }
+        return;
+      }
+      obtenerArchivosCongelados().then(congelados => {
+        if (!congelados) return;
+        try {
+          const sedeFiles = congelados.filter(a => {
+            if (!a.res || !a.res.contexto) return false;
+            const ueCtx = a.res.contexto.find(c => c.nivel==="UNIDAD");
+            return ueCtx && String(ueCtx.descripcion||ueCtx.nombre||"").includes("001-855");
+          });
+          let devVivo=0, pimVivo=0;
+          sedeFiles.forEach(a => {
+            const t = totalesArchivo(a, false);
+            devVivo += t.devengado; pimVivo += t.pim;
+          });
+          if (pimVivo === 0) {
+            const rubroArchivos = congelados.filter(x=>x.esRubro);
+            const aSedeRubro = rubroArchivos.find(x => x !== rubroArchivos.find(x2=>rubroNivel(x2.res)==="PLIEGO") && rubroNivel(x.res)==="UNIDAD");
+            if (aSedeRubro) {
+              const t = totalesArchivo(aSedeRubro, false);
+              devVivo = t.devengado; pimVivo = t.pim;
+            }
           }
-        }
-        if (pimVivo > 0) {
-          const fLbl = MODO_SEMESTRAL
-            ? "Ene–Jun 2026 (cierre 30/06/2026)"
-            : `2026 (acumulado al ${new Date().toLocaleDateString("es-PE",{day:"numeric",month:"short",year:"numeric"})} — año en curso)`;
-          RB_HIST_SC["2026"] = {
-            label: fLbl,
-            pim: pimVivo, dev_t1: devVivo, dev_t2: 0,
-            dev_sem: devVivo, av_pct: devVivo/pimVivo*100
-          };
-        }
-      } catch(e) { console.warn("[ORPMI] actualizarGraficoRubroSC:", e.message); }
+          if (pimVivo > 0) {
+            RB_HIST_SC["2026"] = {
+              label: "Ene–Jun 2026",
+              pim: pimVivo, dev_t1: devVivo, dev_t2: 0,
+              dev_sem: devVivo, av_pct: devVivo/pimVivo*100
+            };
+          }
+        } catch(e) { console.warn("[ORPMI] actualizarGraficoRubroSC:", e.message); }
+        try { iniciarGraficoRubroSC(); } catch(e){ console.warn("GráficoRubroSC:", e); }
+      });
+      return;
     }
     iniciarGraficoRubroSC();
     // Actualizar punto activo si ya existe
@@ -3167,10 +3188,10 @@
     // ── Cargar historico_semestral.json ──────────────────────────
     fetch("data/historico_semestral.json?" + Date.now())
       .then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
-      .then(data => {
+      .then(async data => {
         STATE.historico = data;
         console.log("[ORPMI-Hist] Cargado:", Object.keys(data.semestres));
-        inyectar2026();
+        await inyectar2026();
         renderA("2026"); renderB("2026"); renderC("2026");
         iniciarTendencia();
         // Iniciar gráfico de avance % rubro Sede Central
@@ -3178,11 +3199,14 @@
       })
       .catch(err => console.warn("[ORPMI-Hist] No se pudo cargar:", err.message));
 
-    // ── Inyectar 2026 desde ejecucion.json (archivos ya cargados) ─
-    function inyectar2026(){
+    // ── Inyectar 2026: SIEMPRE desde el snapshot congelado al 30/06/2026,
+    // igual que 2022-2025 — nunca desde los archivos en vivo del día ──
+    async function inyectar2026(){
       if (!STATE.historico) return;
       try {
-        const nac = (typeof archivos !== "undefined") && archivos.find(a => a.esNacional);
+        const congelados = await obtenerArchivosCongelados();
+        if (!congelados) return;
+        const nac = congelados.find(a => a.esNacional);
         if (!nac) return;
         const regs = nac.res.registros;
         const total_pim  = regs.reduce((s,r) => s+(r.pim||0), 0);
@@ -3211,8 +3235,8 @@
         const fecha = fechaHoy();
 
         STATE.historico.semestres["2026"] = {
-          label:         MODO_SEMESTRAL ? "Ene–Jun 2026 (cierre 30/06/2026)" : `2026 (acumulado al ${fecha} — año en curso)`,
-          nota:          MODO_SEMESTRAL ? "Cierre 1er semestre" : "Dato diario acumulado, aún no cierra el 1er semestre",
+          label:         "Ene–Jun 2026",
+          nota:          "Cierre 1er semestre",
           total_gores:   byDevSol.length,
           prom_dev_pct:  Math.round(prom_dev_pct*10)/10,
           prom_cert_pct: Math.round(prom_cert_pct*10)/10,
@@ -3257,8 +3281,8 @@
       const ranking = sem.ranking_dev_pct || [];
       const prom    = sem.prom_dev_pct || 0;
 
-      if (nota)   nota.textContent   = anio==="2026" ? "Dato diario acumulado" : `Primer semestre ${anio} (Ene–Jun)`;
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? fechaHoy() : `Primer Semestre ${anio} — Enero a Junio`;
+      if (nota)   nota.textContent   = anio === "2026" ? "Primer semestre 2026 (Ene–Jun)" : `Primer semestre ${anio} (Ene–Jun)`;
+      if (fechaEl) fechaEl.textContent = anio==="2026" ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : `Primer Semestre ${anio} — Enero a Junio`;
       if (promEl) promEl.textContent = prom.toFixed(1)+"%";
       if (metaEl) metaEl.textContent = `Ámbito: inversiones · ${ranking.length} pliegos`;
 
@@ -3332,8 +3356,8 @@
       const ranking = sem.ranking_dev_sol || [];
       const maxDev  = ranking.reduce((m,g)=>Math.max(m,g.dev||0),1);
 
-      if (nota)    nota.textContent    = anio==="2026" ? "Dato diario acumulado" : `Primer semestre ${anio} (Ene–Jun)`;
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? fechaHoy() : `Primer Semestre ${anio} — Enero a Junio`;
+      if (nota)    nota.textContent    = anio === "2026" ? "Primer semestre 2026 (Ene–Jun)" : `Primer semestre ${anio} (Ene–Jun)`;
+      if (fechaEl) fechaEl.textContent = anio==="2026" ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : `Primer Semestre ${anio} — Enero a Junio`;
       if (metaEl)  metaEl.textContent  = `Ámbito: inversiones · ${ranking.length} pliegos`;
 
       if (tbody) tbody.innerHTML = ranking.map((g,i) => {
@@ -3400,8 +3424,8 @@
       const ranking = sem.ranking_cert_pct || [];
       const prom    = sem.prom_cert_pct || 0;
 
-      if (nota)    nota.textContent    = anio==="2026" ? "Dato diario acumulado" : `Primer semestre ${anio} (Ene–Jun)`;
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? fechaHoy() : `Primer Semestre ${anio} — Enero a Junio`;
+      if (nota)    nota.textContent    = anio === "2026" ? "Primer semestre 2026 (Ene–Jun)" : `Primer semestre ${anio} (Ene–Jun)`;
+      if (fechaEl) fechaEl.textContent = anio==="2026" ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : `Primer Semestre ${anio} — Enero a Junio`;
       if (promEl)  promEl.textContent  = prom.toFixed(1)+"%";
 
       if (tbody) tbody.innerHTML = ranking.map((g,i) => {
