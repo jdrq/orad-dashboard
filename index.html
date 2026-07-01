@@ -2516,7 +2516,7 @@
 
     // Nota
     const nota = document.getElementById("b6rb1nota");
-    if (nota) nota.textContent = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : `Primer semestre ${anio} (Ene–Jun)`;
+    if (nota) nota.textContent = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : `Primer semestre ${anio} (Ene–Jun)`; // Rubro Sede Central: pendiente extender a Ene-Jul (ver nota en memoria)
 
     // Fecha en header
     const fechaEl = document.getElementById("b6rubro1fecha");
@@ -3192,12 +3192,16 @@
     const semColor = (v, prom) =>
       v >= prom * 1.1 ? "var(--verde)" : v >= prom * 0.9 ? "var(--amber)" : "var(--rojo)";
 
-    // ── Cargar historico_semestral.json ──────────────────────────
-    fetch("data/historico_semestral.json?" + Date.now())
-      .then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
-      .then(data => {
-        STATE.historico = data;
-        console.log("[ORPMI-Hist] Cargado:", Object.keys(data.semestres));
+    // ── Cargar historico_semestral.json (Ene-Jun, para "Ver Primer Semestre")
+    // y historico_enejul.json (Ene-Jul, para la vista principal) en paralelo ──
+    Promise.all([
+      fetch("data/historico_semestral.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }),
+      fetch("data/historico_enejul.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }).catch(e => { console.warn("[ORPMI-Hist] historico_enejul.json no disponible, uso Ene-Jun también en vista principal:", e.message); return null; })
+    ])
+      .then(([dataJun, dataJul]) => {
+        STATE.historico = dataJun;
+        STATE.historicoJul = dataJul; // null si aún no existe el archivo -> fallback a Ene-Jun
+        console.log("[ORPMI-Hist] Cargado Ene-Jun:", Object.keys(dataJun.semestres), "| Ene-Jul:", dataJul ? Object.keys(dataJul.semestres) : "(no disponible)");
         inyectar2026();
         renderA("2026"); renderB("2026"); renderC("2026");
         iniciarTendencia();
@@ -3268,6 +3272,15 @@
     }
 
     // ── BLOQUE 2A — Devengado % ──────────────────────────────────
+    // Para años 2022-2025: en la vista principal usamos Ene-Jul
+    // (historico_enejul.json); en "Ver Primer Semestre" usamos Ene-Jun
+    // (historico_semestral.json, el de siempre). "2026" no pasa por aquí:
+    // ese sigue su propio mecanismo en inyectar2026()/STATE.historico.
+    function fuenteHistorica(){
+      if (!MODO_SEMESTRAL && STATE.historicoJul) return STATE.historicoJul;
+      return STATE.historico;
+    }
+
     function renderA(anio){
       STATE.anioA = anio;
       document.querySelectorAll(".yr-btn-a").forEach(b =>
@@ -3279,17 +3292,18 @@
       const fechaEl= document.getElementById("b2fechaA");
       const metaEl = document.getElementById("b2metaA");
 
-      if (!STATE.historico || !STATE.historico.semestres[anio]) {
+      const fuenteHist = anio === "2026" ? STATE.historico : fuenteHistorica();
+      if (!fuenteHist || !fuenteHist.semestres[anio]) {
         if (anio === "2026") renderA_desdeArchivos();
         else if (tbody) tbody.innerHTML = `<tr><td colspan="5" style="padding:24px;text-align:center;color:#888">Histórico ${anio} no disponible.</td></tr>`;
         return;
       }
-      const sem     = STATE.historico.semestres[anio];
+      const sem     = fuenteHist.semestres[anio];
       const ranking = sem.ranking_dev_pct || [];
       const prom    = sem.prom_dev_pct || 0;
 
-      if (nota)   nota.textContent   = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : `Primer semestre ${anio} (Ene–Jun)`;
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : `Primer Semestre ${anio} — Enero a Junio`;
+      if (nota)   nota.textContent   = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `Primer semestre ${anio} (Ene–Jul)`);
+      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `Primer Semestre ${anio} — Enero a Julio`);
       if (promEl) promEl.textContent = prom.toFixed(1)+"%";
       if (metaEl) metaEl.textContent = `Ámbito: inversiones · ${ranking.length} pliegos`;
 
@@ -3354,17 +3368,18 @@
       const metaEl = document.getElementById("b2metaB");
       const fechaEl= document.getElementById("b2fechaB");
 
-      if (!STATE.historico || !STATE.historico.semestres[anio]) {
+      const fuenteHist = anio === "2026" ? STATE.historico : fuenteHistorica();
+      if (!fuenteHist || !fuenteHist.semestres[anio]) {
         if (anio === "2026") renderB_desdeArchivos();
         else if (tbody) tbody.innerHTML = `<tr><td colspan="4" style="padding:24px;text-align:center;color:#888">Histórico ${anio} no disponible.</td></tr>`;
         return;
       }
-      const sem     = STATE.historico.semestres[anio];
+      const sem     = fuenteHist.semestres[anio];
       const ranking = sem.ranking_dev_sol || [];
       const maxDev  = ranking.reduce((m,g)=>Math.max(m,g.dev||0),1);
 
-      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : `Primer semestre ${anio} (Ene–Jun)`;
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : `Primer Semestre ${anio} — Enero a Junio`;
+      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `Primer semestre ${anio} (Ene–Jul)`);
+      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `Primer Semestre ${anio} — Enero a Julio`);
       if (metaEl)  metaEl.textContent  = `Ámbito: inversiones · ${ranking.length} pliegos`;
 
       if (tbody) tbody.innerHTML = ranking.map((g,i) => {
@@ -3422,17 +3437,18 @@
       const promEl = document.getElementById("b2promC");
       const fechaEl= document.getElementById("b2fechaC");
 
-      if (!STATE.historico || !STATE.historico.semestres[anio]) {
+      const fuenteHist = anio === "2026" ? STATE.historico : fuenteHistorica();
+      if (!fuenteHist || !fuenteHist.semestres[anio]) {
         if (anio === "2026") renderC_desdeArchivos();
         else if (tbody) tbody.innerHTML = `<tr><td colspan="5" style="padding:24px;text-align:center;color:#888">Histórico ${anio} no disponible.</td></tr>`;
         return;
       }
-      const sem     = STATE.historico.semestres[anio];
+      const sem     = fuenteHist.semestres[anio];
       const ranking = sem.ranking_cert_pct || [];
       const prom    = sem.prom_cert_pct || 0;
 
-      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : `Primer semestre ${anio} (Ene–Jun)`;
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : `Primer Semestre ${anio} — Enero a Junio`;
+      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `Primer semestre ${anio} (Ene–Jul)`);
+      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `Primer Semestre ${anio} — Enero a Julio`);
       if (promEl)  promEl.textContent  = prom.toFixed(1)+"%";
 
       if (tbody) tbody.innerHTML = ranking.map((g,i) => {
