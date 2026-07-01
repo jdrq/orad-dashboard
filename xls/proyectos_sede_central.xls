@@ -144,7 +144,7 @@ body
 </style><body>
 	<table id="hd">
 		<tr>
-			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 30-junio-2026</div><br /><b>Año de Ejecución: <span class='value'>2026</span><br />Incluye: <span class='value'>Sólo Proyectos</span></b></td>
+			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 01-julio-2026</div><br /><b>Año de Ejecución: <span class='value'>2026</span><br />Incluye: <span class='value'>Sólo Proyectos</span></b></td>
 		</tr>
 	</table>
 	
@@ -195,24 +195,24 @@ body
                             14,621,708,053
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="11">
-                            15,709,034,702
+                            15,801,311,392
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="12">
-                            12,703,463,382
+                            12,762,389,407
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="13">
-                            9,313,768,504
+                            9,425,445,027
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="14">
-                            7,635,501,214
+                            7,741,818,548
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="15">
-                            6,486,590,909
+                            6,675,709,619
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="16">
-                            5,963,262,247
+                            6,020,122,898
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;41.3</td>
+                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;42.2</td>
                     </tr>
                 
                     <tr align="right">
@@ -228,24 +228,24 @@ body
                             14,621,708,053
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            15,705,148,758
+                            15,797,425,448
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            12,699,642,911
+                            12,758,568,937
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            9,311,122,054
+                            9,422,798,577
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            7,633,347,373
+                            7,739,664,707
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            6,484,516,873
+                            6,673,635,583
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            5,961,203,294
+                            6,018,063,945
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;41.3</td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;42.2</td>
                     </tr>
                 
                     <tr align="right" class="alt">
@@ -263,21 +263,21 @@ body
                             774,794,996
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="12">
-                            730,787,196
+                            730,837,204
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="13">
-                            602,880,822
+                            603,474,234
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="14">
-                            538,313,329
+                            538,750,357
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="15">
-                            256,731,752
+                            258,850,963
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="16">
-                            239,599,662
+                            240,316,800
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;33.1</td>
+                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;33.4</td>
                     </tr>
                 
                     <tr align="right">
@@ -296,21 +296,21 @@ body
                             456,977,622
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            418,678,023
+                            418,794,071
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            363,169,145
+                            363,414,312
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            350,740,859
+                            350,797,656
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            161,245,249
+                            162,272,379
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
                             146,513,411
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;35.3</td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;35.5</td>
                     </tr>
                 
                     </table>
@@ -343,22 +343,22 @@ body
                                     47,604,096
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    44,942,224
+                                    44,944,009
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    44,934,007
+                                    44,935,792
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
                                     44,918,110
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    39,771,633
+                                    39,775,633
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
                                     38,419,693
                                 </td>
                                 <td style="white-space: nowrap; width: 50px">&nbsp;
-                                    83.5
+                                    83.6
                                 </td>
                             </tr>
                             
@@ -386,7 +386,7 @@ body
                                     48,253,886
                                 </td>
                                 <td>
-                                    19,172,538
+                                    19,190,752
                                 </td>
                                 <td>
                                     12,253,937
@@ -411,16 +411,16 @@ body
                                     49,012,198
                                 </td>
                                 <td>
-                                    48,501,139
+                                    48,502,924
                                 </td>
                                 <td>
-                                    48,459,390
+                                    48,464,313
                                 </td>
                                 <td>
-                                    48,438,270
+                                    48,441,408
                                 </td>
                                 <td>
-                                    16,152,909
+                                    16,160,909
                                 </td>
                                 <td>
                                     16,149,789
@@ -482,19 +482,19 @@ body
                                     7,736,017
                                 </td>
                                 <td>
-                                    7,316,293
+                                    7,423,093
                                 </td>
                                 <td>
                                     7,316,293
                                 </td>
                                 <td>
-                                    6,227,450
+                                    6,374,450
                                 </td>
                                 <td>
                                     5,762,121
                                 </td>
                                 <td>&nbsp;
-                                    66.9
+                                    68.4
                                 </td>
                             </tr>
                             
@@ -692,13 +692,13 @@ body
                                     4,047,860
                                 </td>
                                 <td>
-                                    3,778,806
+                                    3,785,806
                                 </td>
                                 <td>
                                     3,655,149
                                 </td>
                                 <td>&nbsp;
-                                    84.6
+                                    84.8
                                 </td>
                             </tr>
                             
@@ -754,10 +754,10 @@ body
                                     12,972,246
                                 </td>
                                 <td>
-                                    12,348,759
+                                    12,350,789
                                 </td>
                                 <td>
-                                    12,348,759
+                                    12,350,789
                                 </td>
                                 <td>
                                     3,468,916
@@ -1091,27 +1091,61 @@ body
                                     2,800,000
                                 </td>
                                 <td>
+                                    1,428,761
+                                </td>
+                                <td>
+                                    1,423,361
+                                </td>
+                                <td>
                                     1,418,361
                                 </td>
                                 <td>
-                                    1,408,361
-                                </td>
-                                <td>
-                                    1,408,361
-                                </td>
-                                <td>
-                                    1,311,952
+                                    1,318,452
                                 </td>
                                 <td>
                                     1,272,452
                                 </td>
                                 <td>&nbsp;
-                                    46.9
+                                    47.1
                                 </td>
                             </tr>
                             
                         
-                            <tr class="alt" id="tr23" onclick='kCod="2636330";tr_clk(23, this)'
+                            <tr class="alt" id="tr23" onclick='kCod="2711326";tr_clk(23, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2711326: CONSTRUCCION DE COBERTURA, CERCO PERIMETRICO, SERVICIOS HIGIENICOS Y/O VESTIDORES Y PORTICO; ADEMAS DE OTROS ACTIVOS EN EL(LA) RECURSO TURISTICO SANTO TORIBIO DE MOGROVEJO, DISTRITO DE SAÑA, PROVINCIA CHICLAYO, DEPARTAMENTO LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    3,980,668
+                                </td>
+                                <td>
+                                    3,980,665
+                                </td>
+                                <td>
+                                    3,736,246
+                                </td>
+                                <td>
+                                    3,736,246
+                                </td>
+                                <td>
+                                    1,264,231
+                                </td>
+                                <td>
+                                    687,912
+                                </td>
+                                <td>&nbsp;
+                                    31.8
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr24" onclick='kCod="2636330";tr_clk(24, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -1145,7 +1179,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr24" onclick='kCod="2539922";tr_clk(24, this)'
+                            <tr class="alt" id="tr25" onclick='kCod="2539922";tr_clk(25, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -1179,7 +1213,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr25" onclick='kCod="2558508";tr_clk(25, this)'
+                            <tr class="alt" id="tr26" onclick='kCod="2558508";tr_clk(26, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -1196,24 +1230,24 @@ body
                                     9,613,210
                                 </td>
                                 <td>
-                                    9,125,062
+                                    9,127,092
                                 </td>
                                 <td>
-                                    9,125,062
+                                    9,127,092
                                 </td>
                                 <td>
-                                    975,349
+                                    982,349
                                 </td>
                                 <td>
                                     975,349
                                 </td>
                                 <td>&nbsp;
-                                    10.1
+                                    10.2
                                 </td>
                             </tr>
                             
                         
-                            <tr class="alt" id="tr26" onclick='kCod="2473161";tr_clk(26, this)'
+                            <tr class="alt" id="tr27" onclick='kCod="2473161";tr_clk(27, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -1247,7 +1281,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr27" onclick='kCod="2479878";tr_clk(27, this)'
+                            <tr class="alt" id="tr28" onclick='kCod="2479878";tr_clk(28, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -1281,7 +1315,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr28" onclick='kCod="2403649";tr_clk(28, this)'
+                            <tr class="alt" id="tr29" onclick='kCod="2403649";tr_clk(29, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -1315,40 +1349,6 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr29" onclick='kCod="2711326";tr_clk(29, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2711326: CONSTRUCCION DE COBERTURA, CERCO PERIMETRICO, SERVICIOS HIGIENICOS Y/O VESTIDORES Y PORTICO; ADEMAS DE OTROS ACTIVOS EN EL(LA) RECURSO TURISTICO SANTO TORIBIO DE MOGROVEJO, DISTRITO DE SAÑA, PROVINCIA CHICLAYO, DEPARTAMENTO LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    3,980,668
-                                </td>
-                                <td>
-                                    3,980,665
-                                </td>
-                                <td>
-                                    3,736,246
-                                </td>
-                                <td>
-                                    3,736,246
-                                </td>
-                                <td>
-                                    687,912
-                                </td>
-                                <td>
-                                    687,912
-                                </td>
-                                <td>&nbsp;
-                                    17.3
-                                </td>
-                            </tr>
-                            
-                        
                             <tr class="alt" id="tr30" onclick='kCod="2378727";tr_clk(30, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
@@ -1363,7 +1363,7 @@ body
                                     1,004,809
                                 </td>
                                 <td>
-                                    618,174
+                                    647,252
                                 </td>
                                 <td>
                                     614,574
@@ -1383,7 +1383,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr31" onclick='kCod="2078109";tr_clk(31, this)'
+                            <tr class="alt" id="tr31" onclick='kCod="2183351";tr_clk(31, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2183351: AMPLIACION DEL SISTEMA DE AGUA POTABLE Y ALCANTARILLADO DEL II SECTOR DEL P.J. SANTA ANA DEL DISTRITO DE JOSE LEONARDO ORTIZ - CHICLAYO - LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    1,021,401
+                                </td>
+                                <td>
+                                    1,012,397
+                                </td>
+                                <td>
+                                    944,981
+                                </td>
+                                <td>
+                                    944,981
+                                </td>
+                                <td>
+                                    579,918
+                                </td>
+                                <td>
+                                    428,563
+                                </td>
+                                <td>&nbsp;
+                                    56.8
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr32" onclick='kCod="2078109";tr_clk(32, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -1417,7 +1451,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr32" onclick='kCod="2705692";tr_clk(32, this)'
+                            <tr class="alt" id="tr33" onclick='kCod="2705692";tr_clk(33, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -1431,27 +1465,27 @@ body
                                     2,486,754
                                 </td>
                                 <td>
-                                    2,387,831
+                                    2,395,181
                                 </td>
                                 <td>
-                                    1,314,847
+                                    1,322,197
                                 </td>
                                 <td>
                                     1,014,560
                                 </td>
                                 <td>
-                                    555,816
+                                    558,476
                                 </td>
                                 <td>
                                     512,864
                                 </td>
                                 <td>&nbsp;
-                                    22.4
+                                    22.5
                                 </td>
                             </tr>
                             
                         
-                            <tr class="alt" id="tr33" onclick='kCod="2302374";tr_clk(33, this)'
+                            <tr class="alt" id="tr34" onclick='kCod="2302374";tr_clk(34, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -1485,7 +1519,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr34" onclick='kCod="2664744";tr_clk(34, this)'
+                            <tr class="alt" id="tr35" onclick='kCod="2664744";tr_clk(35, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -1515,40 +1549,6 @@ body
                                 </td>
                                 <td>&nbsp;
                                     69.4
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr35" onclick='kCod="2183351";tr_clk(35, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2183351: AMPLIACION DEL SISTEMA DE AGUA POTABLE Y ALCANTARILLADO DEL II SECTOR DEL P.J. SANTA ANA DEL DISTRITO DE JOSE LEONARDO ORTIZ - CHICLAYO - LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    1,021,401
-                                </td>
-                                <td>
-                                    1,012,397
-                                </td>
-                                <td>
-                                    944,981
-                                </td>
-                                <td>
-                                    944,981
-                                </td>
-                                <td>
-                                    498,101
-                                </td>
-                                <td>
-                                    428,563
-                                </td>
-                                <td>&nbsp;
-                                    48.8
                                 </td>
                             </tr>
                             
@@ -1610,13 +1610,13 @@ body
                                     408,562
                                 </td>
                                 <td>
-                                    383,131
+                                    408,562
                                 </td>
                                 <td>
                                     383,131
                                 </td>
                                 <td>&nbsp;
-                                    93.8
+                                    100.0
                                 </td>
                             </tr>
                             
@@ -1814,13 +1814,13 @@ body
                                     386,216
                                 </td>
                                 <td>
-                                    297,238
+                                    304,238
                                 </td>
                                 <td>
                                     246,862
                                 </td>
                                 <td>&nbsp;
-                                    71.0
+                                    72.7
                                 </td>
                             </tr>
                             
@@ -1882,13 +1882,13 @@ body
                                     523,245
                                 </td>
                                 <td>
-                                    267,566
+                                    278,066
                                 </td>
                                 <td>
                                     249,794
                                 </td>
                                 <td>&nbsp;
-                                    2.6
+                                    2.7
                                 </td>
                             </tr>
                             
@@ -2267,7 +2267,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr57" onclick='kCod="2692419";tr_clk(57, this)'
+                            <tr class="alt" id="tr57" onclick='kCod="2692413";tr_clk(57, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2692413: AMPLIACION DE LA CAPACIDAD PRODUCTIVA MEDIANTE LA RENOVACION Y ACTUALIZACION TECNOLOGICA PARA AUMENTAR LA PRODUCCION DE MUEBLES DE SALA EN TAPICERIA Y MUEBLERIA MI HILARITA S.A.C, DISTRITO DE PIMENTEL, PROVINCIA DE CHICLAYO, REGION LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    285,299
+                                </td>
+                                <td>
+                                    167,416
+                                </td>
+                                <td>
+                                    167,416
+                                </td>
+                                <td>
+                                    167,416
+                                </td>
+                                <td>
+                                    126,216
+                                </td>
+                                <td>
+                                    91,100
+                                </td>
+                                <td>&nbsp;
+                                    44.2
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr58" onclick='kCod="2692419";tr_clk(58, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2301,7 +2335,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr58" onclick='kCod="2574482";tr_clk(58, this)'
+                            <tr class="alt" id="tr59" onclick='kCod="2574482";tr_clk(59, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2335,7 +2369,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr59" onclick='kCod="2660321";tr_clk(59, this)'
+                            <tr class="alt" id="tr60" onclick='kCod="2660321";tr_clk(60, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2369,7 +2403,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr60" onclick='kCod="2685078";tr_clk(60, this)'
+                            <tr class="alt" id="tr61" onclick='kCod="2685078";tr_clk(61, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2403,7 +2437,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr61" onclick='kCod="2461431";tr_clk(61, this)'
+                            <tr class="alt" id="tr62" onclick='kCod="2461431";tr_clk(62, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2437,7 +2471,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr62" onclick='kCod="2692405";tr_clk(62, this)'
+                            <tr class="alt" id="tr63" onclick='kCod="2572300";tr_clk(63, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2572300: MEJORAMIENTO DEL SERVICIO EDUCATIVO DEL NIVEL PRIMARIO EN LA I.E. Nº 10824 DE LA LOCALIDAD SAN NICOLAS, DISTRITO DE CHICLAYO - PROVINCIA DE CHICLAYO - DEPARTAMENTO DE LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    429,471
+                                </td>
+                                <td>
+                                    429,471
+                                </td>
+                                <td>
+                                    429,471
+                                </td>
+                                <td>
+                                    429,471
+                                </td>
+                                <td>
+                                    119,494
+                                </td>
+                                <td>
+                                    101,994
+                                </td>
+                                <td>&nbsp;
+                                    27.8
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr64" onclick='kCod="2692405";tr_clk(64, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2471,7 +2539,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr63" onclick='kCod="2495640";tr_clk(63, this)'
+                            <tr class="alt" id="tr65" onclick='kCod="2495640";tr_clk(65, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2505,7 +2573,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr64" onclick='kCod="2611670";tr_clk(64, this)'
+                            <tr class="alt" id="tr66" onclick='kCod="2611670";tr_clk(66, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2539,41 +2607,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr65" onclick='kCod="2572300";tr_clk(65, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2572300: MEJORAMIENTO DEL SERVICIO EDUCATIVO DEL NIVEL PRIMARIO EN LA I.E. Nº 10824 DE LA LOCALIDAD SAN NICOLAS, DISTRITO DE CHICLAYO - PROVINCIA DE CHICLAYO - DEPARTAMENTO DE LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    429,471
-                                </td>
-                                <td>
-                                    429,471
-                                </td>
-                                <td>
-                                    429,471
-                                </td>
-                                <td>
-                                    429,471
-                                </td>
-                                <td>
-                                    112,494
-                                </td>
-                                <td>
-                                    101,994
-                                </td>
-                                <td>&nbsp;
-                                    26.2
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr66" onclick='kCod="2625343";tr_clk(66, this)'
+                            <tr class="alt" id="tr67" onclick='kCod="2625343";tr_clk(67, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2607,7 +2641,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr67" onclick='kCod="2692416";tr_clk(67, this)'
+                            <tr class="alt" id="tr68" onclick='kCod="2692416";tr_clk(68, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2641,7 +2675,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr68" onclick='kCod="2692063";tr_clk(68, this)'
+                            <tr class="alt" id="tr69" onclick='kCod="2692063";tr_clk(69, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2675,7 +2709,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr69" onclick='kCod="2648300";tr_clk(69, this)'
+                            <tr class="alt" id="tr70" onclick='kCod="2648300";tr_clk(70, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2709,7 +2743,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr70" onclick='kCod="2595929";tr_clk(70, this)'
+                            <tr class="alt" id="tr71" onclick='kCod="2595929";tr_clk(71, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2743,7 +2777,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr71" onclick='kCod="2710045";tr_clk(71, this)'
+                            <tr class="alt" id="tr72" onclick='kCod="2710045";tr_clk(72, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2777,7 +2811,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr72" onclick='kCod="2692095";tr_clk(72, this)'
+                            <tr class="alt" id="tr73" onclick='kCod="2692095";tr_clk(73, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2811,7 +2845,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr73" onclick='kCod="2660597";tr_clk(73, this)'
+                            <tr class="alt" id="tr74" onclick='kCod="2660597";tr_clk(74, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2845,7 +2879,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr74" onclick='kCod="2692043";tr_clk(74, this)'
+                            <tr class="alt" id="tr75" onclick='kCod="2692043";tr_clk(75, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2879,7 +2913,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr75" onclick='kCod="2692062";tr_clk(75, this)'
+                            <tr class="alt" id="tr76" onclick='kCod="2692062";tr_clk(76, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2913,7 +2947,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr76" onclick='kCod="2692056";tr_clk(76, this)'
+                            <tr class="alt" id="tr77" onclick='kCod="2692056";tr_clk(77, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2947,7 +2981,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr77" onclick='kCod="2692438";tr_clk(77, this)'
+                            <tr class="alt" id="tr78" onclick='kCod="2692438";tr_clk(78, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2977,40 +3011,6 @@ body
                                 </td>
                                 <td>&nbsp;
                                     58.2
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr78" onclick='kCod="2692413";tr_clk(78, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2692413: AMPLIACION DE LA CAPACIDAD PRODUCTIVA MEDIANTE LA RENOVACION Y ACTUALIZACION TECNOLOGICA PARA AUMENTAR LA PRODUCCION DE MUEBLES DE SALA EN TAPICERIA Y MUEBLERIA MI HILARITA S.A.C, DISTRITO DE PIMENTEL, PROVINCIA DE CHICLAYO, REGION LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    285,299
-                                </td>
-                                <td>
-                                    167,416
-                                </td>
-                                <td>
-                                    167,416
-                                </td>
-                                <td>
-                                    167,416
-                                </td>
-                                <td>
-                                    91,100
-                                </td>
-                                <td>
-                                    91,100
-                                </td>
-                                <td>&nbsp;
-                                    31.9
                                 </td>
                             </tr>
                             
@@ -3219,7 +3219,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr85" onclick='kCod="2615505";tr_clk(85, this)'
+                            <tr class="alt" id="tr85" onclick='kCod="2334707";tr_clk(85, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2334707: CREACION DE LOS SERVICIOS DE EDUCACION SECUNDARIA ESCOLARIZADA EN LA I.E FRANCISCO I DE LA LOCALIDAD VILLA DEL MAR-LA PRADERA DEL DISTRITO DE PIMENTEL, PROVINCIA DE CHICLAYO, DEPARTAMENTO DE LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    9,502,784
+                                </td>
+                                <td>
+                                    183,305
+                                </td>
+                                <td>
+                                    181,500
+                                </td>
+                                <td>
+                                    165,500
+                                </td>
+                                <td>
+                                    165,500
+                                </td>
+                                <td>
+                                    79,500
+                                </td>
+                                <td>
+                                    46,000
+                                </td>
+                                <td>&nbsp;
+                                    43.4
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr86" onclick='kCod="2615505";tr_clk(86, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3253,7 +3287,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr86" onclick='kCod="2692112";tr_clk(86, this)'
+                            <tr class="alt" id="tr87" onclick='kCod="2692112";tr_clk(87, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3270,10 +3304,10 @@ body
                                     123,050
                                 </td>
                                 <td>
-                                    83,450
+                                    123,050
                                 </td>
                                 <td>
-                                    83,450
+                                    123,050
                                 </td>
                                 <td>
                                     77,050
@@ -3287,7 +3321,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr87" onclick='kCod="2692090";tr_clk(87, this)'
+                            <tr class="alt" id="tr88" onclick='kCod="2692090";tr_clk(88, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3321,7 +3355,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr88" onclick='kCod="2628683";tr_clk(88, this)'
+                            <tr class="alt" id="tr89" onclick='kCod="2628683";tr_clk(89, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3355,7 +3389,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr89" onclick='kCod="2692096";tr_clk(89, this)'
+                            <tr class="alt" id="tr90" onclick='kCod="2692096";tr_clk(90, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3389,7 +3423,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr90" onclick='kCod="2692362";tr_clk(90, this)'
+                            <tr class="alt" id="tr91" onclick='kCod="2692362";tr_clk(91, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3412,18 +3446,18 @@ body
                                     73,240
                                 </td>
                                 <td>
-                                    72,490
+                                    73,240
                                 </td>
                                 <td>
                                     72,490
                                 </td>
                                 <td>&nbsp;
-                                    86.5
+                                    87.4
                                 </td>
                             </tr>
                             
                         
-                            <tr class="alt" id="tr91" onclick='kCod="2703798";tr_clk(91, this)'
+                            <tr class="alt" id="tr92" onclick='kCod="2703798";tr_clk(92, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3457,7 +3491,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr92" onclick='kCod="2660814";tr_clk(92, this)'
+                            <tr class="alt" id="tr93" onclick='kCod="2660814";tr_clk(93, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3491,7 +3525,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr93" onclick='kCod="2692085";tr_clk(93, this)'
+                            <tr class="alt" id="tr94" onclick='kCod="2692085";tr_clk(94, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3525,7 +3559,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr94" onclick='kCod="2692088";tr_clk(94, this)'
+                            <tr class="alt" id="tr95" onclick='kCod="2692088";tr_clk(95, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3559,7 +3593,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr95" onclick='kCod="2661914";tr_clk(95, this)'
+                            <tr class="alt" id="tr96" onclick='kCod="2661914";tr_clk(96, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3593,7 +3627,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr96" onclick='kCod="2539983";tr_clk(96, this)'
+                            <tr class="alt" id="tr97" onclick='kCod="2539983";tr_clk(97, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3627,7 +3661,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr97" onclick='kCod="2671675";tr_clk(97, this)'
+                            <tr class="alt" id="tr98" onclick='kCod="2671675";tr_clk(98, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3661,7 +3695,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr98" onclick='kCod="2668006";tr_clk(98, this)'
+                            <tr class="alt" id="tr99" onclick='kCod="2668006";tr_clk(99, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3695,7 +3729,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr99" onclick='kCod="2674152";tr_clk(99, this)'
+                            <tr class="alt" id="tr100" onclick='kCod="2674152";tr_clk(100, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3729,7 +3763,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr100" onclick='kCod="2692447";tr_clk(100, this)'
+                            <tr class="alt" id="tr101" onclick='kCod="2692447";tr_clk(101, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3763,7 +3797,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr101" onclick='kCod="2697936";tr_clk(101, this)'
+                            <tr class="alt" id="tr102" onclick='kCod="2697936";tr_clk(102, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3793,40 +3827,6 @@ body
                                 </td>
                                 <td>&nbsp;
                                     19.2
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr102" onclick='kCod="2334707";tr_clk(102, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2334707: CREACION DE LOS SERVICIOS DE EDUCACION SECUNDARIA ESCOLARIZADA EN LA I.E FRANCISCO I DE LA LOCALIDAD VILLA DEL MAR-LA PRADERA DEL DISTRITO DE PIMENTEL, PROVINCIA DE CHICLAYO, DEPARTAMENTO DE LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    9,502,784
-                                </td>
-                                <td>
-                                    183,305
-                                </td>
-                                <td>
-                                    181,500
-                                </td>
-                                <td>
-                                    165,500
-                                </td>
-                                <td>
-                                    165,500
-                                </td>
-                                <td>
-                                    53,500
-                                </td>
-                                <td>
-                                    46,000
-                                </td>
-                                <td>&nbsp;
-                                    29.2
                                 </td>
                             </tr>
                             
@@ -4239,7 +4239,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr115" onclick='kCod="2400745";tr_clk(115, this)'
+                            <tr class="alt" id="tr115" onclick='kCod="2674150";tr_clk(115, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2674150: CREACION DEL SERVICIO DE SUMINISTRO ELECTRICO DOMICILIARIO EN ZONAS RURALES EN LAS LOCALIDADES DE LOS DISTRITOS DE LAMBAYEQUE, MOTUPE, SALAS, MORROPE Y CHOCHOPE DISTRITO DE LAMBAYEQUE DE LA PROVINCIA DE LAMBAYEQUE DEL DEPARTAMENTO DE LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    160,000
+                                </td>
+                                <td>
+                                    87,000
+                                </td>
+                                <td>
+                                    87,000
+                                </td>
+                                <td>
+                                    87,000
+                                </td>
+                                <td>
+                                    39,000
+                                </td>
+                                <td>
+                                    26,000
+                                </td>
+                                <td>&nbsp;
+                                    24.4
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr116" onclick='kCod="2400745";tr_clk(116, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4273,7 +4307,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr116" onclick='kCod="2692383";tr_clk(116, this)'
+                            <tr class="alt" id="tr117" onclick='kCod="2692383";tr_clk(117, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4307,7 +4341,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr117" onclick='kCod="2692382";tr_clk(117, this)'
+                            <tr class="alt" id="tr118" onclick='kCod="2692382";tr_clk(118, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4337,40 +4371,6 @@ body
                                 </td>
                                 <td>&nbsp;
                                     12.6
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr118" onclick='kCod="2674150";tr_clk(118, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2674150: CREACION DEL SERVICIO DE SUMINISTRO ELECTRICO DOMICILIARIO EN ZONAS RURALES EN LAS LOCALIDADES DE LOS DISTRITOS DE LAMBAYEQUE, MOTUPE, SALAS, MORROPE Y CHOCHOPE DISTRITO DE LAMBAYEQUE DE LA PROVINCIA DE LAMBAYEQUE DEL DEPARTAMENTO DE LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    160,000
-                                </td>
-                                <td>
-                                    87,000
-                                </td>
-                                <td>
-                                    87,000
-                                </td>
-                                <td>
-                                    87,000
-                                </td>
-                                <td>
-                                    35,500
-                                </td>
-                                <td>
-                                    26,000
-                                </td>
-                                <td>&nbsp;
-                                    22.2
                                 </td>
                             </tr>
                             
@@ -4511,7 +4511,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr123" onclick='kCod="2697934";tr_clk(123, this)'
+                            <tr class="alt" id="tr123" onclick='kCod="2692367";tr_clk(123, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2692367: MEJORAMIENTO DE LA PRODUCCION DE ESTRUCTURAS METALICAS DE LA EMPRESA TRACTO ISAP SAC DEL DISTRITO DE FERRENAFE, PROVINCIA FERRENAFE, REGION LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    294,700
+                                </td>
+                                <td>
+                                    44,630
+                                </td>
+                                <td>
+                                    44,630
+                                </td>
+                                <td>
+                                    44,630
+                                </td>
+                                <td>
+                                    25,500
+                                </td>
+                                <td>
+                                    20,000
+                                </td>
+                                <td>&nbsp;
+                                    8.7
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr124" onclick='kCod="2697934";tr_clk(124, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4545,7 +4579,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr124" onclick='kCod="2194345";tr_clk(124, this)'
+                            <tr class="alt" id="tr125" onclick='kCod="2194345";tr_clk(125, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4579,7 +4613,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr125" onclick='kCod="2692410";tr_clk(125, this)'
+                            <tr class="alt" id="tr126" onclick='kCod="2692410";tr_clk(126, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4613,7 +4647,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr126" onclick='kCod="2692423";tr_clk(126, this)'
+                            <tr class="alt" id="tr127" onclick='kCod="2661120";tr_clk(127, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2661120: MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE EDUCACION SECUNDARIA EN I.E. JOSE ABELARDO QUIÑONES GONZALES DISTRITO DE OYOTUN DE LA PROVINCIA DE CHICLAYO DEL DEPARTAMENTO DE LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    433,117
+                                </td>
+                                <td>
+                                    53,500
+                                </td>
+                                <td>
+                                    53,500
+                                </td>
+                                <td>
+                                    53,500
+                                </td>
+                                <td>
+                                    22,500
+                                </td>
+                                <td>
+                                    15,500
+                                </td>
+                                <td>&nbsp;
+                                    5.2
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr128" onclick='kCod="2692423";tr_clk(128, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4627,10 +4695,10 @@ body
                                     210,000
                                 </td>
                                 <td>
-                                    197,800
+                                    198,820
                                 </td>
                                 <td>
-                                    35,800
+                                    36,820
                                 </td>
                                 <td>
                                     35,800
@@ -4647,7 +4715,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr127" onclick='kCod="2605279";tr_clk(127, this)'
+                            <tr class="alt" id="tr129" onclick='kCod="2605279";tr_clk(129, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4681,7 +4749,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr128" onclick='kCod="2714219";tr_clk(128, this)'
+                            <tr class="alt" id="tr130" onclick='kCod="2714219";tr_clk(130, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4715,7 +4783,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr129" onclick='kCod="2427163";tr_clk(129, this)'
+                            <tr class="alt" id="tr131" onclick='kCod="2427163";tr_clk(131, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4749,41 +4817,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr130" onclick='kCod="2692367";tr_clk(130, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2692367: MEJORAMIENTO DE LA PRODUCCION DE ESTRUCTURAS METALICAS DE LA EMPRESA TRACTO ISAP SAC DEL DISTRITO DE FERRENAFE, PROVINCIA FERRENAFE, REGION LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    294,700
-                                </td>
-                                <td>
-                                    44,630
-                                </td>
-                                <td>
-                                    44,630
-                                </td>
-                                <td>
-                                    44,630
-                                </td>
-                                <td>
-                                    20,000
-                                </td>
-                                <td>
-                                    20,000
-                                </td>
-                                <td>&nbsp;
-                                    6.8
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr131" onclick='kCod="2499232";tr_clk(131, this)'
+                            <tr class="alt" id="tr132" onclick='kCod="2499232";tr_clk(132, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4817,7 +4851,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr132" onclick='kCod="2692399";tr_clk(132, this)'
+                            <tr class="alt" id="tr133" onclick='kCod="2692399";tr_clk(133, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4851,7 +4885,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr133" onclick='kCod="2608975";tr_clk(133, this)'
+                            <tr class="alt" id="tr134" onclick='kCod="2608975";tr_clk(134, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4885,7 +4919,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr134" onclick='kCod="2692101";tr_clk(134, this)'
+                            <tr class="alt" id="tr135" onclick='kCod="2692101";tr_clk(135, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4919,7 +4953,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr135" onclick='kCod="2094680";tr_clk(135, this)'
+                            <tr class="alt" id="tr136" onclick='kCod="2094680";tr_clk(136, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4953,7 +4987,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr136" onclick='kCod="2042271";tr_clk(136, this)'
+                            <tr class="alt" id="tr137" onclick='kCod="2042271";tr_clk(137, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4987,7 +5021,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr137" onclick='kCod="2709501";tr_clk(137, this)'
+                            <tr class="alt" id="tr138" onclick='kCod="2709501";tr_clk(138, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5021,7 +5055,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr138" onclick='kCod="2199528";tr_clk(138, this)'
+                            <tr class="alt" id="tr139" onclick='kCod="2199528";tr_clk(139, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5051,40 +5085,6 @@ body
                                 </td>
                                 <td>&nbsp;
                                     100.0
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr139" onclick='kCod="2661120";tr_clk(139, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2661120: MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE EDUCACION SECUNDARIA EN I.E. JOSE ABELARDO QUIÑONES GONZALES DISTRITO DE OYOTUN DE LA PROVINCIA DE CHICLAYO DEL DEPARTAMENTO DE LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    433,117
-                                </td>
-                                <td>
-                                    53,500
-                                </td>
-                                <td>
-                                    53,500
-                                </td>
-                                <td>
-                                    53,500
-                                </td>
-                                <td>
-                                    15,500
-                                </td>
-                                <td>
-                                    15,500
-                                </td>
-                                <td>&nbsp;
-                                    3.6
                                 </td>
                             </tr>
                             
@@ -5225,7 +5225,75 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr144" onclick='kCod="2495403";tr_clk(144, this)'
+                            <tr class="alt" id="tr144" onclick='kCod="2692448";tr_clk(144, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2692448: MEJORAMIENTO DE LA PRODUCCION Y CALIDAD GENETICA DE GANADO OVINO DE LA ASOCIACION DE PRODUCTORES AGROPECUARIOS FORESTALES Y ARTESANALES JUNTOS POR EL PROGRESO DEL CASERIO NUEVA ESPERANZA,DEL DISTRITO DE CANARIS,PROVINCIA FERRENAFE, REGION LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    175,000
+                                </td>
+                                <td>
+                                    21,800
+                                </td>
+                                <td>
+                                    21,800
+                                </td>
+                                <td>
+                                    21,800
+                                </td>
+                                <td>
+                                    11,800
+                                </td>
+                                <td>
+                                    8,400
+                                </td>
+                                <td>&nbsp;
+                                    6.7
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr145" onclick='kCod="2692401";tr_clk(145, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2692401: MEJORAMIENTO DE LA PRODUCCION DE PALTA HASS CON LA IMPLEMENTACION MAQUINARIA Y EQUIPO TECNOLOGICO DE LA EMPRESA BIOSAVE S.C.R.L DEL DISTRITO DE CHICLAYO, PROVINCIA DE CHICLAYO, DEPARTAMENTO DE LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    294,000
+                                </td>
+                                <td>
+                                    51,300
+                                </td>
+                                <td>
+                                    51,300
+                                </td>
+                                <td>
+                                    51,300
+                                </td>
+                                <td>
+                                    11,800
+                                </td>
+                                <td>
+                                    3,000
+                                </td>
+                                <td>&nbsp;
+                                    4.0
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr146" onclick='kCod="2495403";tr_clk(146, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5259,7 +5327,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr145" onclick='kCod="2717703";tr_clk(145, this)'
+                            <tr class="alt" id="tr147" onclick='kCod="2692403";tr_clk(147, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2692403: MEJORAMIENTO DE LA PRODUCCION Y COMERCIALIZACION DE PORCINOS, EN LA ASOCIACION LA GRANJA DE WAYO WAYO, DEL CENTRO POBLADO DE MOCUPE. DISTRITO DE LAGUNAS, PROVINCIA DE CHICLAYO, REGION DE LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    11,200
+                                </td>
+                                <td>
+                                    11,200
+                                </td>
+                                <td>
+                                    11,200
+                                </td>
+                                <td>
+                                    11,200
+                                </td>
+                                <td>
+                                    11,200
+                                </td>
+                                <td>
+                                    10,275
+                                </td>
+                                <td>&nbsp;
+                                    100.0
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr148" onclick='kCod="2717703";tr_clk(148, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5293,7 +5395,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr146" onclick='kCod="2692057";tr_clk(146, this)'
+                            <tr class="alt" id="tr149" onclick='kCod="2692057";tr_clk(149, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5327,109 +5429,109 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr147" onclick='kCod="2692403";tr_clk(147, this)'
+                            <tr class="alt" id="tr150" onclick='kCod="2692058";tr_clk(150, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
-                                    2692403: MEJORAMIENTO DE LA PRODUCCION Y COMERCIALIZACION DE PORCINOS, EN LA ASOCIACION LA GRANJA DE WAYO WAYO, DEL CENTRO POBLADO DE MOCUPE. DISTRITO DE LAGUNAS, PROVINCIA DE CHICLAYO, REGION DE LAMBAYEQUE
+                                    2692058: AMPLIACION DEL PROCESO DE PRODUCCION DE HUEVOS DE GALLINAS HY LINE BROWN EN LA ASOCIACION DE PRODUCTORES Y COMERCIALIZADORES DE HUEVO LA UNION, DISTRITO SAN JOSE, PROVINCIA LAMBAYEQUE, REGION LAMBAYEQUE
                                     
                                 </td>
                                 <td>
                                     0
                                 </td>
                                 <td>
-                                    11,200
+                                    98,569
                                 </td>
                                 <td>
-                                    11,200
+                                    50,260
                                 </td>
                                 <td>
-                                    11,200
+                                    37,700
                                 </td>
                                 <td>
-                                    11,200
+                                    21,800
                                 </td>
                                 <td>
-                                    10,275
+                                    9,600
                                 </td>
                                 <td>
-                                    10,275
+                                    2,700
                                 </td>
                                 <td>&nbsp;
-                                    91.7
+                                    9.7
                                 </td>
                             </tr>
                             
                         
-                            <tr class="alt" id="tr148" onclick='kCod="2692448";tr_clk(148, this)'
+                            <tr class="alt" id="tr151" onclick='kCod="2692065";tr_clk(151, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
-                                    2692448: MEJORAMIENTO DE LA PRODUCCION Y CALIDAD GENETICA DE GANADO OVINO DE LA ASOCIACION DE PRODUCTORES AGROPECUARIOS FORESTALES Y ARTESANALES JUNTOS POR EL PROGRESO DEL CASERIO NUEVA ESPERANZA,DEL DISTRITO DE CANARIS,PROVINCIA FERRENAFE, REGION LAMBAYEQUE
+                                    2692065: AMPLIACION DE LA PRODUCCION DE HUEVOS CON LA INSERCION DE GALLINAS HY LINE BROWN EN LA ASOCIACION PECUARIA EL MIRADOR, DISTRITO JAYANCA, PROVINCIA LAMBAYEQUE, REGION LAMBAYEQUE
                                     
                                 </td>
                                 <td>
                                     0
                                 </td>
                                 <td>
-                                    175,000
+                                    155,374
                                 </td>
                                 <td>
-                                    21,800
+                                    73,190
                                 </td>
                                 <td>
-                                    21,800
+                                    57,110
                                 </td>
                                 <td>
-                                    21,800
+                                    31,500
                                 </td>
                                 <td>
-                                    8,400
+                                    9,500
                                 </td>
                                 <td>
-                                    8,400
+                                    3,500
                                 </td>
                                 <td>&nbsp;
-                                    4.8
+                                    6.1
                                 </td>
                             </tr>
                             
                         
-                            <tr class="alt" id="tr149" onclick='kCod="2692401";tr_clk(149, this)'
+                            <tr class="alt" id="tr152" onclick='kCod="2692045";tr_clk(152, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
-                                    2692401: MEJORAMIENTO DE LA PRODUCCION DE PALTA HASS CON LA IMPLEMENTACION MAQUINARIA Y EQUIPO TECNOLOGICO DE LA EMPRESA BIOSAVE S.C.R.L DEL DISTRITO DE CHICLAYO, PROVINCIA DE CHICLAYO, DEPARTAMENTO DE LAMBAYEQUE
+                                    2692045: MEJORAMIENTO DE LA PRODUCCION ZANAHORIA ORGANICA DE LA ASOCIACION DE AGRICULTORES MUCHIK CALLANCA EN LA ZONA DE RAMA CUSTODIO CALLANCA, DISTRITO DE MONSEFU, PROVINCIA DE CHICLAYO, REGION DE LAMBAYEQUE
                                     
                                 </td>
                                 <td>
                                     0
                                 </td>
                                 <td>
-                                    294,000
+                                    210,000
                                 </td>
                                 <td>
-                                    51,300
+                                    36,900
                                 </td>
                                 <td>
-                                    51,300
+                                    36,900
                                 </td>
                                 <td>
-                                    51,300
+                                    36,900
                                 </td>
                                 <td>
-                                    8,400
+                                    8,600
                                 </td>
                                 <td>
-                                    3,000
+                                    6,100
                                 </td>
                                 <td>&nbsp;
-                                    2.9
+                                    4.1
                                 </td>
                             </tr>
                             
                         
-                            <tr class="alt" id="tr150" onclick='kCod="2692134";tr_clk(150, this)'
+                            <tr class="alt" id="tr153" onclick='kCod="2692134";tr_clk(153, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5463,7 +5565,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr151" onclick='kCod="2692435";tr_clk(151, this)'
+                            <tr class="alt" id="tr154" onclick='kCod="2692435";tr_clk(154, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5497,7 +5599,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr152" onclick='kCod="2692098";tr_clk(152, this)'
+                            <tr class="alt" id="tr155" onclick='kCod="2692098";tr_clk(155, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5531,7 +5633,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr153" onclick='kCod="2692365";tr_clk(153, this)'
+                            <tr class="alt" id="tr156" onclick='kCod="2692365";tr_clk(156, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5565,7 +5667,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr154" onclick='kCod="2692436";tr_clk(154, this)'
+                            <tr class="alt" id="tr157" onclick='kCod="2692436";tr_clk(157, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5599,41 +5701,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr155" onclick='kCod="2692045";tr_clk(155, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2692045: MEJORAMIENTO DE LA PRODUCCION ZANAHORIA ORGANICA DE LA ASOCIACION DE AGRICULTORES MUCHIK CALLANCA EN LA ZONA DE RAMA CUSTODIO CALLANCA, DISTRITO DE MONSEFU, PROVINCIA DE CHICLAYO, REGION DE LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    210,000
-                                </td>
-                                <td>
-                                    36,900
-                                </td>
-                                <td>
-                                    36,900
-                                </td>
-                                <td>
-                                    36,900
-                                </td>
-                                <td>
-                                    6,100
-                                </td>
-                                <td>
-                                    6,100
-                                </td>
-                                <td>&nbsp;
-                                    2.9
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr156" onclick='kCod="2722750";tr_clk(156, this)'
+                            <tr class="alt" id="tr158" onclick='kCod="2722750";tr_clk(158, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5667,7 +5735,75 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr157" onclick='kCod="2692097";tr_clk(157, this)'
+                            <tr class="alt" id="tr159" onclick='kCod="2692102";tr_clk(159, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2692102: MEJORAMIENTO DE LINEA GENETICA EN GALLINAS REPRODUCTORAS PARA EL INCREMENTO DE LA PRODUCCION DE HUEVOS EN LA ASOCIACION DE PRODUCTORES AGROPECUARIOS RUMY, DISTRITO SALAS, PROVINCIA LAMBAYEQUE, REGION LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    97,589
+                                </td>
+                                <td>
+                                    16,000
+                                </td>
+                                <td>
+                                    16,000
+                                </td>
+                                <td>
+                                    16,000
+                                </td>
+                                <td>
+                                    6,000
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>&nbsp;
+                                    6.1
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr160" onclick='kCod="2692434";tr_clk(160, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2692434: MEJORAMIENTO DE LA PRODUCCION DEL GANADO VACUNO DE DOBLE PROPOSITO DE LA ASOCIACION DE PRODUCTORES AGROPECUARIOS FAMILIA MANAYAY CASERIO SAN GREGORIO CANARIS EN EL DISTRITO DE CANARIS, PROVINCIA DE FERRENAFE, REGION LAMBAYEQUE.
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    80,000
+                                </td>
+                                <td>
+                                    15,400
+                                </td>
+                                <td>
+                                    15,400
+                                </td>
+                                <td>
+                                    15,400
+                                </td>
+                                <td>
+                                    5,800
+                                </td>
+                                <td>
+                                    3,800
+                                </td>
+                                <td>&nbsp;
+                                    7.3
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr161" onclick='kCod="2692097";tr_clk(161, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5701,7 +5837,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr158" onclick='kCod="2692039";tr_clk(158, this)'
+                            <tr class="alt" id="tr162" onclick='kCod="2692039";tr_clk(162, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5735,7 +5871,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr159" onclick='kCod="2692377";tr_clk(159, this)'
+                            <tr class="alt" id="tr163" onclick='kCod="2692402";tr_clk(163, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2692402: MEJORAMIENTO DE LA PRODUCCION DEL GANADO VACUNO DE DOBLE PROPOSITO DE LA ASOCIACION DE GANADEROS LECHEROS DE CANARIS, EN EL CASERIO TOTORAS PAMPA VERDE, DISTRITO DE CANARIS, PROVINCIA DE FERRENAFE, REGION LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    160,000
+                                </td>
+                                <td>
+                                    14,800
+                                </td>
+                                <td>
+                                    14,800
+                                </td>
+                                <td>
+                                    14,800
+                                </td>
+                                <td>
+                                    5,400
+                                </td>
+                                <td>
+                                    2,700
+                                </td>
+                                <td>&nbsp;
+                                    3.4
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr164" onclick='kCod="2692377";tr_clk(164, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5769,7 +5939,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr160" onclick='kCod="2495401";tr_clk(160, this)'
+                            <tr class="alt" id="tr165" onclick='kCod="2495401";tr_clk(165, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5803,7 +5973,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr161" onclick='kCod="2692087";tr_clk(161, this)'
+                            <tr class="alt" id="tr166" onclick='kCod="2692087";tr_clk(166, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5837,7 +6007,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr162" onclick='kCod="2600941";tr_clk(162, this)'
+                            <tr class="alt" id="tr167" onclick='kCod="2600941";tr_clk(167, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5871,41 +6041,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr163" onclick='kCod="2692434";tr_clk(163, this)'
+                            <tr class="alt" id="tr168" onclick='kCod="2692388";tr_clk(168, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
-                                    2692434: MEJORAMIENTO DE LA PRODUCCION DEL GANADO VACUNO DE DOBLE PROPOSITO DE LA ASOCIACION DE PRODUCTORES AGROPECUARIOS FAMILIA MANAYAY CASERIO SAN GREGORIO CANARIS EN EL DISTRITO DE CANARIS, PROVINCIA DE FERRENAFE, REGION LAMBAYEQUE.
+                                    2692388: MEJORAMIENTO EN LA PRODUCCION DE ALIMENTO BALANCEADO MEDIANTE LA TECNIFICACION DE SUS PROCESOS PARA INCREMENTAR LA EFICIENCIA PRODUCTIVA EN VICTOR MANUEL VM SAC EN EL DISTRITO DE JOSE LEONARDO ORTIZ, PROVINCIA DE CHICLAYO, REGION LAMBAYEQUE
                                     
                                 </td>
                                 <td>
                                     0
                                 </td>
                                 <td>
-                                    80,000
+                                    303,584
                                 </td>
                                 <td>
-                                    15,400
+                                    40,000
                                 </td>
                                 <td>
-                                    15,400
+                                    40,000
                                 </td>
                                 <td>
-                                    15,400
+                                    40,000
                                 </td>
                                 <td>
-                                    3,800
+                                    3,500
                                 </td>
                                 <td>
-                                    3,800
+                                    2,000
                                 </td>
                                 <td>&nbsp;
-                                    4.8
+                                    1.2
                                 </td>
                             </tr>
                             
                         
-                            <tr class="alt" id="tr164" onclick='kCod="2692135";tr_clk(164, this)'
+                            <tr class="alt" id="tr169" onclick='kCod="2692135";tr_clk(169, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5939,33 +6109,67 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr165" onclick='kCod="2692065";tr_clk(165, this)'
+                            <tr class="alt" id="tr170" onclick='kCod="2692449";tr_clk(170, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
-                                    2692065: AMPLIACION DE LA PRODUCCION DE HUEVOS CON LA INSERCION DE GALLINAS HY LINE BROWN EN LA ASOCIACION PECUARIA EL MIRADOR, DISTRITO JAYANCA, PROVINCIA LAMBAYEQUE, REGION LAMBAYEQUE
+                                    2692449: MEJORAMIENTO DE LA CRIANZA DE GANADO VACUNO DE LA ASOCIACION DE PRODUCTORES AGRARIOS Y GANADEROS UNION CAJAMARCA, DISTRITO DE PACORA, PROVINCIA DE LAMBAYEQUE, REGION LAMBAYEQUE
                                     
                                 </td>
                                 <td>
                                     0
                                 </td>
                                 <td>
-                                    155,374
+                                    326,200
                                 </td>
                                 <td>
-                                    47,580
+                                    73,200
                                 </td>
                                 <td>
-                                    31,500
+                                    73,200
                                 </td>
                                 <td>
-                                    31,500
+                                    73,200
                                 </td>
                                 <td>
-                                    3,500
+                                    3,000
                                 </td>
                                 <td>
-                                    3,500
+                                    0
+                                </td>
+                                <td>&nbsp;
+                                    0.9
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr171" onclick='kCod="2692035";tr_clk(171, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2692035: MEJORAMIENTO DE LA PRODUCCION DE LECHE DE LA ASOCIACION LOS TORITOS, EN EL DISTRITO DE SAN JOSE, PROVINCIA DE LAMBAYEQUE, REGION LAMBAYEQUE.
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    107,439
+                                </td>
+                                <td>
+                                    17,750
+                                </td>
+                                <td>
+                                    17,750
+                                </td>
+                                <td>
+                                    17,750
+                                </td>
+                                <td>
+                                    2,500
+                                </td>
+                                <td>
+                                    0
                                 </td>
                                 <td>&nbsp;
                                     2.3
@@ -5973,75 +6177,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr166" onclick='kCod="2692402";tr_clk(166, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2692402: MEJORAMIENTO DE LA PRODUCCION DEL GANADO VACUNO DE DOBLE PROPOSITO DE LA ASOCIACION DE GANADEROS LECHEROS DE CANARIS, EN EL CASERIO TOTORAS PAMPA VERDE, DISTRITO DE CANARIS, PROVINCIA DE FERRENAFE, REGION LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    160,000
-                                </td>
-                                <td>
-                                    14,800
-                                </td>
-                                <td>
-                                    14,800
-                                </td>
-                                <td>
-                                    14,800
-                                </td>
-                                <td>
-                                    2,700
-                                </td>
-                                <td>
-                                    2,700
-                                </td>
-                                <td>&nbsp;
-                                    1.7
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr167" onclick='kCod="2692058";tr_clk(167, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2692058: AMPLIACION DEL PROCESO DE PRODUCCION DE HUEVOS DE GALLINAS HY LINE BROWN EN LA ASOCIACION DE PRODUCTORES Y COMERCIALIZADORES DE HUEVO LA UNION, DISTRITO SAN JOSE, PROVINCIA LAMBAYEQUE, REGION LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    98,569
-                                </td>
-                                <td>
-                                    34,360
-                                </td>
-                                <td>
-                                    21,800
-                                </td>
-                                <td>
-                                    21,800
-                                </td>
-                                <td>
-                                    2,700
-                                </td>
-                                <td>
-                                    2,700
-                                </td>
-                                <td>&nbsp;
-                                    2.7
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr168" onclick='kCod="2692371";tr_clk(168, this)'
+                            <tr class="alt" id="tr172" onclick='kCod="2692371";tr_clk(172, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6075,41 +6211,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr169" onclick='kCod="2692388";tr_clk(169, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2692388: MEJORAMIENTO EN LA PRODUCCION DE ALIMENTO BALANCEADO MEDIANTE LA TECNIFICACION DE SUS PROCESOS PARA INCREMENTAR LA EFICIENCIA PRODUCTIVA EN VICTOR MANUEL VM SAC EN EL DISTRITO DE JOSE LEONARDO ORTIZ, PROVINCIA DE CHICLAYO, REGION LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    303,584
-                                </td>
-                                <td>
-                                    40,000
-                                </td>
-                                <td>
-                                    40,000
-                                </td>
-                                <td>
-                                    40,000
-                                </td>
-                                <td>
-                                    2,000
-                                </td>
-                                <td>
-                                    2,000
-                                </td>
-                                <td>&nbsp;
-                                    0.7
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr170" onclick='kCod="2692032";tr_clk(170, this)'
+                            <tr class="alt" id="tr173" onclick='kCod="2692032";tr_clk(173, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6143,7 +6245,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr171" onclick='kCod="2697922";tr_clk(171, this)'
+                            <tr class="alt" id="tr174" onclick='kCod="2697922";tr_clk(174, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6157,10 +6259,10 @@ body
                                     136,000
                                 </td>
                                 <td>
-                                    9,676
+                                    27,676
                                 </td>
                                 <td>
-                                    9,676
+                                    27,676
                                 </td>
                                 <td>
                                     9,676
@@ -6177,7 +6279,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr172" onclick='kCod="2692384";tr_clk(172, this)'
+                            <tr class="alt" id="tr175" onclick='kCod="2692384";tr_clk(175, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6211,7 +6313,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr173" onclick='kCod="2728950";tr_clk(173, this)'
+                            <tr class="alt" id="tr176" onclick='kCod="2728950";tr_clk(176, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6245,7 +6347,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr174" onclick='kCod="2722789";tr_clk(174, this)'
+                            <tr class="alt" id="tr177" onclick='kCod="2722789";tr_clk(177, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6279,7 +6381,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr175" onclick='kCod="2722730";tr_clk(175, this)'
+                            <tr class="alt" id="tr178" onclick='kCod="2722730";tr_clk(178, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6313,7 +6415,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr176" onclick='kCod="2717468";tr_clk(176, this)'
+                            <tr class="alt" id="tr179" onclick='kCod="2717468";tr_clk(179, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6347,7 +6449,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr177" onclick='kCod="2716476";tr_clk(177, this)'
+                            <tr class="alt" id="tr180" onclick='kCod="2716476";tr_clk(180, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6381,7 +6483,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr178" onclick='kCod="2711413";tr_clk(178, this)'
+                            <tr class="alt" id="tr181" onclick='kCod="2711413";tr_clk(181, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6415,7 +6517,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr179" onclick='kCod="2708429";tr_clk(179, this)'
+                            <tr class="alt" id="tr182" onclick='kCod="2708429";tr_clk(182, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6449,7 +6551,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr180" onclick='kCod="2702689";tr_clk(180, this)'
+                            <tr class="alt" id="tr183" onclick='kCod="2702689";tr_clk(183, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6483,7 +6585,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr181" onclick='kCod="2696540";tr_clk(181, this)'
+                            <tr class="alt" id="tr184" onclick='kCod="2696540";tr_clk(184, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6517,41 +6619,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr182" onclick='kCod="2692449";tr_clk(182, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2692449: MEJORAMIENTO DE LA CRIANZA DE GANADO VACUNO DE LA ASOCIACION DE PRODUCTORES AGRARIOS Y GANADEROS UNION CAJAMARCA, DISTRITO DE PACORA, PROVINCIA DE LAMBAYEQUE, REGION LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    326,200
-                                </td>
-                                <td>
-                                    73,200
-                                </td>
-                                <td>
-                                    73,200
-                                </td>
-                                <td>
-                                    73,200
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>&nbsp;
-                                    0.0
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr183" onclick='kCod="2692441";tr_clk(183, this)'
+                            <tr class="alt" id="tr185" onclick='kCod="2692441";tr_clk(185, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6585,7 +6653,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr184" onclick='kCod="2692380";tr_clk(184, this)'
+                            <tr class="alt" id="tr186" onclick='kCod="2692380";tr_clk(186, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6619,7 +6687,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr185" onclick='kCod="2692379";tr_clk(185, this)'
+                            <tr class="alt" id="tr187" onclick='kCod="2692379";tr_clk(187, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6653,7 +6721,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr186" onclick='kCod="2692361";tr_clk(186, this)'
+                            <tr class="alt" id="tr188" onclick='kCod="2692361";tr_clk(188, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6687,41 +6755,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr187" onclick='kCod="2692102";tr_clk(187, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2692102: MEJORAMIENTO DE LINEA GENETICA EN GALLINAS REPRODUCTORAS PARA EL INCREMENTO DE LA PRODUCCION DE HUEVOS EN LA ASOCIACION DE PRODUCTORES AGROPECUARIOS RUMY, DISTRITO SALAS, PROVINCIA LAMBAYEQUE, REGION LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    97,589
-                                </td>
-                                <td>
-                                    16,000
-                                </td>
-                                <td>
-                                    16,000
-                                </td>
-                                <td>
-                                    16,000
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>&nbsp;
-                                    0.0
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr188" onclick='kCod="2692092";tr_clk(188, this)'
+                            <tr class="alt" id="tr189" onclick='kCod="2692092";tr_clk(189, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6755,7 +6789,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr189" onclick='kCod="2692051";tr_clk(189, this)'
+                            <tr class="alt" id="tr190" onclick='kCod="2692051";tr_clk(190, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6789,7 +6823,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr190" onclick='kCod="2692047";tr_clk(190, this)'
+                            <tr class="alt" id="tr191" onclick='kCod="2692047";tr_clk(191, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6823,7 +6857,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr191" onclick='kCod="2692041";tr_clk(191, this)'
+                            <tr class="alt" id="tr192" onclick='kCod="2692041";tr_clk(192, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6857,7 +6891,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr192" onclick='kCod="2692036";tr_clk(192, this)'
+                            <tr class="alt" id="tr193" onclick='kCod="2692036";tr_clk(193, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6878,40 +6912,6 @@ body
                                 </td>
                                 <td>
                                     70,000
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>&nbsp;
-                                    0.0
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr193" onclick='kCod="2692035";tr_clk(193, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2692035: MEJORAMIENTO DE LA PRODUCCION DE LECHE DE LA ASOCIACION LOS TORITOS, EN EL DISTRITO DE SAN JOSE, PROVINCIA DE LAMBAYEQUE, REGION LAMBAYEQUE.
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    107,439
-                                </td>
-                                <td>
-                                    17,750
-                                </td>
-                                <td>
-                                    17,750
-                                </td>
-                                <td>
-                                    17,750
                                 </td>
                                 <td>
                                     0
@@ -7075,10 +7075,10 @@ body
                                     180,000
                                 </td>
                                 <td>
-                                    58,000
+                                    63,120
                                 </td>
                                 <td>
-                                    0
+                                    5,120
                                 </td>
                                 <td>
                                     0
