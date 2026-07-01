@@ -2690,18 +2690,20 @@
   ];
   // Porcentajes proyectados del PDF
   const B9_PCT_PROY = [2.3,10.9,16.8,21.1,27.1,35.8,45.1,55.4,66.3,76.5,86.6,97.3];
-  // Devengado real acumulado conocido hasta Junio 2026 (del PDF institucional)
-  // Enero–Mayo: valores fijos del PDF. Junio: se reemplaza con datos en vivo cuando hay archivos cargados.
+  // Devengado real acumulado. Ene–Jun ahora son valores CERRADOS/fijos
+  // (Mayo corregido a su valor real; Junio cerró con 256,731,752).
+  // Julio: null → se rellena en vivo con los archivos cargados cada día.
   const B9_REAL_BASE = [
-    18207406,   // ENE
-    86795395,   // FEB
-    133151711,  // MAR
-    167648586,  // ABR
-    178369785,  // MAY
-    null        // JUN → se rellena en vivo con los archivos cargados
+    18207406,    // ENE
+    86795395,    // FEB
+    133151711,   // MAR
+    167648586,   // ABR
+    204294625,   // MAY  (corregido: antes 178,369,785)
+    256731752,   // JUN  (cerrado, ya no depende de archivos en vivo)
+    null         // JUL → se rellena en vivo con los archivos cargados
   ];
-  // El mes actual es Junio (índice 5). La línea punteada arranca a partir de Junio.
-  const B9_MES_ACTUAL_IDX = 5;
+  // El mes actual es Julio (índice 6). La línea punteada arranca a partir de Julio.
+  const B9_MES_ACTUAL_IDX = 6;
 
   let b9Chart=null;
   function renderBloque9(sel){
@@ -2713,10 +2715,10 @@
     // PIM: usar el valor en vivo si hay archivos; si no, el fallback fijo
     const pimVivo = pimActual>0 ? pimActual : B9_PIM;
 
-    // Valor en vivo para Junio; si no hay archivos, mostrar null (punto vacío)
-    const devJunio = devActual>0 ? devActual : null;
-    // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor conocido (Mayo)
-    const devBase = devActual>0 ? devActual : 178369785;
+    // Valor en vivo para Julio; si no hay archivos, mostrar null (punto vacío)
+    const devJulio = devActual>0 ? devActual : null;
+    // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor cerrado (Junio)
+    const devBase = devActual>0 ? devActual : 256731752;
     const pctBase = pimVivo ? devBase/pimVivo*100 : 22.5;
 
     // Actualizar KPIs
@@ -2725,9 +2727,9 @@
     if(kPct) kPct.textContent=pctBase.toFixed(1)+"%";
     if(kPim) kPim.textContent="S/ "+Math.round(pimVivo).toLocaleString("es-PE");
 
-    // Construir serie real: Ene–May fijos + Junio en vivo + null hasta Dic
+    // Construir serie real: Ene–Jun fijos (cerrados) + Julio en vivo + null hasta Dic
     const realData = [...B9_REAL_BASE];
-    realData[B9_MES_ACTUAL_IDX] = devJunio; // Junio: dato en vivo o null
+    realData[B9_MES_ACTUAL_IDX] = devJulio; // Julio: dato en vivo o null
     while(realData.length < 12) realData.push(null);
 
     // Gráfico
