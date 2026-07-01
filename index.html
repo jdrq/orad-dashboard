@@ -2715,8 +2715,13 @@
     // PIM: usar el valor en vivo si hay archivos; si no, el fallback fijo
     const pimVivo = pimActual>0 ? pimActual : B9_PIM;
 
-    // Valor en vivo para Julio; si no hay archivos, mostrar null (punto vacío)
-    const devJulio = devActual>0 ? devActual : null;
+    // El "mes activo" depende del modo: en "Ver Primer Semestre" el snapshot
+    // congelado (30/06) representa a JUNIO, no a Julio. En vista principal
+    // (datos en vivo del día) el mes activo es Julio.
+    const mesActualIdx = MODO_SEMESTRAL ? 5 : B9_MES_ACTUAL_IDX;
+
+    // Valor en vivo para el mes activo; si no hay archivos, mostrar null (punto vacío)
+    const devVivoMes = devActual>0 ? devActual : null;
     // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor cerrado (Junio)
     const devBase = devActual>0 ? devActual : 256731752;
     const pctBase = pimVivo ? devBase/pimVivo*100 : 22.5;
@@ -2727,10 +2732,12 @@
     if(kPct) kPct.textContent=pctBase.toFixed(1)+"%";
     if(kPim) kPim.textContent="S/ "+Math.round(pimVivo).toLocaleString("es-PE");
 
-    // Construir serie real: Ene–Jun fijos (cerrados) + Julio en vivo + null hasta Dic
+    // Construir serie real: Ene–Jun fijos (cerrados) + mes activo en vivo + null en el resto
     const realData = [...B9_REAL_BASE];
-    realData[B9_MES_ACTUAL_IDX] = devJulio; // Julio: dato en vivo o null
+    realData[mesActualIdx] = devVivoMes; // Junio (modo semestral) o Julio (vista principal)
     while(realData.length < 12) realData.push(null);
+    // Blindaje extra: en modo semestral, jamás debe quedar dato más allá de Junio (idx 5)
+    if (MODO_SEMESTRAL) { for (let i=6; i<12; i++) realData[i] = null; }
 
     // Gráfico
     const cv=document.getElementById("b9Chart");
