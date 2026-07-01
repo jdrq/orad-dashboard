@@ -380,8 +380,15 @@
   <div class="titleband">
     <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap">
       <h1>Ejecución Financiera</h1>
-      <div class="update-pill">Actualizado: <span id="fechaTop">—</span></div>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <div class="update-pill">Actualizado: <span id="fechaTop">—</span></div>
+        <button id="btnSemestral" title="Congelado al 30 de junio de 2026 — no se actualiza a diario"
+          style="background:#fff;color:var(--vino);border:2px solid var(--vino);border-radius:20px;padding:7px 16px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;letter-spacing:.3px">📅 Ver Primer Semestre (Ene–Jun)</button>
+      </div>
     </div>
+  </div>
+  <div id="bannerSemestral" style="display:none;background:#FFD166;color:#5a1414;text-align:center;font-weight:800;padding:8px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.4px;font-size:14px">
+    📌 ESTÁS VIENDO DATOS CONGELADOS DEL PRIMER SEMESTRE 2026 (ENERO–JUNIO) — No se actualizan a diario. Usa "Volver a Vista Actual" para ver la ejecución de hoy.
   </div>
   <div class="subband"><div class="wrap">Del Gobierno Regional de Lambayeque</div></div>
   <div class="greca" id="greca" aria-hidden="true"></div>
@@ -1372,6 +1379,56 @@
 
   // -------- Estado --------
   let archivos = []; // {nombre, res, incluir, esFlat}
+
+  // -------- Modo "Primer Semestre" (datos congelados al 30/06/2026) --------
+  // No duplica lógica de render: simplemente intercambia qué array vive en
+  // `archivos` y vuelve a llamar al mismo pipeline (render -> consolidar)
+  // que ya usa la vista en vivo. Así los ~10 bloques del dashboard no saben
+  // ni les importa si los datos vienen del repo diario o del snapshot.
+  let archivosLive = null;         // respaldo de la vista en vivo mientras se ve el semestre
+  let archivosCongelados = null;   // cache del snapshot, se descarga solo una vez
+  let MODO_SEMESTRAL = false;
+  const FECHA_CIERRE_SEMESTRE = new Date(2026, 5, 30); // 30-jun-2026 (mes 0-indexado)
+
+  async function activarModoSemestral(){
+    const btn = $("#btnSemestral");
+    if(!archivosCongelados){
+      if(btn){ btn.disabled=true; btn.textContent="⏳ Cargando..."; }
+      try{
+        const resp = await fetch("data/semestre1_2026.json", { cache:"no-store" });
+        if(!resp.ok) throw new Error("HTTP "+resp.status);
+        archivosCongelados = await resp.json();
+      }catch(e){
+        alert("No se pudo cargar el snapshot del Primer Semestre. Verifica tu conexión a internet.");
+        if(btn){ btn.disabled=false; btn.textContent="📅 Ver Primer Semestre (Ene–Jun)"; }
+        return;
+      }
+    }
+    archivosLive = archivos;
+    archivos = archivosCongelados;
+    MODO_SEMESTRAL = true;
+    render();
+    actualizarUISemestral();
+  }
+
+  function volverVistaActual(){
+    if(archivosLive) archivos = archivosLive;
+    MODO_SEMESTRAL = false;
+    render();
+    actualizarUISemestral();
+  }
+
+  function actualizarUISemestral(){
+    const btn = $("#btnSemestral");
+    const banner = $("#bannerSemestral");
+    if(btn){
+      btn.disabled = false;
+      btn.textContent = MODO_SEMESTRAL ? "↩ Volver a Vista Actual" : "📅 Ver Primer Semestre (Ene–Jun)";
+      btn.style.background = MODO_SEMESTRAL ? "var(--vino)" : "#fff";
+      btn.style.color      = MODO_SEMESTRAL ? "#fff"        : "var(--vino)";
+    }
+    if(banner) banner.style.display = MODO_SEMESTRAL ? "block" : "none";
+  }
 
   // alcance legible desde el contexto del archivo
   function alcanceDe(res){
@@ -2551,8 +2608,11 @@
           }
         }
         if (pimVivo > 0) {
+          const fLbl = MODO_SEMESTRAL
+            ? "Ene–Jun 2026 (cierre 30/06/2026)"
+            : `2026 (acumulado al ${new Date().toLocaleDateString("es-PE",{day:"numeric",month:"short",year:"numeric"})} — año en curso)`;
           RB_HIST_SC["2026"] = {
-            label: `Ene–Jun 2026 (al ${new Date().toLocaleDateString("es-PE",{day:"numeric",month:"short",year:"numeric"})})`,
+            label: fLbl,
             pim: pimVivo, dev_t1: devVivo, dev_t2: 0,
             dev_sem: devVivo, av_pct: devVivo/pimVivo*100
           };
@@ -3021,8 +3081,10 @@
 
   // ── Fecha de actualización — actualiza TODOS los bloques ──
   function actualizarFechasTodos(){
-    const fLarga  = new Date().toLocaleDateString("es-PE",{weekday:"long",  day:"numeric",month:"long",year:"numeric"});
-    const fCorta  = new Date().toLocaleDateString("es-PE",{day:"numeric",   month:"long", year:"numeric"});
+    const ref = MODO_SEMESTRAL ? FECHA_CIERRE_SEMESTRE : new Date();
+    const sufijo = MODO_SEMESTRAL ? " (cierre 1er semestre)" : "";
+    const fLarga  = ref.toLocaleDateString("es-PE",{weekday:"long",  day:"numeric",month:"long",year:"numeric"}) + sufijo;
+    const fCorta  = ref.toLocaleDateString("es-PE",{day:"numeric",   month:"long", year:"numeric"}) + sufijo;
 
     // Cabecera y footer
     const elTop  = document.getElementById("fechaTop"); if(elTop)  elTop.textContent  = fCorta;
@@ -3067,6 +3129,9 @@
   $("#file").addEventListener("change",e=>{ agregar(e.target.files); e.target.value=""; });
   autoCargarDesdeRepo();
   $("#clear").addEventListener("click",()=>{ archivos=[]; render(); });
+  $("#btnSemestral").addEventListener("click", ()=>{
+    if(MODO_SEMESTRAL) volverVistaActual(); else activarModoSemestral();
+  });
   $("#soloInv").addEventListener("change",render);
   const dz=$("#dropzone");
   ["dragenter","dragover"].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add("drag");}));
@@ -3146,8 +3211,8 @@
         const fecha = fechaHoy();
 
         STATE.historico.semestres["2026"] = {
-          label:         `Ene–Jun 2026 (al ${fecha})`,
-          nota:          "Dato diario acumulado",
+          label:         MODO_SEMESTRAL ? "Ene–Jun 2026 (cierre 30/06/2026)" : `2026 (acumulado al ${fecha} — año en curso)`,
+          nota:          MODO_SEMESTRAL ? "Cierre 1er semestre" : "Dato diario acumulado, aún no cierra el 1er semestre",
           total_gores:   byDevSol.length,
           prom_dev_pct:  Math.round(prom_dev_pct*10)/10,
           prom_cert_pct: Math.round(prom_cert_pct*10)/10,
