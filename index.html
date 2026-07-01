@@ -10,8 +10,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<!-- html2canvas y jsPDF (~550KB juntas) se cargan bajo demanda, solo al pulsar
+     "Exportar PDF", en vez de en cada carga de página. Ver cargarLibreriasPDF()
+     dentro del bloque EXPORTADOR A PDF, más abajo. -->
 <style>
   :root{
     --vino:#5a1414; --vino2:#7a1f1f; --naranja-h:#e8821e; --azul:#1f4e79;
@@ -3439,15 +3440,50 @@
     });
   }
 
+  // Carga bajo demanda de html2canvas y jsPDF: solo se piden al servidor la
+  // primera vez que el usuario pulsa "Exportar PDF" en esta sesión. Si ya
+  // están cargadas (segunda exportación), no vuelve a pedirlas.
+  function cargarScript(src){
+    return new Promise((resolve, reject)=>{
+      const s = document.createElement("script");
+      s.src = src;
+      s.onload = () => resolve();
+      s.onerror = () => reject(new Error("No se pudo cargar " + src));
+      document.head.appendChild(s);
+    });
+  }
+
+  async function cargarLibreriasPDF(){
+    const tareas = [];
+    if(!window.html2canvas){
+      tareas.push(cargarScript("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"));
+    }
+    if(!(window.jspdf && window.jspdf.jsPDF)){
+      tareas.push(cargarScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"));
+    }
+    if(tareas.length) await Promise.all(tareas);
+  }
+
   async function exportarPdf(){
     const btn = document.getElementById("btnPdf");
 
+    btn.disabled = true;
+    btn.textContent = "⏳ Preparando...";
+
+    try{
+      await cargarLibreriasPDF();
+    }catch(e){
+      alert("No se pudieron cargar las librerías de exportación. Verifica tu conexión a internet e inténtalo de nuevo.");
+      btn.disabled = false;
+      btn.textContent = "⬇ Exportar a PDF";
+      return;
+    }
+
     // jsPDF se expone como window.jspdf.jsPDF (UMD build)
     const jsPDFCtor = window.jspdf && window.jspdf.jsPDF;
-    if(!jsPDFCtor){ alert("La librería jsPDF no está disponible. Verifica tu conexión a internet."); return; }
-    if(!window.html2canvas){ alert("La librería html2canvas no está disponible. Verifica tu conexión a internet."); return; }
+    if(!jsPDFCtor){ alert("La librería jsPDF no está disponible. Verifica tu conexión a internet."); btn.disabled=false; btn.textContent="⬇ Exportar a PDF"; return; }
+    if(!window.html2canvas){ alert("La librería html2canvas no está disponible. Verifica tu conexión a internet."); btn.disabled=false; btn.textContent="⬇ Exportar a PDF"; return; }
 
-    btn.disabled = true;
     btn.textContent = "⏳ Generando...";
 
     try {
