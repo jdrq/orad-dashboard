@@ -144,7 +144,7 @@ body
 </style><body>
 	<table id="hd">
 		<tr>
-			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 01-julio-2026</div><br /><b>Año de Ejecución: <span class='value'>2026</span><br />Incluye: <span class='value'>Sólo Proyectos</span></b></td>
+			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 02-julio-2026</div><br /><b>Año de Ejecución: <span class='value'>2026</span><br />Incluye: <span class='value'>Sólo Proyectos</span></b></td>
 		</tr>
 	</table>
 	
@@ -163,24 +163,24 @@ body
                             48,594,496,937
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            62,727,742,860
+                            62,900,742,328
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            50,511,092,767
+                            50,788,576,402
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            37,099,912,683
+                            37,543,643,013
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            30,754,978,583
+                            31,240,563,755
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            26,051,152,154
+                            26,640,813,785
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            24,572,064,494
+                            25,149,439,138
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;41.5</td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;42.4</td>
                     </tr>
                 
                     <tr align="right" class="alt">
@@ -195,24 +195,24 @@ body
                             14,621,708,053
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="11">
-                            15,801,311,392
+                            15,721,029,150
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="12">
-                            12,762,389,407
+                            12,783,902,340
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="13">
-                            9,425,445,027
+                            9,453,755,144
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="14">
-                            7,741,818,548
+                            7,796,158,125
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="15">
-                            6,675,709,619
+                            6,738,775,574
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="16">
-                            6,020,122,898
+                            6,090,166,488
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;42.2</td>
+                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;42.9</td>
                     </tr>
                 
                     <tr align="right">
@@ -228,24 +228,24 @@ body
                             14,621,708,053
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            15,797,425,448
+                            15,717,143,206
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            12,758,568,937
+                            12,780,081,869
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            9,422,798,577
+                            9,451,108,694
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            7,739,664,707
+                            7,794,004,283
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            6,673,635,583
+                            6,736,701,539
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            6,018,063,945
+                            6,088,093,303
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;42.2</td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;42.9</td>
                     </tr>
                 
                     <tr align="right" class="alt">
@@ -263,21 +263,21 @@ body
                             774,794,996
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="12">
-                            730,837,204
+                            726,076,448
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="13">
-                            603,474,234
+                            607,025,100
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="14">
-                            538,750,357
+                            542,409,378
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="15">
-                            258,850,963
+                            259,739,165
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="16">
-                            240,316,800
+                            251,462,135
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;33.4</td>
+                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;33.5</td>
                     </tr>
                 
                     <tr align="right">
@@ -296,21 +296,21 @@ body
                             456,977,622
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            418,794,071
+                            414,019,271
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            363,414,312
+                            363,372,062
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            350,797,656
+                            350,943,776
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            162,272,379
+                            162,584,732
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            146,513,411
+                            157,374,027
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;35.5</td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;35.6</td>
                     </tr>
                 
                     </table>
@@ -340,25 +340,25 @@ body
                                     125,588,149
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    47,604,096
+                                    47,504,722
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    44,944,009
+                                    44,956,009
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
                                     44,935,792
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    44,918,110
+                                    44,919,895
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
                                     39,775,633
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    38,419,693
+                                    38,435,193
                                 </td>
                                 <td style="white-space: nowrap; width: 50px">&nbsp;
-                                    83.6
+                                    83.7
                                 </td>
                             </tr>
                             
@@ -386,10 +386,10 @@ body
                                     48,253,886
                                 </td>
                                 <td>
-                                    19,190,752
+                                    19,209,252
                                 </td>
                                 <td>
-                                    12,253,937
+                                    18,990,986
                                 </td>
                                 <td>&nbsp;
                                     34.3
@@ -417,13 +417,13 @@ body
                                     48,464,313
                                 </td>
                                 <td>
-                                    48,441,408
+                                    48,443,193
                                 </td>
                                 <td>
                                     16,160,909
                                 </td>
                                 <td>
-                                    16,149,789
+                                    16,152,909
                                 </td>
                                 <td>&nbsp;
                                     33.0
@@ -457,7 +457,7 @@ body
                                     6,802,809
                                 </td>
                                 <td>
-                                    6,796,374
+                                    6,802,809
                                 </td>
                                 <td>&nbsp;
                                     41.1
@@ -485,16 +485,16 @@ body
                                     7,423,093
                                 </td>
                                 <td>
-                                    7,316,293
+                                    7,423,093
                                 </td>
                                 <td>
-                                    6,374,450
+                                    6,528,250
                                 </td>
                                 <td>
-                                    5,762,121
+                                    5,951,221
                                 </td>
                                 <td>&nbsp;
-                                    68.4
+                                    70.1
                                 </td>
                             </tr>
                             
@@ -525,7 +525,7 @@ body
                                     5,199,611
                                 </td>
                                 <td>
-                                    4,524,889
+                                    4,995,053
                                 </td>
                                 <td>&nbsp;
                                     46.4
@@ -547,7 +547,7 @@ body
                                     6,706,805
                                 </td>
                                 <td>
-                                    6,652,726
+                                    6,665,637
                                 </td>
                                 <td>
                                     6,393,998
@@ -559,7 +559,7 @@ body
                                     4,909,827
                                 </td>
                                 <td>
-                                    4,733,211
+                                    4,760,711
                                 </td>
                                 <td>&nbsp;
                                     73.2
@@ -627,7 +627,7 @@ body
                                     4,333,266
                                 </td>
                                 <td>
-                                    3,544,551
+                                    4,333,266
                                 </td>
                                 <td>&nbsp;
                                     65.1
@@ -692,13 +692,13 @@ body
                                     4,047,860
                                 </td>
                                 <td>
-                                    3,785,806
+                                    3,790,806
                                 </td>
                                 <td>
                                     3,655,149
                                 </td>
                                 <td>&nbsp;
-                                    84.8
+                                    84.9
                                 </td>
                             </tr>
                             
@@ -760,10 +760,10 @@ body
                                     12,350,789
                                 </td>
                                 <td>
-                                    3,468,916
+                                    3,475,916
                                 </td>
                                 <td>
-                                    2,880,714
+                                    3,468,916
                                 </td>
                                 <td>&nbsp;
                                     26.7
@@ -797,7 +797,7 @@ body
                                     2,493,802
                                 </td>
                                 <td>
-                                    2,100,666
+                                    2,493,802
                                 </td>
                                 <td>&nbsp;
                                     96.9
@@ -865,7 +865,7 @@ body
                                     2,270,422
                                 </td>
                                 <td>
-                                    1,083,004
+                                    2,149,203
                                 </td>
                                 <td>&nbsp;
                                     48.3
@@ -967,7 +967,7 @@ body
                                     1,868,915
                                 </td>
                                 <td>
-                                    1,740,763
+                                    1,782,780
                                 </td>
                                 <td>&nbsp;
                                     91.6
@@ -1091,22 +1091,22 @@ body
                                     2,800,000
                                 </td>
                                 <td>
+                                    1,444,261
+                                </td>
+                                <td>
                                     1,428,761
                                 </td>
                                 <td>
-                                    1,423,361
+                                    1,428,761
                                 </td>
                                 <td>
-                                    1,418,361
+                                    1,321,452
                                 </td>
                                 <td>
-                                    1,318,452
-                                </td>
-                                <td>
-                                    1,272,452
+                                    1,314,452
                                 </td>
                                 <td>&nbsp;
-                                    47.1
+                                    47.2
                                 </td>
                             </tr>
                             
@@ -1471,16 +1471,16 @@ body
                                     1,322,197
                                 </td>
                                 <td>
-                                    1,014,560
+                                    1,021,910
                                 </td>
                                 <td>
-                                    558,476
+                                    565,828
                                 </td>
                                 <td>
-                                    512,864
+                                    555,816
                                 </td>
                                 <td>&nbsp;
-                                    22.5
+                                    22.8
                                 </td>
                             </tr>
                             
@@ -1511,7 +1511,7 @@ body
                                     544,969
                                 </td>
                                 <td>
-                                    216,188
+                                    329,252
                                 </td>
                                 <td>&nbsp;
                                     79.5
@@ -1873,7 +1873,7 @@ body
                                     10,129,761
                                 </td>
                                 <td>
-                                    5,523,245
+                                    523,245
                                 </td>
                                 <td>
                                     523,245
@@ -1885,7 +1885,7 @@ body
                                     278,066
                                 </td>
                                 <td>
-                                    249,794
+                                    267,566
                                 </td>
                                 <td>&nbsp;
                                     2.7
@@ -2021,7 +2021,7 @@ body
                                     200,997
                                 </td>
                                 <td>
-                                    90,720
+                                    200,997
                                 </td>
                                 <td>&nbsp;
                                     26.2
@@ -2063,7 +2063,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr51" onclick='kCod="2358882";tr_clk(51, this)'
+                            <tr class="alt" id="tr51" onclick='kCod="2692413";tr_clk(51, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2692413: AMPLIACION DE LA CAPACIDAD PRODUCTIVA MEDIANTE LA RENOVACION Y ACTUALIZACION TECNOLOGICA PARA AUMENTAR LA PRODUCCION DE MUEBLES DE SALA EN TAPICERIA Y MUEBLERIA MI HILARITA S.A.C, DISTRITO DE PIMENTEL, PROVINCIA DE CHICLAYO, REGION LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    285,299
+                                </td>
+                                <td>
+                                    167,416
+                                </td>
+                                <td>
+                                    167,416
+                                </td>
+                                <td>
+                                    167,416
+                                </td>
+                                <td>
+                                    160,916
+                                </td>
+                                <td>
+                                    91,100
+                                </td>
+                                <td>&nbsp;
+                                    56.4
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr52" onclick='kCod="2358882";tr_clk(52, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2097,7 +2131,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr52" onclick='kCod="2692393";tr_clk(52, this)'
+                            <tr class="alt" id="tr53" onclick='kCod="2692393";tr_clk(53, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2131,7 +2165,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr53" onclick='kCod="2537945";tr_clk(53, this)'
+                            <tr class="alt" id="tr54" onclick='kCod="2537945";tr_clk(54, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2165,7 +2199,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr54" onclick='kCod="2621140";tr_clk(54, this)'
+                            <tr class="alt" id="tr55" onclick='kCod="2621140";tr_clk(55, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2199,7 +2233,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr55" onclick='kCod="2202474";tr_clk(55, this)'
+                            <tr class="alt" id="tr56" onclick='kCod="2202474";tr_clk(56, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2233,7 +2267,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr56" onclick='kCod="2670980";tr_clk(56, this)'
+                            <tr class="alt" id="tr57" onclick='kCod="2670980";tr_clk(57, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2263,40 +2297,6 @@ body
                                 </td>
                                 <td>&nbsp;
                                     5.9
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr57" onclick='kCod="2692413";tr_clk(57, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2692413: AMPLIACION DE LA CAPACIDAD PRODUCTIVA MEDIANTE LA RENOVACION Y ACTUALIZACION TECNOLOGICA PARA AUMENTAR LA PRODUCCION DE MUEBLES DE SALA EN TAPICERIA Y MUEBLERIA MI HILARITA S.A.C, DISTRITO DE PIMENTEL, PROVINCIA DE CHICLAYO, REGION LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    285,299
-                                </td>
-                                <td>
-                                    167,416
-                                </td>
-                                <td>
-                                    167,416
-                                </td>
-                                <td>
-                                    167,416
-                                </td>
-                                <td>
-                                    126,216
-                                </td>
-                                <td>
-                                    91,100
-                                </td>
-                                <td>&nbsp;
-                                    44.2
                                 </td>
                             </tr>
                             
@@ -2395,7 +2395,7 @@ body
                                     122,604
                                 </td>
                                 <td>
-                                    0
+                                    122,604
                                 </td>
                                 <td>&nbsp;
                                     24.6
@@ -2497,7 +2497,7 @@ body
                                     119,494
                                 </td>
                                 <td>
-                                    101,994
+                                    105,494
                                 </td>
                                 <td>&nbsp;
                                     27.8
@@ -2607,7 +2607,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr67" onclick='kCod="2625343";tr_clk(67, this)'
+                            <tr class="alt" id="tr67" onclick='kCod="2710045";tr_clk(67, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2710045: RECUPERACION DEL SERVICIO DE INTERPRETACION CULTURAL EN LA IGLESIA DE SANTA VERONICA DE LA CIUDAD DE CHICLAYO DISTRITO DE CHICLAYO DE LA PROVINCIA DE CHICLAYO DEL DEPARTAMENTO DE LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    234,423
+                                </td>
+                                <td>
+                                    185,500
+                                </td>
+                                <td>
+                                    185,500
+                                </td>
+                                <td>
+                                    185,500
+                                </td>
+                                <td>
+                                    107,000
+                                </td>
+                                <td>
+                                    99,000
+                                </td>
+                                <td>&nbsp;
+                                    45.6
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr68" onclick='kCod="2625343";tr_clk(68, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2641,7 +2675,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr68" onclick='kCod="2692416";tr_clk(68, this)'
+                            <tr class="alt" id="tr69" onclick='kCod="2692416";tr_clk(69, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2655,7 +2689,7 @@ body
                                     288,235
                                 </td>
                                 <td>
-                                    248,835
+                                    270,835
                                 </td>
                                 <td>
                                     114,200
@@ -2675,7 +2709,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr69" onclick='kCod="2692063";tr_clk(69, this)'
+                            <tr class="alt" id="tr70" onclick='kCod="2692063";tr_clk(70, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2709,7 +2743,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr70" onclick='kCod="2648300";tr_clk(70, this)'
+                            <tr class="alt" id="tr71" onclick='kCod="2648300";tr_clk(71, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2735,7 +2769,7 @@ body
                                     102,145
                                 </td>
                                 <td>
-                                    92,645
+                                    102,145
                                 </td>
                                 <td>&nbsp;
                                     69.9
@@ -2743,7 +2777,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr71" onclick='kCod="2595929";tr_clk(71, this)'
+                            <tr class="alt" id="tr72" onclick='kCod="2595929";tr_clk(72, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -2773,40 +2807,6 @@ body
                                 </td>
                                 <td>&nbsp;
                                     69.6
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr72" onclick='kCod="2710045";tr_clk(72, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2710045: RECUPERACION DEL SERVICIO DE INTERPRETACION CULTURAL EN LA IGLESIA DE SANTA VERONICA DE LA CIUDAD DE CHICLAYO DISTRITO DE CHICLAYO DE LA PROVINCIA DE CHICLAYO DEL DEPARTAMENTO DE LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    234,423
-                                </td>
-                                <td>
-                                    185,500
-                                </td>
-                                <td>
-                                    185,500
-                                </td>
-                                <td>
-                                    185,500
-                                </td>
-                                <td>
-                                    99,000
-                                </td>
-                                <td>
-                                    99,000
-                                </td>
-                                <td>&nbsp;
-                                    42.2
                                 </td>
                             </tr>
                             
@@ -3041,7 +3041,7 @@ body
                                     90,897
                                 </td>
                                 <td>
-                                    54,538
+                                    90,897
                                 </td>
                                 <td>&nbsp;
                                     71.1
@@ -3117,7 +3117,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr82" onclick='kCod="2692049";tr_clk(82, this)'
+                            <tr class="alt" id="tr82" onclick='kCod="2334707";tr_clk(82, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2334707: CREACION DE LOS SERVICIOS DE EDUCACION SECUNDARIA ESCOLARIZADA EN LA I.E FRANCISCO I DE LA LOCALIDAD VILLA DEL MAR-LA PRADERA DEL DISTRITO DE PIMENTEL, PROVINCIA DE CHICLAYO, DEPARTAMENTO DE LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    9,502,784
+                                </td>
+                                <td>
+                                    183,305
+                                </td>
+                                <td>
+                                    181,500
+                                </td>
+                                <td>
+                                    165,500
+                                </td>
+                                <td>
+                                    165,500
+                                </td>
+                                <td>
+                                    84,500
+                                </td>
+                                <td>
+                                    51,000
+                                </td>
+                                <td>&nbsp;
+                                    46.1
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr83" onclick='kCod="2692049";tr_clk(83, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3151,7 +3185,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr83" onclick='kCod="2692360";tr_clk(83, this)'
+                            <tr class="alt" id="tr84" onclick='kCod="2692360";tr_clk(84, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3185,7 +3219,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr84" onclick='kCod="2692099";tr_clk(84, this)'
+                            <tr class="alt" id="tr85" onclick='kCod="2692099";tr_clk(85, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3215,40 +3249,6 @@ body
                                 </td>
                                 <td>&nbsp;
                                     100.0
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr85" onclick='kCod="2334707";tr_clk(85, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2334707: CREACION DE LOS SERVICIOS DE EDUCACION SECUNDARIA ESCOLARIZADA EN LA I.E FRANCISCO I DE LA LOCALIDAD VILLA DEL MAR-LA PRADERA DEL DISTRITO DE PIMENTEL, PROVINCIA DE CHICLAYO, DEPARTAMENTO DE LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    9,502,784
-                                </td>
-                                <td>
-                                    183,305
-                                </td>
-                                <td>
-                                    181,500
-                                </td>
-                                <td>
-                                    165,500
-                                </td>
-                                <td>
-                                    165,500
-                                </td>
-                                <td>
-                                    79,500
-                                </td>
-                                <td>
-                                    46,000
-                                </td>
-                                <td>&nbsp;
-                                    43.4
                                 </td>
                             </tr>
                             
@@ -3559,7 +3559,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr95" onclick='kCod="2692088";tr_clk(95, this)'
+                            <tr class="alt" id="tr95" onclick='kCod="2692036";tr_clk(95, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2692036: AMPLIACION DE LA CAPACIDAD PRODUCTIVA CON MAQUINAS INDUSTRIALES TEXTILES EN LA ASOCIACION TEXTIL CREACIONES SOFIA, DISTRITO LA VICTORIA, PROVINCIA CHICLAYO, REGION LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    74,070
+                                </td>
+                                <td>
+                                    70,000
+                                </td>
+                                <td>
+                                    70,000
+                                </td>
+                                <td>
+                                    70,000
+                                </td>
+                                <td>
+                                    70,000
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>&nbsp;
+                                    94.5
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr96" onclick='kCod="2692088";tr_clk(96, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3593,7 +3627,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr96" onclick='kCod="2661914";tr_clk(96, this)'
+                            <tr class="alt" id="tr97" onclick='kCod="2661914";tr_clk(97, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3627,7 +3661,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr97" onclick='kCod="2539983";tr_clk(97, this)'
+                            <tr class="alt" id="tr98" onclick='kCod="2539983";tr_clk(98, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3661,7 +3695,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr98" onclick='kCod="2671675";tr_clk(98, this)'
+                            <tr class="alt" id="tr99" onclick='kCod="2671675";tr_clk(99, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3695,7 +3729,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr99" onclick='kCod="2668006";tr_clk(99, this)'
+                            <tr class="alt" id="tr100" onclick='kCod="2668006";tr_clk(100, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3729,7 +3763,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr100" onclick='kCod="2674152";tr_clk(100, this)'
+                            <tr class="alt" id="tr101" onclick='kCod="2674152";tr_clk(101, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3763,7 +3797,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr101" onclick='kCod="2692447";tr_clk(101, this)'
+                            <tr class="alt" id="tr102" onclick='kCod="2692447";tr_clk(102, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3797,7 +3831,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr102" onclick='kCod="2697936";tr_clk(102, this)'
+                            <tr class="alt" id="tr103" onclick='kCod="2697936";tr_clk(103, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3831,7 +3865,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr103" onclick='kCod="2537630";tr_clk(103, this)'
+                            <tr class="alt" id="tr104" onclick='kCod="2537630";tr_clk(104, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3865,7 +3899,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr104" onclick='kCod="2692093";tr_clk(104, this)'
+                            <tr class="alt" id="tr105" onclick='kCod="2692093";tr_clk(105, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3899,7 +3933,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr105" onclick='kCod="2692439";tr_clk(105, this)'
+                            <tr class="alt" id="tr106" onclick='kCod="2692439";tr_clk(106, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3933,7 +3967,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr106" onclick='kCod="2716998";tr_clk(106, this)'
+                            <tr class="alt" id="tr107" onclick='kCod="2716998";tr_clk(107, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -3967,7 +4001,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr107" onclick='kCod="2481068";tr_clk(107, this)'
+                            <tr class="alt" id="tr108" onclick='kCod="2481068";tr_clk(108, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4001,7 +4035,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr108" onclick='kCod="2575558";tr_clk(108, this)'
+                            <tr class="alt" id="tr109" onclick='kCod="2575558";tr_clk(109, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4035,7 +4069,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr109" onclick='kCod="2692108";tr_clk(109, this)'
+                            <tr class="alt" id="tr110" onclick='kCod="2692108";tr_clk(110, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4069,7 +4103,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr110" onclick='kCod="2692081";tr_clk(110, this)'
+                            <tr class="alt" id="tr111" onclick='kCod="2692081";tr_clk(111, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4103,7 +4137,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr111" onclick='kCod="2692400";tr_clk(111, this)'
+                            <tr class="alt" id="tr112" onclick='kCod="2692400";tr_clk(112, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4137,7 +4171,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr112" onclick='kCod="2493805";tr_clk(112, this)'
+                            <tr class="alt" id="tr113" onclick='kCod="2493805";tr_clk(113, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4171,7 +4205,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr113" onclick='kCod="2016766";tr_clk(113, this)'
+                            <tr class="alt" id="tr114" onclick='kCod="2016766";tr_clk(114, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4205,7 +4239,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr114" onclick='kCod="2666412";tr_clk(114, this)'
+                            <tr class="alt" id="tr115" onclick='kCod="2666412";tr_clk(115, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4219,7 +4253,7 @@ body
                                     120,000
                                 </td>
                                 <td>
-                                    45,000
+                                    59,000
                                 </td>
                                 <td>
                                     45,000
@@ -4239,7 +4273,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr115" onclick='kCod="2674150";tr_clk(115, this)'
+                            <tr class="alt" id="tr116" onclick='kCod="2674150";tr_clk(116, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4265,7 +4299,7 @@ body
                                     39,000
                                 </td>
                                 <td>
-                                    26,000
+                                    35,500
                                 </td>
                                 <td>&nbsp;
                                     24.4
@@ -4273,7 +4307,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr116" onclick='kCod="2400745";tr_clk(116, this)'
+                            <tr class="alt" id="tr117" onclick='kCod="2400745";tr_clk(117, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4307,7 +4341,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr117" onclick='kCod="2692383";tr_clk(117, this)'
+                            <tr class="alt" id="tr118" onclick='kCod="2692383";tr_clk(118, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4341,7 +4375,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr118" onclick='kCod="2692382";tr_clk(118, this)'
+                            <tr class="alt" id="tr119" onclick='kCod="2692382";tr_clk(119, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4375,7 +4409,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr119" onclick='kCod="2692417";tr_clk(119, this)'
+                            <tr class="alt" id="tr120" onclick='kCod="2692417";tr_clk(120, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4389,7 +4423,7 @@ body
                                     258,325
                                 </td>
                                 <td>
-                                    244,298
+                                    255,498
                                 </td>
                                 <td>
                                     70,960
@@ -4409,7 +4443,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr120" onclick='kCod="2664837";tr_clk(120, this)'
+                            <tr class="alt" id="tr121" onclick='kCod="2664837";tr_clk(121, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4443,7 +4477,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr121" onclick='kCod="2692050";tr_clk(121, this)'
+                            <tr class="alt" id="tr122" onclick='kCod="2692050";tr_clk(122, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4477,7 +4511,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr122" onclick='kCod="2692427";tr_clk(122, this)'
+                            <tr class="alt" id="tr123" onclick='kCod="2692427";tr_clk(123, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4511,7 +4545,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr123" onclick='kCod="2692367";tr_clk(123, this)'
+                            <tr class="alt" id="tr124" onclick='kCod="2692367";tr_clk(124, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4545,7 +4579,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr124" onclick='kCod="2697934";tr_clk(124, this)'
+                            <tr class="alt" id="tr125" onclick='kCod="2697934";tr_clk(125, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4579,7 +4613,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr125" onclick='kCod="2194345";tr_clk(125, this)'
+                            <tr class="alt" id="tr126" onclick='kCod="2194345";tr_clk(126, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4613,7 +4647,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr126" onclick='kCod="2692410";tr_clk(126, this)'
+                            <tr class="alt" id="tr127" onclick='kCod="2692410";tr_clk(127, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4647,7 +4681,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr127" onclick='kCod="2661120";tr_clk(127, this)'
+                            <tr class="alt" id="tr128" onclick='kCod="2661120";tr_clk(128, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4681,7 +4715,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr128" onclick='kCod="2692423";tr_clk(128, this)'
+                            <tr class="alt" id="tr129" onclick='kCod="2692423";tr_clk(129, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4698,7 +4732,7 @@ body
                                     198,820
                                 </td>
                                 <td>
-                                    36,820
+                                    35,800
                                 </td>
                                 <td>
                                     35,800
@@ -4707,7 +4741,7 @@ body
                                     22,200
                                 </td>
                                 <td>
-                                    19,400
+                                    22,200
                                 </td>
                                 <td>&nbsp;
                                     10.6
@@ -4715,7 +4749,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr129" onclick='kCod="2605279";tr_clk(129, this)'
+                            <tr class="alt" id="tr130" onclick='kCod="2605279";tr_clk(130, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4749,7 +4783,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr130" onclick='kCod="2714219";tr_clk(130, this)'
+                            <tr class="alt" id="tr131" onclick='kCod="2714219";tr_clk(131, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4783,7 +4817,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr131" onclick='kCod="2427163";tr_clk(131, this)'
+                            <tr class="alt" id="tr132" onclick='kCod="2427163";tr_clk(132, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4817,7 +4851,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr132" onclick='kCod="2499232";tr_clk(132, this)'
+                            <tr class="alt" id="tr133" onclick='kCod="2499232";tr_clk(133, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4851,7 +4885,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr133" onclick='kCod="2692399";tr_clk(133, this)'
+                            <tr class="alt" id="tr134" onclick='kCod="2692399";tr_clk(134, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4885,7 +4919,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr134" onclick='kCod="2608975";tr_clk(134, this)'
+                            <tr class="alt" id="tr135" onclick='kCod="2608975";tr_clk(135, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4919,7 +4953,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr135" onclick='kCod="2692101";tr_clk(135, this)'
+                            <tr class="alt" id="tr136" onclick='kCod="2692101";tr_clk(136, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4953,7 +4987,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr136" onclick='kCod="2094680";tr_clk(136, this)'
+                            <tr class="alt" id="tr137" onclick='kCod="2094680";tr_clk(137, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -4987,7 +5021,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr137" onclick='kCod="2042271";tr_clk(137, this)'
+                            <tr class="alt" id="tr138" onclick='kCod="2042271";tr_clk(138, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5021,7 +5055,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr138" onclick='kCod="2709501";tr_clk(138, this)'
+                            <tr class="alt" id="tr139" onclick='kCod="2709501";tr_clk(139, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5055,7 +5089,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr139" onclick='kCod="2199528";tr_clk(139, this)'
+                            <tr class="alt" id="tr140" onclick='kCod="2199528";tr_clk(140, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5089,7 +5123,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr140" onclick='kCod="2702828";tr_clk(140, this)'
+                            <tr class="alt" id="tr141" onclick='kCod="2702828";tr_clk(141, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5123,7 +5157,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr141" onclick='kCod="2537237";tr_clk(141, this)'
+                            <tr class="alt" id="tr142" onclick='kCod="2537237";tr_clk(142, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5157,7 +5191,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr142" onclick='kCod="2291393";tr_clk(142, this)'
+                            <tr class="alt" id="tr143" onclick='kCod="2291393";tr_clk(143, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5191,7 +5225,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr143" onclick='kCod="2692033";tr_clk(143, this)'
+                            <tr class="alt" id="tr144" onclick='kCod="2692033";tr_clk(144, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5217,7 +5251,7 @@ body
                                     12,750
                                 </td>
                                 <td>
-                                    0
+                                    12,750
                                 </td>
                                 <td>&nbsp;
                                     12.4
@@ -5225,7 +5259,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr144" onclick='kCod="2692448";tr_clk(144, this)'
+                            <tr class="alt" id="tr145" onclick='kCod="2692448";tr_clk(145, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5259,7 +5293,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr145" onclick='kCod="2692401";tr_clk(145, this)'
+                            <tr class="alt" id="tr146" onclick='kCod="2692401";tr_clk(146, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5285,7 +5319,7 @@ body
                                     11,800
                                 </td>
                                 <td>
-                                    3,000
+                                    8,400
                                 </td>
                                 <td>&nbsp;
                                     4.0
@@ -5293,7 +5327,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr146" onclick='kCod="2495403";tr_clk(146, this)'
+                            <tr class="alt" id="tr147" onclick='kCod="2495403";tr_clk(147, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5327,7 +5361,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr147" onclick='kCod="2692403";tr_clk(147, this)'
+                            <tr class="alt" id="tr148" onclick='kCod="2692403";tr_clk(148, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5361,7 +5395,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr148" onclick='kCod="2717703";tr_clk(148, this)'
+                            <tr class="alt" id="tr149" onclick='kCod="2717703";tr_clk(149, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5395,7 +5429,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr149" onclick='kCod="2692057";tr_clk(149, this)'
+                            <tr class="alt" id="tr150" onclick='kCod="2692057";tr_clk(150, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5429,7 +5463,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr150" onclick='kCod="2692058";tr_clk(150, this)'
+                            <tr class="alt" id="tr151" onclick='kCod="2692058";tr_clk(151, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5446,7 +5480,7 @@ body
                                     50,260
                                 </td>
                                 <td>
-                                    37,700
+                                    21,800
                                 </td>
                                 <td>
                                     21,800
@@ -5463,7 +5497,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr151" onclick='kCod="2692065";tr_clk(151, this)'
+                            <tr class="alt" id="tr152" onclick='kCod="2692065";tr_clk(152, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5480,7 +5514,7 @@ body
                                     73,190
                                 </td>
                                 <td>
-                                    57,110
+                                    31,500
                                 </td>
                                 <td>
                                     31,500
@@ -5497,7 +5531,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr152" onclick='kCod="2692045";tr_clk(152, this)'
+                            <tr class="alt" id="tr153" onclick='kCod="2692045";tr_clk(153, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5531,7 +5565,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr153" onclick='kCod="2692134";tr_clk(153, this)'
+                            <tr class="alt" id="tr154" onclick='kCod="2692134";tr_clk(154, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5565,7 +5599,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr154" onclick='kCod="2692435";tr_clk(154, this)'
+                            <tr class="alt" id="tr155" onclick='kCod="2692435";tr_clk(155, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5599,7 +5633,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr155" onclick='kCod="2692098";tr_clk(155, this)'
+                            <tr class="alt" id="tr156" onclick='kCod="2692098";tr_clk(156, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5633,7 +5667,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr156" onclick='kCod="2692365";tr_clk(156, this)'
+                            <tr class="alt" id="tr157" onclick='kCod="2692365";tr_clk(157, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5667,7 +5701,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr157" onclick='kCod="2692436";tr_clk(157, this)'
+                            <tr class="alt" id="tr158" onclick='kCod="2692436";tr_clk(158, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5701,7 +5735,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr158" onclick='kCod="2722750";tr_clk(158, this)'
+                            <tr class="alt" id="tr159" onclick='kCod="2722750";tr_clk(159, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5735,7 +5769,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr159" onclick='kCod="2692102";tr_clk(159, this)'
+                            <tr class="alt" id="tr160" onclick='kCod="2692102";tr_clk(160, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5769,7 +5803,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr160" onclick='kCod="2692434";tr_clk(160, this)'
+                            <tr class="alt" id="tr161" onclick='kCod="2692434";tr_clk(161, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5803,7 +5837,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr161" onclick='kCod="2692097";tr_clk(161, this)'
+                            <tr class="alt" id="tr162" onclick='kCod="2692097";tr_clk(162, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5837,7 +5871,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr162" onclick='kCod="2692039";tr_clk(162, this)'
+                            <tr class="alt" id="tr163" onclick='kCod="2692039";tr_clk(163, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5871,7 +5905,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr163" onclick='kCod="2692402";tr_clk(163, this)'
+                            <tr class="alt" id="tr164" onclick='kCod="2692402";tr_clk(164, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5905,7 +5939,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr164" onclick='kCod="2692377";tr_clk(164, this)'
+                            <tr class="alt" id="tr165" onclick='kCod="2692377";tr_clk(165, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5939,7 +5973,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr165" onclick='kCod="2495401";tr_clk(165, this)'
+                            <tr class="alt" id="tr166" onclick='kCod="2495401";tr_clk(166, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -5973,7 +6007,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr166" onclick='kCod="2692087";tr_clk(166, this)'
+                            <tr class="alt" id="tr167" onclick='kCod="2692087";tr_clk(167, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6007,7 +6041,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr167" onclick='kCod="2600941";tr_clk(167, this)'
+                            <tr class="alt" id="tr168" onclick='kCod="2600941";tr_clk(168, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6041,7 +6075,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr168" onclick='kCod="2692388";tr_clk(168, this)'
+                            <tr class="alt" id="tr169" onclick='kCod="2692388";tr_clk(169, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6075,7 +6109,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr169" onclick='kCod="2692135";tr_clk(169, this)'
+                            <tr class="alt" id="tr170" onclick='kCod="2692135";tr_clk(170, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6109,7 +6143,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr170" onclick='kCod="2692449";tr_clk(170, this)'
+                            <tr class="alt" id="tr171" onclick='kCod="2692449";tr_clk(171, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6143,7 +6177,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr171" onclick='kCod="2692035";tr_clk(171, this)'
+                            <tr class="alt" id="tr172" onclick='kCod="2692035";tr_clk(172, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6177,7 +6211,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr172" onclick='kCod="2692371";tr_clk(172, this)'
+                            <tr class="alt" id="tr173" onclick='kCod="2692371";tr_clk(173, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6211,7 +6245,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr173" onclick='kCod="2692032";tr_clk(173, this)'
+                            <tr class="alt" id="tr174" onclick='kCod="2692032";tr_clk(174, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6245,7 +6279,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr174" onclick='kCod="2697922";tr_clk(174, this)'
+                            <tr class="alt" id="tr175" onclick='kCod="2697922";tr_clk(175, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6265,7 +6299,7 @@ body
                                     27,676
                                 </td>
                                 <td>
-                                    9,676
+                                    27,676
                                 </td>
                                 <td>
                                     1,838
@@ -6279,7 +6313,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr175" onclick='kCod="2692384";tr_clk(175, this)'
+                            <tr class="alt" id="tr176" onclick='kCod="2692384";tr_clk(176, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6313,7 +6347,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr176" onclick='kCod="2728950";tr_clk(176, this)'
+                            <tr class="alt" id="tr177" onclick='kCod="2728950";tr_clk(177, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6347,7 +6381,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr177" onclick='kCod="2722789";tr_clk(177, this)'
+                            <tr class="alt" id="tr178" onclick='kCod="2722789";tr_clk(178, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6381,7 +6415,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr178" onclick='kCod="2722730";tr_clk(178, this)'
+                            <tr class="alt" id="tr179" onclick='kCod="2722730";tr_clk(179, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6415,7 +6449,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr179" onclick='kCod="2717468";tr_clk(179, this)'
+                            <tr class="alt" id="tr180" onclick='kCod="2717468";tr_clk(180, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6449,7 +6483,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr180" onclick='kCod="2716476";tr_clk(180, this)'
+                            <tr class="alt" id="tr181" onclick='kCod="2716476";tr_clk(181, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6483,7 +6517,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr181" onclick='kCod="2711413";tr_clk(181, this)'
+                            <tr class="alt" id="tr182" onclick='kCod="2711413";tr_clk(182, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6517,7 +6551,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr182" onclick='kCod="2708429";tr_clk(182, this)'
+                            <tr class="alt" id="tr183" onclick='kCod="2708429";tr_clk(183, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6551,7 +6585,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr183" onclick='kCod="2702689";tr_clk(183, this)'
+                            <tr class="alt" id="tr184" onclick='kCod="2702689";tr_clk(184, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6585,7 +6619,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr184" onclick='kCod="2696540";tr_clk(184, this)'
+                            <tr class="alt" id="tr185" onclick='kCod="2696540";tr_clk(185, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6619,7 +6653,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr185" onclick='kCod="2692441";tr_clk(185, this)'
+                            <tr class="alt" id="tr186" onclick='kCod="2692441";tr_clk(186, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6653,7 +6687,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr186" onclick='kCod="2692380";tr_clk(186, this)'
+                            <tr class="alt" id="tr187" onclick='kCod="2692380";tr_clk(187, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6687,7 +6721,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr187" onclick='kCod="2692379";tr_clk(187, this)'
+                            <tr class="alt" id="tr188" onclick='kCod="2692379";tr_clk(188, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6721,7 +6755,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr188" onclick='kCod="2692361";tr_clk(188, this)'
+                            <tr class="alt" id="tr189" onclick='kCod="2692361";tr_clk(189, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6755,7 +6789,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr189" onclick='kCod="2692092";tr_clk(189, this)'
+                            <tr class="alt" id="tr190" onclick='kCod="2692092";tr_clk(190, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6789,7 +6823,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr190" onclick='kCod="2692051";tr_clk(190, this)'
+                            <tr class="alt" id="tr191" onclick='kCod="2692051";tr_clk(191, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6823,7 +6857,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr191" onclick='kCod="2692047";tr_clk(191, this)'
+                            <tr class="alt" id="tr192" onclick='kCod="2692047";tr_clk(192, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6857,7 +6891,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr192" onclick='kCod="2692041";tr_clk(192, this)'
+                            <tr class="alt" id="tr193" onclick='kCod="2692041";tr_clk(193, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -6878,40 +6912,6 @@ body
                                 </td>
                                 <td>
                                     0
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>&nbsp;
-                                    0.0
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr193" onclick='kCod="2692036";tr_clk(193, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    2692036: AMPLIACION DE LA CAPACIDAD PRODUCTIVA CON MAQUINAS INDUSTRIALES TEXTILES EN LA ASOCIACION TEXTIL CREACIONES SOFIA, DISTRITO LA VICTORIA, PROVINCIA CHICLAYO, REGION LAMBAYEQUE
-                                    
-                                </td>
-                                <td>
-                                    0
-                                </td>
-                                <td>
-                                    74,070
-                                </td>
-                                <td>
-                                    70,000
-                                </td>
-                                <td>
-                                    70,000
-                                </td>
-                                <td>
-                                    70,000
                                 </td>
                                 <td>
                                     0
@@ -7078,7 +7078,7 @@ body
                                     63,120
                                 </td>
                                 <td>
-                                    5,120
+                                    0
                                 </td>
                                 <td>
                                     0
@@ -7177,7 +7177,7 @@ body
                                     212,551
                                 </td>
                                 <td>
-                                    27,000
+                                    164,589
                                 </td>
                                 <td>
                                     27,000
@@ -7741,7 +7741,41 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr218" onclick='kCod="2478487";tr_clk(218, this)'
+                            <tr class="alt" id="tr218" onclick='kCod="2478606";tr_clk(218, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    2478606: MEJORAMIENTO Y AMPLIACION DEL SERVICIO DE AGUA POTABLE E INSTALACION DE SANEAMIENTO BASICO EN EL CASERIO DE MARAYHUACA DEL DISTRITO DE INCAHUASI - PROVINCIA DE FERREÑAFE - DEPARTAMENTO DE LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    99,374
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>&nbsp;
+                                    0.0
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr219" onclick='kCod="2478487";tr_clk(219, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -7775,7 +7809,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr219" onclick='kCod="2403652";tr_clk(219, this)'
+                            <tr class="alt" id="tr220" onclick='kCod="2403652";tr_clk(220, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -7809,7 +7843,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr220" onclick='kCod="2392266";tr_clk(220, this)'
+                            <tr class="alt" id="tr221" onclick='kCod="2392266";tr_clk(221, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -7843,7 +7877,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr221" onclick='kCod="2359925";tr_clk(221, this)'
+                            <tr class="alt" id="tr222" onclick='kCod="2359925";tr_clk(222, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -7877,7 +7911,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr222" onclick='kCod="2312001";tr_clk(222, this)'
+                            <tr class="alt" id="tr223" onclick='kCod="2312001";tr_clk(223, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -7911,7 +7945,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr223" onclick='kCod="2306881";tr_clk(223, this)'
+                            <tr class="alt" id="tr224" onclick='kCod="2306881";tr_clk(224, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -7945,7 +7979,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr224" onclick='kCod="2278135";tr_clk(224, this)'
+                            <tr class="alt" id="tr225" onclick='kCod="2278135";tr_clk(225, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -7979,7 +8013,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr225" onclick='kCod="2261156";tr_clk(225, this)'
+                            <tr class="alt" id="tr226" onclick='kCod="2261156";tr_clk(226, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -8013,7 +8047,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr226" onclick='kCod="2194360";tr_clk(226, this)'
+                            <tr class="alt" id="tr227" onclick='kCod="2194360";tr_clk(227, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -8047,7 +8081,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr227" onclick='kCod="2194347";tr_clk(227, this)'
+                            <tr class="alt" id="tr228" onclick='kCod="2194347";tr_clk(228, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -8081,7 +8115,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr228" onclick='kCod="2173453";tr_clk(228, this)'
+                            <tr class="alt" id="tr229" onclick='kCod="2173453";tr_clk(229, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
