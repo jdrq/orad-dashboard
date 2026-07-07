@@ -24,3 +24,5 @@ desktop.ini
 # Si descargas .xls sueltos en otras carpetas del repo (fuera de xls/)
 # y no quieres subirlos por error, descomenta la línea de abajo:
 # *.xls
+
+xls/_respaldo_anterior/
