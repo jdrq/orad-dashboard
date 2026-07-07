@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+env/
+venv/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+*.swp
+*~
+
+# Logs
+*.log
+
+# IMPORTANTE: la carpeta xls/ SÍ se sube — el dashboard la lee directo
+# con fetch() para la auto-carga diaria. NO la ignores.
+# Si descargas .xls sueltos en otras carpetas del repo (fuera de xls/)
+# y no quieres subirlos por error, descomenta la línea de abajo:
+# *.xls
+
+xls/_respaldo_anterior/
+
+# Capturas de diagnóstico generadas por descargar_xls_mef.py cuando
+# falla un drill (pueden contener datos presupuestales en pantalla,
+# no deben publicarse en el repo público de GitHub Pages)
+error_*.png
+
+# Backups locales de JSON (red de seguridad manual antes de correr
+# scripts de actualización: actualizar_rb_hist_sc.py,
+# actualizar_hist_gores_enejul.py, convertir_semestral.py). Se generan
+# con "copy archivo.json archivo.json.backup" y son responsabilidad de
+# cada sesión de trabajo, no del repositorio — Git ya guarda el
+# historial real de versiones vía commits.
+data/*.backup
+*.json.backup
