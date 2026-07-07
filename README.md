@@ -45,8 +45,9 @@ El dashboard **no depende de ningún backend en producción**. El parseo de los 
                     │  xls/historico/*.xls        (ranking GORES)          │
                     │  xls/historico_rubro/*.xls  (Rubro Sede Central)     │
                     │            ↓                                        │
-                    │  scripts/convertir_semestral.py                     │
-                    │  actualizar_rb_hist_sc.py                           │
+                    │  scripts/convertir_semestral.py    (Ene-Jun)        │
+                    │  actualizar_hist_gores_enejul.py   (Ene-Jul+)       │
+                    │  actualizar_rb_hist_sc.py          (Ene-Jul+)       │
                     │            ↓                                        │
                     │  data/*.json (historico_semestral, historico_enejul,│
                     │               rb_hist_sc_enejul, semestre1_2026)    │
@@ -65,8 +66,9 @@ El dashboard **no depende de ningún backend en producción**. El parseo de los 
 orad-dashboard/
 ├── index.html                       ← Dashboard (un solo archivo, autocontenido)
 ├── descargar_xls_mef.py             ← Fase 2a: descarga automatizada (Playwright) de los 13 XLS diarios
-├── actualizar_rb_hist_sc.py         ← Actualiza dev_t1/dev_t2 en rb_hist_sc_enejul.json
-├── actualizar.bat                   ← Script de referencia (validación 13/13 + push)
+├── actualizar_rb_hist_sc.py         ← Actualiza dev_t1/dev_t2/dev_sem en rb_hist_sc_enejul.json (Bloque 6)
+├── actualizar_hist_gores_enejul.py  ← Actualiza historico_enejul.json — ranking GORES (Bloque 8)
+├── verificar_diff_json.py           ← Herramienta de auditoría puntual (no es parte del pipeline diario)
 ├── .gitignore
 ├── data/
 │   ├── semestre1_2026.json          ← Snapshot congelado al 30/06/2026 ("Ver Primer Semestre")
@@ -77,7 +79,8 @@ orad-dashboard/
 │   └── convertir_semestral.py       ← Genera historico_semestral.json (ranking GORES) desde xls/historico/
 └── xls/
     ├── (13 archivos del día — ver tabla abajo, se suben a Git)
-    ├── historico/                   ← Manual. Fuente para convertir_semestral.py (ranking GORES). SÍ se sube a Git.
+    ├── historico/                   ← Manual. Fuente para convertir_semestral.py y
+    │                                   actualizar_hist_gores_enejul.py (ranking GORES). SÍ se sube a Git.
     ├── historico_rubro/             ← Manual. Fuente para actualizar_rb_hist_sc.py (Rubro Sede Central). SÍ se sube a Git.
     └── _respaldo_anterior/          ← Automática (la crea descargar_xls_mef.py en cada corrida).
                                         EXCLUIDA de Git vía .gitignore — nunca se sube.
@@ -138,7 +141,12 @@ Estos **no** forman parte de la actualización diaria — se exportan una sola v
 
 ### `xls/historico/` → Bloque 8 (ranking nacional GORES)
 
-Por año (2022–2025): `1T_{año}.xls`, `2T_{año}.xls`, `anual_{año}_gores.xls`, `julio_{año}.xls`. Se procesan con `scripts/convertir_semestral.py`, que lee la **Tabla 3** de cada archivo (ranking de 26 GOREs) y genera `data/historico_semestral.json`.
+Por año (2022–2025): `1T_{año}.xls`, `2T_{año}.xls`, `anual_{año}_gores.xls`, `julio_{año}.xls`. Se procesan en dos etapas, con dos scripts distintos, según qué JSON alimentan:
+
+- **`scripts/convertir_semestral.py`** → genera `data/historico_semestral.json` (Ene-Jun, T1+T2). Este es el corte "Primer Semestre" que se congela para la vista `Ver Primer Semestre`.
+- **`actualizar_hist_gores_enejul.py`** → genera `data/historico_enejul.json` (Ene-Jul, T1+T2+Julio). Usa la misma filosofía de acumulación progresiva y validación cruzada que `actualizar_rb_hist_sc.py` (ver más abajo), con lista `PERIODOS` configurable para extender a Agosto y meses siguientes sin reescribir lógica.
+
+> **Metodología de promedios nacionales (corregido 07/07/2026):** `prom_dev_pct` y `prom_cert_pct` se calculan como **promedio ponderado por PIM** — `Σ(devengado de los 26 GOREs) / Σ(PIM de los 26 GOREs) × 100` — no como promedio simple de los 26 porcentajes individuales. Es la misma metodología que usa el propio MEF para el avance nacional agregado. Un promedio simple da un resultado distinto (confirmado con auditoría matemática: hasta ~3 puntos porcentuales de diferencia), porque le da el mismo peso a un GORE grande como Arequipa que a uno pequeño como Tumbes.
 
 ### `xls/historico_rubro/` → Bloque 6 (Rubro — Sede Central)
 
@@ -146,12 +154,14 @@ Por año (2022–2025): `1T_RUBRO_{año}.xls`, `2T_RUBRO_{año}.xls`, `JULIO_RUB
 
 > **Requisito de exportación (crítico):** al pedir estos archivos en Consulta Amigable, seleccionar explícitamente la columna de agrupación ("Rubro" o el nivel correspondiente) **antes** de exportar. Si el archivo trae solo una fila "TOTAL" en la tabla de detalle, significa que no se seleccionó la agrupación — no hay forma de recuperar el desglose después, hay que reexportar desde cero.
 
-> **Metodología de acumulación (importante, verificado empíricamente):** los filtros "Trimestre I", "Trimestre II" y "Mes N" de Consulta Amigable devuelven valores **por período (incrementales)**, no acumulados. Es decir, `2T_RUBRO_{año}.xls` trae solo Abr-Jun, no Ene-Jun. Para obtener acumulados hay que sumar progresivamente:
-> - `dev_t1` (acumulado a marzo) = valor de `1T_RUBRO`
-> - `dev_t2` (acumulado a junio) = `1T_RUBRO` + `2T_RUBRO`
-> - `dev_sem`/Ene-Jul = `1T_RUBRO` + `2T_RUBRO` + `JULIO_RUBRO`
+> **Metodología de acumulación (importante, verificado empíricamente):** los filtros "Trimestre I", "Trimestre II" y "Mes N" de Consulta Amigable devuelven valores **por período (incrementales)**, no acumulados. Es decir, `2T_RUBRO_{año}.xls` (o `2T_{año}.xls`) trae solo Abr-Jun, no Ene-Jun. Para obtener acumulados hay que sumar progresivamente:
+> - `dev_t1` (acumulado a marzo) = valor de `1T`
+> - `dev_t2` (acumulado a junio) = `1T` + `2T`
+> - Ene-Jul = `1T` + `2T` + `Julio`
 >
-> `actualizar_rb_hist_sc.py` ya aplica esta suma automáticamente y valida el resultado contra el dato existente (tolerancia 0.5%) antes de sobrescribir — si ves un `⚠️ DIFERENCIA detectada` en la consola, no lo ignores, revisa manualmente antes de continuar.
+> Tanto `actualizar_rb_hist_sc.py` como `actualizar_hist_gores_enejul.py` aplican esta suma automáticamente y validan el resultado contra el dato ya existente en el JSON (tolerancia 0.5%) **antes** de sobrescribir — si algún año no pasa la validación, ese año se conserva sin cambios (nunca se escribe un dato dudoso) y verás `⚠️ ... BLOQUEADO` en la consola. No lo ignores: revisa manualmente antes de reintentar.
+>
+> **Extender a meses futuros (Agosto en adelante):** ambos scripts tienen una lista `PERIODOS` configurable al inicio del archivo. Agregar un mes nuevo es: (1) re-exportar el archivo del mes con la agrupación correcta seleccionada, (2) descomentar/agregar la línea correspondiente en `PERIODOS`, (3) correr el script. No requiere reescribir lógica. Los meses sin benchmark previo (todo lo posterior a Julio) se validan por **monotonicidad** (el acumulado nunca puede bajar mes a mes) en vez de por comparación exacta.
 
 ---
 
@@ -164,5 +174,7 @@ El dashboard funciona igual abriendo `index.html` con doble clic y con los XLS e
 ## Hoja de Ruta
 
 - **Fase 2a (actual):** descarga automatizada supervisada, con ventana de navegador visible y checkpoints de calidad (13/13 archivos, drill-down verificado, respaldo automático).
-- **Fase 2b (futura, diferida deliberadamente):** automatización desatendida vía Windows Task Scheduler — solo después de varias semanas adicionales de Fase 2a estable, sin fallos de descarga ni necesidad de intervención manual.
+- **Fase 2b (futura, diferida deliberadamente):** automatización desatendida vía Windows Task Scheduler — solo después de varias semanas adicionales de Fase 2a estable, sin fallos de descarga ni necesidad de intervención manual. `actualizar.bat` fue retirado (07/07/2026) por estar en desuso; si se retoma este camino, el orquestador se reconstruirá en Python, no en `.bat`, para reutilizar la misma lógica de reintentos y gates ya probada en los scripts actuales.
+- **Cerrado (07/07/2026):** `historico_enejul.json` (Bloque 8) dejó de armarse manualmente — ahora lo genera `actualizar_hist_gores_enejul.py`, con la misma filosofía de validación cruzada y acumulación progresiva que Rubro. De paso se detectó y corrigió un error metodológico real: los promedios nacionales (`prom_dev_pct`/`prom_cert_pct`) usaban promedio simple en vez de ponderado por PIM.
+- **Próximo hito (cuando cierre Agosto 2026):** extender `PERIODOS` en ambos scripts históricos (`actualizar_rb_hist_sc.py` y `actualizar_hist_gores_enejul.py`) agregando el mes de Agosto — re-exportar los `.xls` correspondientes con la agrupación correcta y correr los scripts. Aprovechar el momento para migrar `actualizar_rb_hist_sc.py` a la variante con `PERIODOS` configurable (hoy tiene 3 períodos hardcodeados; `actualizar_hist_gores_enejul.py` ya nació con esa arquitectura) y unificar el patrón entre ambos.
 - **Pendiente no urgente:** migrar los datos hardcodeados en `index.html` (constante `RB_HIST_SC`, bloque "Ver Primer Semestre") a un JSON externo en `data/`, consolidando toda la data histórica en un solo formato — hoy coexisten dos fuentes (HTML hardcodeado y JSON externo) para el mismo bloque, lo cual es deuda técnica aceptable a corto plazo pero no ideal a largo plazo.
