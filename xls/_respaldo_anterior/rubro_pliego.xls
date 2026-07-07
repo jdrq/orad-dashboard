@@ -144,7 +144,7 @@ body
 </style><body>
 	<table id="hd">
 		<tr>
-			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 07-julio-2026</div><br /><b>Año de Ejecución: <span class='value'>2026</span><br />Incluye: <span class='value'>Sólo Proyectos</span></b></td>
+			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 06-julio-2026</div><br /><b>Año de Ejecución: <span class='value'>2026</span><br />Incluye: <span class='value'>Sólo Proyectos</span></b></td>
 		</tr>
 	</table>
 	
@@ -163,24 +163,24 @@ body
                             48,594,496,937
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            63,214,058,132
+                            63,117,899,512
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            51,206,126,173
+                            51,125,470,699
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            38,245,328,480
+                            38,093,053,630
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            31,847,579,906
+                            31,727,257,527
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            27,212,216,757
+                            27,086,354,273
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            25,922,156,759
+                            25,665,853,203
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;43.0</td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;42.9</td>
                     </tr>
                 
                     <tr align="right" class="alt">
@@ -195,24 +195,24 @@ body
                             14,621,708,053
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="11">
-                            15,736,022,720
+                            15,720,046,783
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="12">
-                            12,890,707,991
+                            12,907,262,420
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="13">
-                            9,597,074,274
+                            9,568,626,514
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="14">
-                            7,914,705,932
+                            7,866,862,699
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="15">
-                            6,831,501,188
+                            6,801,674,498
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="16">
-                            6,266,333,707
+                            6,217,252,157
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;43.4</td>
+                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;43.3</td>
                     </tr>
                 
                     <tr align="right">
@@ -228,24 +228,24 @@ body
                             14,621,708,053
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            15,732,136,776
+                            15,716,160,839
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            12,886,887,520
+                            12,903,441,949
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            9,594,427,823
+                            9,565,980,064
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            7,912,552,091
+                            7,864,708,857
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            6,829,422,653
+                            6,799,600,462
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            6,264,255,172
+                            6,215,178,122
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;43.4</td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;43.3</td>
                     </tr>
                 
                     <tr align="right" class="alt">
@@ -260,57 +260,24 @@ body
                             839,385,905
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="11">
-                            769,619,660
+                            771,419,660
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="12">
-                            721,684,895
+                            721,686,957
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="13">
-                            609,688,182
+                            608,763,750
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="14">
-                            544,621,328
+                            544,032,318
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="15">
-                            266,559,057
+                            266,023,729
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="16">
-                            260,920,236
+                            254,247,115
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;34.6</td>
-                    </tr>
-                
-                    <tr align="right">
-                        
-                        <td align="left" style="font-size: 7pt; width: auto">
-                            Unidad Ejecutora 400-860: REGION LAMBAYEQUE-SALUD
-                            
-                            
-                            
-                            
-                        </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
-                            40,156,709
-                        </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
-                            20,168,615
-                        </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
-                            20,168,615
-                        </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
-                            17,023,936
-                        </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
-                            17,023,936
-                        </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
-                            15,923,771
-                        </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
-                            15,365,214
-                        </td>
-                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;79.0</td>
+                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;34.5</td>
                     </tr>
                 
                     </table>
@@ -337,33 +304,101 @@ body
                                     
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    26,339,606
+                                    296,029,174
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    6,092,902
+                                    266,808,986
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    6,092,902
+                                    265,643,763
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    4,255,597
+                                    224,529,152
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    4,255,597
+                                    198,239,359
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    4,001,565
+                                    104,706,250
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    4,001,565
+                                    102,568,725
                                 </td>
                                 <td style="white-space: nowrap; width: 50px">&nbsp;
-                                    65.7
+                                    39.2
                                 </td>
                             </tr>
                             
                         
-                            <tr class="alt" id="tr1" onclick='kCod="15";tr_clk(1, this)'
+                            <tr class="alt" id="tr1" onclick='kCod="09";tr_clk(1, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    09: RECURSOS DIRECTAMENTE RECAUDADOS
+                                    
+                                </td>
+                                <td>
+                                    34,992,504
+                                </td>
+                                <td>
+                                    34,992,504
+                                </td>
+                                <td>
+                                    29,161,467
+                                </td>
+                                <td>
+                                    21,455,130
+                                </td>
+                                <td>
+                                    16,834,185
+                                </td>
+                                <td>
+                                    14,429,111
+                                </td>
+                                <td>
+                                    14,291,308
+                                </td>
+                                <td>&nbsp;
+                                    41.2
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr2" onclick='kCod="13";tr_clk(2, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    13: DONACIONES Y TRANSFERENCIAS
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    14,210,669
+                                </td>
+                                <td>
+                                    13,972,124
+                                </td>
+                                <td>
+                                    13,778,697
+                                </td>
+                                <td>
+                                    13,778,697
+                                </td>
+                                <td>
+                                    34,299
+                                </td>
+                                <td>
+                                    34,299
+                                </td>
+                                <td>&nbsp;
+                                    0.2
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr3" onclick='kCod="15";tr_clk(3, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -371,28 +406,96 @@ body
                                     
                                 </td>
                                 <td>
-                                    13,817,103
+                                    507,184,330
                                 </td>
                                 <td>
-                                    14,075,713
+                                    452,112,232
                                 </td>
                                 <td>
-                                    14,075,713
+                                    411,397,348
                                 </td>
                                 <td>
-                                    12,768,339
+                                    347,488,516
                                 </td>
                                 <td>
-                                    12,768,339
+                                    313,667,822
                                 </td>
                                 <td>
-                                    11,922,206
+                                    146,200,564
                                 </td>
                                 <td>
-                                    11,363,648
+                                    136,699,278
                                 </td>
                                 <td>&nbsp;
-                                    84.7
+                                    32.3
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr4" onclick='kCod="18";tr_clk(4, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    18: CANON Y SOBRECANON, REGALIAS, RENTA DE ADUANAS Y PARTICIPACIONES
+                                    
+                                </td>
+                                <td>
+                                    1,179,897
+                                </td>
+                                <td>
+                                    1,179,897
+                                </td>
+                                <td>
+                                    66,500
+                                </td>
+                                <td>
+                                    66,500
+                                </td>
+                                <td>
+                                    66,500
+                                </td>
+                                <td>
+                                    66,500
+                                </td>
+                                <td>
+                                    66,500
+                                </td>
+                                <td>&nbsp;
+                                    5.6
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr5" onclick='kCod="19";tr_clk(5, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    19: RECURSOS POR OPERACIONES OFICIALES DE CREDITO
+                                    
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    2,115,372
+                                </td>
+                                <td>
+                                    1,445,755
+                                </td>
+                                <td>
+                                    1,445,755
+                                </td>
+                                <td>
+                                    1,445,755
+                                </td>
+                                <td>
+                                    587,005
+                                </td>
+                                <td>
+                                    587,005
+                                </td>
+                                <td>&nbsp;
+                                    27.7
                                 </td>
                             </tr>
                             
