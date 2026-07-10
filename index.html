@@ -478,6 +478,7 @@
       </div>
       <div class="b1-donuts-wrap">
       <div class="kpis">
+        <div class="kpi"><div class="k-l">PIA consolidado</div><div class="k-v" id="kPia">S/ 0</div><div class="k-s">Presupuesto Inicial</div></div>
         <div class="kpi accent"><div class="k-l">PIM consolidado</div><div class="k-v" id="kPim">S/ 0</div><div class="k-s" id="kFiles">0 archivos · 0 registros</div></div>
         <div class="kpi"><div class="k-l">Certificado</div><div class="k-v" id="kCert">S/ 0</div><div class="k-s" id="kCertP">0.0%</div></div>
         <div class="kpi"><div class="k-l">Compromiso</div><div class="k-v" id="kComp">S/ 0</div><div class="k-s" id="kCompP">0.0%</div></div>
@@ -1775,16 +1776,17 @@
     const soloInv = true;   // el tablero siempre muestra inversiones
     const sel = archivos.filter(a=>a.incluir && !a.error);
     const selUE = sel.filter(a=>!a.esNacional && !a.esProyectos && !a.esRubro && !a.esFuncion && !a.esHistorico);   // solo archivos de UE para B1/B3
-    const T = {pim:0,certificacion:0,compromiso:0,devengado:0};
+    const T = {pia:0,pim:0,certificacion:0,compromiso:0,devengado:0};
     let nreg = 0;
     for(const a of selUE){
       const t = totalesArchivo(a, soloInv);
-      T.pim+=t.pim; T.certificacion+=t.certificacion; T.compromiso+=t.compromiso; T.devengado+=t.devengado;
+      T.pia+=t.pia||0; T.pim+=t.pim; T.certificacion+=t.certificacion; T.compromiso+=t.compromiso; T.devengado+=t.devengado;
       nreg += a.res.nRegistros;
     }
     const pct = x => T.pim ? (x/T.pim*100) : 0;
     const cP=pct(T.certificacion), dP=pct(T.devengado), mP=pct(T.compromiso);
 
+    $("#kPia").textContent = fmtSoles(T.pia);
     $("#kPim").textContent = fmtSoles(T.pim);
     $("#kFiles").textContent = selUE.length+" archivo"+(selUE.length!==1?"s":"")+" · "+nreg.toLocaleString("es-PE")+" registros";
     $("#kCert").textContent=fmtSoles(T.certificacion); $("#kCertP").textContent=fmtPct(cP);
