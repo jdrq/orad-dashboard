@@ -896,7 +896,7 @@
       ══════════════════════════════════════════════════════════════ -->
       <div class="pdf-section" id="b6rubro2">
         <div class="pdf-header" style="background:#5a1414"><div class="pdf-header-left"><h2>Ejecución Presupuestal por Rubro</h2>
-          <div class="sub" style="color:#FFD166">PEOT / Agricultura / Transporte / GERESA &nbsp;·&nbsp; <span id="b6rubro2fecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
+          <div class="sub" style="color:#FFD166">PEOT / Agricultura / Transporte / SALUD &nbsp;·&nbsp; <span id="b6rubro2fecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body">
           <div id="b6rubro2Paneles">
             <div style="padding:40px;text-align:center;color:#888">
@@ -1362,6 +1362,14 @@
   const $ = s => document.querySelector(s);
   const fmtSoles = n => "S/ " + (Math.round(n||0)).toLocaleString("es-PE");
   const fmtPct = n => (n==null?0:n).toFixed(1) + "%";
+  // Formato compacto para etiquetas de gráficos: K para miles, M para millones
+  // (>= 1,000,000 usa M con 1 decimal; entre 1,000 y 999,999 usa K sin decimales).
+  const fmtCompacto = n => {
+    n = n || 0;
+    if (Math.abs(n) >= 1000000) return "S/ " + (n/1000000).toLocaleString("es-PE",{minimumFractionDigits:1,maximumFractionDigits:1}) + "M";
+    if (Math.abs(n) >= 1000)    return "S/ " + Math.round(n/1000).toLocaleString("es-PE") + "K";
+    return "S/ " + Math.round(n).toLocaleString("es-PE");
+  };
 
   // Normaliza texto: mayúsculas, sin acentos, sin espacios extra.
   // NOTA: existe una función equivalente dentro de mef-reader.js, pero vive
@@ -2224,7 +2232,7 @@
     "002-1133": { label:"PEOT",      cls:"peot" },
     "100-856":  { label:"AGRICULTURA", cls:"agri" },
     "200-857":  { label:"TRANSPORTE",  cls:"trans" },
-    "400-860":  { label:"GERESA / SALUD", cls:"geresa" },
+    "400-860":  { label:"SALUD", cls:"geresa" },
     "401-1001": { label:"H. MERCEDES",   cls:"hmercedes" },
     "402-1002": { label:"H. BELÉN",      cls:"hbelen" },
     "403-1422": { label:"H. REGIONAL",   cls:"hregional" },
@@ -2258,7 +2266,7 @@
     "002-1133": { label:"PEOT",         cls:"peot" },
     "100-856":  { label:"AGRICULTURA",  cls:"agri" },
     "200-857":  { label:"TRANSPORTE",   cls:"trans" },
-    "400-860":  { label:"GERESA / SALUD", cls:"geresa" },
+    "400-860":  { label:"SALUD", cls:"geresa" },
     "401-1001": { label:"H. MERCEDES",  cls:"hmercedes" },
     "402-1002": { label:"H. BELÉN",     cls:"hbelen" },
     "403-1422": { label:"H. REGIONAL",  cls:"hregional" },
@@ -2906,7 +2914,7 @@
         grid.innerHTML=byDev.map(u=>{
           const hDev=Math.max(3,Math.round(u.av/100*MAXH));
           const hCert=Math.max(3,Math.round(u.certP/100*MAXH));
-          const pimK="S/ "+Math.round(u.pim/1000).toLocaleString("es-PE")+"K";
+          const pimK=fmtCompacto(u.pim);
           return `<div class="ue-bar-col">
             <div class="ubc-pim">${pimK}</div>
             <div class="ubc-bars">
@@ -3742,7 +3750,7 @@
     { query:"#b3rsecRiesgo",        titulo:"Proyectos con Ejecución en Riesgo" },
     { query:"#b6secPliego",         titulo:"Ejecución Presupuestal por Rubro — Pliego" },
     { query:"#b6rubro1",            titulo:"Ejecución por Rubro — Sede Central" },
-    { query:"#b6rubro2",            titulo:"Ejecución por Rubro — PEOT / Agricultura / Transporte / GERESA" },
+    { query:"#b6rubro2",            titulo:"Ejecución por Rubro — PEOT / Agricultura / Transporte / SALUD" },
     { query:"#b6rubro3",            titulo:"Ejecución por Rubro — H. Mercedes / H. Belén / H. Regional" },
     { query:"#b7secFunciones",      titulo:"Funciones a Nivel Pliego" },
     { query:"#b8secHistorico",      titulo:"Ejecución Presupuestal — Comparativo Histórico" },
