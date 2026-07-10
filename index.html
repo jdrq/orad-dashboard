@@ -542,12 +542,13 @@
             <thead><tr>
               <th style="width:48px">N°</th>
               <th class="left" style="width:auto">PLIEGO</th>
+              <th class="num" id="thPiaA">PIA</th>
               <th class="num">PIM</th>
               <th class="num">DEVENGADO</th>
               <th class="num" style="width:160px">AVANCE %</th>
             </tr></thead>
             <tbody id="goreRowsA">
-              <tr><td colspan="5" style="padding:32px;text-align:center;color:#888">Carga el archivo nacional de proyectos para ver el ranking.</td></tr>
+              <tr><td colspan="6" style="padding:32px;text-align:center;color:#888">Carga el archivo nacional de proyectos para ver el ranking.</td></tr>
             </tbody>
           </table>
           <div class="pdf-legend">
@@ -637,12 +638,13 @@
             <thead><tr>
               <th style="width:48px">N°</th>
               <th class="left">PLIEGO</th>
+              <th class="num" id="thPiaC">PIA</th>
               <th class="num">PIM</th>
               <th class="num">CERTIFICADO</th>
               <th class="num" style="width:160px">AVANCE % CERT.</th>
             </tr></thead>
             <tbody id="goreRowsC">
-              <tr><td colspan="5" style="padding:32px;text-align:center;color:#888">Carga el archivo nacional de proyectos para ver el ranking.</td></tr>
+              <tr><td colspan="6" style="padding:32px;text-align:center;color:#888">Carga el archivo nacional de proyectos para ver el ranking.</td></tr>
             </tbody>
           </table>
           <div class="pdf-legend" id="b2metaC">
@@ -667,6 +669,7 @@
             <thead><tr>
               <th style="width:44px">N°</th>
               <th class="left">UNIDAD EJECUTORA</th>
+              <th class="num">PIA</th>
               <th class="num">PIM</th>
               <th class="num">% PIM</th>
               <th class="num">CERTIFICACIÓN</th>
@@ -679,7 +682,7 @@
               <th class="num">AVANCE %</th>
             </tr></thead>
             <tbody id="ueRows">
-              <tr><td colspan="12" style="padding:32px;text-align:center;color:#888">Carga el pliego desglosado por Unidad Ejecutora para ver el detalle.</td></tr>
+              <tr><td colspan="13" style="padding:32px;text-align:center;color:#888">Carga el pliego desglosado por Unidad Ejecutora para ver el detalle.</td></tr>
             </tbody>
             <tfoot id="ueFoot"></tfoot>
           </table>
@@ -750,6 +753,7 @@
             <thead><tr>
               <th style="width:44px">N°</th>
               <th class="left">PROYECTO</th>
+              <th class="num">PIA</th>
               <th class="num">PIM</th>
               <th class="num">CERTIFICACIÓN</th>
               <th class="num">% CERT</th>
@@ -761,7 +765,7 @@
               <th class="num" style="width:130px">AVANCE %</th>
             </tr></thead>
             <tbody id="b3tRows">
-              <tr><td colspan="11" style="padding:32px;text-align:center;color:#888">Carga el archivo de proyectos (Consulta Amigable filtrada por UE) para ver el ranking.</td></tr>
+              <tr><td colspan="12" style="padding:32px;text-align:center;color:#888">Carga el archivo de proyectos (Consulta Amigable filtrada por UE) para ver el ranking.</td></tr>
             </tbody>
             <tfoot id="b3tFoot"></tfoot>
           </table>
@@ -787,6 +791,7 @@
             <thead><tr>
               <th style="width:44px">N°</th>
               <th class="left">PROYECTO</th>
+              <th class="num">PIA</th>
               <th class="num">PIM</th>
               <th class="num">CERTIFICACIÓN</th>
               <th class="num">% CERT</th>
@@ -796,7 +801,7 @@
               <th class="num" style="background:#f4c8c8;color:var(--vino);width:130px">PIM SIN EJECUTAR</th>
             </tr></thead>
             <tbody id="b3rRows">
-              <tr><td colspan="9" style="padding:32px;text-align:center;color:#888">Carga el archivo de proyectos (Consulta Amigable filtrada por UE) para ver la alerta.</td></tr>
+              <tr><td colspan="10" style="padding:32px;text-align:center;color:#888">Carga el archivo de proyectos (Consulta Amigable filtrada por UE) para ver la alerta.</td></tr>
             </tbody>
             <tfoot id="b3rFoot"></tfoot>
           </table>
@@ -826,6 +831,7 @@
               <thead><tr>
                 <th style="width:40px">N°</th>
                 <th class="left">DESCRIPCIÓN</th>
+                <th class="num">PIA</th>
                 <th class="num">PIM</th>
                 <th class="num">% PIM</th>
                 <th class="num">CERTIFICACIÓN</th>
@@ -838,7 +844,7 @@
                 <th class="num" style="width:110px">AVANCE %</th>
               </tr></thead>
               <tbody id="rubroRows">
-                <tr><td colspan="12" style="padding:32px;text-align:center;color:#888">Carga el archivo de rubros del pliego.</td></tr>
+                <tr><td colspan="13" style="padding:32px;text-align:center;color:#888">Carga el archivo de rubros del pliego.</td></tr>
               </tbody>
               <tfoot id="rubroFoot"></tfoot>
             </table>
@@ -927,6 +933,7 @@
             <table class="pdf-table">
               <thead><tr>
                 <th class="left">FUNCIÓN</th>
+                <th class="num">PIA</th>
                 <th class="num">PIM</th>
                 <th class="num">% PIM</th>
                 <th class="num">CERTIFICACIÓN</th>
@@ -938,7 +945,7 @@
                 <th class="num" style="width:110px">AVANCE %</th>
               </tr></thead>
               <tbody id="funcionRows">
-                <tr><td colspan="10" style="padding:32px;text-align:center;color:#888">Carga el archivo de Funciones del Pliego.</td></tr>
+                <tr><td colspan="11" style="padding:32px;text-align:center;color:#888">Carga el archivo de Funciones del Pliego.</td></tr>
               </tbody>
               <tfoot id="funcionFoot"></tfoot>
             </table>
@@ -1307,6 +1314,7 @@
       ? parseBinary(wb, XLSX) : parseHTML(wb, XLSX);
 
     const total = {
+      pia: sum(registros, "pia"),
       pim: sum(registros, "pim"),
       certificacion: sum(registros, "certificacion"),
       compromiso: sum(registros, "compromiso"),
@@ -1602,10 +1610,10 @@
   // totales de un archivo, aplicando el filtro "solo inversiones" a CUALQUIER familia
   function totalesArchivo(a, soloInv){
     if(!soloInv || a.esPorUE) return a.res.total;   // por-UE ya viene en inversiones
-    const t={pim:0,certificacion:0,compromiso:0,devengado:0};
+    const t={pia:0,pim:0,certificacion:0,compromiso:0,devengado:0};
     for(const r of a.res.registros){
       if(esInversion(r)){
-        t.pim+=r.pim||0; t.certificacion+=r.certificacion||0;
+        t.pia+=r.pia||0; t.pim+=r.pim||0; t.certificacion+=r.certificacion||0;
         t.compromiso+=r.compromiso||0; t.devengado+=r.devengado||0;
       }
     }
@@ -1842,6 +1850,7 @@
       return `<tr>
         <td class="center" style="font-weight:800">${cod}:</td>
         <td style="text-align:left;white-space:normal">${nom}</td>
+        <td class="num">${f(r.pia)}</td>
         <td class="num">${f(r.pim)}</td>
         <td class="num">${ppim.toFixed(2)}%</td>
         <td class="num">${f(r.certificacion)}</td>
@@ -1858,12 +1867,13 @@
       </tr>`;
     }).join("");
   }
-  function rubroFootHTML(tp,tc,tco,td,prom){
+  function rubroFootHTML(tp,tc,tco,td,prom,tpia){
     const f=n=>Math.round(n||0).toLocaleString("es-PE");
     const s=`style="background:#3a3a3a;color:#FFD166;border:1px solid #555;font-family:'Barlow Condensed';font-weight:800"`;
     const so=`style="background:#3a3a3a;color:var(--naranja-h);border:1px solid #555;font-family:'Barlow Condensed';font-weight:800"`;
     return `<tr>
       <td colspan="2" ${s}>TOTAL</td>
+      <td class="num" ${s}>S/ ${f(tpia||0)}</td>
       <td class="num" ${s}>S/ ${f(tp)}</td><td class="num" ${s}>100%</td>
       <td class="num" ${s}>S/ ${f(tc)}</td><td class="num" ${s}>${tp?(tc/tp*100).toFixed(1)+"%":"—"}</td>
       <td class="num" ${s}>S/ ${f(tp-tc)}</td>
@@ -1878,17 +1888,21 @@
     const fecha=fechaMostrada();
     const rubroArchivos = sel.filter(x=>x.esRubro);
     const aPliego = rubroArchivos.find(x=>rubroNivel(x.res)==="PLIEGO") || rubroArchivos.find(x=>!x.esPorUE && rubroNivel(x.res)!=="UNIDAD");
-    const aSede   = rubroArchivos.find(x=>x!==aPliego && rubroNivel(x.res)==="UNIDAD");
+    const aSede   = rubroArchivos.find(x => {
+      if (x===aPliego || rubroNivel(x.res)!=="UNIDAD") return false;
+      const ueCtx = x.res.contexto && x.res.contexto.find(c=>c.nivel==="UNIDAD");
+      return ueCtx && String(ueCtx.descripcion||ueCtx.nombre||"").includes("001-855");
+    });
 
     // ── 6A: Pliego ──
     const fEl=$("#b6fecha");if(fEl)fEl.textContent=fecha;
     const donasEl=$("#b6Donuts"),tBody=$("#rubroRows"),tFoot=$("#rubroFoot"),subtEl=$("#b6subtitulo");
     if(!aPliego){
       if(donasEl)donasEl.innerHTML='<div style="padding:32px;text-align:center;color:#888;width:100%">Carga el archivo de rubros del pliego.</div>';
-      if(tBody)tBody.innerHTML='<tr><td colspan="12" style="padding:32px;text-align:center;color:#888">Carga el archivo de rubros del pliego.</td></tr>';
+      if(tBody)tBody.innerHTML='<tr><td colspan="13" style="padding:32px;text-align:center;color:#888">Carga el archivo de rubros del pliego.</td></tr>';
     } else {
       const filas=aPliego.res.registros.filter(r=>r.pim>0);
-      const tp=aPliego.res.total.pim||1,td=aPliego.res.total.devengado||0,tc=aPliego.res.total.certificacion||0,tco=aPliego.res.total.compromiso||0;
+      const tp=aPliego.res.total.pim||1,td=aPliego.res.total.devengado||0,tc=aPliego.res.total.certificacion||0,tco=aPliego.res.total.compromiso||0,tpia=aPliego.res.total.pia||0;
       const prom=tp?td/tp*100:0;
       const pEl=$("#b6prom");if(pEl)pEl.textContent=prom.toFixed(1)+"%";
       const ctx=aPliego.res.contexto.find(c=>c.nivel==="UNIDAD"||c.nivel==="PLIEGO");
@@ -1926,7 +1940,7 @@
         rubroDonut("b6dtotal", devTot, "#7a1f1f", "#efe1da");
       }
       if(tBody) tBody.innerHTML=rubroTablaHTML(filas,tp);
-      if(tFoot) tFoot.innerHTML=rubroFootHTML(tp,tc,tco,td,prom);
+      if(tFoot) tFoot.innerHTML=rubroFootHTML(tp,tc,tco,td,prom,tpia);
     }
   }
 
@@ -1940,6 +1954,7 @@
       const col=devP<=20.9?"#ef4444":(devP<=49.99?"#e8a020":"#22c55e");
       return `<tr>
         <td style="text-align:left;white-space:normal">${nom}</td>
+        <td class="num">${f(r.pia)}</td>
         <td class="num">${f(r.pim)}</td>
         <td class="num">${ppim.toFixed(2)}%</td>
         <td class="num">${f(r.certificacion)}</td>
@@ -1955,12 +1970,13 @@
       </tr>`;
     }).join("");
   }
-  function funcionFootHTML(tp,tc,tco,td,prom){
+  function funcionFootHTML(tp,tc,tco,td,prom,tpia){
     const f=n=>Math.round(n||0).toLocaleString("es-PE");
     const s=`style="background:#3a3a3a;color:#FFD166;border:1px solid #555;font-family:'Barlow Condensed';font-weight:800"`;
     const so=`style="background:#3a3a3a;color:var(--naranja-h);border:1px solid #555;font-family:'Barlow Condensed';font-weight:800"`;
     return `<tr>
       <td ${s}>TOTAL</td>
+      <td class="num" ${s}>S/ ${f(tpia||0)}</td>
       <td class="num" ${s}>S/ ${f(tp)}</td><td class="num" ${s}>100%</td>
       <td class="num" ${s}>S/ ${f(tc)}</td><td class="num" ${s}>${tp?(tc/tp*100).toFixed(1)+"%":"—"}</td>
       <td class="num" ${s}>S/ ${f(tco)}</td><td class="num" ${s}>${tp?(tco/tp*100).toFixed(1)+"%":"—"}</td>
@@ -1976,19 +1992,19 @@
     const tBody=$("#funcionRows"), tFoot=$("#funcionFoot");
 
     if(!aFunc){
-      if(tBody) tBody.innerHTML='<tr><td colspan="10" style="padding:32px;text-align:center;color:#888">Carga el archivo de Funciones del Pliego.</td></tr>';
+      if(tBody) tBody.innerHTML='<tr><td colspan="11" style="padding:32px;text-align:center;color:#888">Carga el archivo de Funciones del Pliego.</td></tr>';
       if(tFoot) tFoot.innerHTML="";
       return;
     }
 
     const filas = aFunc.res.registros.filter(r=>r.pim>0).slice().sort((a,b)=>b.pim-a.pim);
     const tp=aFunc.res.total.pim||1, td=aFunc.res.total.devengado||0,
-          tc=aFunc.res.total.certificacion||0, tco=aFunc.res.total.compromiso||0;
+          tc=aFunc.res.total.certificacion||0, tco=aFunc.res.total.compromiso||0, tpia=aFunc.res.total.pia||0;
     const prom = tp?td/tp*100:0;
     const pEl=$("#b7prom"); if(pEl) pEl.textContent=prom.toFixed(1)+"%";
 
     if(tBody) tBody.innerHTML=funcionTablaHTML(filas,tp);
-    if(tFoot) tFoot.innerHTML=funcionFootHTML(tp,tc,tco,td,prom);
+    if(tFoot) tFoot.innerHTML=funcionFootHTML(tp,tc,tco,td,prom,tpia);
   }
 
   // -------- Bloque 8: Histórico 2016-2026 (datos fijos del PDF institucional) --------
@@ -2251,27 +2267,29 @@
     const info = UE_INFO_COMPLETO[cod] || {label:cod, cls:""};
 
     // Para Sede Central usamos el resultado ya procesado del Bloque 6 original
-    let rubros, tpTotal, tdTotal, tcTotal, tcoTotal;
+    let rubros, tpTotal, tdTotal, tcTotal, tcoTotal, tpiaTotal;
     if(esSede && sedeRes){
-      rubros   = sedeRes.registros.filter(r=>r.pim>0);
-      tpTotal  = sedeRes.total.pim         || 0;
-      tdTotal  = sedeRes.total.devengado   || 0;
-      tcTotal  = sedeRes.total.certificacion || 0;
-      tcoTotal = sedeRes.total.compromiso  || 0;
+      rubros    = sedeRes.registros.filter(r=>r.pim>0);
+      tpTotal   = sedeRes.total.pim         || 0;
+      tdTotal   = sedeRes.total.devengado   || 0;
+      tcTotal   = sedeRes.total.certificacion || 0;
+      tcoTotal  = sedeRes.total.compromiso  || 0;
+      tpiaTotal = sedeRes.total.pia         || 0;
     } else {
       const rubroMap = {};
-      tpTotal = tdTotal = tcTotal = tcoTotal = 0;
+      tpTotal = tdTotal = tcTotal = tcoTotal = tpiaTotal = 0;
       (archivos||[]).forEach(a=>{
         a.res.registros.filter(r=>r.pim>0).forEach(r=>{
           const c2 = String(r.codigo||"").trim();
-          if(!rubroMap[c2]) rubroMap[c2]={descripcion:r.descripcion,codigo:c2,pim:0,certificacion:0,compromiso:0,devengado:0};
+          if(!rubroMap[c2]) rubroMap[c2]={descripcion:r.descripcion,codigo:c2,pia:0,pim:0,certificacion:0,compromiso:0,devengado:0};
+          rubroMap[c2].pia           += r.pia||0;
           rubroMap[c2].pim          += r.pim||0;
           rubroMap[c2].certificacion+= r.certificacion||0;
           rubroMap[c2].compromiso   += r.compromiso||0;
           rubroMap[c2].devengado    += r.devengado||0;
         });
         const t = totalesArchivo(a, false);
-        tpTotal+=t.pim; tdTotal+=t.devengado; tcTotal+=t.certificacion; tcoTotal+=t.compromiso;
+        tpTotal+=t.pim; tdTotal+=t.devengado; tcTotal+=t.certificacion; tcoTotal+=t.compromiso; tpiaTotal+=(t.pia||0);
       });
       rubros = Object.values(rubroMap).filter(r=>r.pim>0);
     }
@@ -2293,6 +2311,7 @@
         <thead><tr>
           <th style="width:40px">N°</th>
           <th class="left">DESCRIPCIÓN</th>
+          <th class="num">PIA</th>
           <th class="num">PIM</th><th class="num">% PIM</th>
           <th class="num">CERTIFICACIÓN</th><th class="num">% CERT</th>
           <th class="num" style="background:#fce8e8;color:var(--vino)">POR CERTIF.</th>
@@ -2302,7 +2321,7 @@
           <th class="num" style="width:110px">AVANCE %</th>
         </tr></thead>
         <tbody>${rubroTablaHTML(rubros, tp)}</tbody>
-        <tfoot>${rubroFootHTML(tpTotal,tcTotal,tcoTotal,tdTotal,prom)}</tfoot>
+        <tfoot>${rubroFootHTML(tpTotal,tcTotal,tcoTotal,tdTotal,prom,tpiaTotal)}</tfoot>
       </table>
     </div>`;
   }
@@ -2313,9 +2332,10 @@
     // ── Detectar Sede Central — igual que en renderBloque6 ──
     const rubroArchivos = sel.filter(x=>x.esRubro);
     const aPliego = rubroArchivos.find(x=>rubroNivel(x.res)==="PLIEGO") || rubroArchivos.find(x=>!x.esPorUE && rubroNivel(x.res)!=="UNIDAD");
-    const aSedeRubro = rubroArchivos.find(x=>x!==aPliego && rubroNivel(x.res)==="UNIDAD");
 
-    // ── Indexar archivos de UEs por código ──
+    // ── Indexar archivos de UEs por código (se calcula antes de elegir
+    //    el archivo de Sede Central, para poder matchear por código real
+    //    001-855 en vez de "el primer archivo con nivel UNIDAD que aparezca") ──
     const ueFiles = {};
     for(const a of sel){
       if(!a.res || !a.res.contexto) continue;
@@ -2327,6 +2347,17 @@
       if(!ueFiles[cod]) ueFiles[cod]=[];
       ueFiles[cod].push(a);
     }
+
+    // BUG CORREGIDO: antes se hacía
+    //   rubroArchivos.find(x=>x!==aPliego && rubroNivel(x.res)==="UNIDAD")
+    // que toma el PRIMER archivo de rubro con nivel UNIDAD que aparezca en
+    // "sel" — pero TODOS los archivos rubro_h_*.xls, rubro_peot.xls,
+    // rubro_agricultura.xls y rubro_transportes.xls también tienen nivel
+    // UNIDAD. Si el orden de carga cambiaba, "Sede Central" podía terminar
+    // mostrando los datos de otra UE (ej. Hospital Regional). Ahora se
+    // matchea explícitamente por el código real 001-855.
+    const aSedeRubro = (ueFiles["001-855"]||[])
+      .find(x=>x.esRubro && x!==aPliego && rubroNivel(x.res)==="UNIDAD");
 
     // ── Renderizar cada grupo en su panel ──
     B6_GRUPOS.forEach((grupo, idx)=>{
@@ -2651,7 +2682,11 @@
         // Fallback: usar el resultado del Bloque 6 pliego (sede central tiene nivel UNIDAD)
         if (pimVivo === 0) {
           const rubroArchivos = sel.filter(x=>x.esRubro);
-          const aSedeRubro = rubroArchivos.find(x => x !== rubroArchivos.find(x2=>rubroNivel(x2.res)==="PLIEGO") && rubroNivel(x.res)==="UNIDAD");
+          const aSedeRubro = rubroArchivos.find(x => {
+            if (rubroNivel(x.res)!=="UNIDAD") return false;
+            const ueCtx = x.res.contexto && x.res.contexto.find(c=>c.nivel==="UNIDAD");
+            return ueCtx && String(ueCtx.descripcion||ueCtx.nombre||"").includes("001-855");
+          });
           if (aSedeRubro) {
             const t = totalesArchivo(aSedeRubro, false);
             devVivo = t.devengado; pimVivo = t.pim;
@@ -2793,14 +2828,14 @@
         for(const r of a.res.registros){
           const pim=r.pim||0, cert=r.certificacion||0, comp=r.compromiso||0, dev=r.devengado||0;
           ues.push({nombre:cleanUEName(r.descripcion), fullNom:String(r.descripcion||"").replace(/^\d{3}-\d+:\s*/,""),
-                    pim, cert, comp, dev, av:pim?dev/pim*100:0,
+                    pia:r.pia||0, pim, cert, comp, dev, av:pim?dev/pim*100:0,
                     certP:pim?cert/pim*100:0, compP:pim?comp/pim*100:0});
         }
       } else {
         const t=totalesArchivo(a,soloInv);
         const pim=t.pim, cert=t.certificacion, comp=t.compromiso, dev=t.devengado;
         ues.push({nombre:cleanUEName(ueLabel(a.res)), fullNom:ueLabel(a.res),
-                  pim, cert, comp, dev, av:pim?dev/pim*100:0,
+                  pia:t.pia||0, pim, cert, comp, dev, av:pim?dev/pim*100:0,
                   certP:pim?cert/pim*100:0, compP:pim?comp/pim*100:0});
       }
     }
@@ -2814,7 +2849,7 @@
     const tb=$("#ueRows");
     if(tb){
       if(!list.length){
-        tb.innerHTML='<tr><td colspan="12" style="padding:32px;text-align:center;color:#888">Carga el pliego desglosado por UE.</td></tr>';
+        tb.innerHTML='<tr><td colspan="13" style="padding:32px;text-align:center;color:#888">Carga el pliego desglosado por UE.</td></tr>';
       } else {
         const f=n=>Math.round(n||0).toLocaleString("es-PE");
         tb.innerHTML=list.map((u,i)=>{
@@ -2823,6 +2858,7 @@
           return `<tr>
             <td class="center" style="font-weight:700">${ORDINAL2[i+1]||i+1}</td>
             <td style="text-align:left;white-space:normal;line-height:1.3;font-size:11px">${u.fullNom}</td>
+            <td class="num">${f(u.pia)}</td>
             <td class="num">${f(u.pim)}</td>
             <td class="num">${ppim.toFixed(2)}%</td>
             <td class="num">${f(u.cert)}</td>
@@ -2840,10 +2876,12 @@
         }).join("");
         const tf=$("#ueFoot");
         if(tf){ const f=n=>Math.round(n||0).toLocaleString("es-PE");
+          const tpia=list.reduce((s,u)=>s+(u.pia||0),0);
           const s=(v)=>`style="background:#3a3a3a;color:#FFD166;border:1px solid #555;font-family:'Barlow Condensed';font-weight:800"`;
           const so=(v)=>`style="background:#3a3a3a;color:var(--naranja-h);border:1px solid #555;font-family:'Barlow Condensed';font-weight:800"`;
           tf.innerHTML=`<tr>
             <td colspan="2" ${s()}>TOTAL</td>
+            <td class="num" ${s()}>S/ ${f(tpia)}</td>
             <td class="num" ${s()}>S/ ${f(tp)}</td><td class="num" ${s()}>100%</td>
             <td class="num" ${s()}>S/ ${f(tc)}</td><td class="num" ${s()}>${tp?(tc/tp*100).toFixed(1)+"%":"—"}</td>
             <td class="num" ${s()}>S/ ${f(tp-tc)}</td>
@@ -2903,7 +2941,7 @@
     const fecha = fechaMostrada();
     const elF=$("#b3tFecha"); if(elF) elF.textContent=fecha;
     if(!aProy){
-      tb.innerHTML='<tr><td colspan="11" style="padding:32px;text-align:center;color:#888">Carga el archivo de proyectos (Consulta Amigable filtrada por UE) para ver el ranking.</td></tr>';
+      tb.innerHTML='<tr><td colspan="12" style="padding:32px;text-align:center;color:#888">Carga el archivo de proyectos (Consulta Amigable filtrada por UE) para ver el ranking.</td></tr>';
       const tf=$("#b3tFoot"); if(tf) tf.innerHTML="";
       const elP=$("#b3tProm"); if(elP) elP.textContent="—";
       return;
@@ -2915,20 +2953,21 @@
       .slice(0, TOP_N_PROYECTOS);
     const elN=$("#b3tN"); if(elN) elN.textContent=proyectos.length;
     if(!proyectos.length){
-      tb.innerHTML='<tr><td colspan="11" style="padding:32px;text-align:center;color:#888">El archivo no trae proyectos con PIM > 0.</td></tr>';
+      tb.innerHTML='<tr><td colspan="12" style="padding:32px;text-align:center;color:#888">El archivo no trae proyectos con PIM > 0.</td></tr>';
       const tf=$("#b3tFoot"); if(tf) tf.innerHTML="";
       return;
     }
     const f=n=>Math.round(n||0).toLocaleString("es-PE");
     const nombreProy = r => String(r.descripcion||"").replace(/^\d{7}:\s*/,"");
     tb.innerHTML = proyectos.map((r,i)=>{
-      const pim=r.pim||0, cert=r.certificacion||0, comp=r.compromiso||0, dev=r.devengado||0;
+      const pia=r.pia||0, pim=r.pim||0, cert=r.certificacion||0, comp=r.compromiso||0, dev=r.devengado||0;
       const av = r.avance!=null ? r.avance : (pim?dev/pim*100:0);
       const certP = pim?cert/pim*100:0, compP = pim?comp/pim*100:0;
       const col = av<=20.9?"#ef4444":(av<=49.99?"#e8a020":"#22c55e");
       return `<tr>
         <td class="center" style="font-weight:700">${i+1}</td>
         <td style="text-align:left;white-space:normal;line-height:1.3;font-size:11px">${nombreProy(r)}</td>
+        <td class="num">${f(pia)}</td>
         <td class="num">${f(pim)}</td>
         <td class="num">${f(cert)}</td>
         <td class="num">${certP.toFixed(1)}%</td>
@@ -2943,6 +2982,7 @@
         </div></td>
       </tr>`;
     }).join("");
+    const tpia=proyectos.reduce((s,r)=>s+(r.pia||0),0);
     const tp=proyectos.reduce((s,r)=>s+(r.pim||0),0), tc=proyectos.reduce((s,r)=>s+(r.certificacion||0),0),
           tco=proyectos.reduce((s,r)=>s+(r.compromiso||0),0), td=proyectos.reduce((s,r)=>s+(r.devengado||0),0);
     const prom = tp?(td/tp*100):0;
@@ -2953,6 +2993,7 @@
       const so=`style="background:#3a3a3a;color:var(--naranja-h);border:1px solid #555;font-family:'Barlow Condensed';font-weight:800"`;
       tf.innerHTML=`<tr>
         <td colspan="2" ${s}>TOTAL TOP ${proyectos.length}</td>
+        <td class="num" ${s}>S/ ${f(tpia)}</td>
         <td class="num" ${s}>S/ ${f(tp)}</td>
         <td class="num" ${s}>S/ ${f(tc)}</td><td class="num" ${s}>${tp?(tc/tp*100).toFixed(1)+"%":"—"}</td>
         <td class="num" ${s}>S/ ${f(tp-tc)}</td>
@@ -2990,18 +3031,19 @@
     const elN=$("#b3rN"); if(elN) elN.textContent=proyectos.length;
     const f=n=>Math.round(n||0).toLocaleString("es-PE");
     if(!proyectos.length){
-      tb.innerHTML='<tr><td colspan="9" style="padding:32px;text-align:center;color:#2a7d46;font-weight:700">✓ No se identificaron proyectos con PIM asignado y 0% de devengado.</td></tr>';
+      tb.innerHTML='<tr><td colspan="10" style="padding:32px;text-align:center;color:#2a7d46;font-weight:700">✓ No se identificaron proyectos con PIM asignado y 0% de devengado.</td></tr>';
       const tf=$("#b3rFoot"); if(tf) tf.innerHTML="";
       const elT=$("#b3rTotalPim"); if(elT) elT.textContent="—";
       return;
     }
     const nombreProy = r => String(r.descripcion||"").replace(/^\d{7}:\s*/,"");
     tb.innerHTML = proyectos.map((r,i)=>{
-      const pim=r.pim||0, cert=r.certificacion||0, comp=r.compromiso||0, dev=r.devengado||0;
+      const pia=r.pia||0, pim=r.pim||0, cert=r.certificacion||0, comp=r.compromiso||0, dev=r.devengado||0;
       const certP = pim?cert/pim*100:0, compP = pim?comp/pim*100:0;
       return `<tr>
         <td class="center" style="font-weight:700">${i+1}</td>
         <td style="text-align:left;white-space:normal;line-height:1.3;font-size:11px">${nombreProy(r)}</td>
+        <td class="num">${f(pia)}</td>
         <td class="num" style="font-weight:700">${f(pim)}</td>
         <td class="num">${f(cert)}</td>
         <td class="num">${certP.toFixed(1)}%</td>
@@ -3011,6 +3053,7 @@
         <td class="num" style="background:#fce8e8;color:var(--vino);font-weight:700">${f(pim-dev)}</td>
       </tr>`;
     }).join("");
+    const tpia=proyectos.reduce((s,r)=>s+(r.pia||0),0);
     const tp=proyectos.reduce((s,r)=>s+(r.pim||0),0);
     const elT=$("#b3rTotalPim"); if(elT) elT.textContent="S/ "+f(tp)+" en riesgo";
     const tc=proyectos.reduce((s,r)=>s+(r.certificacion||0),0), tco=proyectos.reduce((s,r)=>s+(r.compromiso||0),0);
@@ -3019,6 +3062,7 @@
       const s=`style="background:#3a3a3a;color:#FFD166;border:1px solid #555;font-family:'Barlow Condensed';font-weight:800"`;
       tf.innerHTML=`<tr>
         <td colspan="2" ${s}>TOTAL TOP ${proyectos.length}</td>
+        <td class="num" ${s}>S/ ${f(tpia)}</td>
         <td class="num" ${s}>S/ ${f(tp)}</td>
         <td class="num" ${s}>S/ ${f(tc)}</td><td class="num" ${s}>${tp?(tc/tp*100).toFixed(1)+"%":"—"}</td>
         <td class="num" ${s}>S/ ${f(tco)}</td><td class="num" ${s}>${tp?(tco/tp*100).toFixed(1)+"%":"—"}</td>
@@ -3037,12 +3081,17 @@
   function renderBloque2(sel){
     const nac=sel.find(a=>a.esNacional);
     const fecha=fechaHoy();
-    const empty='<tr><td colspan="5" style="padding:32px;text-align:center;color:#888">Carga el archivo nacional de proyectos.</td></tr>';
+    const empty='<tr><td colspan="6" style="padding:32px;text-align:center;color:#888">Carga el archivo nacional de proyectos.</td></tr>';
+    const emptyB='<tr><td colspan="4" style="padding:32px;text-align:center;color:#888">Carga el archivo nacional de proyectos.</td></tr>';
     ["b2fechaA","b2fechaB","b2fechaC"].forEach(id=>{const el=$("#"+id);if(el)el.textContent=fecha;});
-    if(!nac){["goreRowsA","goreRowsB","goreRowsC"].forEach(id=>{const el=$("#"+id);if(el)el.innerHTML=empty;});return;}
+    if(!nac){
+      ["goreRowsA","goreRowsC"].forEach(id=>{const el=$("#"+id);if(el)el.innerHTML=empty;});
+      const elB0=$("#goreRowsB"); if(elB0) elB0.innerHTML=emptyB;
+      return;
+    }
     const regs=nac.res.registros.map(r=>({
       fullName:String(r.descripcion||"").replace(/^\d+:\s*/,""),
-      pim:r.pim||0,cert:r.certificacion||0,dev:r.devengado||0,
+      pia:r.pia||0,pim:r.pim||0,cert:r.certificacion||0,dev:r.devengado||0,
       devp:r.pim?r.devengado/r.pim*100:0,certp:r.pim?r.certificacion/r.pim*100:0,
       lamb:/^452$/.test(String(r.codigo||""))||/LAMBAYEQUE/i.test(String(r.descripcion||""))
     }));
@@ -3060,6 +3109,7 @@
       return `<tr ${trC}>
         <td class="center" style="font-weight:700">${ORDINAL[i+1]||i+1}</td>
         <td style="text-align:left">${r.fullName}</td>
+        <td class="num">S/ ${f(r.pia)}</td>
         <td class="num">S/ ${f(r.pim)}</td>
         <td class="num">S/ ${f(r.dev)}</td>
         <td><div class="av-wrap">
@@ -3078,7 +3128,6 @@
       return `<tr ${trC}>
         <td class="center" style="font-weight:700">${ORDINAL[i+1]||i+1}</td>
         <td style="text-align:left">${r.fullName}</td>
-        <td class="num">S/ ${f(r.pim)}</td>
         <td class="num">S/ ${f(r.dev)}</td>
         <td><div class="av-bar" style="width:100px;height:14px"><span style="width:${(r.dev/maxDev*100).toFixed(1)}%;background:${col}"></span></div></td>
       </tr>`;
@@ -3092,6 +3141,7 @@
       return `<tr ${trC}>
         <td class="center" style="font-weight:700">${ORDINAL[i+1]||i+1}</td>
         <td style="text-align:left">${r.fullName}</td>
+        <td class="num">S/ ${f(r.pia)}</td>
         <td class="num">S/ ${f(r.pim)}</td>
         <td class="num">S/ ${f(r.cert)}</td>
         <td><div class="av-wrap">
@@ -3259,6 +3309,7 @@
         const mkRanking = (arr) => arr.map((r,i) => ({
           codigo:        String(r.codigo||""),
           nombre:        String(r.descripcion||""),
+          pia:           r.pia||0,
           pim:           r.pim||0,
           dev:           r.devengado||0,
           cert:          r.certificacion||0,
@@ -3322,12 +3373,15 @@
       const fechaEl= document.getElementById("b2fechaA");
       const metaEl = document.getElementById("b2metaA");
 
+      const thPia = document.getElementById("thPiaA");
+
       const fuenteHist = anio === "2026" ? STATE.historico : fuenteHistorica();
       if (!fuenteHist || !fuenteHist.semestres[anio]) {
         if (anio === "2026") renderA_desdeArchivos();
-        else if (tbody) tbody.innerHTML = `<tr><td colspan="5" style="padding:24px;text-align:center;color:#888">Histórico ${anio} no disponible.</td></tr>`;
+        else if (tbody) { if(thPia) thPia.style.display="none"; tbody.innerHTML = `<tr><td colspan="5" style="padding:24px;text-align:center;color:#888">Histórico ${anio} no disponible.</td></tr>`; }
         return;
       }
+      if (thPia) thPia.style.display = anio === "2026" ? "" : "none";
       const sem     = fuenteHist.semestres[anio];
       const ranking = sem.ranking_dev_pct || [];
       const prom    = sem.prom_dev_pct || 0;
@@ -3343,9 +3397,11 @@
         const pct    = g.dev_pct||0;
         const col    = esLam ? "#FFD166" : semColor(pct, prom);
         const trC    = esLam ? 'class="lamb-row"' : "";
+        const tdPia  = anio === "2026" ? `<td class="num">S/ ${fmt(g.pia||0)}</td>` : "";
         return `<tr ${trC}>
           <td class="center" style="font-weight:700">${ORDINAL[i+1]||i+1+"°"}</td>
           <td style="text-align:left">${nombre}</td>
+          ${tdPia}
           <td class="num">S/ ${fmt(g.pim)}</td>
           <td class="num">S/ ${fmt(g.dev)}</td>
           <td><div class="av-wrap">
@@ -3360,6 +3416,8 @@
       try {
         const nac = (typeof archivos !== "undefined") && archivos.find(a => a.esNacional);
         if (!nac) return;
+        const thPia = document.getElementById("thPiaA");
+        if (thPia) thPia.style.display = "";
         const regs = nac.res.registros;
         const sp = regs.reduce((s,r)=>s+(r.pim||0),0);
         const prom = sp ? regs.reduce((s,r)=>s+(r.devengado||0),0)/sp*100 : 0;
@@ -3376,6 +3434,7 @@
           return `<tr ${trC}>
             <td class="center" style="font-weight:700">${ORDINAL[i+1]||i+1+"°"}</td>
             <td style="text-align:left">${nombre}</td>
+            <td class="num">S/ ${fmt(r.pia||0)}</td>
             <td class="num">S/ ${fmt(r.pim||0)}</td>
             <td class="num">S/ ${fmt(r.devengado||0)}</td>
             <td><div class="av-wrap">
@@ -3466,13 +3525,15 @@
       const tbody  = document.getElementById("goreRowsC");
       const promEl = document.getElementById("b2promC");
       const fechaEl= document.getElementById("b2fechaC");
+      const thPia  = document.getElementById("thPiaC");
 
       const fuenteHist = anio === "2026" ? STATE.historico : fuenteHistorica();
       if (!fuenteHist || !fuenteHist.semestres[anio]) {
         if (anio === "2026") renderC_desdeArchivos();
-        else if (tbody) tbody.innerHTML = `<tr><td colspan="5" style="padding:24px;text-align:center;color:#888">Histórico ${anio} no disponible.</td></tr>`;
+        else if (tbody) { if(thPia) thPia.style.display="none"; tbody.innerHTML = `<tr><td colspan="5" style="padding:24px;text-align:center;color:#888">Histórico ${anio} no disponible.</td></tr>`; }
         return;
       }
+      if (thPia) thPia.style.display = anio === "2026" ? "" : "none";
       const sem     = fuenteHist.semestres[anio];
       const ranking = sem.ranking_cert_pct || [];
       const prom    = sem.prom_cert_pct || 0;
@@ -3487,9 +3548,11 @@
         const pct    = g.cert_pct||0;
         const col    = esLam ? "#FFD166" : semColor(pct, prom);
         const trC    = esLam ? 'class="lamb-row"' : "";
+        const tdPia  = anio === "2026" ? `<td class="num">S/ ${fmt(g.pia||0)}</td>` : "";
         return `<tr ${trC}>
           <td class="center" style="font-weight:700">${ORDINAL[i+1]||i+1+"°"}</td>
           <td style="text-align:left">${nombre}</td>
+          ${tdPia}
           <td class="num">S/ ${fmt(g.pim)}</td>
           <td class="num">S/ ${fmt(g.cert)}</td>
           <td><div class="av-wrap">
@@ -3504,6 +3567,8 @@
       try {
         const nac = (typeof archivos !== "undefined") && archivos.find(a => a.esNacional);
         if (!nac) return;
+        const thPia = document.getElementById("thPiaC");
+        if (thPia) thPia.style.display = "";
         const regs = nac.res.registros;
         const sp = regs.reduce((s,r)=>s+(r.pim||0),0);
         const prom = sp ? regs.reduce((s,r)=>s+(r.certificacion||0),0)/sp*100 : 0;
@@ -3520,6 +3585,7 @@
           return `<tr ${trC}>
             <td class="center" style="font-weight:700">${ORDINAL[i+1]||i+1+"°"}</td>
             <td style="text-align:left">${nombre}</td>
+            <td class="num">S/ ${fmt(r.pia||0)}</td>
             <td class="num">S/ ${fmt(r.pim||0)}</td>
             <td class="num">S/ ${fmt(r.certificacion||0)}</td>
             <td><div class="av-wrap">
