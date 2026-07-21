@@ -52,8 +52,9 @@ from bs4 import BeautifulSoup
 
 # ---------------- CONFIGURACIÓN ----------------
 AÑOS = [2022, 2023, 2024, 2025]
-CARPETA_XLS = "xls/historico_rubro"
-CARPETA_DATA = "data"
+_BASE        = os.path.dirname(os.path.abspath(__file__))
+CARPETA_XLS  = os.path.join(_BASE, "..", "xls", "historico_rubro")
+CARPETA_DATA = os.path.join(_BASE, "..", "data")
 ARCHIVO_JSON = os.path.join(CARPETA_DATA, "rb_hist_sc_enejul.json")
 
 # Lista ordenada de períodos a acumular progresivamente.

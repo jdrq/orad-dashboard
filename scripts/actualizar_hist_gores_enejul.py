@@ -39,8 +39,9 @@ from bs4 import BeautifulSoup
 
 # ---------------- CONFIGURACIÓN ----------------
 AÑOS = [2022, 2023, 2024, 2025]
-CARPETA_XLS = "xls/historico"
-CARPETA_DATA = "data"
+_BASE        = os.path.dirname(os.path.abspath(__file__))
+CARPETA_XLS  = os.path.join(_BASE, "..", "xls", "historico")
+CARPETA_DATA = os.path.join(_BASE, "..", "data")
 ARCHIVO_JSON = os.path.join(CARPETA_DATA, "historico_enejul.json")
 CODIGO_LAMBAYEQUE = "452"
 

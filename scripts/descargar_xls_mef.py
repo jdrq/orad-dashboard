@@ -35,7 +35,7 @@ from pathlib import Path
 # --------------------------------------------------------------------
 # CONFIGURACIÓN
 # --------------------------------------------------------------------
-CARPETA_DESTINO = Path("xls")
+CARPETA_DESTINO = Path(__file__).resolve().parent.parent / "xls"
 ANIO = "2026"
 URL_BASE = f"https://apps5.mineco.gob.pe/transparencia/Navegador/default.aspx?y={ANIO}&ap=Proyecto"
 FRAME_SELECTOR = "#frame0"
