@@ -352,6 +352,131 @@
     .ue-grouped-chart{gap:8px}
     .ue-col{min-width:50px}
   }
+
+  /* ================================================================
+     RESPONSIVE MÓVIL — añadido 21/07/2026
+     Breakpoints: 600px (móvil) dentro del 900px ya existente
+     Problemas detectados en capturas reales:
+       1. Topbar: ORAD stamp encima del brand en pantallas < 400px
+       2. titleband h1: texto muy grande, se desborda
+       3. Tablas: sin scroll horizontal — texto cortado
+       4. KPIs: 2 columnas OK en 900px, pero en < 400px muy apretado
+       5. Botones de año: se salen del contenedor
+       6. Top Proyectos: columnas PIA/PIM muy anchas, descripción cortada
+       7. orad-stamp absoluto se superpone al título en bloques
+     ================================================================ */
+
+  /* ── Tablas: scroll horizontal en móvil (CRÍTICO) ── */
+  @media(max-width:768px){
+    /* Wrapper scroll para TODAS las tablas del dashboard */
+    .b6-table-wrap,
+    #b3tabla, #b3tablaRiesgo,
+    #b7tabla,
+    #goresWrapA, #goresWrapB, #goresWrapC,
+    .pdf-body,
+    [id$="tabla"], [id$="Tabla"] {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Tamaño de fuente reducido en tablas para caber mejor */
+    table { font-size: 11.5px; }
+    th    { font-size: 10.5px; padding: 7px 8px; }
+    td    { padding: 7px 8px; font-size: 11.5px; }
+
+    /* Columna descripción de proyectos: permitir wrap */
+    td.desc-col, td:first-child { white-space: normal; min-width: 120px; }
+
+    /* .wrap: reducir padding lateral */
+    .wrap { padding: 0 12px; }
+
+    /* Panel de carga */
+    .loader { grid-template-columns: 1fr; }
+    .drop   { border-right: 0; border-bottom: 1px solid var(--linea); }
+
+    /* KPIs: 2 columnas */
+    .kpis { grid-template-columns: repeat(2,1fr); gap: 10px; margin: 14px 0 18px; }
+
+    /* Donuts: 1 columna */
+    .donuts { grid-template-columns: 1fr; }
+
+    /* titleband */
+    .titleband h1 { font-size: 18px; }
+    .titleband .wrap { padding: 12px; }
+
+    /* Botones de año: wrap en vez de overflow */
+    .yr-btns-wrap, .periodo-wrap, [class*="yr-btn"] {
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .yr-btn, .yr-btn-c, .yr-btn-a, .yr-btn-b {
+      font-size: 13px;
+      padding: 4px 10px;
+    }
+
+    /* orad-stamp en bloques: resetear posición absoluta */
+    .orad-stamp {
+      position: static;
+      transform: none;
+      margin-left: auto;
+    }
+    .b1-title { flex-wrap: wrap; gap: 8px; padding: 12px; }
+
+    /* ue-col barras horizontales */
+    .ue-grouped-chart { gap: 6px; overflow-x: auto; }
+    .ue-col { min-width: 44px; }
+
+    /* Gráficos Chart.js — dejar que se redimensionen */
+    canvas { max-width: 100% !important; }
+
+    /* Bloque header con stamp — evitar superposición */
+    .bloque-header { flex-wrap: wrap; gap: 6px; }
+    .bloque-header .orad-stamp { font-size: 8px; }
+    .bloque-header .orad-stamp .os-sigla { font-size: 18px; }
+
+    /* b6ue-header — evitar overflow */
+    .b6ue-header { flex-wrap: wrap; gap: 4px; }
+
+    /* Periodo selector row */
+    .periodo-row { flex-wrap: wrap; gap: 6px; align-items: center; }
+  }
+
+  /* ── Móvil pequeño < 420px ── */
+  @media(max-width:420px){
+    /* Topbar: apilar brand y ORAD verticalmente */
+    .topbar .wrap {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      padding: 10px 12px;
+    }
+    .orpmi { text-align: left; }
+
+    /* KPIs: 1 columna en pantallas muy pequeñas */
+    .kpis { grid-template-columns: 1fr; }
+
+    /* titleband más compacto */
+    .titleband h1 { font-size: 15px; letter-spacing: 0; }
+
+    /* Escudo más pequeño */
+    .escudo { width: 36px; height: 36px; }
+
+    /* t2 (Lambayeque) más pequeño */
+    .t2 { font-size: 18px; }
+
+    /* Botones año en fila envolvente */
+    .yr-btn, .yr-btn-c, .yr-btn-a, .yr-btn-b {
+      font-size: 12px;
+      padding: 3px 8px;
+    }
+
+    /* PDF export button — siempre visible pero más compacto */
+    .btn.btn-pdf { padding: 8px 12px; font-size: 13px; }
+
+    /* Flotar el botón Descargar PDF al fondo — ya lo hacía bien */
+    .fixed-pdf-btn { bottom: 12px; right: 12px; }
+  }
+
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
   :focus-visible{outline:3px solid #f4b32c;outline-offset:2px;border-radius:6px}
 </style>
