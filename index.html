@@ -399,8 +399,6 @@
       <!-- Barra superior visible para el jefe: solo el botón de exportar -->
       <div class="pdf-toolbar" style="display:flex;justify-content:flex-end;align-items:center;gap:10px;margin:6px 0 10px">
         <button class="btn btn-pdf" id="btnPdf" title="Exporta cada sección como una página horizontal del PDF">⬇ Exportar a PDF</button>
-        <button id="btnAdminToggle" title="Panel técnico (solo ORPMI)"
-          style="background:transparent;border:1px solid #ddd;border-radius:6px;width:30px;height:30px;cursor:pointer;font-size:14px;opacity:.45">⚙</button>
       </div>
 
       <!-- Panel de carga / consolidador — oculto al jefe, solo visible si ORPMI lo activa -->
@@ -884,7 +882,7 @@
             </div>
             <div style="margin-top:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
               <span class="rubro-chart-badge"><i></i>UE 001-855 — Sede Central</span>
-              <span style="font-size:11px;color:var(--gris);font-style:italic">Fuente: Consulta Amigable MEF · 2022–2025: acumulado Ene-Jun (T1+T2) / PIM semestral · 2026: acumulado diario</span>
+              <span style="font-size:11px;color:var(--gris);font-style:italic">Fuente: Consulta Amigable MEF · 2022–2025: acumulado Ene-Ago (T1+T2+Julio+Agosto) / PIM anual · 2026: acumulado diario</span>
             </div>
           </div>
         </div>
@@ -1029,7 +1027,11 @@
 
     <footer><div class="wrap">
       <span><b>Fuente:</b> SIAF — Consulta Amigable / Gasto Diario BI — MEF · apps5.mineco.gob.pe</span>
-      <span><b>Elaborado por:</b> ORAD — GORE Lambayeque · <span id="fecha"></span></span>
+      <span style="display:flex;align-items:center;gap:12px">
+        <span><b>Elaborado por:</b> ORAD — GORE Lambayeque · <span id="fecha"></span></span>
+        <button id="btnAdminToggle" title="Panel técnico (solo ORPMI)"
+          style="background:transparent;border:1px solid #ddd;border-radius:6px;width:26px;height:26px;cursor:pointer;font-size:13px;opacity:.30;flex-shrink:0;padding:0;line-height:1">⚙</button>
+      </span>
     </div></footer>
   </main>
 
@@ -2735,7 +2737,7 @@
     167648586,   // ABR
     204294625,   // MAY  (corregido: antes 178,369,785)
     256731752,   // JUN  (cerrado)
-    null,        // JUL → cerrar con dato real cuando cierre el mes
+    317327247,   // JUL  (cerrado)
     null         // AGO → se rellena en vivo con los archivos cargados
   ];
   // El mes actual es Agosto (índice 7). La línea punteada arranca a partir de Agosto.
