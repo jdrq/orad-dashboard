@@ -399,6 +399,8 @@
       <!-- Barra superior visible para el jefe: solo el botón de exportar -->
       <div class="pdf-toolbar" style="display:flex;justify-content:flex-end;align-items:center;gap:10px;margin:6px 0 10px">
         <button class="btn btn-pdf" id="btnPdf" title="Exporta cada sección como una página horizontal del PDF">⬇ Exportar a PDF</button>
+        <button id="btnAdminToggle" title="Panel técnico (solo ORPMI)"
+          style="background:transparent;border:1px solid #ddd;border-radius:6px;width:30px;height:30px;cursor:pointer;font-size:14px;opacity:.45">⚙</button>
       </div>
 
       <!-- Panel de carga / consolidador — oculto al jefe, solo visible si ORPMI lo activa -->
@@ -1027,11 +1029,7 @@
 
     <footer><div class="wrap">
       <span><b>Fuente:</b> SIAF — Consulta Amigable / Gasto Diario BI — MEF · apps5.mineco.gob.pe</span>
-      <span style="display:flex;align-items:center;gap:12px">
-        <span><b>Elaborado por:</b> ORAD — GORE Lambayeque · <span id="fecha"></span></span>
-        <button id="btnAdminToggle" title="Panel técnico (solo ORPMI)"
-          style="background:transparent;border:1px solid #ddd;border-radius:6px;width:26px;height:26px;cursor:pointer;font-size:13px;opacity:.30;flex-shrink:0;padding:0;line-height:1">⚙</button>
-      </span>
+      <span><b>Elaborado por:</b> ORAD — GORE Lambayeque · <span id="fecha"></span></span>
     </div></footer>
   </main>
 
@@ -2471,7 +2469,7 @@
     if (!d) return "";
     const fmt  = n => Math.round(n||0).toLocaleString("es-PE"); // scope local — no depende del IIFE externo
     const tp   = d.pim || 1;          // PIM total de la UE para ese año
-    const td   = d.dev_sem;            // Devengado semestral total (T1+T2)
+    const td   = d.dev_ago ?? d.dev_sem; // Devengado acumulado Ene-Ago (fallback a Ene-Jul)
     const pct  = d.av_pct;             // Avance % = td/tp*100
     const fecha = d.label;
 
@@ -2564,7 +2562,7 @@
 
     // Nota
     const nota = document.getElementById("b6rb1nota");
-    if (nota) nota.textContent = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Jul)`);
+    if (nota) nota.textContent = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Ago)`);
 
     // Fecha en header
     const fechaEl = document.getElementById("b6rubro1fecha");
@@ -2600,7 +2598,7 @@
     const rcTituloEl = document.getElementById("rubroChartTitulo");
     if (rcTituloEl) rcTituloEl.innerHTML = MODO_SEMESTRAL
       ? "Gráfico Lineal &nbsp;·&nbsp; Avance % Semestral (Ene–Jun) — Sede Central"
-      : "Gráfico Lineal &nbsp;·&nbsp; Avance % Enero a Julio — Sede Central";
+      : "Gráfico Lineal &nbsp;·&nbsp; Avance % Enero a Agosto — Sede Central";
 
     const años  = ["2022","2023","2024","2025","2026"];
     const data2026 = RB_HIST_SC["2026"]; // puede no existir aún
@@ -2729,18 +2727,19 @@
   const B9_PCT_PROY = [2.3,10.9,16.8,21.1,27.1,35.8,45.1,55.4,66.3,76.5,86.6,97.3];
   // Devengado real acumulado. Ene–Jun ahora son valores CERRADOS/fijos
   // (Mayo corregido a su valor real; Junio cerró con 256,731,752).
-  // Julio: null → se rellena en vivo con los archivos cargados cada día.
+  // Agosto: null → se rellena en vivo con los archivos cargados cada día.
   const B9_REAL_BASE = [
     18207406,    // ENE
     86795395,    // FEB
     133151711,   // MAR
     167648586,   // ABR
     204294625,   // MAY  (corregido: antes 178,369,785)
-    256731752,   // JUN  (cerrado, ya no depende de archivos en vivo)
-    null         // JUL → se rellena en vivo con los archivos cargados
+    256731752,   // JUN  (cerrado)
+    null,        // JUL → cerrar con dato real cuando cierre el mes
+    null         // AGO → se rellena en vivo con los archivos cargados
   ];
-  // El mes actual es Julio (índice 6). La línea punteada arranca a partir de Julio.
-  const B9_MES_ACTUAL_IDX = 6;
+  // El mes actual es Agosto (índice 7). La línea punteada arranca a partir de Agosto.
+  const B9_MES_ACTUAL_IDX = 7;
 
   let b9Chart=null;
   function renderBloque9(sel){
@@ -3388,8 +3387,8 @@
       const ranking = sem.ranking_dev_pct || [];
       const prom    = sem.prom_dev_pct || 0;
 
-      if (nota)   nota.textContent   = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Jul)`);
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a Julio`);
+      if (nota)   nota.textContent   = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Ago)`);
+      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a Agosto`);
       if (promEl) promEl.textContent = prom.toFixed(1)+"%";
       if (metaEl) metaEl.textContent = `Ámbito: inversiones · ${ranking.length} pliegos`;
 
@@ -3469,8 +3468,8 @@
       const ranking = sem.ranking_dev_sol || [];
       const maxDev  = ranking.reduce((m,g)=>Math.max(m,g.dev||0),1);
 
-      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Jul)`);
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a Julio`);
+      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Ago)`);
+      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a Agosto`);
       if (metaEl)  metaEl.textContent  = `Ámbito: inversiones · ${ranking.length} pliegos`;
 
       if (tbody) tbody.innerHTML = ranking.map((g,i) => {
@@ -3540,8 +3539,8 @@
       const ranking = sem.ranking_cert_pct || [];
       const prom    = sem.prom_cert_pct || 0;
 
-      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Jul)`);
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a Julio`);
+      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Ago)`);
+      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a Agosto`);
       if (promEl)  promEl.textContent  = prom.toFixed(1)+"%";
 
       if (tbody) tbody.innerHTML = ranking.map((g,i) => {
@@ -3607,7 +3606,7 @@
       const tituloEl = document.getElementById("tendenciaTitulo");
       if (tituloEl) tituloEl.textContent = MODO_SEMESTRAL
         ? "Gráfico Lineal — Devengado en Monto · Primer Semestre (Ene–Jun)"
-        : "Gráfico Lineal — Devengado en Monto · Enero a Julio";
+        : "Gráfico Lineal — Devengado en Monto · Enero a Agosto";
       const años  = ["2022","2023","2024","2025","2026"];
       const fuenteDe = a => a === "2026" ? STATE.historico : fuenteHistorica();
       const devs  = años.map(a => fuenteDe(a)?.semestres[a]?.lambayeque?.dev || null);
@@ -3660,7 +3659,7 @@
         plugins: [ ChartDataLabels ]
       });
       const notaEl = document.getElementById("tendenciaNota");
-      if (notaEl) notaEl.textContent = "Fuente: Consulta Amigable MEF · 2022–2025: acumulado Ene-Jul (T1+T2+Julio) / PIM anual · 2026: acumulado diario";
+      if (notaEl) notaEl.textContent = "Fuente: Consulta Amigable MEF · 2022–2025: acumulado Ene-Ago (T1+T2+Julio+Agosto) / PIM anual · 2026: acumulado diario";
     }
 
     function actualizarTendencia(anioActivo){
