@@ -604,7 +604,7 @@
             </div>
             <div style="margin-top:18px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
               <span class="tendencia-lam-badge"><i></i>GORE Lambayeque — Pliego 452</span>
-              <span style="font-size:11px;color:var(--gris);font-style:italic" id="tendenciaNota">Fuente: Consulta Amigable MEF</span>
+              <span style="font-size:11px;color:var(--gris);font-style:italic" id="tendenciaNota"></span>
             </div>
           </div>
 
@@ -882,7 +882,6 @@
             </div>
             <div style="margin-top:10px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
               <span class="rubro-chart-badge"><i></i>UE 001-855 — Sede Central</span>
-              <span style="font-size:11px;color:var(--gris);font-style:italic">Fuente: Consulta Amigable MEF · 2022–2025: acumulado Ene-Ago (T1+T2+Julio+Agosto) / PIM anual · 2026: acumulado diario</span>
             </div>
           </div>
         </div>
@@ -2396,7 +2395,7 @@
   // ════════════════════════════════════════════════════════════════
   const RB_HIST_SC = {
     "2022": {
-      label:   "Ene–Jun 2022",
+      label:   "Ene–Ago 2022",
       pim:     212350484,
       dev_t1:  14736065,
       dev_t2:  24420754,
@@ -2409,7 +2408,7 @@
       ]
     },
     "2023": {
-      label:   "Ene–Jun 2023",
+      label:   "Ene–Ago 2023",
       pim:     322883063,
       dev_t1:  8323158,
       dev_t2:  7530087,
@@ -2421,7 +2420,7 @@
       ]
     },
     "2024": {
-      label:   "Ene–Jun 2024",
+      label:   "Ene–Ago 2024",
       pim:     346739967,
       dev_t1:  49239025,
       dev_t2:  36927229,
@@ -2434,7 +2433,7 @@
       ]
     },
     "2025": {
-      label:   "Ene–Jun 2025",
+      label:   "Ene–Ago 2025",
       pim:     359757196,
       dev_t1:  24659052,
       dev_t2:  76906719,
@@ -2605,7 +2604,7 @@
     const años  = ["2022","2023","2024","2025","2026"];
     const data2026 = RB_HIST_SC["2026"]; // puede no existir aún
     const pcts  = años.map(a => a==="2026" ? (data2026?.av_pct ?? null) : (rubroSCPara(a)?.av_pct ?? null));
-    const labels= años.map(a => a==="2026" ? (data2026?.label || "Ene–Jun 2026") : (rubroSCPara(a)?.label || `Ene–Jun ${a}`));
+    const labels= años.map(a => a==="2026" ? (data2026?.label || "Ene–Ago 2026") : (rubroSCPara(a)?.label || `Ene–Ago ${a}`));
 
     // Solo mostrar si hay al menos un dato
     if (pcts.every(v => v === null)) { if(wrap) wrap.style.display="none"; return; }
@@ -2696,7 +2695,7 @@
         }
         if (pimVivo > 0) {
           RB_HIST_SC["2026"] = {
-            label: MODO_SEMESTRAL ? "Ene–Jun 2026" : `2026 (acumulado al ${new Date().toLocaleDateString("es-PE",{day:"numeric",month:"short",year:"numeric"})} — año en curso)`,
+            label: MODO_SEMESTRAL ? "Ene–Ago 2026" : `2026 (acumulado al ${new Date().toLocaleDateString("es-PE",{day:"numeric",month:"short",year:"numeric"})} — año en curso)`,
             pim: pimVivo, dev_t1: devVivo, dev_t2: 0,
             dev_sem: devVivo, av_pct: devVivo/pimVivo*100
           };
@@ -3330,7 +3329,7 @@
         const fecha = fechaHoy();
 
         STATE.historico.semestres["2026"] = {
-          label:         MODO_SEMESTRAL ? "Ene–Jun 2026" : `2026 (acumulado al ${fecha} — año en curso)`,
+          label:         MODO_SEMESTRAL ? "Ene–Ago 2026" : `2026 (acumulado al ${fecha} — año en curso)`,
           nota:          MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado, aún no cierra el 1er semestre",
           total_gores:   byDevSol.length,
           prom_dev_pct:  Math.round(prom_dev_pct*10)/10,
@@ -3612,7 +3611,7 @@
       const años  = ["2022","2023","2024","2025","2026"];
       const fuenteDe = a => a === "2026" ? STATE.historico : fuenteHistorica();
       const devs  = años.map(a => fuenteDe(a)?.semestres[a]?.lambayeque?.dev || null);
-      const labels = años.map(a => fuenteDe(a)?.semestres[a]?.label || `Ene–Jun ${a}`);
+      const labels = años.map(a => fuenteDe(a)?.semestres[a]?.label || `Ene–Ago ${a}`);
 
       STATE.chartTendencia = new Chart(canvas, {
         type: "line",
@@ -3661,7 +3660,7 @@
         plugins: [ ChartDataLabels ]
       });
       const notaEl = document.getElementById("tendenciaNota");
-      if (notaEl) notaEl.textContent = "Fuente: Consulta Amigable MEF · 2022–2025: acumulado Ene-Ago (T1+T2+Julio+Agosto) / PIM anual · 2026: acumulado diario";
+      if (notaEl) notaEl.textContent = "";
     }
 
     function actualizarTendencia(anioActivo){
