@@ -39,9 +39,8 @@ from bs4 import BeautifulSoup
 
 # ---------------- CONFIGURACIÓN ----------------
 AÑOS = [2022, 2023, 2024, 2025]
-_BASE        = os.path.dirname(os.path.abspath(__file__))
-CARPETA_XLS  = os.path.join(_BASE, "..", "xls", "historico")
-CARPETA_DATA = os.path.join(_BASE, "..", "data")
+CARPETA_XLS = "xls/historico"
+CARPETA_DATA = "data"
 ARCHIVO_JSON = os.path.join(CARPETA_DATA, "historico_enejul.json")
 CODIGO_LAMBAYEQUE = "452"
 
@@ -56,7 +55,7 @@ PERIODOS = [
     ("JULIO", "julio_{año}.xls", True),
 
     # --- Descomentar cuando cierre el mes correspondiente ---
-    # ("AGOSTO", "agosto_{año}.xls", False),
+    ("AGOSTO", "agosto_{año}.xls", False),
     # ("SETIEMBRE", "setiembre_{año}.xls", False),
     # ("OCTUBRE", "octubre_{año}.xls", False),
     # ("NOVIEMBRE", "noviembre_{año}.xls", False),

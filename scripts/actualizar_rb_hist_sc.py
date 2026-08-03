@@ -52,9 +52,8 @@ from bs4 import BeautifulSoup
 
 # ---------------- CONFIGURACIÓN ----------------
 AÑOS = [2022, 2023, 2024, 2025]
-_BASE        = os.path.dirname(os.path.abspath(__file__))
-CARPETA_XLS  = os.path.join(_BASE, "..", "xls", "historico_rubro")
-CARPETA_DATA = os.path.join(_BASE, "..", "data")
+CARPETA_XLS = "xls/historico_rubro"
+CARPETA_DATA = "data"
 ARCHIVO_JSON = os.path.join(CARPETA_DATA, "rb_hist_sc_enejul.json")
 
 # Lista ordenada de períodos a acumular progresivamente.
@@ -70,7 +69,7 @@ PERIODOS = [
     ("dev_sem", "JULIO_RUBRO_{año}.xls", True),
 
     # --- Descomentar la línea del mes correspondiente cuando cierre ---
-    # ("dev_ago", "AGOSTO_RUBRO_{año}.xls", False),
+    ("dev_ago", "AGOSTO_RUBRO_{año}.xls", False),
     # ("dev_set", "SETIEMBRE_RUBRO_{año}.xls", False),
     # ("dev_oct", "OCTUBRE_RUBRO_{año}.xls", False),
     # ("dev_nov", "NOVIEMBRE_RUBRO_{año}.xls", False),

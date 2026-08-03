@@ -5,7 +5,7 @@ Automatiza la descarga de los 13 archivos .xls de Consulta Amigable (MEF)
 que alimentan el dashboard de ORAD - GORE Lambayeque.
 
 MODO DE USO (Fase 2a - manual, supervisado):
-    python descargar_xls_mef.py
+    python scripts\descargar_xls_mef.py
 
 Requiere:
     pip install playwright
@@ -14,6 +14,13 @@ Requiere:
 Arquitecto: este script corre en modo "headed" (con ventana visible) a
 propósito durante esta fase - así Juan puede observar cada descarga y
 detectar fallos en el momento, en vez de un cron job a ciegas.
+
+GIT AUTO-PUSH (agregado en sesión 7 - 24/07/2026):
+    Al terminar la descarga, el script verifica automáticamente que los
+    13 archivos existan y tengan peso > 0. Si pasan todos:
+        git add xls\ → git commit → git push
+    Si falla cualquiera, NO se toca Git en absoluto. El usuario ve
+    exactamente qué archivo falló y debe resolverlo antes de subir.
 
 NOTA DE DISEÑO IMPORTANTE (descubierto con playwright codegen el 06/07/2026):
 Consulta Amigable usa UN SOLO botón para toda la jerarquía "Nivel de
@@ -30,6 +37,8 @@ pivotan el eje de la tabla en el nivel donde estés parado.
 from playwright.sync_api import sync_playwright
 import time
 import shutil
+import subprocess
+from datetime import date
 from pathlib import Path
 
 # --------------------------------------------------------------------
@@ -131,6 +140,14 @@ ARCHIVOS = [
      "pivot_final": None, "boton_final_sin_fila": "Producto/Proyecto"},
 ]
 
+# Lista de los 13 nombres esperados — se usa en la validación final.
+# Debe ser idéntica a los "nombre" de ARCHIVOS arriba.
+NOMBRES_ESPERADOS = [a["nombre"] for a in ARCHIVOS]
+
+
+# --------------------------------------------------------------------
+# DESCARGA
+# --------------------------------------------------------------------
 
 def preparar_carpeta():
     CARPETA_DESTINO.mkdir(exist_ok=True)
@@ -266,8 +283,124 @@ def procesar_archivo(page, config):
     print(f"  [OK] {config['nombre']} guardado en {destino}")
 
 
+# --------------------------------------------------------------------
+# VALIDACIÓN Y GIT AUTO-PUSH
+# --------------------------------------------------------------------
+
+def validar_archivos():
+    """
+    Verifica que los 13 archivos esperados existan en xls/ y tengan
+    tamaño > 0 bytes. Retorna (ok: bool, faltantes: list).
+    Un archivo descargado con error en el MEF a veces llega como HTML
+    de 1-2 KB — el tamaño mínimo de 5 KB descarta esos casos.
+    """
+    TAMANIO_MINIMO = 5 * 1024  # 5 KB
+    faltantes = []
+
+    for nombre in NOMBRES_ESPERADOS:
+        ruta = CARPETA_DESTINO / nombre
+        if not ruta.exists():
+            faltantes.append(f"{nombre} — NO EXISTE")
+        elif ruta.stat().st_size < TAMANIO_MINIMO:
+            faltantes.append(
+                f"{nombre} — DEMASIADO PEQUEÑO "
+                f"({ruta.stat().st_size / 1024:.1f} KB, mínimo 5 KB)"
+            )
+
+    return len(faltantes) == 0, faltantes
+
+
+def git_push_si_completo():
+    """
+    Ejecuta git add xls/ → git commit → git push SOLO si los 13
+    archivos pasan la validación. Si falla cualquiera, no toca Git.
+
+    Usa subprocess con cwd apuntando a la raíz del repo (un nivel
+    arriba del script, que vive en scripts/).
+    """
+    REPO_RAIZ = Path(__file__).resolve().parent.parent
+
+    print("\n" + "=" * 60)
+    print("VALIDACIÓN FINAL — verificando 13/13 archivos")
+    print("=" * 60)
+
+    ok, faltantes = validar_archivos()
+
+    if not ok:
+        print(f"\n🚫 GIT PUSH BLOQUEADO — {len(faltantes)} archivo(s) con problema:\n")
+        for f in faltantes:
+            print(f"   ❌ {f}")
+        print(
+            "\n⚠️  No se subió NADA a GitHub."
+            "\nResuelve los archivos marcados y vuelve a ejecutar el script,"
+            "\no haz git add / commit / push manualmente una vez corregido."
+        )
+        return
+
+    # 13/13 OK — proceder con Git
+    hoy = date.today().strftime("%d/%m/%Y")
+    mensaje_commit = f"data: actualización diaria XLS - {hoy}"
+
+    print(f"\n✅ 13/13 archivos OK — procediendo con Git...\n")
+
+    comandos = [
+        (["git", "add", "xls/"], "git add xls/"),
+        (["git", "commit", "-m", mensaje_commit], f'git commit -m "{mensaje_commit}"'),
+        (["git", "push", "origin", "main"], "git push origin main"),
+    ]
+
+    for cmd, descripcion in comandos:
+        print(f"  ▶ {descripcion}")
+        resultado = subprocess.run(
+            cmd,
+            cwd=str(REPO_RAIZ),
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+        )
+
+        if resultado.stdout.strip():
+            print(f"    {resultado.stdout.strip()}")
+        if resultado.stderr.strip():
+            print(f"    {resultado.stderr.strip()}")
+
+        # git commit devuelve código 1 si no hay cambios (nada que commitear).
+        # Eso NO es un error real — puede pasar si los datos del MEF no
+        # cambiaron desde el último push. Se detecta por el mensaje.
+        if resultado.returncode != 0:
+            sin_cambios = (
+                "nothing to commit" in resultado.stdout
+                or "nothing to commit" in resultado.stderr
+                or "nothing added to commit" in resultado.stdout
+                or "nothing added to commit" in resultado.stderr
+            )
+            if sin_cambios:
+                print(
+                    "\nℹ️  Los archivos XLS no cambiaron respecto al último"
+                    " commit — no hay nada nuevo que subir. Esto es normal."
+                )
+                return
+
+            # Error real de Git
+            print(
+                f"\n❌ Error en '{descripcion}' "
+                f"(código {resultado.returncode}). "
+                f"Revisa tu conexión, credenciales de Git o el estado del repo."
+            )
+            return
+
+    print(f"\n🚀 Push exitoso — dashboard actualizado en GitHub Pages.")
+    print(f"   Commit: \"{mensaje_commit}\"")
+
+
+# --------------------------------------------------------------------
+# MAIN
+# --------------------------------------------------------------------
+
 def main():
     preparar_carpeta()
+    exito_total = True
+
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=False, slow_mo=200)
         page = browser.new_page()
@@ -278,17 +411,24 @@ def main():
                 procesar_archivo(page, config)
             except Exception as e:
                 print(f"  [ERROR] Falló {config['nombre']}: {e}")
-                captura = Path(f"error_{config['nombre']}.png")
+                captura = Path(__file__).resolve().parent.parent / f"error_{config['nombre']}.png"
                 try:
                     page.screenshot(path=str(captura), full_page=True)
-                    print(f"  [DIAGNÓSTICO] Captura guardada en: {captura.resolve()}")
+                    print(f"  [DIAGNÓSTICO] Captura guardada en: {captura}")
                 except Exception:
                     print("  [DIAGNÓSTICO] No se pudo guardar la captura.")
                 print("  Deteniendo el script para revisar manualmente.")
+                exito_total = False
                 break
 
-        input("\nProceso terminado. Presiona ENTER para cerrar el navegador...")
+        input("\nDescarga terminada. Presiona ENTER para cerrar el navegador...")
         browser.close()
+
+    # La validación y el push ocurren DESPUÉS de cerrar el navegador.
+    # Si el loop terminó con break por un error, la validación igual
+    # corre — pero fallará porque faltará al menos un archivo, y el
+    # mensaje explicará exactamente cuál.
+    git_push_si_completo()
 
 
 if __name__ == "__main__":
