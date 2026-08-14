@@ -656,34 +656,19 @@
 
       <!-- ═══════════════ BLOQUE 2D: DEVENGADO MENSUAL — GORE LAMBAYEQUE ═══════════════ -->
       <div class="pdf-section" id="b2msecMensual">
-        <div class="pdf-header" style="background:#3a1a00"><div class="pdf-header-left"><h2>Devengado Mensual</h2>
-          <div class="sub" style="color:#FFD166">Gobierno Regional de Lambayeque · Sólo Proyectos &nbsp;·&nbsp; <span id="b2mfecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
+        <div class="pdf-header" style="background:#3a1a00"><div class="pdf-header-left"><h2>Devengado Mensual — Gobierno Regional de Lambayeque</h2>
+          <div class="sub" style="color:#FFD166">Comparativa mes a mes (Enero — Diciembre) &nbsp;·&nbsp; <span id="b2mfecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body" style="padding:20px 24px 28px">
-          <!-- KPIs -->
-          <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px">
-            <div style="background:#5a1414;color:#fff;border-radius:10px;padding:14px 22px;flex:0 0 auto">
-              <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#ffcba0;margin-bottom:4px">Mes de mayor devengado</div>
-              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:#FFD166" id="b2mMesTop">JULIO — S/ 58,476,283</div>
-            </div>
-            <div style="background:#fff;border:2px solid #e8821e;border-radius:10px;padding:14px 22px;flex:0 0 auto">
-              <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:4px">Promedio mensual (meses cerrados)</div>
-              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--naranja-h)" id="b2mPromedio">S/ 45,332,464</div>
-            </div>
-            <div style="background:#fff;border:1px solid var(--rojo);border-radius:10px;padding:14px 22px;flex:0 0 auto">
-              <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--rojo);margin-bottom:4px">Agosto (parcial, al 14/ago)</div>
-              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--rojo)" id="b2mAgostoParcial">S/ 9,258,883</div>
-            </div>
-          </div>
           <!-- Gráfico de barras -->
           <div style="background:#fff;border:1px solid #e4e7ec;border-radius:10px;padding:16px 14px 10px">
             <div style="font-family:'Barlow Condensed';font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--naranja-h);text-align:center;margin-bottom:12px">
               DEVENGADO MENSUAL (NO ACUMULADO) — ENERO A DICIEMBRE 2026
             </div>
-            <div style="position:relative;height:320px;width:100%">
+            <div style="position:relative;height:340px;width:100%">
               <canvas id="b2mChart"></canvas>
             </div>
-            <div style="font-family:'Barlow';font-size:11.5px;color:var(--gris);text-align:center;margin-top:8px">
-              * Agosto es dato parcial (al 14/08/2026) — el mes recién lleva la mitad transcurrida, no comparar directamente contra meses cerrados.
+            <div style="font-family:'Barlow';font-size:11.5px;color:var(--gris);text-align:center;margin-top:8px" id="b2mNotaParcial">
+              * Agosto es dato parcial (al 14/08/2026)
             </div>
           </div>
         </div>
@@ -2899,6 +2884,7 @@
   // Juan debe actualizar este array manualmente cada vez que re-exporte el
   // archivo mensual del MEF (mismo mantenimiento que B9_REAL_BASE).
   const B2M_MESES_LABELS = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SET","OCT","NOV","DIC"];
+  const B2M_MESES_LABELS_FULL = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"];
   // `let` (no `const`): data/devengado-mensual.js actualiza Agosto en adelante
   // cada vez que se carga el archivo del día. Ene-Jul quedan protegidos por
   // ese mismo módulo (nunca los toca), no por inmutabilidad del array aquí.
@@ -2930,6 +2916,12 @@
     const colores = B2M_DEVENGADO_MES.map((v,i) =>
       v===null ? "transparent" : (i===B2M_IDX_PARCIAL ? "#e8821e" : "#5a1414"));
 
+    // Fecha real del día, para la leyenda y el tooltip del mes parcial
+    // (se recalcula en cada render, así que se actualiza sola cada día).
+    const hoy = new Date();
+    const fechaCorta = hoy.toLocaleDateString("es-PE",{day:"2-digit",month:"2-digit",year:"numeric"});
+    const mesParcialNombre = B2M_IDX_PARCIAL>=0 ? B2M_MESES_LABELS_FULL[B2M_IDX_PARCIAL] : null;
+
     b2mChart = new Chart(cv, {
       type: "bar",
       data: {
@@ -2944,21 +2936,22 @@
       },
       options: {
         responsive: true, maintainAspectRatio: false,
+        layout: { padding: { top: 26 } }, // espacio para que el datalabel del monto exacto no se corte arriba
         plugins: {
           legend: { display:false },
           tooltip: {
             callbacks: {
               label: ctx => {
-                const nota = ctx.dataIndex===B2M_IDX_PARCIAL ? " (parcial, al 14/ago)" : "";
+                const nota = ctx.dataIndex===B2M_IDX_PARCIAL ? ` (parcial, al ${fechaCorta})` : "";
                 return "S/ " + Math.round(ctx.parsed.y||0).toLocaleString("es-PE") + nota;
               }
             }
           },
           datalabels: {
-            anchor:"end", align:"top", color:"#5b6470",
-            font:{family:"Barlow Condensed", weight:"700", size:11},
+            anchor:"end", align:"top", color:"#5b6470", clamp:true,
+            font:{family:"Barlow Condensed", weight:"700", size:10.5},
             formatter: (v,ctx) => v===null ? "" :
-              "S/ "+(v/1e6).toFixed(1)+"M" + (ctx.dataIndex===B2M_IDX_PARCIAL ? "*" : "")
+              "S/ "+Math.round(v).toLocaleString("es-PE") + (ctx.dataIndex===B2M_IDX_PARCIAL ? "*" : "")
           }
         },
         scales: {
@@ -2972,6 +2965,14 @@
     // Fecha en la franja del encabezado
     const fechaEl = document.getElementById("b2mfecha");
     if (fechaEl) fechaEl.textContent = fechaMostrada();
+
+    // Leyenda bajo el gráfico — mes y fecha se recalculan solos cada día
+    const notaEl = document.getElementById("b2mNotaParcial");
+    if (notaEl) {
+      notaEl.textContent = mesParcialNombre
+        ? `* ${mesParcialNombre} es dato parcial (al ${fechaCorta})`
+        : "";
+    }
   }
   window.renderBloque2Mensual = renderBloque2Mensual;
 
