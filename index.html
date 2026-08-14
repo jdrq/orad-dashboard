@@ -2452,14 +2452,15 @@
   // Estado del año activo en el bloque rubro1
   let RB1_ANIO = "2026";
   let chartRubroSC = null;
-  let RB_HIST_SC_ENEJUL = null; // se carga desde data/rb_hist_sc_enejul.json (ver fetch más abajo)
+  let RB_HIST_SC_PROGRESIVO = null; // se carga desde data/rb_hist_sc_progresivo.json (ver fetch más abajo)
 
-  // Para años 2022-2025: vista principal usa Ene-Jul (RB_HIST_SC_ENEJUL),
+  // Para años 2022-2025: vista principal usa el acumulado progresivo
+  // (RB_HIST_SC_PROGRESIVO, Ene-Jul/Ago/Set... según último mes cargado),
   // "Ver Primer Semestre" usa Ene-Jun (RB_HIST_SC, el de siempre). "2026" no
   // pasa por aquí — sigue su propio mecanismo de inyección en vivo.
   function rubroSCPara(anio){
-    if (anio !== "2026" && !MODO_SEMESTRAL && RB_HIST_SC_ENEJUL && RB_HIST_SC_ENEJUL[anio]) {
-      return RB_HIST_SC_ENEJUL[anio];
+    if (anio !== "2026" && !MODO_SEMESTRAL && RB_HIST_SC_PROGRESIVO && RB_HIST_SC_PROGRESIVO[anio]) {
+      return RB_HIST_SC_PROGRESIVO[anio];
     }
     return RB_HIST_SC[anio];
   }
@@ -3277,13 +3278,13 @@
     Promise.all([
       fetch("data/historico_semestral.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }),
       fetch("data/historico_enejul.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }).catch(e => { console.warn("[ORPMI-Hist] historico_enejul.json no disponible, uso Ene-Jun también en vista principal:", e.message); return null; }),
-      fetch("data/rb_hist_sc_enejul.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }).catch(e => { console.warn("[ORPMI-Hist] rb_hist_sc_enejul.json no disponible, Rubro Sede Central sigue en Ene-Jun:", e.message); return null; })
+      fetch("data/rb_hist_sc_progresivo.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }).catch(e => { console.warn("[ORPMI-Hist] rb_hist_sc_progresivo.json no disponible, Rubro Sede Central sigue en Ene-Jun:", e.message); return null; })
     ])
-      .then(([dataJun, dataJul, rubroScJul]) => {
+      .then(([dataJun, dataJul, rubroScProgresivo]) => {
         STATE.historico = dataJun;
         STATE.historicoJul = dataJul; // null si aún no existe el archivo -> fallback a Ene-Jun
-        RB_HIST_SC_ENEJUL = rubroScJul; // null si aún no existe -> fallback a Ene-Jun
-        console.log("[ORPMI-Hist] Cargado Ene-Jun:", Object.keys(dataJun.semestres), "| Ene-Jul:", dataJul ? Object.keys(dataJul.semestres) : "(no disponible)", "| Rubro SC Ene-Jul:", rubroScJul ? Object.keys(rubroScJul) : "(no disponible)");
+        RB_HIST_SC_PROGRESIVO = rubroScProgresivo; // null si aún no existe -> fallback a Ene-Jun
+        console.log("[ORPMI-Hist] Cargado Ene-Jun:", Object.keys(dataJun.semestres), "| Ene-Jul:", dataJul ? Object.keys(dataJul.semestres) : "(no disponible)", "| Rubro SC:", rubroScProgresivo ? Object.keys(rubroScProgresivo) : "(no disponible)");
         inyectar2026();
         renderA("2026"); renderB("2026"); renderC("2026");
         iniciarTendencia();

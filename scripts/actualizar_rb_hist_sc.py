@@ -2,7 +2,7 @@
 # =============================================================================
 # actualizar_rb_hist_sc.py  (v2 — motor progresivo, escalable mes a mes)
 # ORPMI - Gobierno Regional de Lambayeque
-# Actualiza: data/rb_hist_sc_enejul.json
+# Actualiza: data/rb_hist_sc_progresivo.json
 #
 # DIFERENCIA CON v1: v1 estaba hardcodeada a 3 períodos fijos (T1, T2,
 # Julio). Esta versión usa una lista de configuración PERIODOS que vos
@@ -54,7 +54,7 @@ from bs4 import BeautifulSoup
 AÑOS = [2022, 2023, 2024, 2025]
 CARPETA_XLS = "xls/historico_rubro"
 CARPETA_DATA = "data"
-ARCHIVO_JSON = os.path.join(CARPETA_DATA, "rb_hist_sc_enejul.json")
+ARCHIVO_JSON = os.path.join(CARPETA_DATA, "rb_hist_sc_progresivo.json")
 
 # Lista ordenada de períodos a acumular progresivamente.
 # Cada entrada: (clave_campo_json, patrón_de_archivo, tiene_benchmark)
