@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # =============================================================================
-# actualizar_hist_gores_enejul.py
+# actualizar_hist_gores.py
 # ORPMI - Gobierno Regional de Lambayeque
 # Actualiza: data/historico_progresivo.json  (Bloque 8 — Ranking nacional GORES)
 #
@@ -25,10 +25,10 @@
 #      Pliego específico, filtro Mes 8 = agosto. Guardar como
 #      agosto_{año}.xls en xls/historico/ (para 2022-2025).
 #   2) Agregar la línea correspondiente a "agosto" en PERIODOS más abajo.
-#   3) Correr: python actualizar_hist_gores_enejul.py
+#   3) Correr: python actualizar_hist_gores.py
 #
 # USO:
-#   python actualizar_hist_gores_enejul.py
+#   python actualizar_hist_gores.py
 # =============================================================================
 
 import os
