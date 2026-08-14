@@ -907,6 +907,26 @@
         </div>
       </div>
 
+      <!-- ═══════════════ BLOQUE 6D: DEVENGADO MENSUAL — SEDE CENTRAL ═══════════════ -->
+      <div class="pdf-section" id="b6mSecMensualSC">
+        <div class="pdf-header" style="background:#3a1a00"><div class="pdf-header-left"><h2>Devengado Mensual — Sede Central</h2>
+          <div class="sub" style="color:#FFD166">Comparativa mes a mes (Enero — Diciembre) &nbsp;·&nbsp; <span id="b6mfechaSC">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
+        <div class="pdf-body" style="padding:20px 24px 28px">
+          <!-- Gráfico de barras -->
+          <div style="background:#fff;border:1px solid #e4e7ec;border-radius:10px;padding:16px 14px 10px">
+            <div style="font-family:'Barlow Condensed';font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--naranja-h);text-align:center;margin-bottom:12px">
+              DEVENGADO MENSUAL (NO ACUMULADO) — SEDE CENTRAL — ENERO A DICIEMBRE 2026
+            </div>
+            <div style="position:relative;height:340px;width:100%">
+              <canvas id="b6mChartSC"></canvas>
+            </div>
+            <div style="font-family:'Barlow';font-size:11.5px;color:var(--gris);text-align:center;margin-top:8px" id="b6mNotaParcialSC">
+              * Agosto es dato parcial (al 14/08/2026)
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- ══════════════════════════════════════════════════════════════
            BLOQUE 6 — SUB-SECCIÓN 2: PEOT + Agricultura + Transporte + GERESA
       ══════════════════════════════════════════════════════════════ -->
@@ -1375,8 +1395,9 @@
 })(typeof self !== "undefined" ? self : (typeof globalThis !== "undefined" ? globalThis : this));
 </script>
 
-<!-- ====== BLOQUE 2D: parser independiente del archivo mensual de devengado ====== -->
+<!-- ====== BLOQUE 2D / 6D: parsers independientes de los archivos mensuales de devengado ====== -->
 <script src="data/devengado-mensual.js"></script>
+<script src="data/devengado-mensual-sc.js"></script>
 
 <!-- ====== Aplicación: consolidador + Bloque 1 ====== -->
 <script>
@@ -1684,11 +1705,25 @@
         }
       }
     } catch(e){ console.warn("[Bloque 2D] parseo devengado mensual:", e.message); }
+    // Bloque 6D: mismo esquema, pero acotado a Sede Central (UE 001-855).
+    // Módulo separado (data/devengado-mensual-sc.js) — ver mutua exclusión
+    // documentada ahí, para no confundirse con el archivo del Bloque 2D.
+    let esDevengadoMensualSC = false, mesesDevengadoSC = null;
+    try {
+      if (window.DevengadoMensualSC) {
+        const wb = XLSX.read(bytes, { type:"array", codepage:1252 });
+        if (window.DevengadoMensualSC.detectar(wb, XLSX)) {
+          esDevengadoMensualSC = true;
+          mesesDevengadoSC = window.DevengadoMensualSC.parsearMeses(wb, XLSX);
+        }
+      }
+    } catch(e){ console.warn("[Bloque 6D] parseo devengado mensual SC:", e.message); }
     return {nombre, res, incluir:true, esFlat:esFlat(res),
             esNacional:esNacionalRes(res), esPorUE:esPorUERes(res),
             esProyectos:esProyectosRes(res), esRubro:esRubroRes(res),
             esFuncion:esFuncionRes(res), anio,
             esHistorico:esHistoricoRes(res, anio),
+            esDevengadoMensualSC, mesesDevengadoSC,
             esDevengadoMensual, mesesDevengado};
   }
 
@@ -1727,7 +1762,8 @@
     "rubro_h_belen.xls",
     "rubro_h_regional.xls",
     "proyectos_sede_central.xls",
-    "gore_devengado_mes.xls"   // Bloque 2D — Devengado Mensual (data/devengado-mensual.js)
+    "gore_devengado_mes.xls",   // Bloque 2D — Devengado Mensual (data/devengado-mensual.js)
+    "sede_devengado_mes.xls"    // Bloque 6D — Devengado Mensual Sede Central (data/devengado-mensual-sc.js)
   ];
 
   async function cargarArchivoServidor(nombre){
@@ -1864,6 +1900,9 @@
     try { renderBloque2Mensual(); }        catch(e){ console.error("Bloque 2D Mensual:", e); }
     try { if (window.DevengadoMensual) window.DevengadoMensual.actualizar(archivos); }
                                             catch(e){ console.error("Bloque 2D (archivo mensual):", e); }
+    try { renderBloque6MensualSC(); }      catch(e){ console.error("Bloque 6D Mensual SC:", e); }
+    try { if (window.DevengadoMensualSC) window.DevengadoMensualSC.actualizar(archivos); }
+                                            catch(e){ console.error("Bloque 6D (archivo mensual SC):", e); }
   }
 
   // -------- Bloque 6: rubro / fuente estilo PDF --------
@@ -2975,6 +3014,95 @@
     }
   }
   window.renderBloque2Mensual = renderBloque2Mensual;
+
+  // -------- Bloque 6D: Devengado Mensual — Sede Central --------
+  // Mismo patrón que Bloque 2D (MVP estático + actualización en vivo del
+  // mes en curso vía data/devengado-mensual-sc.js). Datos oficiales
+  // Consulta Amigable (UE 001-855 — Sede Central, "Sólo Proyectos"),
+  // consulta del 14/08/2026, columna "Devengado".
+  const B6M_SC_MESES_LABELS = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SET","OCT","NOV","DIC"];
+  const B6M_SC_MESES_LABELS_FULL = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"];
+  let B6M_SC_DEVENGADO_MES = [
+    12200710,   // ENE (cerrado)
+    55406542,   // FEB (cerrado)
+    23589905,   // MAR (cerrado)
+    20568429,   // ABR (cerrado)
+    18361708,   // MAY (cerrado)
+    32145085,   // JUN (cerrado)
+    27044831,   // JUL (cerrado)
+    6820884,    // AGO (PARCIAL — al 14/08/2026, mes en curso)
+    null, null, null, null // SET–DIC: aún no disponibles
+  ];
+  let B6M_SC_IDX_PARCIAL = 7; // Agosto — se recalcula solo al cargar el archivo del día
+  window.B6M_SC_DEVENGADO_MES = B6M_SC_DEVENGADO_MES;
+  Object.defineProperty(window, "B6M_SC_IDX_PARCIAL", {
+    get: () => B6M_SC_IDX_PARCIAL, set: v => { B6M_SC_IDX_PARCIAL = v; }
+  });
+
+  let b6mChartSC = null;
+  function renderBloque6MensualSC(){
+    const cv = document.getElementById("b6mChartSC");
+    if (!cv) return;
+    if (b6mChartSC) { b6mChartSC.destroy(); b6mChartSC = null; }
+
+    const colores = B6M_SC_DEVENGADO_MES.map((v,i) =>
+      v===null ? "transparent" : (i===B6M_SC_IDX_PARCIAL ? "#e8821e" : "#5a1414"));
+
+    const hoy = new Date();
+    const fechaCorta = hoy.toLocaleDateString("es-PE",{day:"2-digit",month:"2-digit",year:"numeric"});
+    const mesParcialNombre = B6M_SC_IDX_PARCIAL>=0 ? B6M_SC_MESES_LABELS_FULL[B6M_SC_IDX_PARCIAL] : null;
+
+    b6mChartSC = new Chart(cv, {
+      type: "bar",
+      data: {
+        labels: B6M_SC_MESES_LABELS,
+        datasets: [{
+          label: "Devengado Mensual — Sede Central",
+          data: B6M_SC_DEVENGADO_MES,
+          backgroundColor: colores,
+          borderRadius: 5,
+          maxBarThickness: 46
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        layout: { padding: { top: 26 } },
+        plugins: {
+          legend: { display:false },
+          tooltip: {
+            callbacks: {
+              label: ctx => {
+                const nota = ctx.dataIndex===B6M_SC_IDX_PARCIAL ? ` (parcial, al ${fechaCorta})` : "";
+                return "S/ " + Math.round(ctx.parsed.y||0).toLocaleString("es-PE") + nota;
+              }
+            }
+          },
+          datalabels: {
+            anchor:"end", align:"top", color:"#5b6470", clamp:true,
+            font:{family:"Barlow Condensed", weight:"700", size:10.5},
+            formatter: (v,ctx) => v===null ? "" :
+              "S/ "+Math.round(v).toLocaleString("es-PE") + (ctx.dataIndex===B6M_SC_IDX_PARCIAL ? "*" : "")
+          }
+        },
+        scales: {
+          y: { ticks:{callback:v=>"S/ "+(v/1e6).toFixed(0)+"M", font:{family:"Barlow", size:11}}, grid:{color:"#f0f0f0"} },
+          x: { grid:{display:false}, ticks:{font:{family:"Barlow Condensed", size:12, weight:"bold"}} }
+        }
+      },
+      plugins: [ChartDataLabels]
+    });
+
+    const fechaEl = document.getElementById("b6mfechaSC");
+    if (fechaEl) fechaEl.textContent = fechaMostrada();
+
+    const notaEl = document.getElementById("b6mNotaParcialSC");
+    if (notaEl) {
+      notaEl.textContent = mesParcialNombre
+        ? `* ${mesParcialNombre} es dato parcial (al ${fechaCorta})`
+        : "";
+    }
+  }
+  window.renderBloque6MensualSC = renderBloque6MensualSC;
 
   // -------- Bloque 3: tabla detallada + gráfico agrupado estilo PDF --------
   function renderBloque3(sel, soloInv){

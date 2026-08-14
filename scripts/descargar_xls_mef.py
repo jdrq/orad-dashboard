@@ -1,7 +1,7 @@
 """
 descargar_xls_mef.py
 ---------------------
-Automatiza la descarga de los 14 archivos .xls de Consulta Amigable (MEF)
+Automatiza la descarga de los 15 archivos .xls de Consulta Amigable (MEF)
 que alimentan el dashboard de ORAD - GORE Lambayeque.
 
 MODO DE USO (Fase 2a - manual, supervisado):
@@ -17,7 +17,7 @@ detectar fallos en el momento, en vez de un cron job a ciegas.
 
 GIT AUTO-PUSH (agregado en sesión 7 - 24/07/2026):
     Al terminar la descarga, el script verifica automáticamente que los
-    14 archivos existan y tengan peso > 0. Si pasan todos:
+    15 archivos existan y tengan peso > 0. Si pasan todos:
         git add xls\ → git commit → git push
     Si falla cualquiera, NO se toca Git en absoluto. El usuario ve
     exactamente qué archivo falló y debe resolverlo antes de subir.
@@ -29,6 +29,13 @@ BLOQUE 2D - DEVENGADO MENSUAL (agregado en sesión 10 - 14/08/2026):
     botón normal por rol/nombre visible (get_by_role("button", name="Mes")),
     SIN ID fijo como BtnRubro/BtnFuncion. Confirmado con playwright codegen
     real el 14/08/2026 (ver campo pivot_final_rol en ARCHIVOS).
+
+BLOQUE 6D - DEVENGADO MENSUAL, SEDE CENTRAL (agregado en sesión 10 - 14/08/2026):
+    Se agregó sede_devengado_mes.xls como 15º archivo, para alimentar
+    data/devengado-mensual-sc.js (Bloque 6D del dashboard). Mismo patrón
+    que el Bloque 2D (pivote por "Mes" vía pivot_final_rol), pero un nivel
+    más abajo en la jerarquía: Ejecutora 001-855 (Sede Central). Confirmado
+    con playwright codegen real el 14/08/2026.
 
 NOTA DE DISEÑO IMPORTANTE (descubierto con playwright codegen el 06/07/2026):
 Consulta Amigable usa UN SOLO botón para toda la jerarquía "Nivel de
@@ -162,9 +169,19 @@ ARCHIVOS = [
                ("Sector", "99: GOBIERNOS REGIONALES"),
                ("Pliego", "452:")],
      "pivot_final": None, "pivot_final_rol": "Mes", "boton_final_sin_fila": None},
+    # Bloque 6D — Devengado Mensual, Sede Central. Alimenta
+    # data/devengado-mensual-sc.js. Mismo patrón que el anterior (pivote por
+    # "Mes"), pero un nivel más abajo: Ejecutora 001-855 (Sede Central).
+    # Confirmado con playwright codegen real el 14/08/2026.
+    {"nombre": "sede_devengado_mes.xls",
+     "pasos": [("Nivel de Gobierno", "R: GOBIERNOS REGIONALES"),
+               ("Sector", "99: GOBIERNOS REGIONALES"),
+               ("Pliego", "452:"),
+               ("Ejecutora", "001-855:")],
+     "pivot_final": None, "pivot_final_rol": "Mes", "boton_final_sin_fila": None},
 ]
 
-# Lista de los 14 nombres esperados — se usa en la validación final.
+# Lista de los 15 nombres esperados — se usa en la validación final.
 # Debe ser idéntica a los "nombre" de ARCHIVOS arriba.
 NOMBRES_ESPERADOS = [a["nombre"] for a in ARCHIVOS]
 
@@ -315,7 +332,7 @@ def procesar_archivo(page, config):
 
 def validar_archivos():
     """
-    Verifica que los 14 archivos esperados existan en xls/ y tengan
+    Verifica que los 15 archivos esperados existan en xls/ y tengan
     tamaño > 0 bytes. Retorna (ok: bool, faltantes: list).
     Un archivo descargado con error en el MEF a veces llega como HTML
     de 1-2 KB — el tamaño mínimo de 5 KB descarta esos casos.
@@ -338,7 +355,7 @@ def validar_archivos():
 
 def git_push_si_completo():
     """
-    Ejecuta git add xls/ → git commit → git push SOLO si los 14
+    Ejecuta git add xls/ → git commit → git push SOLO si los 15
     archivos pasan la validación. Si falla cualquiera, no toca Git.
 
     Usa subprocess con cwd apuntando a la raíz del repo (un nivel
@@ -347,7 +364,7 @@ def git_push_si_completo():
     REPO_RAIZ = Path(__file__).resolve().parent.parent
 
     print("\n" + "=" * 60)
-    print("VALIDACIÓN FINAL — verificando 14/14 archivos")
+    print("VALIDACIÓN FINAL — verificando 15/15 archivos")
     print("=" * 60)
 
     ok, faltantes = validar_archivos()
@@ -363,11 +380,11 @@ def git_push_si_completo():
         )
         return
 
-    # 14/14 OK — proceder con Git
+    # 15/15 OK — proceder con Git
     hoy = date.today().strftime("%d/%m/%Y")
     mensaje_commit = f"data: actualización diaria XLS - {hoy}"
 
-    print(f"\n✅ 14/14 archivos OK — procediendo con Git...\n")
+    print(f"\n✅ 15/15 archivos OK — procediendo con Git...\n")
 
     comandos = [
         (["git", "add", "xls/"], "git add xls/"),
@@ -432,7 +449,7 @@ def main():
         page = browser.new_page()
 
         for i, config in enumerate(ARCHIVOS, 1):
-            print(f"\n[{i}/14] Procesando {config['nombre']} ...")
+            print(f"\n[{i}/15] Procesando {config['nombre']} ...")
             try:
                 procesar_archivo(page, config)
             except Exception as e:
