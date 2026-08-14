@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # =============================================================================
-# actualizar_hist_gores.py
+# actualizar_hist_gores_enejul.py
 # ORPMI - Gobierno Regional de Lambayeque
 # Actualiza: data/historico_progresivo.json  (Bloque 8 — Ranking nacional GORES)
 #
@@ -25,10 +25,10 @@
 #      Pliego específico, filtro Mes 8 = agosto. Guardar como
 #      agosto_{año}.xls en xls/historico/ (para 2022-2025).
 #   2) Agregar la línea correspondiente a "agosto" en PERIODOS más abajo.
-#   3) Correr: python actualizar_hist_gores.py
+#   3) Correr: python actualizar_hist_gores_enejul.py
 #
 # USO:
-#   python actualizar_hist_gores.py
+#   python actualizar_hist_gores_enejul.py
 # =============================================================================
 
 import os
@@ -46,13 +46,19 @@ CODIGO_LAMBAYEQUE = "452"
 
 # Períodos a acumular progresivamente para dev y cert.
 # (etiqueta, patrón_de_archivo, tiene_benchmark_en_json_existente)
-# Julio SÍ tiene benchmark porque el JSON ya fue armado a mano con datos
-# Ene-Jul en la sesión anterior. Meses nuevos (agosto...) NO lo tienen,
-# se validan solo por monotonicidad.
+# Julio tenía benchmark porque el JSON originalmente fue armado a mano con
+# datos Ene-Jul. DESACTIVADO el 14/08/2026: una vez que AGOSTO se activó y
+# corrió con éxito, el campo "lambayeque.dev" del JSON pasó a representar
+# el acumulado final (Ene-Ago), no Ene-Jul — comparar Julio contra ese
+# campo generaba un falso bloqueo permanente (T1+T2+Jul nunca volverá a
+# coincidir con un acumulado que ya incluye Agosto). La validación de
+# monotonicidad seguía funcionando correctamente y es la que protege de
+# aquí en adelante. Si se vuelve a armar el JSON a mano alguna vez con un
+# nuevo benchmark de referencia, se puede reactivar puntualmente.
 PERIODOS = [
     ("T1", "1T_{año}.xls", False),
     ("T2", "2T_{año}.xls", False),
-    ("JULIO", "julio_{año}.xls", True),
+    ("JULIO", "julio_{año}.xls", False),
 
     # --- Descomentar cuando cierre el mes correspondiente ---
     ("AGOSTO", "agosto_{año}.xls", False),
