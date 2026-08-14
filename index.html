@@ -997,17 +997,17 @@
           <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px">
             <div style="background:#5a1414;color:#fff;border-radius:10px;padding:14px 22px;flex:0 0 auto">
               <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#ffcba0;margin-bottom:4px">Ejecutado a la fecha</div>
-              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:#FFD166" id="b9devActual">S/ 178,369,785</div>
-              <div style="font-family:'Barlow Condensed';font-weight:700;font-size:15px;color:#e8c17a" id="b9pctActual">22.5%</div>
+              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:#FFD166" id="b9devActual">S/ 326,586,130</div>
+              <div style="font-family:'Barlow Condensed';font-weight:700;font-size:15px;color:#e8c17a" id="b9pctActual">43.1%</div>
             </div>
             <div style="background:#fff;border:2px solid #e8821e;border-radius:10px;padding:14px 22px;flex:0 0 auto">
               <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:4px">Proyección Dic 2026</div>
-              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--naranja-h)" id="b9devProy">S/ 772,173,813</div>
+              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--naranja-h)" id="b9devProy">S/ 737,640,177</div>
               <div style="font-family:'Barlow Condensed';font-weight:700;font-size:15px;color:var(--vino)" id="b9pctProy">97.3%</div>
             </div>
             <div style="background:#fff;border:1px solid var(--linea);border-radius:10px;padding:14px 22px;flex:0 0 auto">
               <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:4px">PIM 2026</div>
-              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--vino)" id="b9pimActual">S/ 793,371,105</div>
+              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--vino)" id="b9pimActual">S/ 758,109,123</div>
             </div>
           </div>
           <!-- Gráfico de proyección -->
@@ -2716,32 +2716,41 @@
   }
 
     // -------- Bloque 9: Proyección Acumulada al 31/12/2026 --------
-  // Datos fijos del PDF institucional (proyeccionacumulada.png)
-  // PIM 2026: 793,371,105 (de la tabla de rubros pliego)
-  const B9_PIM = 793371105;
+  // Datos fijos, escala "Sólo Proyectos" (Consulta Amigable, consulta 14-ago-2026)
+  // PIM 2026: 758,109,123 (Pliego 452, filtro "Sólo Proyectos" — antes se usaba
+  // el PIM del pliego completo, 793,371,105, que incluye gasto corriente/funcionamiento;
+  // se corrigió el 14/08/2026 para que coincida con el alcance real de este bloque)
+  const B9_PIM = 758109123;
   const B9_MESES_LABELS = ["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SETIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"];
-  // Valores proyectados acumulados del PDF (en soles)
-  const B9_PROYECTADO_ACUM = [
-    18207406, 86795395, 133151711, 167648586, 215264677,
-    284083248, 357988569, 439511773, 525742794, 606727501, 687397331, 772173813
-  ];
-  // Porcentajes proyectados del PDF
+  // Porcentajes proyectados institucionales (curva de avance esperado, sin cambios)
   const B9_PCT_PROY = [2.3,10.9,16.8,21.1,27.1,35.8,45.1,55.4,66.3,76.5,86.6,97.3];
-  // Devengado real acumulado. Ene–Jun ahora son valores CERRADOS/fijos
-  // (Mayo corregido a su valor real; Junio cerró con 256,731,752).
-  // Agosto: null → se rellena en vivo con los archivos cargados cada día.
+  // Valores proyectados acumulados = B9_PCT_PROY aplicado al PIM "Sólo Proyectos"
+  // (758,109,123). Recalibrado el 14/08/2026 al cambiar el PIM base (antes usaba
+  // 793,371,105 del pliego completo, lo que sobreestimaba la proyección de Dic).
+  const B9_PROYECTADO_ACUM = [
+    17436510, 82633894, 127362333, 159961025, 205447572,
+    271403066, 341907214, 419992454, 502626349, 579953479, 656522501, 737640177
+  ];
+  // Devengado real acumulado — datos oficiales Consulta Amigable (Pliego 452,
+  // filtro "Sólo Proyectos"), consulta del 14/08/2026. Ene–Ago ahora son valores
+  // CERRADOS/fijos. Junio corregido de 256,731,752 → 258,850,964: el MEF
+  // reclasificó ~S/2.12M entre Junio y Julio en una actualización posterior de
+  // Consulta Amigable; el acumulado a Julio (317,327,247) no cambió, solo el
+  // corte interno entre ambos meses.
+  // Setiembre: null → se rellena en vivo con los archivos cargados cada día.
   const B9_REAL_BASE = [
     18207406,    // ENE
     86795395,    // FEB
-    133151711,   // MAR
+    133151712,   // MAR
     167648586,   // ABR
-    204294625,   // MAY  (corregido: antes 178,369,785)
-    256731752,   // JUN  (cerrado)
+    204294625,   // MAY
+    258850964,   // JUN  (cerrado, corregido 14/08/2026)
     317327247,   // JUL  (cerrado)
-    null         // AGO → se rellena en vivo con los archivos cargados
+    326586130,   // AGO  (cerrado, dato oficial 14/08/2026)
+    null         // SET → se rellena en vivo con los archivos cargados
   ];
-  // El mes actual es Agosto (índice 7). La línea punteada arranca a partir de Agosto.
-  const B9_MES_ACTUAL_IDX = 7;
+  // El mes actual es Setiembre (índice 8). La línea punteada arranca a partir de Setiembre.
+  const B9_MES_ACTUAL_IDX = 8;
 
   let b9Chart=null;
   function renderBloque9(sel){
@@ -2760,9 +2769,9 @@
 
     // Valor en vivo para el mes activo; si no hay archivos, mostrar null (punto vacío)
     const devVivoMes = devActual>0 ? devActual : null;
-    // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor cerrado (Junio)
-    const devBase = devActual>0 ? devActual : 256731752;
-    const pctBase = pimVivo ? devBase/pimVivo*100 : 22.5;
+    // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor cerrado (Agosto)
+    const devBase = devActual>0 ? devActual : 326586130;
+    const pctBase = pimVivo ? devBase/pimVivo*100 : 43.1;
 
     // Actualizar KPIs
     const kDev=$("#b9devActual"), kPct=$("#b9pctActual"), kPim=$("#b9pimActual");
