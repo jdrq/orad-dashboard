@@ -2975,7 +2975,7 @@
       },
       options: {
         responsive: true, maintainAspectRatio: false,
-        layout: { padding: { top: 26 } }, // espacio para que el datalabel del monto exacto no se corte arriba
+        layout: { padding: { top: 34 } }, // espacio para que el datalabel del monto exacto no se corte arriba
         plugins: {
           legend: { display:false },
           tooltip: {
@@ -2987,8 +2987,8 @@
             }
           },
           datalabels: {
-            anchor:"end", align:"top", color:"#5b6470", clamp:true,
-            font:{family:"Barlow Condensed", weight:"700", size:10.5},
+            anchor:"end", align:"top", color:"#2b2b2b", clamp:true,
+            font:{family:"Barlow Condensed", weight:"800", size:14},
             formatter: (v,ctx) => v===null ? "" :
               "S/ "+Math.round(v).toLocaleString("es-PE") + (ctx.dataIndex===B2M_IDX_PARCIAL ? "*" : "")
           }
@@ -3066,7 +3066,7 @@
       },
       options: {
         responsive: true, maintainAspectRatio: false,
-        layout: { padding: { top: 26 } },
+        layout: { padding: { top: 34 } },
         plugins: {
           legend: { display:false },
           tooltip: {
@@ -3078,8 +3078,8 @@
             }
           },
           datalabels: {
-            anchor:"end", align:"top", color:"#5b6470", clamp:true,
-            font:{family:"Barlow Condensed", weight:"700", size:10.5},
+            anchor:"end", align:"top", color:"#2b2b2b", clamp:true,
+            font:{family:"Barlow Condensed", weight:"800", size:14},
             formatter: (v,ctx) => v===null ? "" :
               "S/ "+Math.round(v).toLocaleString("es-PE") + (ctx.dataIndex===B6M_SC_IDX_PARCIAL ? "*" : "")
           }
