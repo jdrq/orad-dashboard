@@ -1,7 +1,7 @@
 """
 descargar_xls_mef.py
 ---------------------
-Automatiza la descarga de los 13 archivos .xls de Consulta Amigable (MEF)
+Automatiza la descarga de los 14 archivos .xls de Consulta Amigable (MEF)
 que alimentan el dashboard de ORAD - GORE Lambayeque.
 
 MODO DE USO (Fase 2a - manual, supervisado):
@@ -17,10 +17,18 @@ detectar fallos en el momento, en vez de un cron job a ciegas.
 
 GIT AUTO-PUSH (agregado en sesión 7 - 24/07/2026):
     Al terminar la descarga, el script verifica automáticamente que los
-    13 archivos existan y tengan peso > 0. Si pasan todos:
+    14 archivos existan y tengan peso > 0. Si pasan todos:
         git add xls\ → git commit → git push
     Si falla cualquiera, NO se toca Git en absoluto. El usuario ve
     exactamente qué archivo falló y debe resolverlo antes de subir.
+
+BLOQUE 2D - DEVENGADO MENSUAL (agregado en sesión 10 - 14/08/2026):
+    Se agregó gore_devengado_mes.xls como 14º archivo, para alimentar
+    data/devengado-mensual.js (Bloque 2D del dashboard). A diferencia de
+    los demás, este NO pivota por Rubro ni Función, sino por "Mes" - un
+    botón normal por rol/nombre visible (get_by_role("button", name="Mes")),
+    SIN ID fijo como BtnRubro/BtnFuncion. Confirmado con playwright codegen
+    real el 14/08/2026 (ver campo pivot_final_rol en ARCHIVOS).
 
 NOTA DE DISEÑO IMPORTANTE (descubierto con playwright codegen el 06/07/2026):
 Consulta Amigable usa UN SOLO botón para toda la jerarquía "Nivel de
@@ -60,7 +68,12 @@ BTN_FUNCION = "#ctl00_CPH1_BtnFuncion"
 #          (BtnTipoGobierno, BtnSector, BtnPliego, BtnEjecutora...).
 #          Esto es exactamente lo que capturó el codegen real de Juan.
 #   pivot_final: (selector, None) - botón de eje distinto a clickear al
-#          final (Rubro, Función), o None
+#          final (Rubro, Función), identificado por ID fijo (#ctl00_...).
+#   pivot_final_rol: (nombre_de_rol, None) - variante de pivot_final para
+#          botones que NO tienen ID fijo confirmado y se ubican por rol/
+#          nombre visible, igual que los pasos de la jerarquía (ej. "Mes",
+#          confirmado con playwright codegen el 14/08/2026 — a diferencia
+#          de Rubro/Función, no es un botón de ID fijo #ctl00_CPH1_Btn...).
 #   boton_final_sin_fila: etiqueta de un último clic al botón de cadena
 #          SIN fila después (revela el desglose natural de ese nivel:
 #          por Ejecutora, por Pliego, por Proyecto). None si no aplica.
@@ -138,9 +151,20 @@ ARCHIVOS = [
                ("Pliego", "452:"),
                ("Ejecutora", "001-855:")],
      "pivot_final": None, "boton_final_sin_fila": "Producto/Proyecto"},
+    # Bloque 2D — Devengado Mensual. Alimenta data/devengado-mensual.js.
+    # Pivota por "Mes" en vez de Rubro/Función. Confirmado con playwright
+    # codegen real el 14/08/2026: NO es un botón de ID fijo como BTN_RUBRO/
+    # BTN_FUNCION, sino un botón normal por rol/nombre visible ("Mes"),
+    # igual que los pasos de la jerarquía — por eso usa pivot_final_rol
+    # en vez de pivot_final.
+    {"nombre": "gore_devengado_mes.xls",
+     "pasos": [("Nivel de Gobierno", "R: GOBIERNOS REGIONALES"),
+               ("Sector", "99: GOBIERNOS REGIONALES"),
+               ("Pliego", "452:")],
+     "pivot_final": None, "pivot_final_rol": "Mes", "boton_final_sin_fila": None},
 ]
 
-# Lista de los 13 nombres esperados — se usa en la validación final.
+# Lista de los 14 nombres esperados — se usa en la validación final.
 # Debe ser idéntica a los "nombre" de ARCHIVOS arriba.
 NOMBRES_ESPERADOS = [a["nombre"] for a in ARCHIVOS]
 
@@ -231,6 +255,8 @@ def procesar_archivo(page, config):
     # desglose natural del último nivel (un clic más a la cadena)
     if config["pivot_final"] is not None:
         fl.locator(config["pivot_final"]).click()
+    elif config.get("pivot_final_rol") is not None:
+        fl.get_by_role("button", name=config["pivot_final_rol"], exact=True).click()
     elif config["boton_final_sin_fila"] is not None:
         fl.get_by_role("button", name=config["boton_final_sin_fila"], exact=True).click()
 
@@ -289,7 +315,7 @@ def procesar_archivo(page, config):
 
 def validar_archivos():
     """
-    Verifica que los 13 archivos esperados existan en xls/ y tengan
+    Verifica que los 14 archivos esperados existan en xls/ y tengan
     tamaño > 0 bytes. Retorna (ok: bool, faltantes: list).
     Un archivo descargado con error en el MEF a veces llega como HTML
     de 1-2 KB — el tamaño mínimo de 5 KB descarta esos casos.
@@ -312,7 +338,7 @@ def validar_archivos():
 
 def git_push_si_completo():
     """
-    Ejecuta git add xls/ → git commit → git push SOLO si los 13
+    Ejecuta git add xls/ → git commit → git push SOLO si los 14
     archivos pasan la validación. Si falla cualquiera, no toca Git.
 
     Usa subprocess con cwd apuntando a la raíz del repo (un nivel
@@ -321,7 +347,7 @@ def git_push_si_completo():
     REPO_RAIZ = Path(__file__).resolve().parent.parent
 
     print("\n" + "=" * 60)
-    print("VALIDACIÓN FINAL — verificando 13/13 archivos")
+    print("VALIDACIÓN FINAL — verificando 14/14 archivos")
     print("=" * 60)
 
     ok, faltantes = validar_archivos()
@@ -337,11 +363,11 @@ def git_push_si_completo():
         )
         return
 
-    # 13/13 OK — proceder con Git
+    # 14/14 OK — proceder con Git
     hoy = date.today().strftime("%d/%m/%Y")
     mensaje_commit = f"data: actualización diaria XLS - {hoy}"
 
-    print(f"\n✅ 13/13 archivos OK — procediendo con Git...\n")
+    print(f"\n✅ 14/14 archivos OK — procediendo con Git...\n")
 
     comandos = [
         (["git", "add", "xls/"], "git add xls/"),
@@ -406,7 +432,7 @@ def main():
         page = browser.new_page()
 
         for i, config in enumerate(ARCHIVOS, 1):
-            print(f"\n[{i}/13] Procesando {config['nombre']} ...")
+            print(f"\n[{i}/14] Procesando {config['nombre']} ...")
             try:
                 procesar_archivo(page, config)
             except Exception as e:
