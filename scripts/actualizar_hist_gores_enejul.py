@@ -2,7 +2,7 @@
 # =============================================================================
 # actualizar_hist_gores_enejul.py
 # ORPMI - Gobierno Regional de Lambayeque
-# Actualiza: data/historico_enejul.json  (Bloque 8 — Ranking nacional GORES)
+# Actualiza: data/historico_progresivo.json  (Bloque 8 — Ranking nacional GORES)
 #
 # CONTEXTO: este JSON alimentaba antes de forma MANUAL (armado a mano en
 # sesión de trabajo). Este script lo formaliza como parte del pipeline
@@ -41,7 +41,7 @@ from bs4 import BeautifulSoup
 AÑOS = [2022, 2023, 2024, 2025]
 CARPETA_XLS = "xls/historico"
 CARPETA_DATA = "data"
-ARCHIVO_JSON = os.path.join(CARPETA_DATA, "historico_enejul.json")
+ARCHIVO_JSON = os.path.join(CARPETA_DATA, "historico_progresivo.json")
 CODIGO_LAMBAYEQUE = "452"
 
 # Períodos a acumular progresivamente para dev y cert.

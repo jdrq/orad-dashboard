@@ -3274,17 +3274,17 @@
       v >= prom * 1.1 ? "var(--verde)" : v >= prom * 0.9 ? "var(--amber)" : "var(--rojo)";
 
     // ── Cargar historico_semestral.json (Ene-Jun, para "Ver Primer Semestre")
-    // y historico_enejul.json (Ene-Jul, para la vista principal) en paralelo ──
+    // y historico_progresivo.json (Ene-Jul/Ago/Set..., para la vista principal) en paralelo ──
     Promise.all([
       fetch("data/historico_semestral.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }),
-      fetch("data/historico_enejul.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }).catch(e => { console.warn("[ORPMI-Hist] historico_enejul.json no disponible, uso Ene-Jun también en vista principal:", e.message); return null; }),
+      fetch("data/historico_progresivo.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }).catch(e => { console.warn("[ORPMI-Hist] historico_progresivo.json no disponible, uso Ene-Jun también en vista principal:", e.message); return null; }),
       fetch("data/rb_hist_sc_progresivo.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }).catch(e => { console.warn("[ORPMI-Hist] rb_hist_sc_progresivo.json no disponible, Rubro Sede Central sigue en Ene-Jun:", e.message); return null; })
     ])
-      .then(([dataJun, dataJul, rubroScProgresivo]) => {
+      .then(([dataJun, dataProgresivo, rubroScProgresivo]) => {
         STATE.historico = dataJun;
-        STATE.historicoJul = dataJul; // null si aún no existe el archivo -> fallback a Ene-Jun
+        STATE.historicoProgresivo = dataProgresivo; // null si aún no existe el archivo -> fallback a Ene-Jun
         RB_HIST_SC_PROGRESIVO = rubroScProgresivo; // null si aún no existe -> fallback a Ene-Jun
-        console.log("[ORPMI-Hist] Cargado Ene-Jun:", Object.keys(dataJun.semestres), "| Ene-Jul:", dataJul ? Object.keys(dataJul.semestres) : "(no disponible)", "| Rubro SC:", rubroScProgresivo ? Object.keys(rubroScProgresivo) : "(no disponible)");
+        console.log("[ORPMI-Hist] Cargado Ene-Jun:", Object.keys(dataJun.semestres), "| Progresivo:", dataProgresivo ? Object.keys(dataProgresivo.semestres) : "(no disponible)", "| Rubro SC:", rubroScProgresivo ? Object.keys(rubroScProgresivo) : "(no disponible)");
         inyectar2026();
         renderA("2026"); renderB("2026"); renderC("2026");
         iniciarTendencia();
@@ -3356,12 +3356,13 @@
     }
 
     // ── BLOQUE 2A — Devengado % ──────────────────────────────────
-    // Para años 2022-2025: en la vista principal usamos Ene-Jul
-    // (historico_enejul.json); en "Ver Primer Semestre" usamos Ene-Jun
+    // Para años 2022-2025: en la vista principal usamos el acumulado
+    // progresivo (historico_progresivo.json, Ene-Jul/Ago/Set... según
+    // último mes cargado); en "Ver Primer Semestre" usamos Ene-Jun
     // (historico_semestral.json, el de siempre). "2026" no pasa por aquí:
     // ese sigue su propio mecanismo en inyectar2026()/STATE.historico.
     function fuenteHistorica(){
-      if (!MODO_SEMESTRAL && STATE.historicoJul) return STATE.historicoJul;
+      if (!MODO_SEMESTRAL && STATE.historicoProgresivo) return STATE.historicoProgresivo;
       return STATE.historico;
     }
 
