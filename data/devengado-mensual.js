@@ -82,8 +82,25 @@
     return porMes;
   }
 
+  // ¿Esta fila es de CONTEXTO "Unidad Ejecutora ..."? (aparece en un sheet
+  // aparte del de datos, junto a TOTAL/Nivel de Gobierno/Sector/Pliego).
+  // Si el archivo trae una fila así, está acotado a una UE específica
+  // (ej. Sede Central) y NO es el reporte a nivel Pliego completo — por
+  // eso este módulo (Bloque 2D, alcance Pliego) lo descarta explícitamente.
+  // Ver data/devengado-mensual-sc.js para el caso "sí tiene Unidad Ejecutora".
+  function tieneContextoUE(wb, XLSX) {
+    for (const name of wb.SheetNames) {
+      const aoa = XLSX.utils.sheet_to_json(wb.Sheets[name], { header: 1, blankrows: false, raw: false });
+      for (const row of aoa) {
+        if (row && /^UNIDAD EJECUTORA\b/i.test(norm(row[0] || ""))) return true;
+      }
+    }
+    return false;
+  }
+
   // ¿El archivo cargado es este tipo de reporte?
   function detectar(wb, XLSX) {
+    if (tieneContextoUE(wb, XLSX)) return false; // es de una UE específica, no Pliego
     for (const name of wb.SheetNames) {
       const aoa = XLSX.utils.sheet_to_json(wb.Sheets[name], { header: 1, blankrows: false, raw: false });
       if (aoa.some(filaEsMes)) return true;
@@ -97,6 +114,9 @@
   function actualizar(archivos) {
     if (typeof global.B2M_DEVENGADO_MES === "undefined") return; // Bloque 2D no está en esta página
     const a = [...(archivos || [])].reverse().find(x => x.esDevengadoMensual);
+    console.log("[DIAG Bloque2D] archivos con esDevengadoMensual=true:",
+      (archivos||[]).filter(x=>x.esDevengadoMensual).map(x=>x.nombre));
+    console.log("[DIAG Bloque2D] archivo elegido:", a && a.nombre, "| Agosto:", a && a.mesesDevengado && a.mesesDevengado[8] && a.mesesDevengado[8].devengado);
     if (!a || !a.mesesDevengado) return;
 
     const mesEnCurso = new Date().getMonth() + 1; // 1-12, calendario real del navegador

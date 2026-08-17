@@ -2947,7 +2947,11 @@
   });
 
   let b2mChart = null;
+  let _b2mRenderCount = 0;
   function renderBloque2Mensual(){
+    _b2mRenderCount++;
+    console.log(`[DIAG Bloque2D] renderBloque2Mensual() llamada #${_b2mRenderCount} | Agosto actual en array: ${B2M_DEVENGADO_MES[7]}`);
+    console.trace("[DIAG Bloque2D] origen de esta llamada:");
     const cv = document.getElementById("b2mChart");
     if (!cv) return;
     if (b2mChart) { b2mChart.destroy(); b2mChart = null; }
