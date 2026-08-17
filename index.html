@@ -1768,7 +1768,7 @@
 
   async function cargarArchivoServidor(nombre){
     try{
-      const resp = await fetch("xls/" + nombre, { cache: "no-store" });
+      const resp = await fetch("xls/" + nombre + "?" + Date.now(), { cache: "no-store" });
       if(!resp.ok) return null;
       const buf = await resp.arrayBuffer();
       return procesarBytes(nombre, new Uint8Array(buf));
