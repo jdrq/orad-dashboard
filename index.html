@@ -440,22 +440,19 @@
           </div>
         </section>
       </div>
-
       <script>
         // Panel técnico oculto por defecto. Se muestra solo si:
         //  (a) ORPMI hace clic en el engranaje ⚙, o
         //  (b) se abre la URL con ?admin=1 (útil para revisar desde el celular sin buscar el botón).
-        (function(){
+        document.addEventListener("DOMContentLoaded", function(){
           const panel = document.getElementById("panelTecnico");
           const btn = document.getElementById("btnAdminToggle");
           if (new URLSearchParams(location.search).get("admin") === "1") panel.style.display = "";
           btn.addEventListener("click", () => {
             panel.style.display = panel.style.display === "none" ? "" : "none";
           });
-        })();
+        });
       </script>
-
-
       <!-- KPIs + Donas Bloque 1 -->
       <div id="b1wrap">
 
