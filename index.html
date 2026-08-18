@@ -861,6 +861,38 @@
         </div>
       </div>
 
+      <!-- ═══════════════ BLOQUE EMU: Categoría Presupuestal 0068 — Municipalidades ═══════════════ -->
+      <div class="pdf-section" id="bEmuSecEmergencia">
+        <div class="pdf-header" style="background:#5a1414"><div class="pdf-header-left"><h2>Reducción de Vulnerabilidad y Atención de Emergencias — Municipalidades</h2>
+          <div class="sub" style="color:#FFD166">Categoría Presupuestal 0068 — Actividades y Proyectos — Gobiernos Locales, Departamento Lambayeque &nbsp;·&nbsp; <span id="bEmuFecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
+        <div class="pdf-body">
+          <div class="pdf-date-row">
+            <span>ORDENADO DE MAYOR A MENOR POR DEVENGADO</span>
+            <span>TOTAL DEVENGADO MUNICIPALIDADES: <span class="prom" id="bEmuTotalDev" style="color:var(--naranja-h)">—</span></span>
+          </div>
+          <table class="pdf-table" id="bEmuTable">
+            <thead><tr>
+              <th class="num" style="width:40px">#</th>
+              <th class="left">MUNICIPALIDAD</th>
+              <th class="num">PIA</th>
+              <th class="num">PIM</th>
+              <th class="num">CERTIFICACIÓN</th>
+              <th class="num">COMPROMISO</th>
+              <th class="num" style="color:var(--naranja-h)">DEVENGADO</th>
+              <th class="num" style="width:110px">AVANCE %</th>
+            </tr></thead>
+            <tbody id="bEmuRows">
+              <tr><td colspan="8" style="padding:32px;text-align:center;color:#888">Carga el archivo de Municipalidades — Categoría 0068 (Consulta Amigable, filtro "Actividades y Proyectos") para ver el detalle.</td></tr>
+            </tbody>
+            <tfoot id="bEmuFoot"></tfoot>
+          </table>
+          <div class="pdf-legend">
+            <span style="font-weight:700;color:var(--vino);font-size:12px">ℹ NOTA:</span>
+            <span class="litem" style="color:#555">Incluye actividades y proyectos (no aplica el filtro "Sólo Proyectos" usado en el resto del tablero). Incluye las 38 municipalidades provinciales y distritales de Lambayeque.</span>
+          </div>
+        </div>
+      </div>
+
       <!-- ═══════════════ BLOQUE 6A: Rubro / Fuente — Pliego ═══════════════ -->
       <div class="pdf-section" id="b6secPliego">
         <div class="pdf-header"><div class="pdf-header-left"><h2>Ejecución Presupuestal por Rubro</h2>
@@ -1595,6 +1627,17 @@
     const filasGenerica = res.registros.filter(r=>/^[56]-2\d$/.test(String(r.codigo||""))).length;
     return filasGenerica >= 3;
   }
+  // ── BLOQUE EMU: Categoría 0068 — Municipalidades (Gobiernos Locales) ───
+  // Mismo archivo de Consulta Amigable de Categoría 0068, pero drilleado a
+  // Nivel de Gobierno M (Locales) -> Municipalidades -> Departamento
+  // Lambayeque, desagregado por Municipalidad. Código Ubigeo-Municipalidad
+  // con formato "140101-301212" — patrón exclusivo, no colisiona con
+  // Genérica (5-2X/6-2X), Por-UE (\d{3}-\d+) ni ningún otro detector.
+  function esEmergenciaMuniRes(res){
+    if(!res || !res.registros) return false;
+    const filasMuni = res.registros.filter(r=>/^\d{6}-\d{6}$/.test(String(r.codigo||""))).length;
+    return filasMuni >= 5;
+  }
   // ── BLOQUE 7: Funciones a nivel Pliego ──────────────────────────────────
   // Catálogo cerrado del Clasificador Funcional del MEF. Mismo formato de
   // código (2 dígitos) que un archivo de Rubro/Fuente de financiamiento, así
@@ -1766,7 +1809,8 @@
     return {nombre, res, incluir:true, esFlat:esFlat(res),
             esNacional:esNacionalRes(res), esPorUE:esPorUERes(res),
             esProyectos:esProyectosRes(res), esRubro:esRubroRes(res),
-            esFuncion:esFuncionRes(res), esEmergencia:esEmergenciaRes(res), anio,
+            esFuncion:esFuncionRes(res), esEmergencia:esEmergenciaRes(res),
+            esEmergenciaMuni:esEmergenciaMuniRes(res), anio,
             esHistorico:esHistoricoRes(res, anio),
             esDevengadoMensualSC, mesesDevengadoSC,
             esDevengadoMensual, mesesDevengado};
@@ -1809,7 +1853,8 @@
     "proyectos_sede_central.xls",
     "gore_devengado_mes.xls",   // Bloque 2D — Devengado Mensual (data/devengado-mensual.js)
     "sede_devengado_mes.xls",   // Bloque 6D — Devengado Mensual Sede Central (data/devengado-mensual-sc.js)
-    "proyecto_emergencia.xls"   // Bloque EMR — Categoría 0068 Emergencias/Desastres (Actividades y Proyectos)
+    "proyecto_emergencia.xls",  // Bloque EMR — Categoría 0068 Emergencias/Desastres (Actividades y Proyectos)
+    "munis_emergencia.xls"      // Bloque EMU — Categoría 0068 Municipalidades (Actividades y Proyectos)
   ];
 
   async function cargarArchivoServidor(nombre){
@@ -1927,6 +1972,7 @@
     try { renderBloque3B(sel); }           catch(e){ console.error("Bloque 3B (Top Proyectos):", e); }
     try { renderBloque3R(sel); }           catch(e){ console.error("Bloque 3R (Ejecución en Riesgo):", e); }
     try { renderBloqueEmergencia(sel); }   catch(e){ console.error("Bloque EMR (Categoría 0068):", e); }
+    try { renderBloqueEmergenciaMuni(sel); } catch(e){ console.error("Bloque EMU (Categoría 0068 - Municipalidades):", e); }
     try { renderBloque6(sel); }            catch(e){ console.error("Bloque 6 Pliego:", e); }
     try { renderBloque6Rubros(sel); }      catch(e){ console.error("Bloque 6 Rubros:", e); }
     // Si el año activo en Rubro 1 NO es 2026, restaurar la vista histórica
@@ -3488,6 +3534,67 @@
     }
   }
 
+  // -------- Bloque EMU: Categoría 0068 — Municipalidades --------
+  // Mismo patrón que Bloque EMR, pero ordenado de mayor a menor por
+  // Devengado (pedido explícito del jefe de Juan, 18/08/2026).
+  function renderBloqueEmergenciaMuni(sel){
+    const tb=$("#bEmuRows"); if(!tb) return;
+    const aEmu = sel.find(a=>a.esEmergenciaMuni);
+    const fecha = fechaMostrada();
+    const elF=$("#bEmuFecha"); if(elF) elF.textContent=fecha;
+    if(!aEmu){
+      tb.innerHTML='<tr><td colspan="8" style="padding:32px;text-align:center;color:#888">Carga el archivo de Municipalidades — Categoría 0068 (Consulta Amigable, filtro "Actividades y Proyectos") para ver el detalle.</td></tr>';
+      const tf=$("#bEmuFoot"); if(tf) tf.innerHTML="";
+      const elT=$("#bEmuTotalDev"); if(elT) elT.textContent="—";
+      return;
+    }
+    const filas = aEmu.res.registros
+      .filter(r=>/^\d{6}-\d{6}$/.test(String(r.codigo||"")))
+      .sort((a,b)=>(b.devengado||0)-(a.devengado||0));
+    const f=n=>Math.round(n||0).toLocaleString("es-PE");
+    if(!filas.length){
+      tb.innerHTML='<tr><td colspan="8" style="padding:32px;text-align:center;color:#888">No se encontraron filas de Municipalidad en el archivo cargado.</td></tr>';
+      const tf=$("#bEmuFoot"); if(tf) tf.innerHTML="";
+      const elT=$("#bEmuTotalDev"); if(elT) elT.textContent="—";
+      return;
+    }
+    tb.innerHTML = filas.map((r,idx)=>{
+      const pia=r.pia||0, pim=r.pim||0, cert=r.certificacion||0, comp=r.compromiso||0, dev=r.devengado||0;
+      const avP = pim?dev/pim*100:0;
+      return `<tr>
+        <td class="num" style="color:#999">${idx+1}</td>
+        <td style="text-align:left;white-space:normal;line-height:1.3;font-size:11px">${nombreGenerica(r)}</td>
+        <td class="num">${f(pia)}</td>
+        <td class="num" style="font-weight:700">${f(pim)}</td>
+        <td class="num">${f(cert)}</td>
+        <td class="num">${f(comp)}</td>
+        <td class="num" style="color:var(--naranja-h);font-weight:800">${f(dev)}</td>
+        <td class="num" style="color:${semColor(avP)};font-weight:700">${avP.toFixed(1)}%</td>
+      </tr>`;
+    }).join("");
+    const tpia=filas.reduce((s,r)=>s+(r.pia||0),0);
+    const tp=filas.reduce((s,r)=>s+(r.pim||0),0);
+    const tc=filas.reduce((s,r)=>s+(r.certificacion||0),0);
+    const tco=filas.reduce((s,r)=>s+(r.compromiso||0),0);
+    const td=filas.reduce((s,r)=>s+(r.devengado||0),0);
+    const avTotal = tp?td/tp*100:0;
+    const elT=$("#bEmuTotalDev"); if(elT) elT.textContent="S/ "+f(td);
+    const tf=$("#bEmuFoot");
+    if(tf){
+      const s=`style="background:#3a3a3a;color:#FFD166;border:1px solid #555;font-family:'Barlow Condensed';font-weight:800"`;
+      tf.innerHTML=`<tr>
+        <td ${s}></td>
+        <td ${s}>TOTAL 38 MUNICIPALIDADES</td>
+        <td class="num" ${s}>S/ ${f(tpia)}</td>
+        <td class="num" ${s}>S/ ${f(tp)}</td>
+        <td class="num" ${s}>S/ ${f(tc)}</td>
+        <td class="num" ${s}>S/ ${f(tco)}</td>
+        <td class="num" ${s}>S/ ${f(td)}</td>
+        <td class="num" ${s}>${avTotal.toFixed(1)}%</td>
+      </tr>`;
+    }
+  }
+
   // -------- Bloque 2: tres rankings estilo PDF --------
   const ORDINAL = ["","1ero","2do","3ro","4to","5to","6to","7mo","8vo","9no","10mo","11mo","12mo","13ro","14to","15to","16to","17mo","18vo","19no","20mo","21ro","22do","23ro","24to","25to","26to","27mo"];
   const fechaHoy = ()=>fechaMostrada();
@@ -4156,6 +4263,7 @@
     { query:"#b3secTop",            titulo:"Top Proyectos por Devengado" },
     { query:"#b3rsecRiesgo",        titulo:"Proyectos con Ejecución en Riesgo" },
     { query:"#bEmrSecEmergencia",   titulo:"Categoría Presupuestal 0068 — Emergencias/Desastres" },
+    { query:"#bEmuSecEmergencia",   titulo:"Categoría Presupuestal 0068 — Municipalidades" },
     { query:"#b6secPliego",         titulo:"Ejecución Presupuestal por Rubro — Pliego" },
     { query:"#b6rubro1",            titulo:"Ejecución por Rubro — Sede Central" },
     { query:"#b6rubro2",            titulo:"Ejecución por Rubro — PEOT / Agricultura / Transporte / GERESA" },
