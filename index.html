@@ -2876,8 +2876,15 @@
     326586130,   // AGO  (cerrado, dato oficial 14/08/2026)
     null         // SET → se rellena en vivo con los archivos cargados
   ];
-  // El mes actual es Setiembre (índice 8). La línea punteada arranca a partir de Setiembre.
-  const B9_MES_ACTUAL_IDX = 8;
+  // El mes actual es Agosto (índice 7) — corregido el 18/08/2026: se había
+  // adelantado a Setiembre (índice 8) el 14/08/2026, pero agosto seguía en
+  // curso (el MEF continúa sumando devengado dentro del mes, igual que le
+  // pasó a junio). Esto dejaba el punto de agosto congelado en el gráfico
+  // mientras el KPI "Ejecutado a la fecha" sí mostraba el dato en vivo,
+  // más alto — la discontinuidad que reportó Juan. Volver a 7 hace que
+  // agosto se trate como mes en curso (null en el gráfico, solo visible
+  // en el KPI) hasta que cierre oficialmente a fin de mes.
+  const B9_MES_ACTUAL_IDX = 7;
 
   let b9Chart=null;
   function renderBloque9(sel){
