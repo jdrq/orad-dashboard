@@ -827,6 +827,40 @@
         </div>
       </div>
 
+      <!-- ═══════════════ BLOQUE EMR: Categoría Presupuestal 0068 — Emergencias/Desastres ═══════════════ -->
+      <div class="pdf-section" id="bEmrSecEmergencia">
+        <div class="pdf-header" style="background:#5a1414"><div class="pdf-header-left"><h2>Reducción de Vulnerabilidad y Atención de Emergencias</h2>
+          <div class="sub" style="color:#FFD166">Categoría Presupuestal 0068 — Actividades y Proyectos — Pliego 452 Lambayeque &nbsp;·&nbsp; <span id="bEmrFecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
+        <div class="pdf-body">
+          <div class="pdf-date-row">
+            <span>DESAGREGADO POR GENÉRICA DE GASTO</span>
+            <span>AVANCE CATEGORÍA 0068: <span class="prom" id="bEmrAvance" style="color:var(--vino)">—</span></span>
+          </div>
+          <table class="pdf-table" id="bEmrTable">
+            <thead><tr>
+              <th class="left">GENÉRICA DE GASTO</th>
+              <th class="num">PIA</th>
+              <th class="num">PIM</th>
+              <th class="num">CERTIFICACIÓN</th>
+              <th class="num">% CERT</th>
+              <th class="num">COMPROMISO</th>
+              <th class="num">% COMP.</th>
+              <th class="num" style="color:var(--naranja-h)">DEVENGADO</th>
+              <th class="num" style="width:110px">AVANCE %</th>
+              <th class="num" style="background:#f4c8c8;color:var(--vino);width:130px">PIM SIN EJECUTAR</th>
+            </tr></thead>
+            <tbody id="bEmrRows">
+              <tr><td colspan="10" style="padding:32px;text-align:center;color:#888">Carga el archivo de Categoría 0068 (Consulta Amigable, filtro "Actividades y Proyectos") para ver el detalle.</td></tr>
+            </tbody>
+            <tfoot id="bEmrFoot"></tfoot>
+          </table>
+          <div class="pdf-legend">
+            <span style="font-weight:700;color:var(--vino);font-size:12px">ℹ NOTA:</span>
+            <span class="litem" style="color:#555">Incluye actividades y proyectos (no aplica el filtro "Sólo Proyectos" usado en el resto del tablero).</span>
+          </div>
+        </div>
+      </div>
+
       <!-- ═══════════════ BLOQUE 6A: Rubro / Fuente — Pliego ═══════════════ -->
       <div class="pdf-section" id="b6secPliego">
         <div class="pdf-header"><div class="pdf-header-left"><h2>Ejecución Presupuestal por Rubro</h2>
@@ -1547,6 +1581,20 @@
     if(!res || !res.registros) return false;
     return res.registros.filter(r=>/^2\d{6}$/.test(String(r.codigo||""))).length > 20;
   }
+  // ── BLOQUE EMR: Categoría Presupuestal 0068 (Emergencias/Desastres) ────
+  // Archivo de Consulta Amigable filtrado por "Actividades y Proyectos"
+  // (no "Sólo Proyectos"), desagregado por Genérica de Gasto (5-21, 5-22,
+  // 5-23, 6-26, …). El código "DIGITO-DIGITODIGITO" (p.ej. "5-21") es un
+  // patrón exclusivo de Genérica de Gasto: no colisiona con Rubro/Función
+  // (códigos de 2 dígitos sin guion, ver esRubroRes/esFuncionRes) ni con
+  // Por-UE (3 dígitos-N, ver esPorUERes). No se usa el texto de la fila
+  // "Categoría Presupuestal" para detectar porque trae tildes y el lector
+  // HTML (SheetJS sin DOM nativo) puede corromper esos bytes.
+  function esEmergenciaRes(res){
+    if(!res || !res.registros) return false;
+    const filasGenerica = res.registros.filter(r=>/^[56]-2\d$/.test(String(r.codigo||""))).length;
+    return filasGenerica >= 3;
+  }
   // ── BLOQUE 7: Funciones a nivel Pliego ──────────────────────────────────
   // Catálogo cerrado del Clasificador Funcional del MEF. Mismo formato de
   // código (2 dígitos) que un archivo de Rubro/Fuente de financiamiento, así
@@ -1718,7 +1766,7 @@
     return {nombre, res, incluir:true, esFlat:esFlat(res),
             esNacional:esNacionalRes(res), esPorUE:esPorUERes(res),
             esProyectos:esProyectosRes(res), esRubro:esRubroRes(res),
-            esFuncion:esFuncionRes(res), anio,
+            esFuncion:esFuncionRes(res), esEmergencia:esEmergenciaRes(res), anio,
             esHistorico:esHistoricoRes(res, anio),
             esDevengadoMensualSC, mesesDevengadoSC,
             esDevengadoMensual, mesesDevengado};
@@ -1877,6 +1925,7 @@
     try { renderBloque3(selUE, soloInv); } catch(e){ console.error("Bloque 3:", e); }
     try { renderBloque3B(sel); }           catch(e){ console.error("Bloque 3B (Top Proyectos):", e); }
     try { renderBloque3R(sel); }           catch(e){ console.error("Bloque 3R (Ejecución en Riesgo):", e); }
+    try { renderBloqueEmergencia(sel); }   catch(e){ console.error("Bloque EMR (Categoría 0068):", e); }
     try { renderBloque6(sel); }            catch(e){ console.error("Bloque 6 Pliego:", e); }
     try { renderBloque6Rubros(sel); }      catch(e){ console.error("Bloque 6 Rubros:", e); }
     // Si el año activo en Rubro 1 NO es 2026, restaurar la vista histórica
@@ -3359,6 +3408,78 @@
     }
   }
 
+  // -------- Bloque EMR: Categoría Presupuestal 0068 (Emergencias/Desastres) --------
+  // Desagregado por Genérica de Gasto (5-21, 5-22, 5-23, 6-26, …). Archivo
+  // filtrado por "Actividades y Proyectos" (no "Sólo Proyectos").
+  const ORDEN_GENERICA = ["5-21","5-22","5-23","5-24","5-25","5-26","6-25","6-26"];
+  function nombreGenerica(r){
+    return String(r.nombre||r.descripcion||"").replace(/^\d-\d{2}:\s*/,"");
+  }
+  function renderBloqueEmergencia(sel){
+    const tb=$("#bEmrRows"); if(!tb) return;
+    const aEmr = sel.find(a=>a.esEmergencia);
+    const fecha = fechaMostrada();
+    const elF=$("#bEmrFecha"); if(elF) elF.textContent=fecha;
+    if(!aEmr){
+      tb.innerHTML='<tr><td colspan="10" style="padding:32px;text-align:center;color:#888">Carga el archivo de Categoría 0068 (Consulta Amigable, filtro "Actividades y Proyectos") para ver el detalle.</td></tr>';
+      const tf=$("#bEmrFoot"); if(tf) tf.innerHTML="";
+      const elA=$("#bEmrAvance"); if(elA) elA.textContent="—";
+      return;
+    }
+    const filas = aEmr.res.registros
+      .filter(r=>/^\d-\d{2}$/.test(String(r.codigo||"")))
+      .sort((a,b)=>{
+        const ia=ORDEN_GENERICA.indexOf(a.codigo), ib=ORDEN_GENERICA.indexOf(b.codigo);
+        if(ia===-1 && ib===-1) return String(a.codigo).localeCompare(String(b.codigo));
+        if(ia===-1) return 1; if(ib===-1) return -1;
+        return ia-ib;
+      });
+    const f=n=>Math.round(n||0).toLocaleString("es-PE");
+    if(!filas.length){
+      tb.innerHTML='<tr><td colspan="10" style="padding:32px;text-align:center;color:#888">No se encontraron filas de Genérica de Gasto en el archivo cargado.</td></tr>';
+      const tf=$("#bEmrFoot"); if(tf) tf.innerHTML="";
+      const elA=$("#bEmrAvance"); if(elA) elA.textContent="—";
+      return;
+    }
+    tb.innerHTML = filas.map(r=>{
+      const pia=r.pia||0, pim=r.pim||0, cert=r.certificacion||0, comp=r.compromiso||0, dev=r.devengado||0;
+      const certP = pim?cert/pim*100:0, compP = pim?comp/pim*100:0, avP = pim?dev/pim*100:0;
+      return `<tr>
+        <td style="text-align:left;white-space:normal;line-height:1.3;font-size:11px"><b>${r.codigo}</b> ${nombreGenerica(r)}</td>
+        <td class="num">${f(pia)}</td>
+        <td class="num" style="font-weight:700">${f(pim)}</td>
+        <td class="num">${f(cert)}</td>
+        <td class="num">${certP.toFixed(1)}%</td>
+        <td class="num">${f(comp)}</td>
+        <td class="num">${compP.toFixed(1)}%</td>
+        <td class="num" style="color:var(--naranja-h);font-weight:800">${f(dev)}</td>
+        <td class="num" style="color:${semColor(avP)};font-weight:700">${avP.toFixed(1)}%</td>
+        <td class="num" style="background:#fce8e8;color:var(--vino);font-weight:700">${f(pim-dev)}</td>
+      </tr>`;
+    }).join("");
+    const tpia=filas.reduce((s,r)=>s+(r.pia||0),0);
+    const tp=filas.reduce((s,r)=>s+(r.pim||0),0);
+    const tc=filas.reduce((s,r)=>s+(r.certificacion||0),0);
+    const tco=filas.reduce((s,r)=>s+(r.compromiso||0),0);
+    const td=filas.reduce((s,r)=>s+(r.devengado||0),0);
+    const avTotal = tp?td/tp*100:0;
+    const elA=$("#bEmrAvance"); if(elA) elA.textContent=avTotal.toFixed(1)+"%";
+    const tf=$("#bEmrFoot");
+    if(tf){
+      const s=`style="background:#3a3a3a;color:#FFD166;border:1px solid #555;font-family:'Barlow Condensed';font-weight:800"`;
+      tf.innerHTML=`<tr>
+        <td ${s}>TOTAL CATEGORÍA 0068</td>
+        <td class="num" ${s}>S/ ${f(tpia)}</td>
+        <td class="num" ${s}>S/ ${f(tp)}</td>
+        <td class="num" ${s}>S/ ${f(tc)}</td><td class="num" ${s}>${tp?(tc/tp*100).toFixed(1)+"%":"—"}</td>
+        <td class="num" ${s}>S/ ${f(tco)}</td><td class="num" ${s}>${tp?(tco/tp*100).toFixed(1)+"%":"—"}</td>
+        <td class="num" ${s}>S/ ${f(td)}</td>
+        <td class="num" ${s}>${avTotal.toFixed(1)}%</td>
+        <td class="num" ${s}>S/ ${f(tp-td)}</td>
+      </tr>`;
+    }
+  }
+
   // -------- Bloque 2: tres rankings estilo PDF --------
   const ORDINAL = ["","1ero","2do","3ro","4to","5to","6to","7mo","8vo","9no","10mo","11mo","12mo","13ro","14to","15to","16to","17mo","18vo","19no","20mo","21ro","22do","23ro","24to","25to","26to","27mo"];
   const fechaHoy = ()=>fechaMostrada();
@@ -4026,6 +4147,7 @@
     { query:"#b3secGrafico",        titulo:"PIM Asignado según Unidad Ejecutora" },
     { query:"#b3secTop",            titulo:"Top Proyectos por Devengado" },
     { query:"#b3rsecRiesgo",        titulo:"Proyectos con Ejecución en Riesgo" },
+    { query:"#bEmrSecEmergencia",   titulo:"Categoría Presupuestal 0068 — Emergencias/Desastres" },
     { query:"#b6secPliego",         titulo:"Ejecución Presupuestal por Rubro — Pliego" },
     { query:"#b6rubro1",            titulo:"Ejecución por Rubro — Sede Central" },
     { query:"#b6rubro2",            titulo:"Ejecución por Rubro — PEOT / Agricultura / Transporte / GERESA" },
