@@ -867,7 +867,7 @@
           <div class="sub" style="color:#FFD166">Categoría Presupuestal 0068 — Actividades y Proyectos — Gobiernos Locales, Departamento Lambayeque &nbsp;·&nbsp; <span id="bEmuFecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body">
           <div class="pdf-date-row">
-            <span>ORDENADO DE MAYOR A MENOR POR DEVENGADO</span>
+            <span>ORDENADO DE MAYOR A MENOR POR AVANCE %</span>
             <span>TOTAL DEVENGADO MUNICIPALIDADES: <span class="prom" id="bEmuTotalDev" style="color:var(--naranja-h)">—</span></span>
           </div>
           <table class="pdf-table" id="bEmuTable">
@@ -3548,9 +3548,10 @@
       const elT=$("#bEmuTotalDev"); if(elT) elT.textContent="—";
       return;
     }
+    const avanceDe = r => (r.pim ? (r.devengado||0)/r.pim*100 : -1);
     const filas = aEmu.res.registros
       .filter(r=>/^\d{6}-\d{6}$/.test(String(r.codigo||"")))
-      .sort((a,b)=>(b.devengado||0)-(a.devengado||0));
+      .sort((a,b)=>avanceDe(b)-avanceDe(a));
     const f=n=>Math.round(n||0).toLocaleString("es-PE");
     if(!filas.length){
       tb.innerHTML='<tr><td colspan="8" style="padding:32px;text-align:center;color:#888">No se encontraron filas de Municipalidad en el archivo cargado.</td></tr>';
