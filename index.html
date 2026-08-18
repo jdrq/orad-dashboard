@@ -2901,8 +2901,6 @@
     // (datos en vivo del día) el mes activo es Julio.
     const mesActualIdx = MODO_SEMESTRAL ? 5 : B9_MES_ACTUAL_IDX;
 
-    // Valor en vivo para el mes activo; si no hay archivos, mostrar null (punto vacío)
-    const devVivoMes = devActual>0 ? devActual : null;
     // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor cerrado (Agosto)
     const devBase = devActual>0 ? devActual : 326586130;
     const pctBase = pimVivo ? devBase/pimVivo*100 : 43.1;
@@ -2913,13 +2911,15 @@
     if(kPct) kPct.textContent=pctBase.toFixed(1)+"%";
     if(kPim) kPim.textContent="S/ "+Math.round(pimVivo).toLocaleString("es-PE");
 
-    // Construir serie real: solo meses CERRADOS (Ene–Ago). El mes activo
-    // (Setiembre) ya no se rellena con datos en vivo parciales en este gráfico
-    // — evita mostrar un punto de "Devengado Real" a media carga, antes de que
-    // el mes cierre oficialmente. El KPI "Ejecutado a la fecha" sí sigue
-    // reflejando el dato en vivo (devBase), solo el punto del gráfico se omite.
+    // Construir serie real: meses cerrados desde B9_REAL_BASE + el mes activo
+    // (agosto) relleno EN VIVO con devBase (mismo valor que el KPI, con su
+    // mismo fallback al último cerrado si no hay archivos cargados aún).
+    // Revertido el 18/08/2026 a pedido de Juan: antes el mes activo se omitía
+    // del gráfico (solo aparecía en el KPI) para no mostrar un punto a media
+    // carga — pero en la práctica se prefiere ver el punto en vivo, coincidiendo
+    // siempre con el KPI "Ejecutado a la fecha".
     const realData = [...B9_REAL_BASE];
-    realData[mesActualIdx] = null;
+    realData[mesActualIdx] = devBase;
     while(realData.length < 12) realData.push(null);
     // Blindaje extra: en modo semestral, jamás debe quedar dato más allá de Junio (idx 5)
     if (MODO_SEMESTRAL) { for (let i=6; i<12; i++) realData[i] = null; }

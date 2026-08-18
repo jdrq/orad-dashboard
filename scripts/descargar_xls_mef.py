@@ -1,7 +1,7 @@
 """
 descargar_xls_mef.py
 ---------------------
-Automatiza la descarga de los 15 archivos .xls de Consulta Amigable (MEF)
+Automatiza la descarga de los 16 archivos .xls de Consulta Amigable (MEF)
 que alimentan el dashboard de ORAD - GORE Lambayeque.
 
 MODO DE USO (Fase 2a - manual, supervisado):
@@ -17,7 +17,7 @@ detectar fallos en el momento, en vez de un cron job a ciegas.
 
 GIT AUTO-PUSH (agregado en sesión 7 - 24/07/2026):
     Al terminar la descarga, el script verifica automáticamente que los
-    15 archivos existan y tengan peso > 0. Si pasan todos:
+    16 archivos existan y tengan peso > 0. Si pasan todos:
         git add xls\ → git commit → git push
     Si falla cualquiera, NO se toca Git en absoluto. El usuario ve
     exactamente qué archivo falló y debe resolverlo antes de subir.
@@ -36,6 +36,20 @@ BLOQUE 6D - DEVENGADO MENSUAL, SEDE CENTRAL (agregado en sesión 10 - 14/08/2026
     que el Bloque 2D (pivote por "Mes" vía pivot_final_rol), pero un nivel
     más abajo en la jerarquía: Ejecutora 001-855 (Sede Central). Confirmado
     con playwright codegen real el 14/08/2026.
+
+BLOQUE EMR - CATEGORÍA PRESUPUESTAL 0068, EMERGENCIAS/DESASTRES (agregado en
+sesión 12 - 18/08/2026):
+    Se agregó proyecto_emergencia.xls como 16º archivo, para alimentar el
+    Bloque EMR del dashboard (Reducción de Vulnerabilidad y Atención de
+    Emergencias). A diferencia de todos los demás, usa el filtro "Actividades
+    y Proyectos" (ap=ActProy), NO "Sólo Proyectos" (ap=Proyecto) — por eso
+    URL_BASE dejó de ser una sola constante global y pasó a resolverse por
+    archivo (campo "url" en ARCHIVOS, con fallback al valor de siempre si no
+    se especifica). Además, el drill llega por una rama nueva: Pliego 452 ->
+    "Categoría Presupuestal" (botón de cadena, mismo patrón que Nivel de
+    Gobierno/Sector/Pliego) -> fila "0068:" -> pivote final "Genérica" por
+    DOBLE clic (a diferencia de "Mes", que es clic simple). Confirmado con
+    playwright codegen real el 18/08/2026.
 
 NOTA DE DISEÑO IMPORTANTE (descubierto con playwright codegen el 06/07/2026):
 Consulta Amigable usa UN SOLO botón para toda la jerarquía "Nivel de
@@ -62,6 +76,10 @@ from pathlib import Path
 CARPETA_DESTINO = Path(__file__).resolve().parent.parent / "xls"
 ANIO = "2026"
 URL_BASE = f"https://apps5.mineco.gob.pe/transparencia/Navegador/default.aspx?y={ANIO}&ap=Proyecto"
+# Filtro "Actividades y Proyectos" (Bloque EMR — Categoría 0068). Distinto del
+# URL_BASE de siempre, que fija "Sólo Proyectos" (ap=Proyecto). Confirmado con
+# playwright codegen real el 18/08/2026.
+URL_ACT_PROY = f"https://apps5.mineco.gob.pe/transparencia/Navegador/default.aspx?y={ANIO}&ap=ActProy"
 FRAME_SELECTOR = "#frame0"
 
 BTN_RUBRO = "#ctl00_CPH1_BtnRubro"
@@ -81,6 +99,12 @@ BTN_FUNCION = "#ctl00_CPH1_BtnFuncion"
 #          nombre visible, igual que los pasos de la jerarquía (ej. "Mes",
 #          confirmado con playwright codegen el 14/08/2026 — a diferencia
 #          de Rubro/Función, no es un botón de ID fijo #ctl00_CPH1_Btn...).
+#   pivot_dblclick: True/False - si el pivote de pivot_final_rol necesita
+#          DOBLE clic en vez de clic simple (ej. "Genérica" en el archivo de
+#          Categoría 0068, confirmado con playwright codegen el 18/08/2026).
+#          False/ausente = clic simple, como "Mes".
+#   url: URL base propia de este archivo (con su propio filtro ap=...). Si
+#          no se especifica, se usa URL_BASE (ap=Proyecto, "Sólo Proyectos").
 #   boton_final_sin_fila: etiqueta de un último clic al botón de cadena
 #          SIN fila después (revela el desglose natural de ese nivel:
 #          por Ejecutora, por Pliego, por Proyecto). None si no aplica.
@@ -179,9 +203,25 @@ ARCHIVOS = [
                ("Pliego", "452:"),
                ("Ejecutora", "001-855:")],
      "pivot_final": None, "pivot_final_rol": "Mes", "boton_final_sin_fila": None},
+    # Bloque EMR — Categoría Presupuestal 0068 (Emergencias/Desastres).
+    # Alimenta el bloque "Reducción de Vulnerabilidad y Atención de
+    # Emergencias" del dashboard. Filtro "Actividades y Proyectos"
+    # (url=URL_ACT_PROY, NO ap=Proyecto como los demás 15). El drill llega
+    # por una rama nueva: Pliego -> "Categoría Presupuestal" (botón de
+    # cadena, mismo patrón que Nivel de Gobierno/Sector/Pliego) -> fila
+    # "0068:" -> pivote final "Genérica" por DOBLE clic. Confirmado con
+    # playwright codegen real el 18/08/2026.
+    {"nombre": "proyecto_emergencia.xls",
+     "url": URL_ACT_PROY,
+     "pasos": [("Nivel de Gobierno", "R: GOBIERNOS REGIONALES"),
+               ("Sector", "99: GOBIERNOS REGIONALES"),
+               ("Pliego", "452:"),
+               ("Categoría Presupuestal", "0068:")],
+     "pivot_final": None, "pivot_final_rol": "Genérica", "pivot_dblclick": True,
+     "boton_final_sin_fila": None},
 ]
 
-# Lista de los 15 nombres esperados — se usa en la validación final.
+# Lista de los 16 nombres esperados — se usa en la validación final.
 # Debe ser idéntica a los "nombre" de ARCHIVOS arriba.
 NOMBRES_ESPERADOS = [a["nombre"] for a in ARCHIVOS]
 
@@ -204,12 +244,13 @@ def procesar_archivo(page, config):
     resolvió todos los problemas de "frame detached" de las pruebas
     anteriores, confirmado con playwright codegen real.
     """
-    page.goto(URL_BASE)
+    page.goto(config.get("url", URL_BASE))
     fl = page.frame_locator(FRAME_SELECTOR)
 
     fl.get_by_role("cell", name="TOTAL", exact=True).click()
     # Nota: NO seleccionamos Actividades/Proyectos por dropdown porque
-    # la URL ya lo fija con ?ap=Proyecto - hacerlo de nuevo disparaba
+    # la URL ya lo fija (?ap=Proyecto o ?ap=ActProy, según el archivo) -
+    # hacerlo de nuevo disparaba
     # una recarga completa de página que descarrilaba el resto del flujo.
     try:
         page.wait_for_load_state("networkidle", timeout=5000)
@@ -273,7 +314,11 @@ def procesar_archivo(page, config):
     if config["pivot_final"] is not None:
         fl.locator(config["pivot_final"]).click()
     elif config.get("pivot_final_rol") is not None:
-        fl.get_by_role("button", name=config["pivot_final_rol"], exact=True).click()
+        boton = fl.get_by_role("button", name=config["pivot_final_rol"], exact=True)
+        if config.get("pivot_dblclick"):
+            boton.dblclick()
+        else:
+            boton.click()
     elif config["boton_final_sin_fila"] is not None:
         fl.get_by_role("button", name=config["boton_final_sin_fila"], exact=True).click()
 
@@ -332,7 +377,7 @@ def procesar_archivo(page, config):
 
 def validar_archivos():
     """
-    Verifica que los 15 archivos esperados existan en xls/ y tengan
+    Verifica que los 16 archivos esperados existan en xls/ y tengan
     tamaño > 0 bytes. Retorna (ok: bool, faltantes: list).
     Un archivo descargado con error en el MEF a veces llega como HTML
     de 1-2 KB — el tamaño mínimo de 5 KB descarta esos casos.
@@ -355,7 +400,7 @@ def validar_archivos():
 
 def git_push_si_completo():
     """
-    Ejecuta git add xls/ → git commit → git push SOLO si los 15
+    Ejecuta git add xls/ → git commit → git push SOLO si los 16
     archivos pasan la validación. Si falla cualquiera, no toca Git.
 
     Usa subprocess con cwd apuntando a la raíz del repo (un nivel
@@ -364,7 +409,7 @@ def git_push_si_completo():
     REPO_RAIZ = Path(__file__).resolve().parent.parent
 
     print("\n" + "=" * 60)
-    print("VALIDACIÓN FINAL — verificando 15/15 archivos")
+    print("VALIDACIÓN FINAL — verificando 16/16 archivos")
     print("=" * 60)
 
     ok, faltantes = validar_archivos()
@@ -380,11 +425,11 @@ def git_push_si_completo():
         )
         return
 
-    # 15/15 OK — proceder con Git
+    # 16/16 OK — proceder con Git
     hoy = date.today().strftime("%d/%m/%Y")
     mensaje_commit = f"data: actualización diaria XLS - {hoy}"
 
-    print(f"\n✅ 15/15 archivos OK — procediendo con Git...\n")
+    print(f"\n✅ 16/16 archivos OK — procediendo con Git...\n")
 
     comandos = [
         (["git", "add", "xls/"], "git add xls/"),
@@ -449,7 +494,7 @@ def main():
         page = browser.new_page()
 
         for i, config in enumerate(ARCHIVOS, 1):
-            print(f"\n[{i}/15] Procesando {config['nombre']} ...")
+            print(f"\n[{i}/16] Procesando {config['nombre']} ...")
             try:
                 procesar_archivo(page, config)
             except Exception as e:
