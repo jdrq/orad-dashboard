@@ -1,7 +1,7 @@
 """
 descargar_xls_mef.py
 ---------------------
-Automatiza la descarga de los 16 archivos .xls de Consulta Amigable (MEF)
+Automatiza la descarga de los 17 archivos .xls de Consulta Amigable (MEF)
 que alimentan el dashboard de ORAD - GORE Lambayeque.
 
 MODO DE USO (Fase 2a - manual, supervisado):
@@ -17,7 +17,7 @@ detectar fallos en el momento, en vez de un cron job a ciegas.
 
 GIT AUTO-PUSH (agregado en sesión 7 - 24/07/2026):
     Al terminar la descarga, el script verifica automáticamente que los
-    16 archivos existan y tengan peso > 0. Si pasan todos:
+    17 archivos existan y tengan peso > 0. Si pasan todos:
         git add xls\ → git commit → git push
     Si falla cualquiera, NO se toca Git en absoluto. El usuario ve
     exactamente qué archivo falló y debe resolverlo antes de subir.
@@ -49,6 +49,51 @@ sesión 12 - 18/08/2026):
     "Categoría Presupuestal" (botón de cadena, mismo patrón que Nivel de
     Gobierno/Sector/Pliego) -> fila "0068:" -> pivote final "Genérica" por
     DOBLE clic (a diferencia de "Mes", que es clic simple). Confirmado con
+    playwright codegen real el 18/08/2026.
+
+REINTENTOS CON DOBLE CLIC (agregado en sesión 13 - 18/08/2026):
+    Antes, solo el clic en la FILA tenía reintentos (3x, siempre clic
+    simple) - el botón de cadena, el clic inicial en "TOTAL" y "Exportar"
+    no tenían ninguno. En la práctica, Juan tenía que ayudar al script
+    haciendo clic manualmente cuando se quedaba esperando una selección
+    que nunca se marcaba. Causa: el UpdatePanel de Consulta Amigable a
+    veces "traga" un clic simple si llega justo cuando termina el postback
+    anterior. Ahora TODOS los puntos de clic (TOTAL, botón de cadena, fila,
+    Exportar) reintentan, y desde el 2º intento escalan a DOBLE clic -
+    automatizando exactamente la ayuda manual que antes hacía Juan.
+
+FIXES DE ROBUSTEZ (sesión 14 - 19/08/2026, tras un fallo real en producción):
+    1) clic_con_reintento ahora hace POLLING (hasta 12s, revisando cada 1s)
+       en vez de un solo chequeo temprano. Causa del fallo real: en un día
+       con el MEF más lento, el chequeo único llegaba demasiado pronto,
+       se interpretaba como "el clic no sirvió" y disparaba un 2º clic
+       MIENTRAS el primero seguía procesándose - ese 2º clic sí se
+       quedaba colgado 30s esperando que el botón volviera a ser
+       accionable. Además, cada locator.click() ahora tiene su propio
+       timeout corto (10s) envuelto en try/except, para no depender del
+       timeout por defecto de Playwright (30s) sin control.
+    2) exito_total ahora SÍ se usa: si algún archivo falla, el script NO
+       llega a Git - antes igual llamaba a git_push_si_completo(), y como
+       la validación de archivos solo revisa existencia+peso (no fecha),
+       un archivo viejo de ayer pasaba la validación como si nada, con
+       riesgo real de que el dashboard quedara desactualizado en
+       silencio.
+    3) La detección de "nada que commitear" ahora también reconoce el
+       texto real de Git "no changes added to commit" (antes solo
+       buscaba "nothing added to commit", que Git no usa en este caso, y
+       por eso reportaba error falso).
+
+BLOQUE EMU - CATEGORÍA PRESUPUESTAL 0068, MUNICIPALIDADES (agregado en
+sesión 13 - 18/08/2026):
+    Se agregó munis_emergencia.xls como 17º archivo, para alimentar el
+    bloque "Reducción de Vulnerabilidad y Atención de Emergencias —
+    Municipalidades". Mismo filtro "Actividades y Proyectos" que el archivo
+    anterior (url=URL_ACT_PROY), pero cadena de drill distinta: Nivel de
+    Gobierno "M: GOBIERNOS LOCALES" -> "Gob.Loc./Mancom." -> "M:
+    MUNICIPALIDADES" -> botón "Departamento" (sin nombre accesible estable,
+    se ubica por ID fijo, ver soporte nuevo de selector_id en
+    clic_con_reintento) -> "LAMBAYEQUE" -> "Categoría Presupuestal" ->
+    "0068:" -> pivote final "Municipalidad" por clic simple. Confirmado con
     playwright codegen real el 18/08/2026.
 
 NOTA DE DISEÑO IMPORTANTE (descubierto con playwright codegen el 06/07/2026):
@@ -219,9 +264,28 @@ ARCHIVOS = [
                ("Categoría Presupuestal", "0068:")],
      "pivot_final": None, "pivot_final_rol": "Genérica", "pivot_dblclick": True,
      "boton_final_sin_fila": None},
+    # Bloque EMU — Categoría 0068, Municipalidades (Gobiernos Locales).
+    # Alimenta el bloque "Reducción de Vulnerabilidad y Atención de
+    # Emergencias — Municipalidades" del dashboard. Igual que el archivo
+    # anterior, filtro "Actividades y Proyectos" (url=URL_ACT_PROY). Cadena
+    # distinta: Nivel de Gobierno "M: GOBIERNOS LOCALES" -> "Gob.Loc./
+    # Mancom." -> "M: MUNICIPALIDADES" -> botón "Departamento" (SIN nombre
+    # accesible estable, se ubica por ID fijo #ctl00_CPH1_BtnDepartamento)
+    # -> "LAMBAYEQUE" -> "Categoría Presupuestal" -> "0068:" -> pivote
+    # final "Municipalidad" por CLIC SIMPLE (a diferencia de "Genérica" en
+    # el archivo anterior, que necesita doble clic). Confirmado con
+    # playwright codegen real el 18/08/2026.
+    {"nombre": "munis_emergencia.xls",
+     "url": URL_ACT_PROY,
+     "pasos": [("Nivel de Gobierno", "M: GOBIERNOS LOCALES"),
+               ("Gob.Loc./Mancom.", "M: MUNICIPALIDADES"),
+               (None, ": LAMBAYEQUE", "#ctl00_CPH1_BtnDepartamento"),
+               ("Categoría Presupuestal", "0068:")],
+     "pivot_final": None, "pivot_final_rol": "Municipalidad", "pivot_dblclick": False,
+     "boton_final_sin_fila": None},
 ]
 
-# Lista de los 16 nombres esperados — se usa en la validación final.
+# Lista de los 17 nombres esperados — se usa en la validación final.
 # Debe ser idéntica a los "nombre" de ARCHIVOS arriba.
 NOMBRES_ESPERADOS = [a["nombre"] for a in ARCHIVOS]
 
@@ -232,6 +296,92 @@ NOMBRES_ESPERADOS = [a["nombre"] for a in ARCHIVOS]
 
 def preparar_carpeta():
     CARPETA_DESTINO.mkdir(exist_ok=True)
+
+
+def clic_con_reintento(fl, page, rol=None, nombre=None, selector_id=None,
+                        intentos=3, verificar=None, exacto=True,
+                        espera_verificacion=12):
+    """
+    Hace clic en un elemento con reintentos automáticos, ESCALANDO A DOBLE
+    CLIC desde el 2º intento en adelante.
+
+    Se puede ubicar el elemento por rol+nombre accesible (rol, nombre) o,
+    si el botón no expone un nombre accesible estable (confirmado con
+    playwright codegen el 18/08/2026 para "Departamento" en la cadena de
+    Municipalidades), por selector_id (ej. "#ctl00_CPH1_BtnDepartamento").
+
+    Agregado en sesión 13 (18/08/2026) para reemplazar la intervención
+    manual que Juan tenía que hacer cuando el script se quedaba "congelado"
+    esperando que una selección se marcara. Causa confirmada en la práctica:
+    el UpdatePanel de Consulta Amigable a veces "traga" un clic simple si
+    llega justo cuando termina el postback anterior; el doble clic casi
+    inmediato (igual que hace Juan a mano) lo desatasca.
+
+    verificar: función sin argumentos que retorna True si el clic surtió
+    efecto (ej. una fila que debería quedar visible). Si no se pasa, solo
+    se espera el postback y se asume éxito tras el primer clic.
+
+    espera_verificacion: AJUSTADO en sesión 14 (19/08/2026) tras un fallo
+    real en producción. Antes solo se revisaba UNA vez, ~5.8s después del
+    clic. En un día con el servidor del MEF más lento de lo normal, esa
+    única revisión llegó demasiado temprano, se interpretó como "el clic
+    no sirvió", y disparó un 2º clic MIENTRAS el primero todavía se estaba
+    procesando - ese 2º clic sí se quedó colgado 30s esperando a que el
+    botón volviera a ser accionable (probablemente deshabilitado durante
+    el postback). Ahora se hace polling: hasta `espera_verificacion`
+    segundos revisando cada 1s, antes de considerar que el clic falló.
+    """
+    if selector_id:
+        locator = fl.locator(selector_id)
+    else:
+        locator = fl.get_by_role(rol, name=nombre, exact=exacto)
+    etiqueta_log = nombre or selector_id
+    for intento in range(intentos):
+        try:
+            if intento == 0:
+                locator.click(timeout=10000)
+            else:
+                # Escalar a doble clic a partir del 2º intento.
+                locator.click(timeout=10000)
+                time.sleep(0.3)
+                locator.click(timeout=10000)
+        except Exception as e:
+            # El botón no estaba accionable (ej. deshabilitado durante un
+            # postback en curso) - no abortar todo el archivo por esto,
+            # solo pasar al siguiente intento tras una pausa.
+            print(f"  [AVISO] '{etiqueta_log}' no fue accionable a tiempo "
+                  f"({e.__class__.__name__}), reintentando...")
+            time.sleep(2)
+            continue
+
+        try:
+            page.wait_for_load_state("networkidle", timeout=5000)
+        except Exception:
+            pass
+
+        if verificar is None:
+            time.sleep(0.8)
+            return
+
+        # Polling: revisa cada 1s en vez de una sola vez, para no
+        # confundir "el servidor está tardando" con "el clic no sirvió".
+        for _ in range(espera_verificacion):
+            try:
+                if verificar():
+                    return
+            except Exception:
+                pass  # lectura transitoria fallida durante un postback
+            time.sleep(1)
+
+        print(f"  [REINTENTO clic {intento + 1}/{intentos}] '{etiqueta_log}' "
+              f"no surtió efecto tras {espera_verificacion}s de espera, "
+              f"reintentando...")
+
+    raise RuntimeError(
+        f"El clic en '{etiqueta_log}' no surtió efecto tras {intentos} intentos "
+        f"(ni con doble clic, ni con {espera_verificacion}s de espera cada uno). "
+        f"Revisar manualmente."
+    )
 
 
 def procesar_archivo(page, config):
@@ -247,7 +397,7 @@ def procesar_archivo(page, config):
     page.goto(config.get("url", URL_BASE))
     fl = page.frame_locator(FRAME_SELECTOR)
 
-    fl.get_by_role("cell", name="TOTAL", exact=True).click()
+    clic_con_reintento(fl, page, "cell", "TOTAL", intentos=2)
     # Nota: NO seleccionamos Actividades/Proyectos por dropdown porque
     # la URL ya lo fija (?ap=Proyecto o ?ap=ActProy, según el archivo) -
     # hacerlo de nuevo disparaba
@@ -257,24 +407,39 @@ def procesar_archivo(page, config):
     except Exception:
         pass
 
-    # Bajar por la jerarquía Gobierno -> Sector -> Pliego -> Ejecutora.
+    # Bajar por la jerarquía (Gobierno -> Sector/Gob.Loc./Departamento -> ...).
     # El botón se busca POR SU ETIQUETA VISIBLE en cada paso (no por ID
     # fijo) porque el ID real cambia en cada nivel: BtnTipoGobierno,
     # BtnSector, BtnPliego, etc. - confirmado en vivo el 06/07/2026.
-    for etiqueta_boton, texto_fila in config["pasos"]:
-        fl.get_by_role("button", name=etiqueta_boton, exact=True).click()
-        try:
-            page.wait_for_load_state("networkidle", timeout=5000)
-        except Exception:
-            pass
+    # EXCEPCIÓN: si el paso trae un 3er elemento (selector_id), ese botón
+    # no expone nombre accesible estable y se ubica por ID fijo en su lugar
+    # (ej. "Departamento" en la cadena de Municipalidades, confirmado con
+    # playwright codegen el 18/08/2026).
+    for paso in config["pasos"]:
+        etiqueta_boton, texto_fila = paso[0], paso[1]
+        selector_id_boton = paso[2] if len(paso) > 2 else None
+
+        clic_con_reintento(
+            fl, page, rol="button", nombre=etiqueta_boton,
+            selector_id=selector_id_boton, intentos=2,
+            verificar=lambda tf=texto_fila: fl.get_by_role("cell", name=tf).first.is_visible()
+        )
         time.sleep(1)  # margen extra: el servidor del MEF a veces es lento
 
         # Clic en la fila con hasta 3 intentos: si el checkpoint no
         # confirma la selección (fallo transitorio del servidor), se
         # vuelve a clickear en vez de rendirse al primer intento.
+        # Desde el 2º intento se escala a DOBLE clic (ver clic_con_reintento
+        # más arriba para el porqué) - esto es justo lo que antes requería
+        # ayuda manual de Juan.
         confirmado = False
         for intento in range(3):
-            fl.get_by_role("cell", name=texto_fila).click()
+            if intento == 0:
+                fl.get_by_role("cell", name=texto_fila).click()
+            else:
+                fl.get_by_role("cell", name=texto_fila).click()
+                time.sleep(0.3)
+                fl.get_by_role("cell", name=texto_fila).click()
             try:
                 page.wait_for_load_state("networkidle", timeout=5000)
             except Exception:
@@ -300,7 +465,7 @@ def procesar_archivo(page, config):
             if confirmado:
                 break
             print(f"  [REINTENTO {intento + 1}/3] '{texto_fila}' no se "
-                  f"marcó, volviendo a clickear...")
+                  f"marcó, volviendo a clickear (doble clic)...")
 
         if not confirmado:
             raise RuntimeError(
@@ -356,9 +521,29 @@ def procesar_archivo(page, config):
                 f"amplio. Archivo NO exportado, revisar manualmente."
             )
 
-    with page.expect_download(timeout=30000) as descarga_info:
-        fl.get_by_role("link", name="Exportar").click()
-    descarga = descarga_info.value
+    # Clic en "Exportar" con reintento: si el primer clic no dispara la
+    # descarga dentro de 15s, se reintenta con doble clic antes de rendirse
+    # (mismo patrón de escalada que el resto del script).
+    descarga = None
+    for intento in range(2):
+        try:
+            with page.expect_download(timeout=15000) as descarga_info:
+                if intento == 0:
+                    fl.get_by_role("link", name="Exportar").click()
+                else:
+                    print("  [REINTENTO Exportar] no se disparó la "
+                          "descarga, reintentando con doble clic...")
+                    fl.get_by_role("link", name="Exportar").click()
+                    time.sleep(0.3)
+                    fl.get_by_role("link", name="Exportar").click()
+            descarga = descarga_info.value
+            break
+        except Exception:
+            if intento == 1:
+                raise RuntimeError(
+                    "El clic en 'Exportar' no disparó la descarga tras "
+                    "2 intentos. Revisar manualmente."
+                )
 
     destino = CARPETA_DESTINO / config["nombre"]
 
@@ -377,7 +562,7 @@ def procesar_archivo(page, config):
 
 def validar_archivos():
     """
-    Verifica que los 16 archivos esperados existan en xls/ y tengan
+    Verifica que los 17 archivos esperados existan en xls/ y tengan
     tamaño > 0 bytes. Retorna (ok: bool, faltantes: list).
     Un archivo descargado con error en el MEF a veces llega como HTML
     de 1-2 KB — el tamaño mínimo de 5 KB descarta esos casos.
@@ -400,7 +585,7 @@ def validar_archivos():
 
 def git_push_si_completo():
     """
-    Ejecuta git add xls/ → git commit → git push SOLO si los 16
+    Ejecuta git add xls/ → git commit → git push SOLO si los 17
     archivos pasan la validación. Si falla cualquiera, no toca Git.
 
     Usa subprocess con cwd apuntando a la raíz del repo (un nivel
@@ -409,7 +594,7 @@ def git_push_si_completo():
     REPO_RAIZ = Path(__file__).resolve().parent.parent
 
     print("\n" + "=" * 60)
-    print("VALIDACIÓN FINAL — verificando 16/16 archivos")
+    print("VALIDACIÓN FINAL — verificando 17/17 archivos")
     print("=" * 60)
 
     ok, faltantes = validar_archivos()
@@ -425,11 +610,11 @@ def git_push_si_completo():
         )
         return
 
-    # 16/16 OK — proceder con Git
+    # 17/17 OK — proceder con Git
     hoy = date.today().strftime("%d/%m/%Y")
     mensaje_commit = f"data: actualización diaria XLS - {hoy}"
 
-    print(f"\n✅ 16/16 archivos OK — procediendo con Git...\n")
+    print(f"\n✅ 17/17 archivos OK — procediendo con Git...\n")
 
     comandos = [
         (["git", "add", "xls/"], "git add xls/"),
@@ -461,6 +646,8 @@ def git_push_si_completo():
                 or "nothing to commit" in resultado.stderr
                 or "nothing added to commit" in resultado.stdout
                 or "nothing added to commit" in resultado.stderr
+                or "no changes added to commit" in resultado.stdout
+                or "no changes added to commit" in resultado.stderr
             )
             if sin_cambios:
                 print(
@@ -494,7 +681,7 @@ def main():
         page = browser.new_page()
 
         for i, config in enumerate(ARCHIVOS, 1):
-            print(f"\n[{i}/16] Procesando {config['nombre']} ...")
+            print(f"\n[{i}/17] Procesando {config['nombre']} ...")
             try:
                 procesar_archivo(page, config)
             except Exception as e:
@@ -512,10 +699,26 @@ def main():
         input("\nDescarga terminada. Presiona ENTER para cerrar el navegador...")
         browser.close()
 
-    # La validación y el push ocurren DESPUÉS de cerrar el navegador.
-    # Si el loop terminó con break por un error, la validación igual
-    # corre — pero fallará porque faltará al menos un archivo, y el
-    # mensaje explicará exactamente cuál.
+    # CORREGIDO en sesión 14 (19/08/2026): antes esto se llamaba SIEMPRE,
+    # sin importar si el loop de arriba terminó con error. Como la
+    # validación de archivos solo revisa que EXISTAN y pesen > 0 (no que se
+    # hayan actualizado HOY), un archivo viejo de un día anterior pasaba la
+    # validación igual, y el script intentaba subir a Git como si todo
+    # hubiera salido bien - riesgo real de que el dashboard quedara con un
+    # bloque desactualizado sin que nadie se entere. Ahora, si algún
+    # archivo falló, NO se valida ni se sube nada - se avisa explícitamente
+    # cuál quedó con datos viejos.
+    if not exito_total:
+        print(
+            "\n⚠️  El script se detuvo por un error antes de terminar los "
+            "17 archivos (ver [ERROR] arriba). NO se ejecuta Git - los "
+            "archivos que no llegaron a descargarse hoy conservan su "
+            "versión de un día anterior en xls/, y el dashboard publicado "
+            "seguirá mostrando esos bloques con datos desactualizados "
+            "hasta que corras el script de nuevo con éxito."
+        )
+        return
+
     git_push_si_completo()
 
 
