@@ -144,7 +144,7 @@ body
 </style><body>
 	<table id="hd">
 		<tr>
-			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 18-agosto-2026</div><br /><b>Año de Ejecución: <span class='value'>2026</span><br />Incluye: <span class='value'>Actividades y Proyectos</span></b></td>
+			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 19-agosto-2026</div><br /><b>Año de Ejecución: <span class='value'>2026</span><br />Incluye: <span class='value'>Actividades y Proyectos</span></b></td>
 		</tr>
 	</table>
 	
@@ -153,40 +153,40 @@ body
                     <tr align="right">
                         
                         <td align="left" style="font-size: 7pt; width: auto">
-                            Nivel de Gobierno R: GOBIERNOS REGIONALES
+                            TOTAL
                             
                             
                             
                             
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            59,460,754,465
+                            257,561,619,143
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            66,076,449,433
+                            285,728,127,247
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            54,942,675,410
+                            249,728,589,657
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            49,287,950,930
+                            229,012,795,790
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            40,231,011,432
+                            181,694,794,671
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            37,622,879,297
+                            166,731,375,141
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            36,258,640,144
+                            163,039,540,318
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;56.9</td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;58.4</td>
                     </tr>
                 
                     <tr align="right" class="alt">
                         
                         <td align="left" style="font-size: 7pt; width: auto" tabindex="9">
-                            Sector 99: GOBIERNOS REGIONALES
+                            Nivel de Gobierno R: GOBIERNOS REGIONALES
                             
                             
                             
@@ -195,89 +195,122 @@ body
                             59,460,754,465
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="11">
-                            66,071,914,938
+                            66,148,329,754
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="12">
-                            54,938,312,520
+                            55,850,404,076
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="13">
-                            49,284,492,409
+                            50,482,848,488
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="14">
-                            40,227,667,791
+                            41,834,704,332
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="15">
-                            37,619,593,400
+                            39,448,511,200
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="16">
-                            36,255,360,247
+                            38,041,929,595
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;56.9</td>
+                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;59.6</td>
                     </tr>
                 
                     <tr align="right">
                         
                         <td align="left" style="font-size: 7pt; width: auto">
-                            Pliego 452: GOBIERNO REGIONAL DEL DEPARTAMENTO DE LAMBAYEQUE
+                            Sector 99: GOBIERNOS REGIONALES
                             
                             
                             
                             
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            2,534,254,653
+                            59,460,754,465
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            2,695,629,871
+                            66,143,795,259
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            2,600,083,101
+                            55,846,041,187
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            2,448,208,933
+                            50,479,352,967
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            1,776,920,294
+                            41,831,354,691
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            1,490,746,472
+                            39,445,219,303
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap">
-                            1,477,565,309
+                            38,038,643,698
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;55.3</td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;59.6</td>
                     </tr>
                 
                     <tr align="right" class="alt">
                         
                         <td align="left" style="font-size: 7pt; width: auto" tabindex="9">
-                            Categoría Presupuestal 0068: REDUCCION DE VULNERABILIDAD Y ATENCION DE EMERGENCIAS POR DESASTRES
+                            Pliego 452: GOBIERNO REGIONAL DEL DEPARTAMENTO DE LAMBAYEQUE
                             
                             
                             
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="10">
-                            7,030,197
+                            2,534,254,653
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="11">
-                            23,524,544
+                            2,695,629,871
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="12">
-                            16,644,363
+                            2,609,195,109
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="13">
-                            14,667,700
+                            2,452,705,098
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="14">
-                            11,935,062
+                            1,837,855,497
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="15">
-                            8,949,322
+                            1,551,753,845
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="16">
-                            8,936,914
+                            1,525,229,911
                         </td>
-                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;38.0</td>
+                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;57.6</td>
+                    </tr>
+                
+                    <tr align="right">
+                        
+                        <td align="left" style="font-size: 7pt; width: auto">
+                            Categoría Presupuestal 0068: REDUCCION DE VULNERABILIDAD Y ATENCION DE EMERGENCIAS POR DESASTRES
+                            
+                            
+                            
+                            
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            7,030,197
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            23,524,544
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            16,897,208
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            14,667,700
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            11,943,772
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            8,956,551
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            8,950,756
+                        </td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;38.1</td>
                     </tr>
                 
                     </table>
@@ -322,7 +355,7 @@ body
                                     460,746
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    453,784
+                                    460,566
                                 </td>
                                 <td style="white-space: nowrap; width: 50px">&nbsp;
                                     40.4
@@ -378,19 +411,19 @@ body
                                     16,536,719
                                 </td>
                                 <td>
-                                    9,738,461
+                                    9,991,292
                                 </td>
                                 <td>
                                     8,714,381
                                 </td>
                                 <td>
-                                    7,114,116
+                                    7,122,827
                                 </td>
                                 <td>
-                                    4,133,238
+                                    4,140,467
                                 </td>
                                 <td>
-                                    4,127,792
+                                    4,134,852
                                 </td>
                                 <td>&nbsp;
                                     25.0
@@ -412,7 +445,7 @@ body
                                     2,112,876
                                 </td>
                                 <td>
-                                    2,033,971
+                                    2,033,985
                                 </td>
                                 <td>
                                     1,094,527
