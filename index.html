@@ -1413,7 +1413,24 @@
     const XLSX = getXLSX();
     const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
     const familia = detectFamily(u8);
-    const wb = XLSX.read(u8, { type: "array", codepage: 1252 }); // 1252 => acentos OK
+    let wb;
+    if (familia === "BINARIO") {
+      wb = XLSX.read(u8, { type: "array", codepage: 1252 });
+    } else {
+      // HTML "disfrazado" de .xls (Consulta Amigable). El option
+      // codepage:1252 de SheetJS NO surte efecto de forma confiable en su
+      // parser de HTML - confirmado en producción el 20/08/2026: nombres
+      // con "Ñ" o tildes llegaban corruptos en el dashboard real (ej.
+      // "KAÑARIS" → "KAсRIS", "FERREÑAFE" → "FERREсFE"). La causa: SheetJS
+      // decodifica el HTML como si fuera UTF-8, pero el MEF lo entrega en
+      // Windows-1252/ISO-8859-1 - un byte de "Ñ" (0xD1) es reinterpretado
+      // como parte de una secuencia UTF-8 distinta. Solución de raíz: acá
+      // se decodifica el bytestream como Windows-1252 a un string JS real
+      // ANTES de pasarlo a SheetJS, para que no tenga que adivinar la
+      // codificación al parsear el HTML.
+      const html = new TextDecoder("windows-1252").decode(u8);
+      wb = XLSX.read(html, { type: "string" });
+    }
     const { registros, contexto } = familia === "BINARIO"
       ? parseBinary(wb, XLSX) : parseHTML(wb, XLSX);
 
@@ -1786,7 +1803,10 @@
     let esDevengadoMensual = false, mesesDevengado = null;
     try {
       if (window.DevengadoMensual) {
-        const wb = XLSX.read(bytes, { type:"array", codepage:1252 });
+        // Mismo fix de codificación que en readMef (ver comentario ahí):
+        // decodificar como Windows-1252 antes de pasarlo a SheetJS.
+        const html = new TextDecoder("windows-1252").decode(bytes);
+        const wb = XLSX.read(html, { type:"string" });
         if (window.DevengadoMensual.detectar(wb, XLSX)) {
           esDevengadoMensual = true;
           mesesDevengado = window.DevengadoMensual.parsearMeses(wb, XLSX);
@@ -1799,7 +1819,8 @@
     let esDevengadoMensualSC = false, mesesDevengadoSC = null;
     try {
       if (window.DevengadoMensualSC) {
-        const wb = XLSX.read(bytes, { type:"array", codepage:1252 });
+        const html = new TextDecoder("windows-1252").decode(bytes);
+        const wb = XLSX.read(html, { type:"string" });
         if (window.DevengadoMensualSC.detectar(wb, XLSX)) {
           esDevengadoMensualSC = true;
           mesesDevengadoSC = window.DevengadoMensualSC.parsearMeses(wb, XLSX);
