@@ -2,7 +2,12 @@
 # =============================================================================
 # actualizar_hist_gores_enejul.py
 # ORPMI - Gobierno Regional de Lambayeque
-# Actualiza: data/historico_progresivo.json  (Bloque 8 — Ranking nacional GORES)
+# Actualiza: data/historico_progresivo.json  (Bloque 2 — Ranking nacional GORES,
+#            secciones id="b2secDevP" / "b2secDevS" / "b2secCert" en index.html.
+#            NO confundir con id="b8secHistorico", que es la tendencia histórica
+#            de Devengado/PIM solo de Lambayeque — otro bloque totalmente distinto.
+#            Corregido 31/08/2026: el rótulo "Bloque 8" era un error heredado de
+#            una sesión anterior, que nunca coincidió con el id real del HTML.)
 #
 # CONTEXTO: este JSON alimentaba antes de forma MANUAL (armado a mano en
 # sesión de trabajo). Este script lo formaliza como parte del pipeline
@@ -62,7 +67,7 @@ PERIODOS = [
 
     # --- Descomentar cuando cierre el mes correspondiente ---
     ("AGOSTO", "agosto_{año}.xls", False),
-    # ("SETIEMBRE", "setiembre_{año}.xls", False),
+    ("SETIEMBRE", "setiembre_{año}.xls", False),
     # ("OCTUBRE", "octubre_{año}.xls", False),
     # ("NOVIEMBRE", "noviembre_{año}.xls", False),
     # ("DICIEMBRE", "diciembre_{año}.xls", False),

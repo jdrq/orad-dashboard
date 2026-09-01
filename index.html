@@ -665,7 +665,7 @@
               <canvas id="b2mChart"></canvas>
             </div>
             <div style="font-family:'Barlow';font-size:11.5px;color:var(--gris);text-align:center;margin-top:8px" id="b2mNotaParcial">
-              * Agosto es dato parcial (al 14/08/2026)
+              * Setiembre es dato parcial (mes en curso)
             </div>
           </div>
         </div>
@@ -984,7 +984,7 @@
               <canvas id="b6mChartSC"></canvas>
             </div>
             <div style="font-family:'Barlow';font-size:11.5px;color:var(--gris);text-align:center;margin-top:8px" id="b6mNotaParcialSC">
-              * Agosto es dato parcial (al 14/08/2026)
+              * Setiembre es dato parcial (mes en curso)
             </div>
           </div>
         </div>
@@ -2648,6 +2648,26 @@
   let chartRubroSC = null;
   let RB_HIST_SC_PROGRESIVO = null; // se carga desde data/rb_hist_sc_progresivo.json (ver fetch más abajo)
 
+  // Dado un registro histórico de un año (RB_HIST_SC o RB_HIST_SC_PROGRESIVO),
+  // determina el corte MÁS RECIENTE disponible (Set > Ago > Jul) y calcula
+  // devengado acumulado, % de avance y etiqueta EN VIVO — en vez de depender
+  // de los campos fijos "label"/"av_pct", que actualizar_rb_hist_sc.py NO
+  // toca (solo escribe dev_t1..dev_set; ver comentario en ese script).
+  // Agregado 31/08/2026 al activar Setiembre — evita que este bug se repita
+  // cada mes (Octubre, Noviembre...): con esto, con solo tener dev_XXX en
+  // el JSON alcanza, no hay que tocar código de render cada vez.
+  function rbHistCorte(d, anioFallback) {
+    if (!d) return null;
+    const tp = d.pim || 0;
+    let td, mesLabel;
+    if (d.dev_set != null)      { td = d.dev_set; mesLabel = "Set"; }
+    else if (d.dev_ago != null) { td = d.dev_ago; mesLabel = "Ago"; }
+    else                        { td = d.dev_sem; mesLabel = "Jul"; }
+    const pct = tp ? (td / tp * 100) : (d.av_pct || 0);
+    const label = `Ene–${mesLabel} ${anioFallback || ""}`.trim();
+    return { td, pct, label, mesLabel };
+  }
+
   // Para años 2022-2025: vista principal usa el acumulado progresivo
   // (RB_HIST_SC_PROGRESIVO, Ene-Jul/Ago/Set... según último mes cargado),
   // "Ver Primer Semestre" usa Ene-Jun (RB_HIST_SC, el de siempre). "2026" no
@@ -2665,9 +2685,10 @@
     if (!d) return "";
     const fmt  = n => Math.round(n||0).toLocaleString("es-PE"); // scope local — no depende del IIFE externo
     const tp   = d.pim || 1;          // PIM total de la UE para ese año
-    const td   = d.dev_ago ?? d.dev_sem; // Devengado acumulado Ene-Ago (fallback a Ene-Jul)
-    const pct  = d.av_pct;             // Avance % = td/tp*100
-    const fecha = d.label;
+    const corte = rbHistCorte(d, anioKey);
+    const td   = corte.td;             // Devengado acumulado, corte más reciente disponible
+    const pct  = corte.pct;            // Avance % = td/tp*100, calculado en vivo
+    const fecha = corte.label;
 
     // Totales acumulados del semestre
     const cert_total = d.rubros.reduce((s,r) => s + (r.cert||0), 0);
@@ -2757,14 +2778,15 @@
       b.classList.toggle("activo", b.dataset.rbyr === anio));
 
     // Nota
+    const cortePara = anio !== "2026" ? rbHistCorte(rubroSCPara(anio), anio) : null;
     const nota = document.getElementById("b6rb1nota");
-    if (nota) nota.textContent = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Ago)`);
+    if (nota) nota.textContent = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (${cortePara ? cortePara.label.replace(/\s*\d{4}$/,"") : "Ene–Set"})`);
 
     // Fecha en header
     const fechaEl = document.getElementById("b6rubro1fecha");
     if (fechaEl) fechaEl.textContent = anio === "2026"
       ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaMostrada())
-      : (rubroSCPara(anio)?.label || anio);
+      : (cortePara?.label || rubroSCPara(anio)?.label || anio);
 
     const paneles = document.getElementById("b6rubro1Paneles");
     if (!paneles) return;
@@ -2794,12 +2816,20 @@
     const rcTituloEl = document.getElementById("rubroChartTitulo");
     if (rcTituloEl) rcTituloEl.innerHTML = MODO_SEMESTRAL
       ? "Gráfico Lineal &nbsp;·&nbsp; Avance % Semestral (Ene–Jun) — Sede Central"
-      : "Gráfico Lineal &nbsp;·&nbsp; Avance % Enero a Agosto — Sede Central";
+      : "Gráfico Lineal &nbsp;·&nbsp; Avance % Enero a Setiembre — Sede Central";
 
     const años  = ["2022","2023","2024","2025","2026"];
     const data2026 = RB_HIST_SC["2026"]; // puede no existir aún
-    const pcts  = años.map(a => a==="2026" ? (data2026?.av_pct ?? null) : (rubroSCPara(a)?.av_pct ?? null));
-    const labels= años.map(a => a==="2026" ? (data2026?.label || "Ene–Ago 2026") : (rubroSCPara(a)?.label || `Ene–Ago ${a}`));
+    const cortes = años.map(a => {
+      const d = a === "2026" ? data2026 : rubroSCPara(a);
+      const c = rbHistCorte(d, a);
+      // 2026 trae su propio label dinámico (fecha en vivo, año en curso) —
+      // no reemplazarlo por el genérico "Ene–Set 2026" de rbHistCorte.
+      if (c && a === "2026" && d && d.label) c.label = d.label;
+      return c;
+    });
+    const pcts   = cortes.map(c => c ? c.pct : null);
+    const labels = cortes.map((c,i) => c ? c.label : `Ene–Set ${años[i]}`);
 
     // Solo mostrar si hay al menos un dato
     if (pcts.every(v => v === null)) { if(wrap) wrap.style.display="none"; return; }
@@ -2926,11 +2956,16 @@
     271403066, 341907214, 419992454, 502626349, 579953479, 656522501, 737640177
   ];
   // Devengado real acumulado — datos oficiales Consulta Amigable (Pliego 452,
-  // filtro "Sólo Proyectos"), consulta del 14/08/2026. Ene–Ago ahora son valores
+  // filtro "Sólo Proyectos"), consulta del 14/08/2026. Ene–Jul son valores
   // CERRADOS/fijos. Junio corregido de 256,731,752 → 258,850,964: el MEF
   // reclasificó ~S/2.12M entre Junio y Julio en una actualización posterior de
   // Consulta Amigable; el acumulado a Julio (317,327,247) no cambió, solo el
   // corte interno entre ambos meses.
+  // Agosto CERRADO el 31/08/2026 (suma de los valores mensuales NO acumulados
+  // de gore_devengado_mes.xls, Ene-Ago = 367,153,599; coincide con el corte
+  // oficial de la fila "Pliego 452" del mismo archivo: 367,153,598). El valor
+  // anterior (326,586,130) era el corte PARCIAL del 14/08 — el mes siguió
+  // acumulando ~S/40.5M en la segunda quincena, igual que le pasó a junio.
   // Setiembre: null → se rellena en vivo con los archivos cargados cada día.
   const B9_REAL_BASE = [
     18207406,    // ENE
@@ -2940,18 +2975,14 @@
     204294625,   // MAY
     258850964,   // JUN  (cerrado, corregido 14/08/2026)
     317327247,   // JUL  (cerrado)
-    326586130,   // AGO  (cerrado, dato oficial 14/08/2026)
+    367153598,   // AGO  (cerrado, dato oficial 31/08/2026)
     null         // SET → se rellena en vivo con los archivos cargados
   ];
-  // El mes actual es Agosto (índice 7) — corregido el 18/08/2026: se había
-  // adelantado a Setiembre (índice 8) el 14/08/2026, pero agosto seguía en
-  // curso (el MEF continúa sumando devengado dentro del mes, igual que le
-  // pasó a junio). Esto dejaba el punto de agosto congelado en el gráfico
-  // mientras el KPI "Ejecutado a la fecha" sí mostraba el dato en vivo,
-  // más alto — la discontinuidad que reportó Juan. Volver a 7 hace que
-  // agosto se trate como mes en curso (null en el gráfico, solo visible
-  // en el KPI) hasta que cierre oficialmente a fin de mes.
-  const B9_MES_ACTUAL_IDX = 7;
+  // El mes actual es Setiembre (índice 8) — agosto cerró oficialmente el
+  // 31/08/2026 con el corte definitivo (367,153,598), reemplazando el valor
+  // parcial del 14/08. Setiembre pasa a ser el mes en curso: null en
+  // B9_REAL_BASE, se rellena en vivo con devBase (ver renderBloque9).
+  const B9_MES_ACTUAL_IDX = 8;
 
   let b9Chart=null;
   function renderBloque9(sel){
@@ -2968,8 +2999,8 @@
     // (datos en vivo del día) el mes activo es Julio.
     const mesActualIdx = MODO_SEMESTRAL ? 5 : B9_MES_ACTUAL_IDX;
 
-    // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor cerrado (Agosto)
-    const devBase = devActual>0 ? devActual : 326586130;
+    // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor cerrado (Agosto, oficial 31/08/2026)
+    const devBase = devActual>0 ? devActual : 367153598;
     const pctBase = pimVivo ? devBase/pimVivo*100 : 43.1;
 
     // Actualizar KPIs
@@ -2979,7 +3010,7 @@
     if(kPim) kPim.textContent="S/ "+Math.round(pimVivo).toLocaleString("es-PE");
 
     // Construir serie real: meses cerrados desde B9_REAL_BASE + el mes activo
-    // (agosto) relleno EN VIVO con devBase (mismo valor que el KPI, con su
+    // (setiembre) relleno EN VIVO con devBase (mismo valor que el KPI, con su
     // mismo fallback al último cerrado si no hay archivos cargados aún).
     // Revertido el 18/08/2026 a pedido de Juan: antes el mes activo se omitía
     // del gráfico (solo aparecía en el KPI) para no mostrar un punto a media
@@ -3056,10 +3087,10 @@
     36646039,   // MAY (cerrado)
     54556339,   // JUN (cerrado)
     58476283,   // JUL (cerrado)
-    9258883,    // AGO (PARCIAL — al 14/08/2026, mes en curso)
+    49826352,   // AGO (cerrado, dato oficial 31/08/2026 — gore_devengado_mes.xls)
     null, null, null, null // SET–DIC: aún no disponibles
   ];
-  let B2M_IDX_PARCIAL = 7; // Agosto — se recalcula solo al cargar el archivo del día
+  let B2M_IDX_PARCIAL = 8; // Setiembre — se recalcula solo al cargar el archivo del día
   // Exponer en window: data/devengado-mensual.js corre en su propio módulo/IIFE
   // y necesita leer/escribir estas variables y disparar el re-render.
   window.B2M_DEVENGADO_MES = B2M_DEVENGADO_MES;
@@ -3155,10 +3186,10 @@
     18361708,   // MAY (cerrado)
     32145085,   // JUN (cerrado)
     27044831,   // JUL (cerrado)
-    6820884,    // AGO (PARCIAL — al 14/08/2026, mes en curso)
+    19127670,   // AGO (cerrado, dato oficial 31/08/2026 — sede_devengado_mes.xls)
     null, null, null, null // SET–DIC: aún no disponibles
   ];
-  let B6M_SC_IDX_PARCIAL = 7; // Agosto — se recalcula solo al cargar el archivo del día
+  let B6M_SC_IDX_PARCIAL = 8; // Setiembre — se recalcula solo al cargar el archivo del día
   window.B6M_SC_DEVENGADO_MES = B6M_SC_DEVENGADO_MES;
   Object.defineProperty(window, "B6M_SC_IDX_PARCIAL", {
     get: () => B6M_SC_IDX_PARCIAL, set: v => { B6M_SC_IDX_PARCIAL = v; }
@@ -3932,8 +3963,8 @@
       const ranking = sem.ranking_dev_pct || [];
       const prom    = sem.prom_dev_pct || 0;
 
-      if (nota)   nota.textContent   = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Ago)`);
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a Agosto`);
+      if (nota)   nota.textContent   = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Set)`);
+      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a Setiembre`);
       if (promEl) promEl.textContent = prom.toFixed(1)+"%";
       if (metaEl) metaEl.textContent = `Ámbito: inversiones · ${ranking.length} pliegos`;
 
@@ -4013,8 +4044,8 @@
       const ranking = sem.ranking_dev_sol || [];
       const maxDev  = ranking.reduce((m,g)=>Math.max(m,g.dev||0),1);
 
-      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Ago)`);
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a Agosto`);
+      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Set)`);
+      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a Setiembre`);
       if (metaEl)  metaEl.textContent  = `Ámbito: inversiones · ${ranking.length} pliegos`;
 
       if (tbody) tbody.innerHTML = ranking.map((g,i) => {
@@ -4084,8 +4115,8 @@
       const ranking = sem.ranking_cert_pct || [];
       const prom    = sem.prom_cert_pct || 0;
 
-      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Ago)`);
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a Agosto`);
+      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (Ene–Set)`);
+      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a Setiembre`);
       if (promEl)  promEl.textContent  = prom.toFixed(1)+"%";
 
       if (tbody) tbody.innerHTML = ranking.map((g,i) => {
@@ -4151,11 +4182,11 @@
       const tituloEl = document.getElementById("tendenciaTitulo");
       if (tituloEl) tituloEl.textContent = MODO_SEMESTRAL
         ? "Gráfico Lineal — Devengado en Monto · Primer Semestre (Ene–Jun)"
-        : "Gráfico Lineal — Devengado en Monto · Enero a Agosto";
+        : "Gráfico Lineal — Devengado en Monto · Enero a Setiembre";
       const años  = ["2022","2023","2024","2025","2026"];
       const fuenteDe = a => a === "2026" ? STATE.historico : fuenteHistorica();
       const devs  = años.map(a => fuenteDe(a)?.semestres[a]?.lambayeque?.dev || null);
-      const labels = años.map(a => fuenteDe(a)?.semestres[a]?.label || `Ene–Ago ${a}`);
+      const labels = años.map(a => fuenteDe(a)?.semestres[a]?.label || `Ene–Set ${a}`);
 
       STATE.chartTendencia = new Chart(canvas, {
         type: "line",
