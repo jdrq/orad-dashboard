@@ -2961,11 +2961,12 @@
   // reclasificó ~S/2.12M entre Junio y Julio en una actualización posterior de
   // Consulta Amigable; el acumulado a Julio (317,327,247) no cambió, solo el
   // corte interno entre ambos meses.
-  // Agosto CERRADO el 31/08/2026 (suma de los valores mensuales NO acumulados
-  // de gore_devengado_mes.xls, Ene-Ago = 367,153,599; coincide con el corte
-  // oficial de la fila "Pliego 452" del mismo archivo: 367,153,598). El valor
-  // anterior (326,586,130) era el corte PARCIAL del 14/08 — el mes siguió
-  // acumulando ~S/40.5M en la segunda quincena, igual que le pasó a junio.
+  // Agosto CERRADO — revisado 2 veces:
+  //   31/08/2026: 367,153,598 (suma Ene-Ago, monto mensual de agosto = 49,826,352)
+  //   02/09/2026: 371,048,848 (el MEF reclasificó agosto a 53,721,601 — mismo
+  //   patrón de reclasificación tardía que junio; verificado contra el
+  //   acumulado oficial a la fecha [375,678,667] menos el parcial de
+  //   setiembre [4,629,820] = 371,048,847, cuadra con 1 sol de redondeo).
   // Setiembre: null → se rellena en vivo con los archivos cargados cada día.
   const B9_REAL_BASE = [
     18207406,    // ENE
@@ -2975,7 +2976,7 @@
     204294625,   // MAY
     258850964,   // JUN  (cerrado, corregido 14/08/2026)
     317327247,   // JUL  (cerrado)
-    367153598,   // AGO  (cerrado, dato oficial 31/08/2026)
+    371048848,   // AGO  (cerrado, revisado 02/09/2026 — 2da reclasificación MEF)
     null         // SET → se rellena en vivo con los archivos cargados
   ];
   // El mes actual es Setiembre (índice 8) — agosto cerró oficialmente el
@@ -2999,8 +3000,8 @@
     // (datos en vivo del día) el mes activo es Julio.
     const mesActualIdx = MODO_SEMESTRAL ? 5 : B9_MES_ACTUAL_IDX;
 
-    // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor cerrado (Agosto, oficial 31/08/2026)
-    const devBase = devActual>0 ? devActual : 367153598;
+    // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor cerrado (Agosto, revisado 02/09/2026)
+    const devBase = devActual>0 ? devActual : 371048848;
     const pctBase = pimVivo ? devBase/pimVivo*100 : 43.1;
 
     // Actualizar KPIs
@@ -3087,7 +3088,7 @@
     36646039,   // MAY (cerrado)
     54556339,   // JUN (cerrado)
     58476283,   // JUL (cerrado)
-    49826352,   // AGO (cerrado, dato oficial 31/08/2026 — gore_devengado_mes.xls)
+    53721601,   // AGO (cerrado, revisado 02/09/2026 — 2da reclasificación MEF, antes 49,826,352)
     null, null, null, null // SET–DIC: aún no disponibles
   ];
   let B2M_IDX_PARCIAL = 8; // Setiembre — se recalcula solo al cargar el archivo del día
