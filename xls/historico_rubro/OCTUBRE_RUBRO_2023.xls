@@ -144,7 +144,7 @@ body
 </style><body>
 	<table id="hd">
 		<tr>
-			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 31-agosto-2026</div><br /><b>Año de Ejecución: <span class='value'>2023</span><br />Incluye: <span class='value'>Sólo Proyectos</span></b></td>
+			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 30-septiembre-2026</div><br /><b>Año de Ejecución: <span class='value'>2023</span><br />Incluye: <span class='value'>Sólo Proyectos</span></b></td>
 		</tr>
 	</table>
 	
@@ -316,7 +316,7 @@ body
                     <tr align="right" class="alt">
                         
                         <td align="left" style="font-size: 7pt; width: auto" tabindex="9">
-                            Mes 8: agosto
+                            Mes 10: octubre
                             
                             
                             
@@ -328,19 +328,19 @@ body
                             
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="12">
-                            -6,818,180
+                            -15,160,820
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="13">
-                            5,474,608
+                            2,632,865
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="14">
-                            15,680,029
+                            6,050,311
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="15">
-                            6,267,168
+                            7,939,928
                         </td>
                         <td align="right" style="width: 100px; white-space: nowrap" tabindex="16">
-                            7,924,967
+                            6,930,341
                         </td>
                         <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;</td>
                     </tr>
@@ -375,19 +375,19 @@ body
                                     
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    68,435
+                                    54,203
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    304,046
+                                    53,661
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    1,437,375
+                                    104,661
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    1,421,317
+                                    169,053
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    1,414,089
+                                    143,767
                                 </td>
                                 <td style="white-space: nowrap; width: 50px">&nbsp;
                                     
@@ -409,19 +409,53 @@ body
                                     
                                 </td>
                                 <td>
-                                    -6,886,615
+                                    -15,546,731
                                 </td>
                                 <td>
-                                    5,170,562
+                                    2,579,204
                                 </td>
                                 <td>
-                                    14,242,654
+                                    5,945,651
                                 </td>
                                 <td>
-                                    4,845,850
+                                    7,770,875
                                 </td>
                                 <td>
-                                    6,510,878
+                                    6,786,574
+                                </td>
+                                <td>&nbsp;
+                                    
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr2" onclick='kCod="19";tr_clk(2, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    19: RECURSOS POR OPERACIONES OFICIALES DE CREDITO
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    331,707
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
                                 </td>
                                 <td>&nbsp;
                                     

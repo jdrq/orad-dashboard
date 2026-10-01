@@ -144,7 +144,7 @@ body
 </style><body>
 	<table id="hd">
 		<tr>
-			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 27-julio-2026</div><br /><b>Año de Ejecución: <span class='value'>2022</span><br />Incluye: <span class='value'>Sólo Proyectos</span></b></td>
+			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 31-agosto-2026</div><br /><b>Año de Ejecución: <span class='value'>2022</span><br />Incluye: <span class='value'>Sólo Proyectos</span></b></td>
 		</tr>
 	</table>
 	
@@ -283,34 +283,66 @@ body
                     <tr align="right">
                         
                         <td align="left" style="font-size: 7pt; width: auto">
+                            Unidad Ejecutora 001-855: REGION LAMBAYEQUE-SEDE CENTRAL
+                            
+                            
+                            
+                            
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            168,323,270
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            212,350,484
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            191,554,861
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            125,125,883
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            95,167,743
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            95,164,970
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            95,163,926
+                        </td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;44.8</td>
+                    </tr>
+                
+                    <tr align="right" class="alt">
+                        
+                        <td align="left" style="font-size: 7pt; width: auto" tabindex="9">
                             Mes 8: agosto
                             
                             
                             
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="10">
                             
                         </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="11">
                             
                         </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
-                            
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="12">
+                            3,892,221
                         </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
-                            17,706,634
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="13">
+                            13,976,667
                         </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
-                            28,911,195
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="14">
+                            6,292,648
                         </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
-                            22,955,484
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="15">
+                            6,309,500
                         </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
-                            33,921,977
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="16">
+                            6,755,887
                         </td>
-                        <td align="right" style="width: 100px; white-space: nowrap">
-                            32,113,212
-                        </td>
-                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;</td>
+                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;</td>
                     </tr>
                 
                     </table>
@@ -343,19 +375,19 @@ body
                                     
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    73,110
+                                    4,000
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    653,312
+                                    2,669
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    1,071,906
+                                    3,199
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    16,836,121
+                                    2,070
                                 </td>
                                 <td style="white-space: nowrap; width: 100px">
-                                    16,679,839
+                                    2,070
                                 </td>
                                 <td style="white-space: nowrap; width: 50px">&nbsp;
                                     
@@ -363,41 +395,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr1" onclick='kCod="09";tr_clk(1, this)'
-                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
-                                
-                                <td align="left">
-                                    09: RECURSOS DIRECTAMENTE RECAUDADOS
-                                    
-                                </td>
-                                <td>
-                                    
-                                </td>
-                                <td>
-                                    
-                                </td>
-                                <td>
-                                    998,184
-                                </td>
-                                <td>
-                                    1,212,855
-                                </td>
-                                <td>
-                                    1,826,659
-                                </td>
-                                <td>
-                                    1,483,353
-                                </td>
-                                <td>
-                                    1,481,050
-                                </td>
-                                <td>&nbsp;
-                                    
-                                </td>
-                            </tr>
-                            
-                        
-                            <tr class="alt" id="tr2" onclick='kCod="18";tr_clk(2, this)'
+                            <tr class="alt" id="tr1" onclick='kCod="18";tr_clk(1, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -411,19 +409,19 @@ body
                                     
                                 </td>
                                 <td>
-                                    16,372,663
+                                    3,741,082
                                 </td>
                                 <td>
-                                    26,478,457
+                                    13,614,363
                                 </td>
                                 <td>
-                                    18,049,084
+                                    4,478,052
                                 </td>
                                 <td>
-                                    13,565,303
+                                    4,439,765
                                 </td>
                                 <td>
-                                    11,764,474
+                                    4,692,589
                                 </td>
                                 <td>&nbsp;
                                     
@@ -431,7 +429,7 @@ body
                             </tr>
                             
                         
-                            <tr class="alt" id="tr3" onclick='kCod="19";tr_clk(3, this)'
+                            <tr class="alt" id="tr2" onclick='kCod="19";tr_clk(2, this)'
                                 onmouseover="tr_over(this)" onmouseout="tr_out(this)">
                                 
                                 <td align="left">
@@ -445,19 +443,19 @@ body
                                     
                                 </td>
                                 <td>
-                                    262,678
+                                    147,139
                                 </td>
                                 <td>
-                                    566,572
+                                    359,636
                                 </td>
                                 <td>
-                                    2,007,836
+                                    1,811,398
                                 </td>
                                 <td>
-                                    2,037,200
+                                    1,867,665
                                 </td>
                                 <td>
-                                    2,187,850
+                                    2,061,228
                                 </td>
                                 <td>&nbsp;
                                     

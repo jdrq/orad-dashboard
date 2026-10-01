@@ -68,7 +68,7 @@ PERIODOS = [
     # --- Descomentar cuando cierre el mes correspondiente ---
     ("AGOSTO", "agosto_{año}.xls", False),
     ("SETIEMBRE", "setiembre_{año}.xls", False),
-    # ("OCTUBRE", "octubre_{año}.xls", False),
+    ("OCTUBRE", "octubre_{año}.xls", False),
     # ("NOVIEMBRE", "noviembre_{año}.xls", False),
     # ("DICIEMBRE", "diciembre_{año}.xls", False),
 ]

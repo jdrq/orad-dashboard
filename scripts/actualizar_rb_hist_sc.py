@@ -70,8 +70,8 @@ PERIODOS = [
 
     # --- Descomentar la línea del mes correspondiente cuando cierre ---
     ("dev_ago", "AGOSTO_RUBRO_{año}.xls", False),
-    # ("dev_set", "SETIEMBRE_RUBRO_{año}.xls", False),
-    # ("dev_oct", "OCTUBRE_RUBRO_{año}.xls", False),
+    ("dev_set", "SETIEMBRE_RUBRO_{año}.xls", False),
+    ("dev_oct", "OCTUBRE_RUBRO_{año}.xls", False),
     # ("dev_nov", "NOVIEMBRE_RUBRO_{año}.xls", False),
     # ("dev_dic", "DICIEMBRE_RUBRO_{año}.xls", False),
 ]
