@@ -1,4 +1,23 @@
 /* ============================================================================
+   PARTE 0 — Vista "página completa" en celulares y tablets (decisión de Jefatura)
+   En pantallas físicas de 1024px o menos fija el ancho de la página en 1260px
+   (el mismo del escritorio), así el navegador reduce TODO el diseño para que
+   entre en la pantalla: se ve igual que en la PC, sin cortes, y se puede
+   ampliar con los dedos (pellizcar). Con ancho 1260 los ajustes de tarjetas
+   y nombres cortos de abajo no se activan.
+   Para ver la versión de tarjetas: agregar ?movil=1 al final de la dirección.
+   ========================================================================== */
+(function () {
+  try {
+    var corto = Math.min(screen.width || 9999, screen.height || 9999);
+    if (corto <= 1024 && !/[?&]movil=1/.test(location.search)) {
+      var m = document.querySelector('meta[name="viewport"]');
+      if (m) m.setAttribute("content", "width=1260, initial-scale=" + (Math.min(corto, window.innerWidth || corto) / 1260).toFixed(4) + ", minimum-scale=0.2, maximum-scale=5, user-scalable=yes");
+    }
+  } catch (e) {}
+})();
+
+/* ============================================================================
    responsive.js — Dashboard ORAD · GORE Lambayeque
    Ajusta los gráficos de Chart.js cuando la pantalla es de celular (≤700px).
    - NO modifica datos ni lógica del dashboard: solo márgenes y etiquetas.
