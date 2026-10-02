@@ -1,0 +1,145 @@
+/* ============================================================================
+   responsive.css — Dashboard ORAD · GORE Lambayeque
+   Ajustes para tablet (≤1100px) y celular (≤700px).
+   - Es ADITIVO: no cambia nada en pantallas de escritorio (>1100px).
+   - Debe cargarse DESPUÉS del <style> de index.html (queda al final del <head>).
+   - Para revertir: borrar la línea <link> en index.html.
+   ========================================================================== */
+
+/* ── Base segura para iOS ─────────────────────────────────────────────────── */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+/* ── TABLET Y CELULAR (≤1100px) ───────────────────────────────────────────
+   Causa raíz del "se ve pequeño" en iPhone: las tablas de 11-13 columnas
+   (nowrap) son más anchas que la pantalla; Safari achica TODA la página para
+   que quepa. Solución: que cada sección se desplace horizontalmente por
+   dentro, y la página nunca sea más ancha que la pantalla. */
+@media (max-width: 1100px) {
+  body { overflow-x: hidden; }
+
+  .pdf-body { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  /* tablas anchas: ancho mínimo cómodo, con scroll interno */
+  #ueTable, #b3tTable, #b3rTable, #bEmrTable,
+  #b6secPliego .pdf-table, #b6rubro1 .pdf-table,
+  #b6rubro2 .pdf-table, #b6rubro3 .pdf-table,
+  #b7secFunciones .pdf-table { min-width: 980px; }
+  #bEmuTable { min-width: 760px; }
+}
+
+/* ── TABLET (701–1100px) ──────────────────────────────────────────────────── */
+@media (min-width: 701px) and (max-width: 1100px) {
+  .kpis   { grid-template-columns: repeat(3, 1fr); }
+  .donuts { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .wrap   { padding: 0 16px; }
+}
+
+/* ── CELULAR (≤700px) ─────────────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .wrap { padding: 0 12px; }
+  main  { padding: 16px 0 90px; }          /* espacio para el botón flotante */
+
+  /* Cabecera */
+  .topbar .wrap { padding: 10px 12px; gap: 10px; align-items: flex-start; }
+  .escudo       { width: 36px; height: 36px; }
+  .brand .t1    { font-size: 11px; }
+  .brand .t2    { font-size: 18px; }
+  .orpmi        { max-width: 48%; }
+  .orpmi .o1    { font-size: 12px; line-height: 1.15; }
+  .orpmi .o2    { font-size: 9px; }
+  .titleband .wrap { padding: 12px; }
+  .titleband h1 { font-size: 22px; }
+  .update-pill  { font-size: 11.5px; padding: 5px 10px; }
+  .subband .wrap { font-size: 13px; padding: 6px 12px; }
+  #btnSemestral { min-height: 40px; }
+  #bannerSemestral { font-size: 12px !important; padding: 6px 10px !important; }
+
+  /* Título del Bloque 1: el sello ORAD deja de flotar sobre el texto */
+  .b1-title { flex-direction: column; font-size: 19px; padding: 12px; letter-spacing: .04em; }
+  .b1-title .orad-stamp { position: static; transform: none; margin-top: 6px; justify-content: center; }
+  .b1-subtitle { font-size: 14px; padding: 7px 12px; }
+  .b1-donuts-wrap { padding: 12px; }
+  .b1-dev-label { font-size: 20px; margin: 10px 0 8px; }
+
+  /* Encabezados de sección */
+  .pdf-section { margin-top: 24px; }
+  .pdf-header  { flex-direction: column; align-items: flex-start; gap: 8px; padding: 10px 12px; }
+  .pdf-header h2 { font-size: 18px; line-height: 1.1; }
+  .pdf-header .sub { font-size: 12px; }
+  .orad-stamp  { border-left: 0; padding-left: 0; margin-left: 0; text-align: left;
+                 display: flex; align-items: baseline; gap: 8px; }
+  .orad-stamp .os-sigla { font-size: 18px; }
+  .orad-stamp .os-texto { max-width: none; margin-top: 0; font-size: 8.5px; }
+
+  .pdf-date-row { flex-wrap: wrap; gap: 4px 12px; padding: 6px 10px; font-size: 11px; }
+  .pdf-legend   { gap: 8px 12px; padding: 8px 10px; font-size: 11px; }
+
+  /* KPIs: 2 columnas, el 5° ocupa todo el ancho */
+  .kpis { grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 14px 0 18px; }
+  .kpi  { padding: 10px 12px; }
+  .kpi .k-v { font-size: 20px; }
+  .kpi:last-child { grid-column: 1 / -1; }
+  .donut { padding: 14px 12px; }
+
+  /* Selectores de año: botones con tamaño táctil */
+  .yr-selector { padding: 10px 12px 0; gap: 6px; }
+  .yr-btn, .yr-btn-a, .yr-btn-c { padding: 6px 14px; min-height: 40px; }
+  .rubro-yr-selector { padding: 10px 12px 0; }
+  .yr-btn-rb { min-height: 36px; }
+
+  /* Tablas: letra y espaciado más compactos */
+  .pdf-table { font-size: 11.5px; }
+  .pdf-table thead th { padding: 6px; font-size: 11px; }
+  .pdf-table tbody td { padding: 5px 6px; }
+  .pdf-table tfoot tr td { padding: 5px 6px; font-size: 11px; }
+  .av-bar  { width: 36px !important; }
+  .av-pct  { min-width: 38px; font-size: 12px; }
+
+  /* Rankings de GOREs (2A/2B/2C): nombre en varias líneas + scroll suave */
+  #goreRowsA td:nth-child(2), #goreRowsB td:nth-child(2), #goreRowsC td:nth-child(2) {
+    white-space: normal; min-width: 130px; line-height: 1.2;
+  }
+  #b2secDevP .pdf-table, #b2secCert .pdf-table { min-width: 600px; }
+  #b2secDevS .pdf-table { min-width: 440px; }
+
+  /* Gráficos: bloques con muchas etiquetas se desplazan en horizontal
+     (12 barras / 11 años no caben legibles en 360px) */
+  div:has(> div > canvas#b2mChart),
+  div:has(> div > canvas#b6mChartSC),
+  div:has(> div > canvas#b8ChartDev),
+  div:has(> div > canvas#b8ChartPim) { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  div:has(> canvas#b2mChart),
+  div:has(> canvas#b6mChartSC),
+  div:has(> canvas#b8ChartDev),
+  div:has(> canvas#b8ChartPim) { min-width: 640px; }
+
+  .pdf-body[style*="padding:20px 24px"] { padding: 12px !important; }
+  .tendencia-wrap { padding: 12px; margin-top: 14px; }
+  .rubro-chart-wrap { margin: 10px 8px; padding: 10px 10px 8px; }
+
+  /* Bloque 3 (barras por UE) y donas de rubro */
+  .ue-bars-grid { gap: 10px; padding: 24px 4px 6px; }
+  .b3-chart-wrap { padding: 12px; }
+  .b3-dona-row { gap: 16px; justify-content: center; }
+  .b3-left-kpis { min-width: 0; width: 100%; }
+  .b6-donuts-wrap { padding: 10px; }
+  .b6-total-card { border-left: 0; margin-left: 0; padding-left: 0; width: 100%; }
+
+  /* Bloque 9: tarjetas KPI de proyección */
+  #b9secProyeccion .pdf-body > div:first-child > div { flex: 1 1 100% !important; }
+
+  /* Botón flotante de PDF: más pequeño y respetando la barra inferior de iPhone */
+  #btnPdfFlotante {
+    bottom: calc(14px + env(safe-area-inset-bottom)) !important;
+    right: 14px !important;
+    padding: 10px 16px !important;
+    font-size: 13px !important;
+  }
+}
+
+/* ── Celulares muy chicos (≤380px) ────────────────────────────────────────── */
+@media (max-width: 380px) {
+  .titleband h1 { font-size: 20px; }
+  .kpi .k-v { font-size: 18px; }
+  .pdf-header h2 { font-size: 16px; }
+}
