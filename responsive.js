@@ -49,3 +49,116 @@
     }
   });
 })();
+
+/* ============================================================================
+   PARTE 2 — Nombres cortos en rankings y tablas como tarjetas (celular/tablet)
+   - Nombres: "GOBIERNO REGIONAL DEL DEPARTAMENTO DE JUNIN" -> "GORE JUNIN",
+     solo en pantallas <=1100px. En escritorio se restaura el texto original.
+   - Tarjetas: en pantallas <=840px agrega clases/etiquetas a las tablas para que
+     responsive.css las muestre como tarjetas con todas sus columnas.
+   - En escritorio (>1100px) este código no modifica nada de la página.
+   ========================================================================== */
+(function () {
+  "use strict";
+  if (!window.matchMedia || !window.MutationObserver) return;
+  var mqCard  = window.matchMedia("(max-width: 840px)");
+  var mqCorto = window.matchMedia("(max-width: 1100px)");
+
+  // ── Nombres cortos ──────────────────────────────────────────────────────
+  function acortar(n) {
+    var s = String(n || "").replace(/\s+/g, " ").trim();
+    var m = /^MUNICIPALIDAD METROPOLITANA DE\s+(.+)$/i.exec(s);
+    if (m) return "MUN. METROP. " + m[1];
+    m = /^GOBIERNO REGIONAL\s+(?:DE LA PROVINCIA CONSTITUCIONAL DEL|DEL DEPARTAMENTO DE|DEL DEPARTAMENTO|DEL|DE)\s+(.+)$/i.exec(s);
+    if (m) return "GORE " + m[1];
+    return s;
+  }
+  var RANKINGS = ["goreRowsA", "goreRowsB", "goreRowsC"];
+  function aplicarNombres() {
+    var cortar = mqCorto.matches;
+    RANKINGS.forEach(function (id) {
+      var tb = document.getElementById(id);
+      if (!tb) return;
+      Array.prototype.forEach.call(tb.rows, function (tr) {
+        var td = tr.cells[1];
+        if (!td || tr.cells.length < 3) return;          // fila de mensaje: no tocar
+        if (cortar) {
+          if (td.getAttribute("data-full") == null) td.setAttribute("data-full", td.textContent);
+          var full = td.getAttribute("data-full");
+          var corto = acortar(full);
+          if (td.textContent !== corto) td.textContent = corto;
+          td.title = full;
+        } else if (td.getAttribute("data-full") != null) {
+          td.textContent = td.getAttribute("data-full");
+          td.removeAttribute("data-full");
+          td.removeAttribute("title");
+        }
+      });
+    });
+  }
+
+  // ── Tarjetas ────────────────────────────────────────────────────────────
+  var RX_RANK  = /^(N[°º]?|#)$/i;
+  var RX_TITLE = /PLIEGO|UNIDAD EJECUTORA|PROYECTO|DESCRIPCI|FUNCI[ÓO]N|MUNICIPALIDAD|GEN[ÉE]RICA/i;
+  var RX_AV    = /^AVANCE/i;
+  var RX_BAR   = /GR[ÁA]FICO/i;
+
+  function etiquetasDe(table) {
+    var head = table.tHead && table.tHead.rows[0];
+    if (!head) return null;
+    return Array.prototype.filter.call(head.cells, function (th) { return th.style.display !== "none"; })
+      .map(function (th) { return th.textContent.replace(/\s+/g, " ").trim(); });
+  }
+
+  function procesarTabla(table) {
+    var labels = etiquetasDe(table);
+    if (!labels) return;
+    Array.prototype.forEach.call(table.querySelectorAll("tbody tr, tfoot tr"), function (tr) {
+      if (tr.getAttribute("data-oc") === "1") return;       // ya procesada
+      var col = 0, hasR = false, hasA = false, hasTitle = false;
+      Array.prototype.forEach.call(tr.cells, function (td) {
+        var span = td.colSpan || 1;
+        var label = labels[col] || "";
+        td.setAttribute("data-label", label);
+        if (span > 1 && !hasTitle) { td.classList.add("oc-title"); hasTitle = true; }          // "TOTAL" o mensaje
+        else if (RX_RANK.test(label)) { td.classList.add("oc-rank"); hasR = true; }
+        else if (!hasTitle && RX_TITLE.test(label)) { td.classList.add("oc-title"); hasTitle = true; }
+        else if (RX_AV.test(label)) { td.classList.add("oc-avance"); hasA = true; }
+        else if (RX_BAR.test(label)) { td.classList.add("oc-bar"); }
+        col += span;
+      });
+      if (hasR) tr.classList.add("oc-r");
+      if (hasA) tr.classList.add("oc-a");
+      tr.setAttribute("data-oc", "1");
+    });
+  }
+
+  function procesarTodo() {
+    try {
+      aplicarNombres();
+      var tarjetas = mqCard.matches;
+      Array.prototype.forEach.call(document.querySelectorAll("table.pdf-table"), function (t) {
+        if (tarjetas) { procesarTabla(t); t.classList.add("ocard"); }
+        else t.classList.remove("ocard");
+      });
+    } catch (e) {
+      console.warn("[responsive.js] tarjetas omitidas:", e.message);
+    }
+  }
+
+  var pendiente = 0;
+  function programar() {
+    if (pendiente) return;
+    pendiente = setTimeout(function () { pendiente = 0; procesarTodo(); }, 60);
+  }
+  function iniciar() {
+    procesarTodo();
+    new MutationObserver(programar).observe(document.body, { childList: true, subtree: true });
+    [mqCard, mqCorto].forEach(function (mq) {
+      if (mq.addEventListener) mq.addEventListener("change", procesarTodo);
+      else if (mq.addListener) mq.addListener(procesarTodo);
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", iniciar);
+  else iniciar();
+})();
