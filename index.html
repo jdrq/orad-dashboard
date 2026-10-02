@@ -2,7 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script>/* Vista completa reducida en celulares/tablets (pantalla fisica <=1024px). ?movil=1 = version tarjetas */
+(function(){var c="width=device-width, initial-scale=1.0";try{var k=Math.min(screen.width||9999,screen.height||9999);if(k<=1024&&!/[?&]movil=1/.test(location.search))c="width=1260, minimum-scale=0.1, maximum-scale=5, user-scalable=yes";}catch(e){}document.write('<meta name="viewport" content="'+c+'">');})();</script>
 <title>ORAD · Ejecución Financiera del Pliego — GORE Lambayeque</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,7 +11,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
-<script src="responsive.js?v=2"></script>
+<script src="responsive.js?v=4"></script>
 <!-- html2canvas y jsPDF (~550KB juntas) se cargan bajo demanda, solo al pulsar
      "Exportar PDF", en vez de en cada carga de página. Ver cargarLibreriasPDF()
      dentro del bloque EXPORTADOR A PDF, más abajo. -->
@@ -359,7 +360,7 @@
   <link rel="icon" type="image/png" href="img/favicon.png">
   <link rel="shortcut icon" type="image/png" href="img/favicon.png">
   <link rel="apple-touch-icon" href="img/favicon.png">
-<link rel="stylesheet" href="responsive.css?v=2">
+<link rel="stylesheet" href="responsive.css?v=4">
 </head>
 <body>
 
