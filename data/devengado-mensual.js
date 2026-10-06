@@ -114,9 +114,6 @@
   function actualizar(archivos) {
     if (typeof global.B2M_DEVENGADO_MES === "undefined") return; // Bloque 2D no está en esta página
     const a = [...(archivos || [])].reverse().find(x => x.esDevengadoMensual);
-    console.log("[DIAG Bloque2D] archivos con esDevengadoMensual=true:",
-      (archivos||[]).filter(x=>x.esDevengadoMensual).map(x=>x.nombre));
-    console.log("[DIAG Bloque2D] archivo elegido:", a && a.nombre, "| Agosto:", a && a.mesesDevengado && a.mesesDevengado[8] && a.mesesDevengado[8].devengado);
     if (!a || !a.mesesDevengado) return;
 
     const mesEnCurso = new Date().getMonth() + 1; // 1-12, calendario real del navegador

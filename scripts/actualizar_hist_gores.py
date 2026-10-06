@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # =============================================================================
 # actualizar_hist_gores_enejul.py
-# ORPMI - Gobierno Regional de Lambayeque
+# ORAD - Gobierno Regional de Lambayeque
 # Actualiza: data/historico_progresivo.json  (Bloque 2 — Ranking nacional GORES,
 #            secciones id="b2secDevP" / "b2secDevS" / "b2secCert" en index.html.
 #            NO confundir con id="b8secHistorico", que es la tendencia histórica
@@ -349,6 +349,9 @@ def main():
             data["semestres"][str(año)] = resultado
 
     data["generado"] = datetime.today().strftime("%Y-%m-%d")
+    data["descripcion"] = "Ranking 26 GOREs — acumulado progresivo (T1 + T2 + flujos mensuales). Dev% = acumulado / PIM anual."
+    data["elaborado_por"] = "ORAD — GORE Lambayeque"
+    data["nota_metodologia"] = "Dev%/Cert% = (acumulado T1+T2 + flujos mensuales de julio en adelante) / PIM anual (anual_{año}_gores.xls) × 100. Promedios nacionales ponderados por PIM."
 
     with open(ARCHIVO_JSON, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, separators=(",", ":"))

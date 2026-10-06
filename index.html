@@ -404,7 +404,7 @@
         <button class="btn btn-pdf" id="btnPdf" title="Exporta cada sección como una página horizontal del PDF">⬇ Exportar a PDF</button>
       </div>
 
-      <!-- Panel de carga / consolidador — oculto al jefe, solo visible si ORPMI lo activa -->
+      <!-- Panel de carga / consolidador — oculto al jefe, solo visible si ORAD lo activa -->
       <div id="panelTecnico" style="display:none">
         <p class="eyebrow">Paso 1 · Consolidar archivos del MEF</p>
         <section class="card loader">
@@ -445,7 +445,7 @@
       </div>
       <script>
         // Panel técnico oculto por defecto. Se muestra solo si:
-        //  (a) ORPMI hace clic en el engranaje ⚙, o
+        //  (a) ORAD hace clic en el engranaje ⚙, o
         //  (b) se abre la URL con ?admin=1 (útil para revisar desde el celular sin buscar el botón).
         document.addEventListener("DOMContentLoaded", function(){
           const panel = document.getElementById("panelTecnico");
@@ -1134,7 +1134,7 @@
       <span><b>Fuente:</b> SIAF — Consulta Amigable / Gasto Diario BI — MEF · apps5.mineco.gob.pe</span>
       <span style="display:flex;align-items:center;gap:12px">
         <span><b>Elaborado por:</b> ORAD — GORE Lambayeque · <span id="fecha"></span></span>
-        <button id="btnAdminToggle" title="Panel técnico (solo ORPMI)"
+        <button id="btnAdminToggle" title="Panel técnico (solo ORAD)"
           style="background:transparent;border:1px solid #ddd;border-radius:6px;width:26px;height:26px;cursor:pointer;font-size:13px;opacity:.30;flex-shrink:0;padding:0;line-height:1">⚙</button>
       </span>
     </div></footer>
@@ -1538,7 +1538,7 @@
     archivosCongeladosPromise = fetch("data/semestre1_2026.json", { cache:"no-store" })
       .then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
       .then(data => { archivosCongelados = data; return data; })
-      .catch(e => { console.warn("[ORPMI] No se pudo cargar semestre1_2026.json:", e.message); return null; })
+      .catch(e => { console.warn("[ORAD] No se pudo cargar semestre1_2026.json:", e.message); return null; })
       .finally(() => { archivosCongeladosPromise = null; });
     return archivosCongeladosPromise;
   }
@@ -2937,7 +2937,7 @@
             dev_sem: devVivo, av_pct: devVivo/pimVivo*100
           };
         }
-      } catch(e) { console.warn("[ORPMI] actualizarGraficoRubroSC:", e.message); }
+      } catch(e) { console.warn("[ORAD] actualizarGraficoRubroSC:", e.message); }
     }
     iniciarGraficoRubroSC();
     // Actualizar punto activo si ya existe
@@ -2953,7 +2953,7 @@
 
     // -------- Bloque 9: Proyección Acumulada al 31/12/2026 --------
   // Datos fijos, escala "Sólo Proyectos" (Consulta Amigable, consulta 14-ago-2026)
-  // PIM 2026: 758,109,123 (Pliego 452, filtro "Sólo Proyectos" — antes se usaba
+  // Historial: el PIM fijo anterior era 758,109,123 (Pliego 452, filtro "Sólo Proyectos" — antes se usaba
   // el PIM del pliego completo, 793,371,105, que incluye gasto corriente/funcionamiento;
   // se corrigió el 14/08/2026 para que coincida con el alcance real de este bloque)
   // PIM fallback (solo si no hay archivos cargados): Pliego 452, suma de las 10 UE
@@ -3128,11 +3128,7 @@
   });
 
   let b2mChart = null;
-  let _b2mRenderCount = 0;
   function renderBloque2Mensual(){
-    _b2mRenderCount++;
-    console.log(`[DIAG Bloque2D] renderBloque2Mensual() llamada #${_b2mRenderCount} | Setiembre actual en array: ${B2M_DEVENGADO_MES[8]}`);
-    console.trace("[DIAG Bloque2D] origen de esta llamada:");
     const cv = document.getElementById("b2mChart");
     if (!cv) return;
     if (b2mChart) { b2mChart.destroy(); b2mChart = null; }
@@ -3880,21 +3876,20 @@
     // y historico_progresivo.json (Ene-Jul/Ago/Set..., para la vista principal) en paralelo ──
     Promise.all([
       fetch("data/historico_semestral.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }),
-      fetch("data/historico_progresivo.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }).catch(e => { console.warn("[ORPMI-Hist] historico_progresivo.json no disponible, uso Ene-Jun también en vista principal:", e.message); return null; }),
-      fetch("data/rb_hist_sc_progresivo.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }).catch(e => { console.warn("[ORPMI-Hist] rb_hist_sc_progresivo.json no disponible, Rubro Sede Central sigue en Ene-Jun:", e.message); return null; })
+      fetch("data/historico_progresivo.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }).catch(e => { console.warn("[ORAD-Hist] historico_progresivo.json no disponible, uso Ene-Jun también en vista principal:", e.message); return null; }),
+      fetch("data/rb_hist_sc_progresivo.json?" + Date.now()).then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); }).catch(e => { console.warn("[ORAD-Hist] rb_hist_sc_progresivo.json no disponible, Rubro Sede Central sigue en Ene-Jun:", e.message); return null; })
     ])
       .then(([dataJun, dataProgresivo, rubroScProgresivo]) => {
         STATE.historico = dataJun;
         STATE.historicoProgresivo = dataProgresivo; // null si aún no existe el archivo -> fallback a Ene-Jun
         RB_HIST_SC_PROGRESIVO = rubroScProgresivo; // null si aún no existe -> fallback a Ene-Jun
-        console.log("[ORPMI-Hist] Cargado Ene-Jun:", Object.keys(dataJun.semestres), "| Progresivo:", dataProgresivo ? Object.keys(dataProgresivo.semestres) : "(no disponible)", "| Rubro SC:", rubroScProgresivo ? Object.keys(rubroScProgresivo) : "(no disponible)");
         inyectar2026();
         renderA("2026"); renderB("2026"); renderC("2026");
         iniciarTendencia();
         // Iniciar gráfico de avance % rubro Sede Central
         try { iniciarGraficoRubroSC(); } catch(e){ console.warn("GráficoRubroSC:", e); }
       })
-      .catch(err => console.warn("[ORPMI-Hist] No se pudo cargar:", err.message));
+      .catch(err => console.warn("[ORAD-Hist] No se pudo cargar:", err.message));
 
     // ── Inyectar 2026: usa `archivos`, que YA refleja el estado del toggle
     // principal (vivo por defecto, o el snapshot congelado cuando el jefe
@@ -3954,8 +3949,7 @@
           ranking_dev_pct:  byDevPct,
           ranking_cert_pct: byCertPct,
         };
-        console.log("[ORPMI-Hist] 2026 inyectado. Dev%:", prom_dev_pct.toFixed(1)+"% prom");
-      } catch(e) { console.warn("[ORPMI-Hist] inyectar2026:", e.message); }
+      } catch(e) { console.warn("[ORAD-Hist] inyectar2026:", e.message); }
     }
 
     // ── BLOQUE 2A — Devengado % ──────────────────────────────────
@@ -4063,7 +4057,7 @@
             </div></td>
           </tr>`;
         }).join("");
-      } catch(e) { console.warn("[ORPMI-Hist] renderA_desdeArchivos:", e.message); }
+      } catch(e) { console.warn("[ORAD-Hist] renderA_desdeArchivos:", e.message); }
     }
 
     // ── BLOQUE 2B — Devengado Monto ──────────────────────────────
@@ -4132,7 +4126,7 @@
             </div></td>
           </tr>`;
         }).join("");
-      } catch(e) { console.warn("[ORPMI-Hist] renderB_desdeArchivos:", e.message); }
+      } catch(e) { console.warn("[ORAD-Hist] renderB_desdeArchivos:", e.message); }
     }
 
     // ── BLOQUE 2C — Certificación % ──────────────────────────────
@@ -4214,7 +4208,7 @@
             </div></td>
           </tr>`;
         }).join("");
-      } catch(e) { console.warn("[ORPMI-Hist] renderC_desdeArchivos:", e.message); }
+      } catch(e) { console.warn("[ORAD-Hist] renderC_desdeArchivos:", e.message); }
     }
 
     // ── Gráfico de tendencia (solo Bloque 2B) ────────────────────
@@ -4337,7 +4331,7 @@
         const selNow = (typeof archivos !== "undefined") ? archivos.filter(a=>a.incluir && !a.error) : null;
         actualizarGraficoRubroSC(RB1_ANIO, selNow);
         if (RB1_ANIO !== "2026" && typeof renderRubro1 === "function") renderRubro1(RB1_ANIO, selNow);
-      } catch(e){ console.warn("[ORPMI-Hist] refrescarModuloHistorico:", e.message); }
+      } catch(e){ console.warn("[ORAD-Hist] refrescarModuloHistorico:", e.message); }
     };
 
   })(); // fin módulo histórico

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # =============================================================================
 # convertir_semestral.py
-# ORPMI - Gobierno Regional de Lambayeque
+# ORAD - Gobierno Regional de Lambayeque
 # Genera: data/historico_semestral.json
 #
 # USO:
@@ -176,7 +176,7 @@ def inyectar_2026():
 
 def main():
     print("=" * 60)
-    print("  ORPMI — Generador de Histórico Semestral")
+    print("  ORAD — Generador de Histórico Semestral")
     print(f"  Fecha: {datetime.today().strftime('%d/%m/%Y %H:%M')}")
     print("=" * 60)
 
@@ -202,7 +202,7 @@ def main():
     output = {
         "meta": {
             "descripcion":    "Primer semestre de cada año — Ranking GOREs por Devengado en Monto",
-            "elaborado_por":  "ORPMI - Oficina Regional de Programación Multianual de Inversiones",
+            "elaborado_por":  "ORAD - Oficina Regional de Administración",
             "gore":           "Gobierno Regional del Departamento de Lambayeque — Pliego 452",
             "fuente":         "Consulta Amigable MEF — apps5.mineco.gob.pe",
             "nota_metodologia": (
