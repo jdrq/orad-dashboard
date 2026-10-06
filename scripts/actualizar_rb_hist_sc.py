@@ -1,48 +1,62 @@
 #!/usr/bin/env python3
 # =============================================================================
-# actualizar_rb_hist_sc.py  (v2 — motor progresivo, escalable mes a mes)
-# ORPMI - Gobierno Regional de Lambayeque
+# actualizar_rb_hist_sc.py  (v3 — motor progresivo + desglose por rubro)
+# ORAD - Gobierno Regional de Lambayeque
 # Actualiza: data/rb_hist_sc_progresivo.json
 #
-# DIFERENCIA CON v1: v1 estaba hardcodeada a 3 períodos fijos (T1, T2,
-# Julio). Esta versión usa una lista de configuración PERIODOS que vos
-# extendés con una sola línea cada vez que cierra un mes nuevo (agosto,
-# setiembre, octubre...) — el motor de acumulación progresiva y de
-# validación es el mismo para todos, no hay que tocar lógica.
+# QUÉ CAMBIÓ EN v3 (06/10/2026)
+#   Problema que resuelve: hasta v2 el script solo actualizaba los TOTALES
+#   acumulados (dev_t1, dev_t2, dev_sem, dev_ago, dev_set, dev_oct). El
+#   desglose por rubro (campo "rubros": cert / comp / dev de cada rubro)
+#   quedó congelado en Ene-Jul. Resultado visible en el dashboard: las filas
+#   de la tabla "Rubro — Sede Central" (años 2022-2025) sumaban Ene-Jul y la
+#   fila TOTAL mostraba Ene-Oct. Además la columna "comp" era una copia de
+#   "cert" (nunca fue el Compromiso real).
 #
-# CÓMO AGREGAR UN MES NUEVO (ej. cuando cierre agosto):
-#   1) Re-exportar en Consulta Amigable: Mes 8 = agosto, columna Rubro
-#      seleccionada, UE 001-855 Sede Central. Guardar como
-#      AGOSTO_RUBRO_{año}.xls en xls/historico_rubro/ (para 2022-2025).
-#   2) Descomentar (o agregar) la línea correspondiente a "ago" en la
-#      lista PERIODOS más abajo.
-#   3) Correr: python actualizar_rb_hist_sc.py
+#   v3 hace tres cosas nuevas:
+#     1) Acumula POR RUBRO (cert, comp, dev) a lo largo de todos los
+#        períodos activos y reescribe "rubros" en el JSON. El PIM de cada
+#        rubro NO viene en estos archivos mensuales (la columna sale vacía),
+#        así que se CONSERVA el que ya está en el JSON.
+#     2) Compromiso = columna "Compromiso Anual" del MEF (antes era una
+#        copia de la certificación).
+#     3) Valida cada archivo ANTES de sumarlo:
+#          - que sea de "Ejecución del Gasto" (no de Ingresos / "Recaudado")
+#          - que traiga la fila "Unidad Ejecutora 001-855" (Sede Central)
+#          - que el "Año de Ejecución" del encabezado coincida con el año
+#            del nombre del archivo
+#        Estos tres errores ya ocurrieron (octubre_2022/23/24 eran de
+#        Ingresos; AGOSTO_RUBRO venía a nivel Pliego sin la UE) y el script
+#        v2 no los detectaba, porque solo bloqueaba si el acumulado bajaba.
+#     También actualiza "label" y "av_pct" del año al último período activo
+#     (antes quedaban en "Ene–Ago"). index.html no los usa para pintar —
+#     los recalcula en vivo — pero así el JSON no queda con datos viejos.
+#
+# CÓMO AGREGAR UN MES NUEVO (ej. cuando cierre noviembre):
+#   1) Re-exportar en Consulta Amigable: Mes 11, columna Rubro seleccionada,
+#      UE 001-855 Sede Central, "Sólo Proyectos". Guardar como
+#      NOVIEMBRE_RUBRO_{año}.xls en xls/historico_rubro/ (2022-2025).
+#   2) Descomentar la línea "dev_nov" en PERIODOS (y verificar que TODOS los
+#      meses anteriores sigan activos: si solo activás el último, el
+#      acumulado queda incompleto).
+#   3) Correr DESDE LA RAÍZ DEL REPO:  python scripts\actualizar_rb_hist_sc.py
 #
 # CAMPOS QUE GENERA EN EL JSON (acumulado progresivo, Ene -> fin de mes):
-#   dev_t1  = acumulado a marzo      (Ene-Mar)
-#   dev_t2  = acumulado a junio      (Ene-Jun)
-#   dev_sem = acumulado a julio      (Ene-Jul)   <- nombre heredado, ver nota
-#   dev_ago = acumulado a agosto     (Ene-Ago)   <- se agrega solo si activás "ago"
-#   dev_set = acumulado a setiembre  (Ene-Set)   <- etc.
+#   dev_t1  = acumulado a marzo      dev_t2  = acumulado a junio
+#   dev_sem = acumulado a julio  (nombre heredado, ver nota)
+#   dev_ago / dev_set / dev_oct ... = acumulado al mes respectivo
+#   rubros  = desglose por rubro AL ÚLTIMO PERÍODO ACTIVO (cert, comp, dev)
 #
-# NOTA sobre el nombre "dev_sem": es heredado de una versión anterior del
-# dashboard donde ese campo representaba el semestre (Ene-Jun). Hoy
-# representa Ene-Jul. No se renombra para no romper index.html, que ya
-# lo consume con ese nombre. Los meses nuevos (ago, set...) usan nombres
-# nuevos y correctos desde el inicio: dev_ago, dev_set, etc.
+# NOTA sobre "dev_sem": nombre heredado de cuando representaba el semestre
+# (Ene-Jun). Hoy representa Ene-Jul. No se renombra para no romper
+# index.html. Los meses nuevos usan nombres correctos (dev_ago, dev_set...).
 #
-# VALIDACIÓN:
-#   - Julio (dev_sem) tiene benchmark preexistente en el JSON -> se valida
-#     por diferencia porcentual contra ese valor (igual que v1).
-#   - Agosto en adelante NO tiene benchmark preexistente (nadie cargó ese
-#     dato antes) -> se valida por MONOTONICIDAD: el acumulado de cada
-#     mes nuevo debe ser mayor o igual al del mes anterior. Si un mes
-#     nuevo da un acumulado MENOR al anterior, es señal casi segura de
-#     un error de exportación (grupo mal seleccionado, año equivocado,
-#     archivo corrupto) y el script bloquea la escritura para ese año.
-#
-# USO:
-#   python actualizar_rb_hist_sc.py
+# VALIDACIÓN DE COHERENCIA:
+#   - Julio (dev_sem) se valida contra el benchmark que ya existía en el JSON.
+#   - Del resto se valida MONOTONICIDAD: el acumulado no puede bajar.
+#   - NUEVO: la suma de dev de las filas de "rubros" debe cuadrar con el
+#     total acumulado del último período (tolerancia por redondeo).
+#   Si algo falla, NO se escribe nada de ese año.
 # =============================================================================
 
 import os
@@ -55,26 +69,26 @@ AÑOS = [2022, 2023, 2024, 2025]
 CARPETA_XLS = "xls/historico_rubro"
 CARPETA_DATA = "data"
 ARCHIVO_JSON = os.path.join(CARPETA_DATA, "rb_hist_sc_progresivo.json")
+CODIGO_UE = "001-855"          # Sede Central
 
 # Lista ordenada de períodos a acumular progresivamente.
 # Cada entrada: (clave_campo_json, patrón_de_archivo, tiene_benchmark)
-#   - clave_campo_json: nombre del campo en el JSON de salida
-#   - patrón_de_archivo: con {año} como placeholder
-#   - tiene_benchmark: True solo para "dev_sem" (Julio), que ya existía
-#     en el JSON antes de este script y sirve de validación cruzada.
-#     Los meses nuevos van con False (se validan por monotonicidad).
 PERIODOS = [
     ("dev_t1", "1T_RUBRO_{año}.xls", False),
     ("dev_t2", "2T_RUBRO_{año}.xls", False),
     ("dev_sem", "JULIO_RUBRO_{año}.xls", True),
-
-    # --- Descomentar la línea del mes correspondiente cuando cierre ---
     ("dev_ago", "AGOSTO_RUBRO_{año}.xls", False),
     ("dev_set", "SETIEMBRE_RUBRO_{año}.xls", False),
     ("dev_oct", "OCTUBRE_RUBRO_{año}.xls", False),
+    # --- Descomentar la línea del mes correspondiente cuando cierre ---
     # ("dev_nov", "NOVIEMBRE_RUBRO_{año}.xls", False),
     # ("dev_dic", "DICIEMBRE_RUBRO_{año}.xls", False),
 ]
+
+# Abreviatura del mes de corte para el campo "label" ("Ene–Oct 2022")
+MES_ABREV = {"dev_t1": "Mar", "dev_t2": "Jun", "dev_sem": "Jul",
+             "dev_ago": "Ago", "dev_set": "Set", "dev_oct": "Oct",
+             "dev_nov": "Nov", "dev_dic": "Dic"}
 # -------------------------------------------------
 
 
@@ -87,43 +101,121 @@ def limpiar_numero(s):
         return 0.0
 
 
-def parsear_rubros(path):
+def validar_archivo(path, contenido, soup, año):
     """
-    Lee un archivo XLS del MEF (HTML disfrazado) filtrado por Rubro,
-    a nivel UE 001-855 Sede Central. Retorna el devengado total del
-    período (suma de todos los rubros) o None si el archivo no existe
-    o no tiene el formato esperado.
+    Chequeos previos a sumar un archivo. Devuelve True si es utilizable.
+    Cada chequeo corresponde a un error que YA ocurrió en este proyecto.
+    """
+    nombre = os.path.basename(path)
+    texto_crudo = contenido.decode("latin-1")
+    texto = re.sub(r"\s+", " ", soup.get_text(" "))
+
+    if "Recaudado" in texto_crudo:
+        print(f"   ⚠️  {nombre} es de INGRESOS (columna 'Recaudado'), no de Gasto. "
+              f"Re-exportar desde 'Consulta de Ejecución del Gasto'.")
+        return False
+
+    if not re.search(r"Ejecuci.n del Gasto", texto):
+        print(f"   ⚠️  {nombre}: el encabezado no dice 'Ejecución del Gasto'. "
+              f"¿Se exportó de otra consulta?")
+        return False
+
+    if f"Unidad Ejecutora {CODIGO_UE}" not in texto:
+        print(f"   ⚠️  {nombre}: falta la fila 'Unidad Ejecutora {CODIGO_UE}'. "
+              f"El archivo está a nivel Pliego completo (montos inflados). "
+              f"Re-exportar filtrando la UE Sede Central.")
+        return False
+
+    m = re.search(r"A.o de Ejecuci.n:\s*(\d{4})", texto)
+    if m and int(m.group(1)) != año:
+        print(f"   ⚠️  {nombre}: el encabezado dice año {m.group(1)} pero se "
+              f"esperaba {año}.")
+        return False
+
+    return True
+
+
+def parsear_rubros(path, año):
+    """
+    Lee un archivo XLS del MEF (HTML disfrazado) filtrado por Rubro, a nivel
+    UE 001-855 Sede Central. Devuelve un dict por rubro:
+        { "18": {"cert": ..., "comp": ..., "dev": ...}, ... }
+    del período del archivo, o None si no existe / no es válido.
+
+    Columnas de la tabla de detalle (índice 3 del HTML):
+      [0] "NN: nombre del rubro"  [1] PIA  [2] PIM (vacío en estos archivos)
+      [3] Certificación  [4] Compromiso Anual  [5] Atención Comp. Mensual
+      [6] Devengado  [7] Girado  [8] Avance %
     """
     if not os.path.exists(path):
         print(f"   ⚠️  ARCHIVO NO ENCONTRADO: {path}")
         return None
 
     with open(path, "rb") as f:
-        content = f.read()
+        contenido = f.read()
 
-    soup = BeautifulSoup(content, "html.parser")
+    soup = BeautifulSoup(contenido, "html.parser")
     tables = soup.find_all("table")
 
     if len(tables) < 4:
         print(f"   ⚠️  Formato inesperado: solo {len(tables)} tablas en {path}")
         return None
 
-    tabla_rubros = tables[3]
-    dev_total = 0.0
-    filas_encontradas = 0
+    if not validar_archivo(path, contenido, soup, año):
+        return None
 
-    for r in tabla_rubros.find_all("tr"):
+    rubros = {}
+    for r in tables[3].find_all("tr"):
         cols = [c.get_text(strip=True) for c in r.find_all(["td", "th"])]
         if len(cols) >= 8 and re.match(r"^\d{2}:", cols[0]):
-            dev_total += limpiar_numero(cols[6])
-            filas_encontradas += 1
+            codigo = cols[0][:2]
+            rubros[codigo] = {
+                "cert": limpiar_numero(cols[3]),
+                "comp": limpiar_numero(cols[4]),
+                "dev": limpiar_numero(cols[6]),
+            }
 
-    if filas_encontradas == 0:
+    if not rubros:
         print(f"   ⚠️  Sin filas de detalle por Rubro en {path} "
               f"(¿se exportó sin la columna 'Rubro' seleccionada?)")
         return None
 
-    return dev_total
+    return rubros
+
+
+def reconstruir_rubros(rubros_json, acum):
+    """
+    Reescribe la lista "rubros" del JSON con los acumulados recién calculados.
+    Conserva nombre, PIM y orden de los rubros que ya estaban en el JSON
+    (el PIM por rubro no viene en los archivos mensuales).
+    Si aparece un rubro nuevo en los archivos, lo agrega al final con PIM 0
+    y avisa: hay que completarle nombre y PIM a mano.
+    """
+    resultado, vistos = [], set()
+    for r in rubros_json:
+        cod = r["codigo"]
+        vistos.add(cod)
+        a = acum.get(cod, {"cert": 0.0, "comp": 0.0, "dev": 0.0})
+        nuevo = dict(r)
+        nuevo["cert"] = round(a["cert"])
+        nuevo["comp"] = round(a["comp"])
+        nuevo["dev"] = round(a["dev"])
+        resultado.append(nuevo)
+
+    for cod, a in sorted(acum.items()):
+        if cod in vistos:
+            continue
+        if abs(a["dev"]) < 1 and abs(a["cert"]) < 1 and abs(a["comp"]) < 1:
+            continue
+        print(f"   ⚠️  Rubro {cod} aparece en los archivos pero NO está en el "
+              f"JSON. Se agrega con PIM 0: completar nombre y PIM a mano.")
+        resultado.append({"codigo": cod,
+                          "nombre": f"Rubro {cod} (completar nombre y PIM)",
+                          "pim": 0,
+                          "cert": round(a["cert"]),
+                          "comp": round(a["comp"]),
+                          "dev": round(a["dev"])})
+    return resultado
 
 
 def procesar_año(año, data_existente):
@@ -133,20 +225,28 @@ def procesar_año(año, data_existente):
     entrada_propuesta = entrada_actual.copy()
 
     acumulado = 0.0
+    acum_rubros = {}                 # codigo -> {"cert","comp","dev"} acumulados
     bloqueado = False
     valor_anterior_acumulado = None  # para el chequeo de monotonicidad
+    ultima_clave = None
 
     for clave_campo, patron_archivo, tiene_benchmark in PERIODOS:
         path = os.path.join(CARPETA_XLS, patron_archivo.format(año=año))
         print(f"   Leyendo {clave_campo} ({patron_archivo.format(año=año)})")
-        periodo = parsear_rubros(path)
+        rubros_periodo = parsear_rubros(path, año)
 
-        if periodo is None:
+        if rubros_periodo is None:
             print(f"   ❌ No se pudo leer {clave_campo} para {año} — "
                   f"se conserva el valor anterior de TODOS los campos de este año.")
             return entrada_actual  # aborta todo el año, no solo el campo
 
+        periodo = sum(r["dev"] for r in rubros_periodo.values())
         acumulado += periodo
+        for cod, r in rubros_periodo.items():
+            a = acum_rubros.setdefault(cod, {"cert": 0.0, "comp": 0.0, "dev": 0.0})
+            for campo in a:
+                a[campo] += r[campo]
+        ultima_clave = clave_campo
 
         # --- Validación por benchmark preexistente (hoy: solo Julio/dev_sem) ---
         if tiene_benchmark:
@@ -163,7 +263,7 @@ def procesar_año(año, data_existente):
                     print(f"   ✅ {clave_campo} validado contra benchmark existente "
                           f"(diferencia {diferencia:,.0f})")
 
-        # --- Validación por monotonicidad (meses sin benchmark propio) ---
+        # --- Validación por monotonicidad ---
         if valor_anterior_acumulado is not None and acumulado < valor_anterior_acumulado - 1:
             print(f"   ⚠️  ALERTA: {clave_campo} (S/{acumulado:,.0f}) es MENOR al "
                   f"acumulado anterior (S/{valor_anterior_acumulado:,.0f}). El "
@@ -173,11 +273,32 @@ def procesar_año(año, data_existente):
         entrada_propuesta[clave_campo] = round(acumulado)
         valor_anterior_acumulado = acumulado
 
+    # --- Desglose por rubro al último período activo ---
+    rubros_nuevos = reconstruir_rubros(entrada_actual.get("rubros", []), acum_rubros)
+
+    # Coherencia: las filas de rubros deben sumar el total acumulado
+    suma_filas = sum(r["dev"] for r in rubros_nuevos)
+    total = entrada_propuesta[ultima_clave]
+    if abs(suma_filas - total) > len(rubros_nuevos) + 1:   # tolerancia por redondeo
+        print(f"   ⚠️  Las filas de rubros suman S/{suma_filas:,.0f} pero el total "
+              f"{ultima_clave} es S/{total:,.0f}. BLOQUEADO.")
+        bloqueado = True
+    else:
+        print(f"   ✅ Filas de rubros cuadran con {ultima_clave} "
+              f"(S/{suma_filas:,.0f} vs S/{total:,.0f})")
+
     if bloqueado:
         print(f"   🚫 Año {año}: NO se escriben cambios (algún check falló).")
         return entrada_actual
 
-    print(f"   ✅ Año {año} completo y coherente.")
+    entrada_propuesta["rubros"] = rubros_nuevos
+    entrada_propuesta["label"] = f"Ene–{MES_ABREV.get(ultima_clave, ultima_clave)} {año}"
+    pim = entrada_propuesta.get("pim")
+    if pim:
+        entrada_propuesta["av_pct"] = round(acumulado / pim * 100, 1)
+
+    print(f"   ✅ Año {año} completo y coherente: {entrada_propuesta['label']} "
+          f"= S/{acumulado:,.0f} ({entrada_propuesta.get('av_pct', '?')}% del PIM)")
     return entrada_propuesta
 
 
@@ -188,7 +309,8 @@ def main():
     print(f"Períodos configurados: {[p[0] for p in PERIODOS]}")
 
     if not os.path.exists(ARCHIVO_JSON):
-        print(f"❌ No se encontró {ARCHIVO_JSON}. Abortando.")
+        print(f"❌ No se encontró {ARCHIVO_JSON}. ¿Corriste el script desde la "
+              f"raíz del repo? Abortando.")
         return
 
     with open(ARCHIVO_JSON, "r", encoding="utf-8") as f:
