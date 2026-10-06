@@ -43,7 +43,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 
 # ---------------- CONFIGURACIÓN ----------------
-AÑOS = [2022, 2023, 2024, 2025]
+AÑOS = [2021, 2022, 2023, 2024, 2025]
 CARPETA_XLS = "xls/historico"
 CARPETA_DATA = "data"
 ARCHIVO_JSON = os.path.join(CARPETA_DATA, "historico_progresivo.json")
@@ -80,6 +80,17 @@ NOMBRE_MES_FINAL = {"T1": "Marzo", "T2": "Junio", "JULIO": "Julio",
                      "AGOSTO": "Agosto", "SETIEMBRE": "Setiembre",
                      "OCTUBRE": "Octubre", "NOVIEMBRE": "Noviembre",
                      "DICIEMBRE": "Diciembre"}
+
+# Mes que DEBE traer el filtro de cada archivo de período (número, nombre).
+# None = archivo acumulado sin filtro de mes (trimestres y anual).
+# Setiembre: el MEF escribe "septiembre" aunque el archivo se llame "setiembre".
+MES_ESPERADO = {
+    "T1": None, "T2": None,
+    "JULIO": (7, r"julio"), "AGOSTO": (8, r"agosto"),
+    "SETIEMBRE": (9, r"sep?tiembre"), "OCTUBRE": (10, r"octubre"),
+    "NOVIEMBRE": (11, r"noviembre"), "DICIEMBRE": (12, r"diciembre"),
+}
+TOTAL_GORES_ESPERADO = 26
 # -------------------------------------------------
 
 
@@ -92,7 +103,41 @@ def limpiar_numero(s):
         return 0.0
 
 
-def parsear_gores(path):
+def validar_archivo(path, soup, año, periodo):
+    """
+    Rechaza archivos equivocados ANTES de acumularlos (v2, 06/10/2026).
+    Devuelve (True, "") o (False, motivo). Valida:
+      - Consulta de GASTO (no Ingresos)
+      - Año de ejecución = año esperado
+      - Filtro "Sólo Proyectos" (el JSON es de inversiones)
+      - Nivel de Gobierno R / Sector 99 (los 26 GOREs, no un pliego suelto)
+      - Filtro de mes = el del período (o ninguno en T1/T2/anual)
+    `periodo` es la etiqueta de PERIODOS ("JULIO"...), "T1"/"T2" o None (anual).
+    """
+    texto = re.sub(r"\s+", " ", soup.get_text(" "))
+    if "Recaudado" in texto or not re.search(r"Ejecuci.n del Gasto", texto):
+        return False, "no es una consulta de Ejecución del GASTO (¿exportaste Ingresos?)"
+    m = re.search(r"A.o de Ejecuci.n:\s*(\d{4})", texto)
+    if not m or int(m.group(1)) != año:
+        return False, f"año del archivo = {m.group(1) if m else '?'} y se esperaba {año}"
+    if not re.search(r"Incluye:\s*S.lo Proyectos", texto):
+        return False, 'falta el filtro "Incluye: Sólo Proyectos"'
+    if not re.search(r"Nivel de Gobierno R:", texto) or not re.search(r"Sector 99:", texto):
+        return False, "no es el nivel Gobiernos Regionales / Sector 99"
+    esperado = MES_ESPERADO.get(periodo) if periodo else None
+    meses = re.findall(r"Mes (\d{1,2}): ?(\w+)", texto)
+    if esperado is None:
+        if meses:
+            return False, f"trae filtro de mes ({meses[0][1]}) pero este archivo debe ser acumulado"
+    else:
+        num, patron = esperado
+        if not any(int(n) == num and re.fullmatch(patron, nom, re.I) for n, nom in meses):
+            hallado = ", ".join(f"{n}:{nom}" for n, nom in meses) or "ninguno"
+            return False, f"el filtro de mes no es el {num} (hallado: {hallado})"
+    return True, ""
+
+
+def parsear_gores(path, año=None, periodo=None):
     """
     Lee un archivo XLS del MEF (HTML disfrazado) con el ranking de 26
     GOREs (Sector 99, sin Pliego específico). Estructura confirmada
@@ -112,6 +157,11 @@ def parsear_gores(path):
         content = f.read()
 
     soup = BeautifulSoup(content, "html.parser")
+    if año is not None:
+        ok, motivo = validar_archivo(path, soup, año, periodo)
+        if not ok:
+            print(f"   ❌ ARCHIVO RECHAZADO ({os.path.basename(path)}): {motivo}")
+            return None
     tables = soup.find_all("table")
 
     if len(tables) < 4:
@@ -137,6 +187,11 @@ def parsear_gores(path):
         print(f"   ⚠️  Sin filas de GOREs reconocidas en {path}")
         return None
 
+    if año is not None and len(gores) != TOTAL_GORES_ESPERADO:
+        print(f"   ❌ ARCHIVO RECHAZADO ({os.path.basename(path)}): trae {len(gores)} "
+              f"GOREs y se esperaban {TOTAL_GORES_ESPERADO}")
+        return None
+
     return gores
 
 
@@ -159,7 +214,7 @@ def procesar_año(año, data_existente):
     # --- 1) PIM anual (fijo, no se acumula) ---
     path_anual = os.path.join(CARPETA_XLS, ARCHIVO_ANUAL.format(año=año))
     print(f"   Leyendo PIM anual: {path_anual}")
-    gores_anual = parsear_gores(path_anual)
+    gores_anual = parsear_gores(path_anual, año, None)
     if gores_anual is None:
         print(f"   ❌ No se pudo leer el PIM anual de {año}. Año sin cambios.")
         return entrada_actual
@@ -174,7 +229,7 @@ def procesar_año(año, data_existente):
     for etiqueta, patron, tiene_benchmark in PERIODOS:
         path = os.path.join(CARPETA_XLS, patron.format(año=año))
         print(f"   Leyendo {etiqueta} ({patron.format(año=año)})")
-        gores_periodo = parsear_gores(path)
+        gores_periodo = parsear_gores(path, año, etiqueta)
 
         if gores_periodo is None:
             print(f"   ❌ No se pudo leer {etiqueta} para {año}. Año sin cambios.")
@@ -348,6 +403,7 @@ def main():
         if resultado is not None:
             data["semestres"][str(año)] = resultado
 
+    data["semestres"] = {k: data["semestres"][k] for k in sorted(data["semestres"])}  # años ascendentes
     data["generado"] = datetime.today().strftime("%Y-%m-%d")
     data["descripcion"] = "Ranking 26 GOREs — acumulado progresivo (T1 + T2 + flujos mensuales). Dev% = acumulado / PIM anual."
     data["elaborado_por"] = "ORAD — GORE Lambayeque"

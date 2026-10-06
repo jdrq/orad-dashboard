@@ -65,7 +65,7 @@ import json
 from bs4 import BeautifulSoup
 
 # ---------------- CONFIGURACIÓN ----------------
-AÑOS = [2022, 2023, 2024, 2025]
+AÑOS = [2021, 2022, 2023, 2024, 2025]
 CARPETA_XLS = "xls/historico_rubro"
 CARPETA_DATA = "data"
 ARCHIVO_JSON = os.path.join(CARPETA_DATA, "rb_hist_sc_progresivo.json")
@@ -85,6 +85,23 @@ PERIODOS = [
     # ("dev_dic", "DICIEMBRE_RUBRO_{año}.xls", False),
 ]
 
+# Filtro de mes que DEBE traer cada archivo (número, nombre en el MEF).
+# None = acumulado sin filtro de mes. Detecta, p. ej., un archivo de Setiembre
+# exportado sin filtro de mes o agrupado por mes en vez de por Rubro.
+MES_ESPERADO = {"dev_t1": None, "dev_t2": None,
+                "dev_sem": (7, r"julio"), "dev_ago": (8, r"agosto"),
+                "dev_set": (9, r"sep?tiembre"), "dev_oct": (10, r"octubre"),
+                "dev_nov": (11, r"noviembre"), "dev_dic": (12, r"diciembre")}
+
+# Archivo con el PIM por rubro (sin filtro de mes). Solo se usa para años que
+# aún no están en el JSON; se busca sin distinguir mayúsculas.
+ARCHIVO_ANUAL = "ANUAL_RUBRO_{año}.xls"
+
+# Nombres cortos de rubros conocidos (los que usa el dashboard).
+NOMBRES_RUBRO = {"00": "Recursos Ordinarios", "09": "R. Dir. Recaudados",
+                 "13": "Donaciones y Transf.", "15": "FONCOR",
+                 "18": "Canon y Sobrecanon", "19": "Op. Oficiales de Crédito"}
+
 # Abreviatura del mes de corte para el campo "label" ("Ene–Oct 2022")
 MES_ABREV = {"dev_t1": "Mar", "dev_t2": "Jun", "dev_sem": "Jul",
              "dev_ago": "Ago", "dev_set": "Set", "dev_oct": "Oct",
@@ -101,7 +118,7 @@ def limpiar_numero(s):
         return 0.0
 
 
-def validar_archivo(path, contenido, soup, año):
+def validar_archivo(path, contenido, soup, año, clave=None):
     """
     Chequeos previos a sumar un archivo. Devuelve True si es utilizable.
     Cada chequeo corresponde a un error que YA ocurrió en este proyecto.
@@ -132,10 +149,25 @@ def validar_archivo(path, contenido, soup, año):
               f"esperaba {año}.")
         return False
 
+    # Filtro de mes (v4): el archivo debe corresponder al período esperado.
+    meses = re.findall(r"Mes (\d{1,2}): ?(\w+)", texto)
+    esperado = MES_ESPERADO.get(clave)
+    if clave is not None and esperado is None and meses:
+        print(f"   ⚠️  {nombre}: trae filtro de mes ({meses[0][1]}) pero debe ser "
+              f"un acumulado sin filtro de mes.")
+        return False
+    if esperado is not None:
+        num, patron = esperado
+        if not any(int(n) == num and re.fullmatch(patron, nom, re.I) for n, nom in meses):
+            hallado = ", ".join(f"{n}:{nom}" for n, nom in meses) or "ninguno"
+            print(f"   ⚠️  {nombre}: el filtro de mes no es el {num} (hallado: "
+                  f"{hallado}). Re-exportar con el mes correcto y agrupado por Rubro.")
+            return False
+
     return True
 
 
-def parsear_rubros(path, año):
+def parsear_rubros(path, año, clave=None):
     """
     Lee un archivo XLS del MEF (HTML disfrazado) filtrado por Rubro, a nivel
     UE 001-855 Sede Central. Devuelve un dict por rubro:
@@ -161,7 +193,7 @@ def parsear_rubros(path, año):
         print(f"   ⚠️  Formato inesperado: solo {len(tables)} tablas en {path}")
         return None
 
-    if not validar_archivo(path, contenido, soup, año):
+    if not validar_archivo(path, contenido, soup, año, clave):
         return None
 
     rubros = {}
@@ -181,6 +213,42 @@ def parsear_rubros(path, año):
         return None
 
     return rubros
+
+
+def leer_anual(año):
+    """
+    Para un año NUEVO (sin entrada en el JSON): lee ANUAL_RUBRO_{año}.xls y
+    devuelve (lista_de_rubros_con_PIM, pim_total) o None.
+    Los rubros salen ordenados por PIM descendente (como en los años ya cargados).
+    """
+    nombre = ARCHIVO_ANUAL.format(año=año)
+    path = None
+    if os.path.isdir(CARPETA_XLS):
+        for f in os.listdir(CARPETA_XLS):
+            if f.casefold() == nombre.casefold():
+                path = os.path.join(CARPETA_XLS, f)
+    if path is None:
+        print(f"   ❌ Año nuevo sin {nombre} en {CARPETA_XLS} (se necesita para el PIM por rubro).")
+        return None
+    with open(path, "rb") as f:
+        contenido = f.read()
+    soup = BeautifulSoup(contenido, "html.parser")
+    tables = soup.find_all("table")
+    if len(tables) < 4 or not validar_archivo(path, contenido, soup, año, None):
+        return None
+    filas = []
+    for r in tables[3].find_all("tr"):
+        cols = [c.get_text(strip=True) for c in r.find_all(["td", "th"])]
+        if len(cols) >= 8 and re.match(r"^\d{2}:", cols[0]):
+            cod = cols[0][:2]
+            nom = NOMBRES_RUBRO.get(cod) or cols[0][3:].strip().title()
+            filas.append({"codigo": cod, "nombre": nom,
+                          "pim": round(limpiar_numero(cols[2]))})
+    if not filas:
+        print(f"   ⚠️  {nombre}: sin filas por Rubro (¿exportado sin agrupar por Rubro?).")
+        return None
+    filas.sort(key=lambda x: -x["pim"])
+    return filas, sum(x["pim"] for x in filas)
 
 
 def reconstruir_rubros(rubros_json, acum):
@@ -233,7 +301,7 @@ def procesar_año(año, data_existente):
     for clave_campo, patron_archivo, tiene_benchmark in PERIODOS:
         path = os.path.join(CARPETA_XLS, patron_archivo.format(año=año))
         print(f"   Leyendo {clave_campo} ({patron_archivo.format(año=año)})")
-        rubros_periodo = parsear_rubros(path, año)
+        rubros_periodo = parsear_rubros(path, año, clave_campo)
 
         if rubros_periodo is None:
             print(f"   ❌ No se pudo leer {clave_campo} para {año} — "
@@ -273,8 +341,19 @@ def procesar_año(año, data_existente):
         entrada_propuesta[clave_campo] = round(acumulado)
         valor_anterior_acumulado = acumulado
 
+    # --- Año nuevo: el PIM por rubro sale del archivo ANUAL_RUBRO ---
+    base_rubros = entrada_actual.get("rubros", [])
+    if not base_rubros:
+        anual = leer_anual(año)
+        if anual is None:
+            print(f"   🚫 Año {año}: sin PIM por rubro, no se escribe.")
+            return entrada_actual
+        base_rubros, pim_total = anual
+        entrada_propuesta["pim"] = pim_total
+        print(f"   ℹ️  Año nuevo: PIM por rubro tomado de ANUAL_RUBRO (total S/{pim_total:,.0f}).")
+
     # --- Desglose por rubro al último período activo ---
-    rubros_nuevos = reconstruir_rubros(entrada_actual.get("rubros", []), acum_rubros)
+    rubros_nuevos = reconstruir_rubros(base_rubros, acum_rubros)
 
     # Coherencia: las filas de rubros deben sumar el total acumulado
     suma_filas = sum(r["dev"] for r in rubros_nuevos)
@@ -321,6 +400,7 @@ def main():
         if resultado is not None:
             data[str(año)] = resultado
 
+    data = {k: data[k] for k in sorted(data)}   # años en orden ascendente
     with open(ARCHIVO_JSON, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
 
