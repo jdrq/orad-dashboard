@@ -93,6 +93,10 @@ MES_ESPERADO = {"dev_t1": None, "dev_t2": None,
                 "dev_set": (9, r"sep?tiembre"), "dev_oct": (10, r"octubre"),
                 "dev_nov": (11, r"noviembre"), "dev_dic": (12, r"diciembre")}
 
+# Subcarpeta donde vive cada tipo de archivo dentro de xls/historico_rubro/.
+# (Si la subcarpeta no existe, se busca también en la carpeta principal.)
+SUBCARPETA = {"dev_t1": "TRIMESTRE", "dev_t2": "TRIMESTRE", "ANUAL": "ANUAL"}   # el resto: "MES"
+
 # Archivo con el PIM por rubro (sin filtro de mes). Solo se usa para años que
 # aún no están en el JSON; se busca sin distinguir mayúsculas.
 ARCHIVO_ANUAL = "ANUAL_RUBRO_{año}.xls"
@@ -107,6 +111,22 @@ MES_ABREV = {"dev_t1": "Mar", "dev_t2": "Jun", "dev_sem": "Jul",
              "dev_ago": "Ago", "dev_set": "Set", "dev_oct": "Oct",
              "dev_nov": "Nov", "dev_dic": "Dic"}
 # -------------------------------------------------
+
+
+def ubicar_archivo(nombre, clave):
+    """
+    Busca el archivo en xls/historico_rubro/<TRIMESTRE|MES|ANUAL>/ y, si no está
+    ahí, en xls/historico_rubro/ (estructura antigua). Ignora mayúsculas.
+    Devuelve la ruta encontrada o, si no existe, la ruta esperada (para el aviso).
+    """
+    sub = SUBCARPETA.get(clave, "MES")
+    candidatas = [os.path.join(CARPETA_XLS, sub), CARPETA_XLS]
+    for carpeta in candidatas:
+        if os.path.isdir(carpeta):
+            for f in os.listdir(carpeta):
+                if f.casefold() == nombre.casefold() and os.path.isfile(os.path.join(carpeta, f)):
+                    return os.path.join(carpeta, f)
+    return os.path.join(candidatas[0], nombre)
 
 
 def limpiar_numero(s):
@@ -222,13 +242,9 @@ def leer_anual(año):
     Los rubros salen ordenados por PIM descendente (como en los años ya cargados).
     """
     nombre = ARCHIVO_ANUAL.format(año=año)
-    path = None
-    if os.path.isdir(CARPETA_XLS):
-        for f in os.listdir(CARPETA_XLS):
-            if f.casefold() == nombre.casefold():
-                path = os.path.join(CARPETA_XLS, f)
-    if path is None:
-        print(f"   ❌ Año nuevo sin {nombre} en {CARPETA_XLS} (se necesita para el PIM por rubro).")
+    path = ubicar_archivo(nombre, "ANUAL")
+    if not os.path.isfile(path):
+        print(f"   ❌ Año nuevo sin {nombre} en {os.path.dirname(path)} (se necesita para el PIM por rubro).")
         return None
     with open(path, "rb") as f:
         contenido = f.read()
@@ -299,7 +315,7 @@ def procesar_año(año, data_existente):
     ultima_clave = None
 
     for clave_campo, patron_archivo, tiene_benchmark in PERIODOS:
-        path = os.path.join(CARPETA_XLS, patron_archivo.format(año=año))
+        path = ubicar_archivo(patron_archivo.format(año=año), clave_campo)
         print(f"   Leyendo {clave_campo} ({patron_archivo.format(año=año)})")
         rubros_periodo = parsear_rubros(path, año, clave_campo)
 
