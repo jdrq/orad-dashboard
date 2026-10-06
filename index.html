@@ -1108,12 +1108,12 @@
             </div>
             <div style="background:#fff;border:2px solid #e8821e;border-radius:10px;padding:14px 22px;flex:0 0 auto">
               <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:4px">Proyección Dic 2026</div>
-              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--naranja-h)" id="b9devProy">S/ 737,640,177</div>
+              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--naranja-h)" id="b9devProy">S/ 782,870,403</div>
               <div style="font-family:'Barlow Condensed';font-weight:700;font-size:15px;color:var(--vino)" id="b9pctProy">97.3%</div>
             </div>
             <div style="background:#fff;border:1px solid var(--linea);border-radius:10px;padding:14px 22px;flex:0 0 auto">
               <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:4px">PIM 2026</div>
-              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--vino)" id="b9pimActual">S/ 758,109,123</div>
+              <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--vino)" id="b9pimActual">S/ 804,594,453</div>
             </div>
           </div>
           <!-- Gráfico de proyección -->
@@ -2221,7 +2221,8 @@
   ];
 
   let b8ChartDev=null, b8ChartPim=null;
-  const B8_PROJ_2026 = 772173813; // Proyección institucional devengado Dic 2026
+  // Proyección Dic 2026: ya no es un valor fijo. Sale de b9ProyDic() (Bloque 9):
+  // curva institucional B9_PCT_PROY × PIM vigente, igual que el Bloque 9.
   function renderBloque8(sel){
     // El año 2026 se toma en vivo de los archivos cargados (igual que Bloque 1)
     const selUE = sel.filter(a=>!a.esNacional && !a.esProyectos && !a.esRubro && !a.esFuncion && !a.esHistorico);
@@ -2233,7 +2234,7 @@
     const pimData = B8_HISTORICO.map(d=>d.pim).concat([pim26||null]);
 
     // Serie de proyección: null en todos los años históricos, solo el punto 2026
-    const projData = B8_HISTORICO.map(()=>null).concat([B8_PROJ_2026]);
+    const projData = B8_HISTORICO.map(()=>null).concat([b9ProyDic(pim26)]);
 
     const vivo=$("#b8vivo");
     if(vivo){
@@ -2318,7 +2319,7 @@
     // Dataset 2 — ramal proyección: null hasta penúltimo, luego 2025→proj2026
     const dProj = B8_HISTORICO.map(() => null);
     dProj[dProj.length - 1] = dev2025;          // ancla en 2025
-    dProj.push(B8_PROJ_2026);                    // punto 2026 proyectado
+    dProj.push(b9ProyDic(pim26));                    // punto 2026 proyectado
 
     const cv8 = document.getElementById("b8ChartDev");
     if(cv8){
@@ -2955,17 +2956,17 @@
   // PIM 2026: 758,109,123 (Pliego 452, filtro "Sólo Proyectos" — antes se usaba
   // el PIM del pliego completo, 793,371,105, que incluye gasto corriente/funcionamiento;
   // se corrigió el 14/08/2026 para que coincida con el alcance real de este bloque)
-  const B9_PIM = 758109123;
+  // PIM fallback (solo si no hay archivos cargados): Pliego 452, suma de las 10 UE
+  // en ue_pliego.xls, consulta 06/10/2026. En condiciones normales se usa el PIM en vivo.
+  const B9_PIM = 804594453;
   const B9_MESES_LABELS = ["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SETIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"];
   // Porcentajes proyectados institucionales (curva de avance esperado, sin cambios)
   const B9_PCT_PROY = [2.3,10.9,16.8,21.1,27.1,35.8,45.1,55.4,66.3,76.5,86.6,97.3];
-  // Valores proyectados acumulados = B9_PCT_PROY aplicado al PIM "Sólo Proyectos"
-  // (758,109,123). Recalibrado el 14/08/2026 al cambiar el PIM base (antes usaba
-  // 793,371,105 del pliego completo, lo que sobreestimaba la proyección de Dic).
-  const B9_PROYECTADO_ACUM = [
-    17436510, 82633894, 127362333, 159961025, 205447572,
-    271403066, 341907214, 419992454, 502626349, 579953479, 656522501, 737640177
-  ];
+  // La proyección en soles NO se guarda fija: se calcula como B9_PCT_PROY × PIM vigente.
+  // Así, cuando el PIM cambia (modificaciones presupuestales), la curva, el KPI y el
+  // Bloque 8 se mueven juntos y el % de la tarjeta siempre coincide con el monto.
+  function b9ProyAcum(pim){ return B9_PCT_PROY.map(p=>Math.round((pim>0?pim:B9_PIM)*p/100)); }
+  function b9ProyDic(pim){ const a=b9ProyAcum(pim); return a[a.length-1]; }
   // Devengado real acumulado — datos oficiales Consulta Amigable (Pliego 452,
   // filtro "Sólo Proyectos"), consulta del 14/08/2026. Ene–Jul son valores
   // CERRADOS/fijos. Junio corregido de 256,731,752 → 258,850,964: el MEF
@@ -3023,6 +3024,13 @@
     const devBase = devActual>0 ? devActual : 415259494;
     const pctBase = pimVivo ? devBase/pimVivo*100 : 43.1;
 
+    // Proyección calculada sobre el PIM vigente (misma fuente que el Bloque 8)
+    const proyAcum = b9ProyAcum(pimVivo);
+    const proyDic = proyAcum[proyAcum.length-1];
+    const kProy=$("#b9devProy"), kProyPct=$("#b9pctProy");
+    if(kProy) kProy.textContent="S/ "+Math.round(proyDic).toLocaleString("es-PE");
+    if(kProyPct) kProyPct.textContent=(proyDic/pimVivo*100).toFixed(1)+"%";
+
     // Actualizar KPIs
     const kDev=$("#b9devActual"), kPct=$("#b9pctActual"), kPim=$("#b9pimActual");
     if(kDev) kDev.textContent="S/ "+Math.round(devBase).toLocaleString("es-PE");
@@ -3062,7 +3070,7 @@
           },
           {
             label:"Devengado Proyectado",
-            data:B9_PROYECTADO_ACUM,
+            data:proyAcum,
             borderColor:"#e8821e", backgroundColor:"#e8821e",
             tension:.3,
             pointRadius:3, pointBackgroundColor:"#e8821e",
