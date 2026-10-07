@@ -43,7 +43,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 
 # ---------------- CONFIGURACIÓN ----------------
-AÑOS = [2019, 2020, 2021, 2022, 2023, 2024, 2025]
+AÑOS = [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
 CARPETA_XLS = "xls/historico"
 CARPETA_DATA = "data"
 ARCHIVO_JSON = os.path.join(CARPETA_DATA, "historico_progresivo.json")
@@ -103,10 +103,12 @@ def ubicar_archivo(nombre, etiqueta):
     xls/historico/. Ignora mayúsculas. Si no existe devuelve la ruta esperada."""
     sub = SUBCARPETA.get(etiqueta, "MESES")
     candidatas = [os.path.join(CARPETA_XLS, sub), CARPETA_XLS]
+    # Tolera la grafía "septiembre" (la que usa el MEF) además de "setiembre".
+    nombres = {nombre.casefold(), nombre.casefold().replace("setiembre", "septiembre")}
     for carpeta in candidatas:
         if os.path.isdir(carpeta):
             for f in os.listdir(carpeta):
-                if f.casefold() == nombre.casefold() and os.path.isfile(os.path.join(carpeta, f)):
+                if f.casefold() in nombres and os.path.isfile(os.path.join(carpeta, f)):
                     return os.path.join(carpeta, f)
     return os.path.join(candidatas[0], nombre)
 

@@ -65,7 +65,7 @@ import json
 from bs4 import BeautifulSoup
 
 # ---------------- CONFIGURACIÓN ----------------
-AÑOS = [2019, 2020, 2021, 2022, 2023, 2024, 2025]
+AÑOS = [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
 CARPETA_XLS = "xls/historico_rubro"
 CARPETA_DATA = "data"
 ARCHIVO_JSON = os.path.join(CARPETA_DATA, "rb_hist_sc_progresivo.json")
