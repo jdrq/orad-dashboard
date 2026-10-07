@@ -43,7 +43,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 
 # ---------------- CONFIGURACIÓN ----------------
-AÑOS = [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+AÑOS = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
 CARPETA_XLS = "xls/historico"
 CARPETA_DATA = "data"
 ARCHIVO_JSON = os.path.join(CARPETA_DATA, "historico_progresivo.json")

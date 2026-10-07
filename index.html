@@ -524,6 +524,13 @@
           <!-- Selector de año -->
           <div class="yr-selector">
             <span class="yr-selector-label">Período:</span>
+            <button class="yr-btn-a" data-yr="2015">2015</button>
+            <button class="yr-btn-a" data-yr="2016">2016</button>
+            <button class="yr-btn-a" data-yr="2017">2017</button>
+            <button class="yr-btn-a" data-yr="2018">2018</button>
+            <button class="yr-btn-a" data-yr="2019">2019</button>
+            <button class="yr-btn-a" data-yr="2020">2020</button>
+            <button class="yr-btn-a" data-yr="2021">2021</button>
             <button class="yr-btn-a" data-yr="2022">2022</button>
             <button class="yr-btn-a" data-yr="2023">2023</button>
             <button class="yr-btn-a" data-yr="2024">2024</button>
@@ -568,6 +575,13 @@
           <!-- Selector de año -->
           <div class="yr-selector">
             <span class="yr-selector-label">Período:</span>
+            <button class="yr-btn" data-yr="2015">2015</button>
+            <button class="yr-btn" data-yr="2016">2016</button>
+            <button class="yr-btn" data-yr="2017">2017</button>
+            <button class="yr-btn" data-yr="2018">2018</button>
+            <button class="yr-btn" data-yr="2019">2019</button>
+            <button class="yr-btn" data-yr="2020">2020</button>
+            <button class="yr-btn" data-yr="2021">2021</button>
             <button class="yr-btn" data-yr="2022">2022</button>
             <button class="yr-btn" data-yr="2023">2023</button>
             <button class="yr-btn" data-yr="2024">2024</button>
@@ -620,6 +634,13 @@
           <!-- Selector de año -->
           <div class="yr-selector">
             <span class="yr-selector-label">Período:</span>
+            <button class="yr-btn-c" data-yr="2015">2015</button>
+            <button class="yr-btn-c" data-yr="2016">2016</button>
+            <button class="yr-btn-c" data-yr="2017">2017</button>
+            <button class="yr-btn-c" data-yr="2018">2018</button>
+            <button class="yr-btn-c" data-yr="2019">2019</button>
+            <button class="yr-btn-c" data-yr="2020">2020</button>
+            <button class="yr-btn-c" data-yr="2021">2021</button>
             <button class="yr-btn-c" data-yr="2022">2022</button>
             <button class="yr-btn-c" data-yr="2023">2023</button>
             <button class="yr-btn-c" data-yr="2024">2024</button>
@@ -947,6 +968,13 @@
           <!-- Selector de año -->
           <div class="rubro-yr-selector">
             <span class="rubro-yr-label">Período:</span>
+            <button class="yr-btn-rb" data-rbyr="2015" data-grupo="1">2015</button>
+            <button class="yr-btn-rb" data-rbyr="2016" data-grupo="1">2016</button>
+            <button class="yr-btn-rb" data-rbyr="2017" data-grupo="1">2017</button>
+            <button class="yr-btn-rb" data-rbyr="2018" data-grupo="1">2018</button>
+            <button class="yr-btn-rb" data-rbyr="2019" data-grupo="1">2019</button>
+            <button class="yr-btn-rb" data-rbyr="2020" data-grupo="1">2020</button>
+            <button class="yr-btn-rb" data-rbyr="2021" data-grupo="1">2021</button>
             <button class="yr-btn-rb" data-rbyr="2022" data-grupo="1">2022</button>
             <button class="yr-btn-rb" data-rbyr="2023" data-grupo="1">2023</button>
             <button class="yr-btn-rb" data-rbyr="2024" data-grupo="1">2024</button>
@@ -1056,14 +1084,14 @@
         </div>
       </div>
 
-      <!-- ═══════════════ BLOQUE 8: Histórico 2016-2026 (datos fijos del PDF institucional) ═══════════════ -->
+      <!-- ═══════════════ BLOQUE 8: Histórico 2015-2026 (datos fijos del PDF institucional) ═══════════════ -->
       <div class="pdf-section" id="b8secHistorico">
         <div class="pdf-header"><div class="pdf-header-left"><h2>Ejecución Presupuestal de Inversiones</h2>
           <div class="sub">Comparativo Histórico de Enero — Diciembre — Gobierno Regional de Lambayeque &nbsp;·&nbsp; <span id="b8fecha">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body" style="padding:20px 24px 24px">
           <!-- Etiqueta del año actual en vivo -->
           <div id="b8vivo" style="font-family:'Barlow Condensed';font-weight:600;color:var(--texto);font-size:13px;margin-bottom:14px">
-            El año 2026 se actualiza en tiempo real con los archivos cargados. Los datos 2016–2025 provienen del informe institucional ORAD.
+            El año 2026 se actualiza en tiempo real con los archivos cargados. Los datos 2015–2025 provienen del informe institucional ORAD y de Consulta Amigable MEF (2015).
           </div>
           <!-- GRÁFICO DEVENGADO -->
           <div style="background:#fff;border:1px solid #e4e7ec;border-radius:10px;padding:16px 14px 10px;margin-bottom:20px">
@@ -2205,9 +2233,10 @@
     if(tFoot) tFoot.innerHTML=funcionFootHTML(tp,tc,tco,td,prom,tpia);
   }
 
-  // -------- Bloque 8: Histórico 2016-2026 (datos fijos del PDF institucional) --------
+  // -------- Bloque 8: Histórico 2015-2026 (datos fijos del PDF institucional) --------
   // Datos tomados directamente de ejecpresupuestaldeinversioneshistorico.png
   const B8_HISTORICO = [
+    { anio:2015, devengado:299443432, pim:388513771 },   // Consulta Amigable MEF (anual_2015_gores.xls, Pliego 452, Sólo Proyectos)
     { anio:2016, devengado:281368875, pim:348590307 },
     { anio:2017, devengado:267744114, pim:363066668 },
     { anio:2018, devengado:260449784, pim:380087444 },
@@ -2217,7 +2246,7 @@
     { anio:2022, devengado:373859189, pim:581186551 },
     { anio:2023, devengado:465307672, pim:722844737 },
     { anio:2024, devengado:619508497, pim:755891001 },
-    { anio:2025, devengado:650201021, pim:754599572 },
+    { anio:2025, devengado:650201021, pim:754899572 },
   ];
 
   let b8ChartDev=null, b8ChartPim=null;
@@ -2238,8 +2267,8 @@
 
     const vivo=$("#b8vivo");
     if(vivo){
-      if(dev26>0) vivo.innerHTML=`El año 2026 se actualiza en tiempo real: <b>Devengado S/ ${Math.round(dev26).toLocaleString("es-PE")}</b> · <b>PIM S/ ${Math.round(pim26).toLocaleString("es-PE")}</b>. Los datos 2016–2025 provienen del informe institucional ORAD.`;
-      else vivo.innerHTML=`El año 2026 se actualiza en tiempo real: <b>Devengado S/ 250,067,360</b> · <b>PIM S/ 774,794,996</b>. Los datos 2016–2025 provienen del informe institucional ORAD.`;
+      if(dev26>0) vivo.innerHTML=`El año 2026 se actualiza en tiempo real: <b>Devengado S/ ${Math.round(dev26).toLocaleString("es-PE")}</b> · <b>PIM S/ ${Math.round(pim26).toLocaleString("es-PE")}</b>. Los datos 2015–2025 provienen del informe institucional ORAD y de Consulta Amigable MEF (2015).`;
+      else vivo.innerHTML=`El año 2026 se actualiza en tiempo real: <b>Devengado S/ 250,067,360</b> · <b>PIM S/ 774,794,996</b>. Los datos 2015–2025 provienen del informe institucional ORAD y de Consulta Amigable MEF (2015).`;
     }
 
     function makeChart(canvasId, serie, color, titulo, destroy, extraDatasets){
@@ -2276,7 +2305,7 @@
             },
             datalabels:{
               display: true,
-              align: ctx => (ctx.dataIndex===0 || ctx.dataIndex===labels.length-1) ? "right" : "top",
+              align: ctx => (ctx.dataIndex===labels.length-1) ? "right" : "top",
               anchor: "end",
               offset: 6,
               color: "#000",
@@ -2298,14 +2327,14 @@
     }
     // ── Gráfico Devengado ─────────────────────────────────────────────────────
     // Construimos 3 series para lograr el bifurcado desde 2025:
-    //   [0] Línea histórica 2016–2025  (vino sólida, sin punto 2026)
+    //   [0] Línea histórica 2015–2025  (vino sólida, sin punto 2026)
     //   [1] Ramal real     2025→2026   (vino sólida,  baja al dato real)
     //   [2] Ramal proy     2025→2026   (naranja punteada, sube a la meta)
     //
     // Truco: en Chart.js una serie con solo 2 puntos dibuja exactamente un segmento.
     // El punto de 2025 se repite en los 3 datasets para que la unión sea perfecta.
 
-    const n = labels.length; // total de labels: 2016…2025 = 10, + 2026 = 11
+    const n = labels.length; // total de labels: 2015…2025 = 11, + 2026 = 12
     const dev2025 = B8_HISTORICO[B8_HISTORICO.length - 1].devengado; // último histórico
 
     // Dataset 0 — línea histórica completa hasta 2025, sin extenderse a 2026
@@ -2329,7 +2358,7 @@
         data:{
           labels,
           datasets:[
-            // 0 — histórico 2016-2025
+            // 0 — histórico 2015-2025
             {
               label:"Devengado Real",
               data: dHist,
@@ -2388,7 +2417,7 @@
                 if(ctx.datasetIndex===1 || ctx.datasetIndex===2) return ctx.dataIndex === n-1;
                 return true;
               },
-              align: ctx => (ctx.dataIndex===0 || ctx.dataIndex===n-1) ? "right" : "top",
+              align: ctx => (ctx.dataIndex===n-1) ? "right" : "top",
               anchor: "end",
               offset: 6,
               color: ctx => {
@@ -2648,6 +2677,8 @@
   };
 
   // Estado del año activo en el bloque rubro1
+  // Años del módulo histórico (Bloque 2 rankings, tendencia y Rubro Sede Central): 2015–2026
+  const ANIOS_HIST = ["2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"];
   let RB1_ANIO = "2026";
   let chartRubroSC = null;
   let RB_HIST_SC_PROGRESIVO = null; // se carga desde data/rb_hist_sc_progresivo.json (ver fetch más abajo)
@@ -2823,7 +2854,7 @@
     // siempre "Enero a Setiembre" a mano — había que editarlo cada mes).
     const _MES_LARGO = {Jul:"Julio", Ago:"Agosto", Set:"Setiembre", Oct:"Octubre", Nov:"Noviembre", Dic:"Diciembre"};
 
-    const años  = ["2022","2023","2024","2025","2026"];
+    const años  = ANIOS_HIST;
     const data2026 = RB_HIST_SC["2026"]; // puede no existir aún
     const cortes = años.map(a => {
       const d = a === "2026" ? data2026 : rubroSCPara(a);
@@ -2836,7 +2867,7 @@
     const pcts   = cortes.map(c => c ? c.pct : null);
     const labels = cortes.map((c,i) => c ? c.label : `Ene–Set ${años[i]}`);
     if (rcTituloEl) {
-      const _cHist = cortes[3] || cortes[2] || cortes[1] || cortes[0]; // 2025 (o el año histórico más cercano con dato)
+      const _cHist = cortes[años.indexOf("2025")] || cortes[años.indexOf("2024")] || cortes[0]; // 2025 (o el año histórico más cercano con dato)
       const _mes = _cHist ? (_MES_LARGO[_cHist.mesLabel] || _cHist.mesLabel) : "Setiembre";
       rcTituloEl.innerHTML = MODO_SEMESTRAL
         ? "Gráfico Lineal &nbsp;·&nbsp; Avance % Semestral (Ene–Jun) — Sede Central"
@@ -2886,14 +2917,14 @@
           }
         },
         scales: {
-          x: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow Condensed'",weight:"700",size:14}, color:"#000"} },
+          x: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow Condensed'",weight:"700",size:12}, color:"#000", maxRotation:45, autoSkip:false} },
           y: {
             grid:{color:"#f0f2f5"},
             ticks:{ font:{family:"'Barlow'",size:13}, color:"#000", callback: v => v.toFixed(0)+"%" },
             suggestedMin: 0, suggestedMax: 40
           }
         },
-        layout: { padding: { top: 28, left: 50, right: 80 } }
+        layout: { padding: { top: 28, left: 70, right: 80 } }
       },
       plugins: [ ChartDataLabels ]
     });
@@ -2942,7 +2973,7 @@
     iniciarGraficoRubroSC();
     // Actualizar punto activo si ya existe
     if (chartRubroSC) {
-      const años = ["2022","2023","2024","2025","2026"];
+      const años = ANIOS_HIST;
       const ds = chartRubroSC.data.datasets[0];
       ds.pointBackgroundColor = años.map(a => a===anioActivo ? "#FFD166" : "#5a1414");
       ds.pointBorderColor     = años.map(a => a===anioActivo ? "#5a1414" : "#fff");
@@ -4220,7 +4251,7 @@
       if (tituloEl) tituloEl.textContent = MODO_SEMESTRAL
         ? "Gráfico Lineal — Devengado en Monto · Primer Semestre (Ene–Jun)"
         : `Gráfico Lineal — Devengado en Monto · Enero a ${b2Corte("2025").largo}`;
-      const años  = ["2022","2023","2024","2025","2026"];
+      const años  = ANIOS_HIST;
       const fuenteDe = a => a === "2026" ? STATE.historico : fuenteHistorica();
       const devs  = años.map(a => fuenteDe(a)?.semestres[a]?.lambayeque?.dev || null);
       const labels = años.map(a => fuenteDe(a)?.semestres[a]?.label || `Ene–Set ${a}`);
@@ -4264,7 +4295,7 @@
             }
           },
           scales: {
-            x: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow Condensed'",weight:"700",size:14}, color:"#000"} },
+            x: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow Condensed'",weight:"700",size:12}, color:"#000", maxRotation:45, autoSkip:false} },
             y: { grid:{color:"#f0f2f5"}, ticks:{font:{family:"'Barlow'",size:13}, color:"#000", callback: v=>fmtM(v)} }
           },
           layout: { padding: { top: 32, left: 55, right: 80 } }
@@ -4277,7 +4308,7 @@
 
     function actualizarTendencia(anioActivo){
       if (!STATE.chartTendencia) return;
-      const años = ["2022","2023","2024","2025","2026"];
+      const años = ANIOS_HIST;
       const ds = STATE.chartTendencia.data.datasets[0];
       ds.pointBackgroundColor = años.map(a => a===anioActivo ? "#FFD166" : "#5a1414");
       ds.pointBorderColor     = años.map(a => a===anioActivo ? "#5a1414" : "#fff");
@@ -4312,8 +4343,8 @@
         if (STATE.chartTendencia){
           const sem26 = STATE.historico && STATE.historico.semestres["2026"];
           if (sem26){
-            STATE.chartTendencia.data.datasets[0].data[4]  = sem26.lambayeque?.dev || null;
-            STATE.chartTendencia.data.labels[4] = sem26.label;
+            STATE.chartTendencia.data.datasets[0].data[ANIOS_HIST.length-1]  = sem26.lambayeque?.dev || null;
+            STATE.chartTendencia.data.labels[ANIOS_HIST.length-1] = sem26.label;
             STATE.chartTendencia.update();
           }
         }
