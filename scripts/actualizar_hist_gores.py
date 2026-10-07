@@ -43,7 +43,7 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 
 # ---------------- CONFIGURACIÓN ----------------
-AÑOS = [2021, 2022, 2023, 2024, 2025]
+AÑOS = [2020, 2021, 2022, 2023, 2024, 2025]
 CARPETA_XLS = "xls/historico"
 CARPETA_DATA = "data"
 ARCHIVO_JSON = os.path.join(CARPETA_DATA, "historico_progresivo.json")
@@ -75,6 +75,10 @@ PERIODOS = [
 
 ARCHIVO_ANUAL = "anual_{año}_gores.xls"  # fuente del PIM (fijo, no se acumula)
 
+# Subcarpeta de xls/historico/ según el tipo de período (si no existe, se busca
+# también directamente en xls/historico/, estructura antigua).
+SUBCARPETA = {"T1": "TRIMESTRES", "T2": "TRIMESTRES", "ANUAL": "ANUALES"}   # el resto: "MESES"
+
 # Etiqueta legible para el campo "label" del JSON, según el último período activo
 NOMBRE_MES_FINAL = {"T1": "Marzo", "T2": "Junio", "JULIO": "Julio",
                      "AGOSTO": "Agosto", "SETIEMBRE": "Setiembre",
@@ -92,6 +96,19 @@ MES_ESPERADO = {
 }
 TOTAL_GORES_ESPERADO = 26
 # -------------------------------------------------
+
+
+def ubicar_archivo(nombre, etiqueta):
+    """Busca el archivo en la subcarpeta del período y, si no está, en
+    xls/historico/. Ignora mayúsculas. Si no existe devuelve la ruta esperada."""
+    sub = SUBCARPETA.get(etiqueta, "MESES")
+    candidatas = [os.path.join(CARPETA_XLS, sub), CARPETA_XLS]
+    for carpeta in candidatas:
+        if os.path.isdir(carpeta):
+            for f in os.listdir(carpeta):
+                if f.casefold() == nombre.casefold() and os.path.isfile(os.path.join(carpeta, f)):
+                    return os.path.join(carpeta, f)
+    return os.path.join(candidatas[0], nombre)
 
 
 def limpiar_numero(s):
@@ -212,7 +229,7 @@ def procesar_año(año, data_existente):
     entrada_actual = data_existente.get("semestres", {}).get(año_str, {})
 
     # --- 1) PIM anual (fijo, no se acumula) ---
-    path_anual = os.path.join(CARPETA_XLS, ARCHIVO_ANUAL.format(año=año))
+    path_anual = ubicar_archivo(ARCHIVO_ANUAL.format(año=año), "ANUAL")
     print(f"   Leyendo PIM anual: {path_anual}")
     gores_anual = parsear_gores(path_anual, año, None)
     if gores_anual is None:
@@ -227,7 +244,7 @@ def procesar_año(año, data_existente):
     bloqueado = False
 
     for etiqueta, patron, tiene_benchmark in PERIODOS:
-        path = os.path.join(CARPETA_XLS, patron.format(año=año))
+        path = ubicar_archivo(patron.format(año=año), etiqueta)
         print(f"   Leyendo {etiqueta} ({patron.format(año=año)})")
         gores_periodo = parsear_gores(path, año, etiqueta)
 

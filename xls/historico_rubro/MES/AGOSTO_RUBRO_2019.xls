@@ -1,0 +1,468 @@
+<style type="text/css">
+	
+body
+{
+	font-weight: normal;
+	font-size: 0.7em;
+	word-spacing: normal;
+	text-transform: none;
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	letter-spacing: normal;
+	background-color: #ffffff;
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+	left: 0px;
+	right: 0px;
+	border: 0px;
+}
+
+/* Panel Historial */
+#PnlHistory
+{    
+    background-color: #ffffff;
+}
+
+.History
+{
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border: solid 1px #dddddd;
+}
+
+.History tr
+{
+    height: 20px;
+}
+
+.History tr.alt
+{
+}
+
+.History td
+{
+    border-left: solid 1px #dddddd;
+    border-right: solid 1px #dddddd;
+}
+/* Panel Historial - Fin */
+
+/* Panel Datos */
+#PnlData
+{
+    background-color: #ffffff;
+}
+
+.MapTable
+{
+    background-color: #3a6ea5;
+    color: #ffffff;
+    border-collapse: collapse;
+    border-width: 0px;
+}
+
+.MapTable tr
+{
+    height: 18px;
+}
+
+.MapTable td
+{
+    border: solid 1px #dddddd;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.Data
+{    
+    width: 100%;
+    border-collapse: collapse;
+    border-width: 0px;
+}
+
+.Data tr
+{
+    cursor: pointer;    
+    height: 22px;
+    text-align: right;
+}
+
+.Data tr.alt
+{
+}
+
+.Data tr.More
+{
+    text-align: left;
+    height: auto;
+    background-color: #f1f1f1;    
+}
+
+.Data tr.More td
+{
+    padding-left: 4px;
+}
+
+.Data td
+{
+    border: solid 1px #dddddd;
+}
+/* Panel Datos - Fin */
+
+/* Cabecera */
+#hd
+{
+    font-size: 8pt;   
+}
+
+#hd .title
+{
+    font-size: 12pt;
+    font-weight: bold;
+    font-family: Verdana;
+}
+
+#hd .subtitle
+{
+    font-size: 8pt;
+    font-family: Verdana;
+}
+
+#hd .fecha
+{
+    font-size: 8pt;
+}
+
+#hd span.value
+{
+    font-size: 10pt;
+}
+
+/* Cabecera - End */
+</style><body>
+	<table id="hd">
+		<tr>
+			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 07-octubre-2026</div><br /><b>Año de Ejecución: <span class='value'>2019</span><br />Incluye: <span class='value'>Sólo Proyectos</span></b></td>
+		</tr>
+	</table>
+	
+                    <table class="History" cellspacing="0" cellpadding="1">
+                
+                    <tr align="right">
+                        
+                        <td align="left" style="font-size: 7pt; width: auto">
+                            TOTAL
+                            
+                            
+                            
+                            
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            30,677,994,511
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            48,849,915,450
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            42,493,436,214
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            36,937,205,890
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            32,770,252,930
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            31,493,397,162
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            31,424,555,628
+                        </td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;64.5</td>
+                    </tr>
+                
+                    <tr align="right" class="alt">
+                        
+                        <td align="left" style="font-size: 7pt; width: auto" tabindex="9">
+                            Nivel de Gobierno R: GOBIERNOS REGIONALES
+                            
+                            
+                            
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="10">
+                            6,720,738,344
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="11">
+                            10,636,913,273
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="12">
+                            9,242,672,403
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="13">
+                            7,932,145,754
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="14">
+                            6,376,000,431
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="15">
+                            6,121,505,952
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="16">
+                            6,099,693,496
+                        </td>
+                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;57.5</td>
+                    </tr>
+                
+                    <tr align="right">
+                        
+                        <td align="left" style="font-size: 7pt; width: auto">
+                            Sector 99: GOBIERNOS REGIONALES
+                            
+                            
+                            
+                            
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            6,720,738,344
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            10,623,393,617
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            9,237,132,735
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            7,927,402,712
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            6,371,626,681
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            6,117,139,561
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            6,095,327,132
+                        </td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;57.6</td>
+                    </tr>
+                
+                    <tr align="right" class="alt">
+                        
+                        <td align="left" style="font-size: 7pt; width: auto" tabindex="9">
+                            Pliego 452: GOBIERNO REGIONAL DEL DEPARTAMENTO DE LAMBAYEQUE
+                            
+                            
+                            
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="10">
+                            260,800,654
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="11">
+                            365,470,097
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="12">
+                            342,478,257
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="13">
+                            306,263,276
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="14">
+                            276,491,481
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="15">
+                            275,807,743
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="16">
+                            275,788,239
+                        </td>
+                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;75.5</td>
+                    </tr>
+                
+                    <tr align="right">
+                        
+                        <td align="left" style="font-size: 7pt; width: auto">
+                            Unidad Ejecutora 001-855: REGION LAMBAYEQUE-SEDE CENTRAL
+                            
+                            
+                            
+                            
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            76,891,571
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            104,965,040
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            100,447,550
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            98,120,462
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            75,689,649
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            75,027,968
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap">
+                            75,022,346
+                        </td>
+                        <td align="right" style="width: 50px; white-space: nowrap">&nbsp;71.5</td>
+                    </tr>
+                
+                    <tr align="right" class="alt">
+                        
+                        <td align="left" style="font-size: 7pt; width: auto" tabindex="9">
+                            Mes 8: agosto
+                            
+                            
+                            
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="10">
+                            
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="11">
+                            
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="12">
+                            10,770,876
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="13">
+                            5,210,270
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="14">
+                            6,293,802
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="15">
+                            5,956,295
+                        </td>
+                        <td align="right" style="width: 100px; white-space: nowrap" tabindex="16">
+                            4,074,014
+                        </td>
+                        <td align="right" style="width: 50px; white-space: nowrap" tabindex="17">&nbsp;</td>
+                    </tr>
+                
+                    </table>
+                <table id="ctl00_CPH1_Mt0" class="MapTable" style="width:100%;">
+		<tr id="ctl00_CPH1_Mt0_Row0">
+			<td id="ctl00_CPH1_Mt0_td1" title="Concepto" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td1&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" style="cursor:hand;">Rubro</td><td id="ctl00_CPH1_Mt0_td2" title="Presupuesto Institucional de Apertura" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td2&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" style="width:100px;white-space:nowrap;cursor:hand;">PIA</td><td id="ctl00_CPH1_Mt0_td3" title="Presupuesto Institucional Modificado" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td3&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" style="width:100px;white-space:nowrap;cursor:hand;">PIM</td><td id="ctl00_CPH1_Mt0_td9" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td9&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" style="width:100px;cursor:hand;">Certificación</td><td id="ctl00_CPH1_Mt0_td4" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td4&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" style="width:100px;cursor:hand;">Compromiso Anual</td><td id="ctl00_CPH1_Mt0_TableCell1" title="Ejecución de Gastos en las diferentes fases" colspan="3">
+                                Ejecución
+                                </td><td id="ctl00_CPH1_Mt0_td8" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td8&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" style="width:50px;cursor:hand;">Avance %&nbsp;
+                            </td>
+		</tr><tr id="ctl00_CPH1_Mt0_Row1">
+			<td id="ctl00_CPH1_Mt0_td5" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td5&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" style="width:100px;cursor:hand;">Atención de Compromiso Mensual&nbsp;
+                            </td><td id="ctl00_CPH1_Mt0_td6" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td6&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" style="width:100px;white-space:nowrap;cursor:hand;">Devengado&nbsp;
+                            </td><td id="ctl00_CPH1_Mt0_td7" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td7&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" style="width:100px;white-space:nowrap;cursor:hand;">Girado&nbsp;
+                            </td>
+		</tr>
+	</table>
+                            <table class="Data" cellspacing="0" cellpadding="1">
+                        
+                            <tr id="tr0" onclick='kCod="00";tr_clk(0, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left" style="width: auto">
+                                    00: RECURSOS ORDINARIOS
+                                    
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    725,227
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    1,759,488
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    3,020,917
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    3,030,994
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    2,318,350
+                                </td>
+                                <td style="white-space: nowrap; width: 50px">&nbsp;
+                                    
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr1" onclick='kCod="09";tr_clk(1, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    09: RECURSOS DIRECTAMENTE RECAUDADOS
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    683,491
+                                </td>
+                                <td>
+                                    683,491
+                                </td>
+                                <td>
+                                    340,105
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>
+                                    0
+                                </td>
+                                <td>&nbsp;
+                                    
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr2" onclick='kCod="19";tr_clk(2, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    19: RECURSOS POR OPERACIONES OFICIALES DE CREDITO
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    9,362,158
+                                </td>
+                                <td>
+                                    2,767,291
+                                </td>
+                                <td>
+                                    2,932,780
+                                </td>
+                                <td>
+                                    2,925,302
+                                </td>
+                                <td>
+                                    1,755,664
+                                </td>
+                                <td>&nbsp;
+                                    
+                                </td>
+                            </tr>
+                            
+                        
+                            </table>
+                        
+</body>
