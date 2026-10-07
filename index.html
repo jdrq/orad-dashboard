@@ -2963,7 +2963,7 @@
         }
         if (pimVivo > 0) {
           RB_HIST_SC["2026"] = {
-            label: MODO_SEMESTRAL ? "Ene–Ago 2026" : `2026 (acumulado al ${new Date().toLocaleDateString("es-PE",{day:"numeric",month:"short",year:"numeric"})} — año en curso)`,
+            label: MODO_SEMESTRAL ? "Ene–Ago 2026" : `2026 (año en curso)`,
             pim: pimVivo, dev_t1: devVivo, dev_t2: 0,
             dev_sem: devVivo, av_pct: devVivo/pimVivo*100
           };
@@ -3959,7 +3959,7 @@
         const fecha = fechaHoy();
 
         STATE.historico.semestres["2026"] = {
-          label:         MODO_SEMESTRAL ? "Ene–Ago 2026" : `2026 (acumulado al ${fecha} — año en curso)`,
+          label:         MODO_SEMESTRAL ? "Ene–Ago 2026" : `2026 (año en curso)`,
           nota:          MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado, aún no cierra el 1er semestre",
           total_gores:   byDevSol.length,
           prom_dev_pct:  Math.round(prom_dev_pct*10)/10,
