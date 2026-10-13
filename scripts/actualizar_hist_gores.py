@@ -166,7 +166,7 @@ def parsear_gores(path, año=None, periodo=None):
         [4] Compromiso Anual, [5] Atención Comp. Mensual,
         [6] Devengado, [7] Girado, [8] Avance %
 
-    Retorna: dict {codigo: {nombre, pim, cert, dev}} o None si falla.
+    Retorna: dict {codigo: {nombre, pia, pim, cert, dev}} o None si falla.
     """
     if not os.path.exists(path):
         print(f"   ⚠️  ARCHIVO NO ENCONTRADO: {path}")
@@ -197,6 +197,7 @@ def parsear_gores(path, año=None, periodo=None):
             gores[codigo] = {
                 "codigo": codigo,
                 "nombre": cols[0],
+                "pia": limpiar_numero(cols[1]),
                 "pim": limpiar_numero(cols[2]),
                 "cert": limpiar_numero(cols[3]),
                 "dev": limpiar_numero(cols[6]),
@@ -322,6 +323,7 @@ def procesar_año(año, data_existente):
         lista_gores.append({
             "codigo": cod,
             "nombre": acc["nombre"],
+            "pia": round(gores_anual.get(cod, {}).get("pia", 0.0)),
             "pim": round(pim),
             "dev": round(dev),
             "cert": round(cert),

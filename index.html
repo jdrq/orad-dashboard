@@ -2963,7 +2963,7 @@
         }
         if (pimVivo > 0) {
           RB_HIST_SC["2026"] = {
-            label: MODO_SEMESTRAL ? "Ene–Ago 2026" : `2026 (acumulado al ${new Date().toLocaleDateString("es-PE",{day:"numeric",month:"short",year:"numeric"})} — año en curso)`,
+            label: MODO_SEMESTRAL ? "Ene–Ago 2026" : `2026 (año en curso)`,
             pim: pimVivo, dev_t1: devVivo, dev_t2: 0,
             dev_sem: devVivo, av_pct: devVivo/pimVivo*100
           };
@@ -3959,7 +3959,7 @@
         const fecha = fechaHoy();
 
         STATE.historico.semestres["2026"] = {
-          label:         MODO_SEMESTRAL ? "Ene–Ago 2026" : `2026 (acumulado al ${fecha} — año en curso)`,
+          label:         MODO_SEMESTRAL ? "Ene–Ago 2026" : `2026 (año en curso)`,
           nota:          MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado, aún no cierra el 1er semestre",
           total_gores:   byDevSol.length,
           prom_dev_pct:  Math.round(prom_dev_pct*10)/10,
@@ -4026,9 +4026,10 @@
         else if (tbody) { if(thPia) thPia.style.display="none"; tbody.innerHTML = `<tr><td colspan="5" style="padding:24px;text-align:center;color:#888">Histórico ${anio} no disponible.</td></tr>`; }
         return;
       }
-      if (thPia) thPia.style.display = anio === "2026" ? "" : "none";
       const sem     = fuenteHist.semestres[anio];
       const ranking = sem.ranking_dev_pct || [];
+      const conPia  = anio === "2026" || ranking.some(g => g.pia != null); // 2015–2025 traen PIA en el JSON progresivo
+      if (thPia) thPia.style.display = conPia ? "" : "none";
       const prom    = sem.prom_dev_pct || 0;
 
       if (nota)   nota.textContent   = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (${b2Corte(anio).abrev})`);
@@ -4042,7 +4043,7 @@
         const pct    = g.dev_pct||0;
         const col    = esLam ? "#FFD166" : semColor(pct, prom);
         const trC    = esLam ? 'class="lamb-row"' : "";
-        const tdPia  = anio === "2026" ? `<td class="num">S/ ${fmt(g.pia||0)}</td>` : "";
+        const tdPia  = conPia ? `<td class="num">S/ ${fmt(g.pia||0)}</td>` : "";
         return `<tr ${trC}>
           <td class="center" style="font-weight:700">${ORDINAL[i+1]||i+1+"°"}</td>
           <td style="text-align:left">${nombre}</td>
@@ -4178,9 +4179,10 @@
         else if (tbody) { if(thPia) thPia.style.display="none"; tbody.innerHTML = `<tr><td colspan="5" style="padding:24px;text-align:center;color:#888">Histórico ${anio} no disponible.</td></tr>`; }
         return;
       }
-      if (thPia) thPia.style.display = anio === "2026" ? "" : "none";
       const sem     = fuenteHist.semestres[anio];
       const ranking = sem.ranking_cert_pct || [];
+      const conPia  = anio === "2026" || ranking.some(g => g.pia != null);
+      if (thPia) thPia.style.display = conPia ? "" : "none";
       const prom    = sem.prom_cert_pct || 0;
 
       if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (${b2Corte(anio).abrev})`);
@@ -4193,7 +4195,7 @@
         const pct    = g.cert_pct||0;
         const col    = esLam ? "#FFD166" : semColor(pct, prom);
         const trC    = esLam ? 'class="lamb-row"' : "";
-        const tdPia  = anio === "2026" ? `<td class="num">S/ ${fmt(g.pia||0)}</td>` : "";
+        const tdPia  = conPia ? `<td class="num">S/ ${fmt(g.pia||0)}</td>` : "";
         return `<tr ${trC}>
           <td class="center" style="font-weight:700">${ORDINAL[i+1]||i+1+"°"}</td>
           <td style="text-align:left">${nombre}</td>
