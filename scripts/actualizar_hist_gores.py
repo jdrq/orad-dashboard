@@ -75,6 +75,32 @@ PERIODOS = [
 
 ARCHIVO_ANUAL = "anual_{año}_gores.xls"  # fuente del PIM (fijo, no se acumula)
 
+# v5 (02/11/2026): lista maestra de períodos + opción --hasta N.
+#   python scripts\actualizar_hist_gores.py --hasta 11
+# usa T1, T2, julio ... noviembre SIN tener que descomentar líneas en PERIODOS
+# (descomentar solo una línea fue una fuente de errores silenciosos). Sin
+# --hasta el script se comporta como siempre, con la lista PERIODOS de arriba.
+PERIODOS_MAESTRO = [
+    ("T1", "1T_{año}.xls", False), ("T2", "2T_{año}.xls", False),
+    ("JULIO", "julio_{año}.xls", False), ("AGOSTO", "agosto_{año}.xls", False),
+    ("SETIEMBRE", "setiembre_{año}.xls", False), ("OCTUBRE", "octubre_{año}.xls", False),
+    ("NOVIEMBRE", "noviembre_{año}.xls", False), ("DICIEMBRE", "diciembre_{año}.xls", False),
+]
+MES_DEL_PERIODO = {"T1": 3, "T2": 6, "JULIO": 7, "AGOSTO": 8, "SETIEMBRE": 9,
+                   "OCTUBRE": 10, "NOVIEMBRE": 11, "DICIEMBRE": 12}
+
+
+def aplicar_argumento_hasta():
+    """Si se pasó --hasta N (6-12), reemplaza PERIODOS por todos los períodos hasta ese mes."""
+    global PERIODOS
+    import argparse
+    ap = argparse.ArgumentParser(description="Ranking nacional GORES (Bloque 2).")
+    ap.add_argument("--hasta", type=int, choices=range(6, 13), metavar="MES",
+                    help="último mes a acumular (6=junio ... 12=diciembre)")
+    args, _ = ap.parse_known_args()
+    if args.hasta:
+        PERIODOS = [p for p in PERIODOS_MAESTRO if MES_DEL_PERIODO[p[0]] <= args.hasta]
+
 # Subcarpeta de xls/historico/ según el tipo de período (si no existe, se busca
 # también directamente en xls/historico/, estructura antigua).
 SUBCARPETA = {"T1": "TRIMESTRES", "T2": "TRIMESTRES", "ANUAL": "ANUALES"}   # el resto: "MESES"
@@ -404,6 +430,7 @@ def procesar_año(año, data_existente):
 
 
 def main():
+    aplicar_argumento_hasta()
     print("=" * 70)
     print("Actualización progresiva — Ranking nacional GORES (Ene-Jul y en adelante)")
     print("=" * 70)

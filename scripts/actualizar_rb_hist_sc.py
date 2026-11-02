@@ -85,6 +85,33 @@ PERIODOS = [
     # ("dev_dic", "DICIEMBRE_RUBRO_{año}.xls", False),
 ]
 
+# v5 (02/11/2026): lista maestra de períodos + opción --hasta N.
+#   python scripts\actualizar_rb_hist_sc.py --hasta 11
+# usa todos los períodos hasta ese mes SIN descomentar líneas en PERIODOS
+# (activar solo el último mes dejaba saltarse los anteriores en silencio).
+# Sin --hasta el script se comporta como siempre, con la lista PERIODOS de arriba.
+PERIODOS_MAESTRO = [
+    ("dev_t1", "1T_RUBRO_{año}.xls", False), ("dev_t2", "2T_RUBRO_{año}.xls", False),
+    ("dev_sem", "JULIO_RUBRO_{año}.xls", True), ("dev_ago", "AGOSTO_RUBRO_{año}.xls", False),
+    ("dev_set", "SETIEMBRE_RUBRO_{año}.xls", False), ("dev_oct", "OCTUBRE_RUBRO_{año}.xls", False),
+    ("dev_nov", "NOVIEMBRE_RUBRO_{año}.xls", False), ("dev_dic", "DICIEMBRE_RUBRO_{año}.xls", False),
+]
+MES_DEL_PERIODO = {"dev_t1": 3, "dev_t2": 6, "dev_sem": 7, "dev_ago": 8, "dev_set": 9,
+                   "dev_oct": 10, "dev_nov": 11, "dev_dic": 12}
+
+
+def aplicar_argumento_hasta():
+    """Si se pasó --hasta N (6-12), reemplaza PERIODOS por todos los períodos hasta ese mes."""
+    global PERIODOS
+    import argparse
+    ap = argparse.ArgumentParser(description="Rubro Sede Central (Bloque 6).")
+    ap.add_argument("--hasta", type=int, choices=range(6, 13), metavar="MES",
+                    help="último mes a acumular (6=junio ... 12=diciembre)")
+    args, _ = ap.parse_known_args()
+    if args.hasta:
+        PERIODOS = [p for p in PERIODOS_MAESTRO if MES_DEL_PERIODO[p[0]] <= args.hasta]
+
+
 # Filtro de mes que DEBE traer cada archivo (número, nombre en el MEF).
 # None = acumulado sin filtro de mes. Detecta, p. ej., un archivo de Setiembre
 # exportado sin filtro de mes o agrupado por mes en vez de por Rubro.
@@ -398,6 +425,7 @@ def procesar_año(año, data_existente):
 
 
 def main():
+    aplicar_argumento_hasta()
     print("=" * 70)
     print("Actualización progresiva — Rubro Sede Central")
     print("=" * 70)

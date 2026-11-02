@@ -1507,6 +1507,8 @@
 </script>
 
 <!-- ====== BLOQUE 2D / 6D: parsers independientes de los archivos mensuales de devengado ====== -->
+<!-- Valores mensuales cerrados (Bloques 2D, 6D y 9): GENERADO por scripts/cierre_mensual.py, no editar a mano -->
+<script src="data/mensual-actual.js"></script>
 <script src="data/devengado-mensual.js?v=20260817"></script>
 <script src="data/devengado-mensual-sc.js?v=20260817"></script>
 
@@ -2999,47 +3001,35 @@
   // Bloque 8 se mueven juntos y el % de la tarjeta siempre coincide con el monto.
   function b9ProyAcum(pim){ return B9_PCT_PROY.map(p=>Math.round((pim>0?pim:B9_PIM)*p/100)); }
   function b9ProyDic(pim){ const a=b9ProyAcum(pim); return a[a.length-1]; }
-  // Devengado real acumulado — datos oficiales Consulta Amigable (Pliego 452,
-  // filtro "Sólo Proyectos"), consulta del 14/08/2026. Ene–Jul son valores
-  // CERRADOS/fijos. Junio corregido de 256,731,752 → 258,850,964: el MEF
-  // reclasificó ~S/2.12M entre Junio y Julio en una actualización posterior de
-  // Consulta Amigable; el acumulado a Julio (317,327,247) no cambió, solo el
-  // corte interno entre ambos meses.
-  // Agosto CERRADO — revisado 2 veces:
-  //   31/08/2026: 367,153,598 (suma Ene-Ago, monto mensual de agosto = 49,826,352)
-  //   02/09/2026: 371,048,848 (el MEF reclasificó agosto a 53,721,601 — mismo
-  //   patrón de reclasificación tardía que junio; verificado contra el
-  //   acumulado oficial a la fecha [375,678,667] menos el parcial de
-  //   setiembre [4,629,820] = 371,048,847, cuadra con 1 sol de redondeo).
-  // Setiembre CERRADO PROVISIONAL — revisado 2 veces:
-  //   30/09/2026: 414,055,747 (mensual de setiembre = 43,006,899; faltaba el
-  //     último día de registro del MEF).
-  //   01/10/2026: 415,259,494 (mensual de setiembre = 44,210,646; suma Ene-Set
-  //     de gore_devengado_mes.xls, totalizador MEF 415,259,493, dif. 1 sol de
-  //     redondeo). Agosto sin cambios (371,048,848).
-  //   02/11/2026: setiembre VERIFICADO sin cambios (44,210,646) con el archivo del 02/11.
-  // Octubre CERRADO PROVISIONAL — 02/11/2026: 473,679,042 (mensual de octubre =
-  //   58,419,548; suma Ene-Oct de gore_devengado_mes.xls, totalizador MEF
-  //   473,679,040, dif. 2 soles de redondeo). El 31/10 fue sábado: revisar
-  //   ~05/11/2026 por posible reclasificación tardía del MEF.
-  // Noviembre: null → se rellena en vivo con los archivos cargados cada día.
-  const B9_REAL_BASE = [
-    18207406,    // ENE
-    86795395,    // FEB
-    133151712,   // MAR
-    167648586,   // ABR
-    204294625,   // MAY
-    258850964,   // JUN  (cerrado, corregido 14/08/2026)
-    317327247,   // JUL  (cerrado)
-    371048848,   // AGO  (cerrado, revisado 02/09/2026 — 2da reclasificación MEF)
-    415259494,   // SET  (cerrado, verificado 02/11/2026 — sin cambios)
-    473679042,   // OCT  (cierre provisional, 02/11/2026 — revisar ~05/11 por reclasificación MEF)
-    null         // NOV → se rellena en vivo con los archivos cargados
-  ];
-  // El mes actual es Noviembre (índice 10) — octubre cerró el 31/10/2026
-  // (provisional, 473,679,042, corte 02/11/2026). Noviembre pasa a ser el mes en curso: null en
-  // B9_REAL_BASE, se rellena en vivo con devBase (ver renderBloque9).
-  const B9_MES_ACTUAL_IDX = 10;
+  // Valores mensuales de los Bloques 9, 2D y 6D: YA NO se escriben a mano aquí.
+  // Vienen de data/mensual-actual.js, que genera scripts/cierre_mensual.py (o
+  // scripts/generar_mensual.py) a partir de gore_devengado_mes.xls y
+  // sede_devengado_mes.xls, con cuadre contra el totalizador del MEF.
+  // Ese archivo guarda además el estado del último mes cerrado (provisional /
+  // confirmado) y el historial de reclasificaciones del MEF (junio, agosto,
+  // setiembre... ver el campo "cambios" y el historial de Git).
+  // El mes en curso se rellena en vivo con los archivos del día.
+  const MENSUAL = (typeof window !== "undefined" && window.MENSUAL_ACTUAL) || null;
+  if (!MENSUAL) console.error("[ORAD] Falta data/mensual-actual.js: los Bloques 2D, 6D y 9 no tendrán meses cerrados. Corre scripts/cierre_mensual.py.");
+  const MENSUAL_CIERRE = MENSUAL ? MENSUAL.ultimo_mes_cerrado : 0;   // 10 = octubre cerrado
+  function mensualSerie(clave){            // 12 valores; null donde aún no hay dato
+    const m = MENSUAL && MENSUAL[clave] && MENSUAL[clave].mensual;
+    return Array.from({length:12}, (_, i) => (m && m[i] != null) ? m[i] : null);
+  }
+  // Nota para los gráficos mensuales cuando el último cierre aún es provisional
+  function mensualNotaProvisional(){
+    if (!MENSUAL || !MENSUAL.estado || !MENSUAL.estado.provisional || !MENSUAL_CIERRE) return "";
+    const mes = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"][MENSUAL_CIERRE-1];
+    return ` · ${mes} es cierre provisional (el MEF puede ajustarlo)`;
+  }
+  // Acumulado del Pliego: suma progresiva de los meses cerrados (Bloque 9).
+  // Posición MENSUAL_CIERRE (el mes en curso) queda en null y se rellena en vivo.
+  const B9_REAL_BASE = (function(){
+    const m = mensualSerie("pliego"); let acc = 0;
+    return Array.from({length: MENSUAL_CIERRE + 1}, (_, i) => (i < MENSUAL_CIERRE ? (acc += m[i]) : null));
+  })();
+  // Índice (0-11) del mes en curso = cantidad de meses cerrados. Ej.: octubre cerrado -> 10 (noviembre).
+  const B9_MES_ACTUAL_IDX = MENSUAL_CIERRE;
 
   let b9Chart=null;
   function renderBloque9(sel){
@@ -3056,8 +3046,8 @@
     // (datos en vivo del día) el mes activo es Julio.
     const mesActualIdx = MODO_SEMESTRAL ? 5 : B9_MES_ACTUAL_IDX;
 
-    // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor cerrado (Octubre, provisional 02/11/2026)
-    const devBase = devActual>0 ? devActual : 473679042;
+    // Para el KPI, si hay datos en vivo usar esos; si no, usar el acumulado del último mes cerrado
+    const devBase = devActual>0 ? devActual : (MENSUAL_CIERRE>0 ? B9_REAL_BASE[MENSUAL_CIERRE-1] : 0);
     const pctBase = pimVivo ? devBase/pimVivo*100 : 43.1;
 
     // Proyección calculada sobre el PIM vigente (misma fuente que el Bloque 8)
@@ -3136,27 +3126,14 @@
   // "Devengado" (NO confundir con "Atención de Compromiso Mensual", que trae
   // valores distintos en el mismo archivo). Valores NO acumulados —
   // corresponden al monto devengado dentro de cada mes.
-  // Juan debe actualizar este array manualmente cada vez que re-exporte el
-  // archivo mensual del MEF (mismo mantenimiento que B9_REAL_BASE).
+  // Los meses cerrados vienen de data/mensual-actual.js (ver Bloque 9).
   const B2M_MESES_LABELS = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SET","OCT","NOV","DIC"];
   const B2M_MESES_LABELS_FULL = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"];
   // `let` (no `const`): data/devengado-mensual.js actualiza Agosto en adelante
   // cada vez que se carga el archivo del día. Ene-Jul quedan protegidos por
   // ese mismo módulo (nunca los toca), no por inmutabilidad del array aquí.
-  let B2M_DEVENGADO_MES = [
-    18207406,   // ENE (cerrado)
-    68587989,   // FEB (cerrado)
-    46356317,   // MAR (cerrado)
-    34496874,   // ABR (cerrado)
-    36646039,   // MAY (cerrado)
-    54556339,   // JUN (cerrado)
-    58476283,   // JUL (cerrado)
-    53721601,   // AGO (cerrado, revisado 02/09/2026 — 2da reclasificación MEF, antes 49,826,352)
-    44210646,   // SET (cerrado; verificado 02/11/2026 — sin cambios — antes 43,006,899 al 30/09)
-    58419548,   // OCT (cierre provisional, 02/11/2026 — revisar ~05/11 por reclasificación MEF)
-    null, null // NOV–DIC: aún no disponibles
-  ];
-  let B2M_IDX_PARCIAL = 10; // Noviembre — se recalcula solo al cargar el archivo del día
+  let B2M_DEVENGADO_MES = mensualSerie("pliego");
+  let B2M_IDX_PARCIAL = MENSUAL_CIERRE; // mes en curso — se recalcula solo al cargar el archivo del día
   // Exponer en window: data/devengado-mensual.js corre en su propio módulo/IIFE
   // y necesita leer/escribir estas variables y disparar el re-render.
   window.B2M_DEVENGADO_MES = B2M_DEVENGADO_MES;
@@ -3227,7 +3204,7 @@
     const notaEl = document.getElementById("b2mNotaParcial");
     if (notaEl) {
       notaEl.textContent = mesParcialNombre
-        ? `* ${mesParcialNombre} es dato parcial (al ${fechaCorta})`
+        ? `* ${mesParcialNombre} es dato parcial (al ${fechaCorta})` + mensualNotaProvisional()
         : "";
     }
   }
@@ -3237,23 +3214,11 @@
   // Mismo patrón que Bloque 2D (MVP estático + actualización en vivo del
   // mes en curso vía data/devengado-mensual-sc.js). Datos oficiales
   // Consulta Amigable (UE 001-855 — Sede Central, "Sólo Proyectos"),
-  // consulta del 14/08/2026, columna "Devengado".
+  // columna "Devengado". Meses cerrados: data/mensual-actual.js (ver Bloque 9).
   const B6M_SC_MESES_LABELS = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SET","OCT","NOV","DIC"];
   const B6M_SC_MESES_LABELS_FULL = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"];
-  let B6M_SC_DEVENGADO_MES = [
-    12200710,   // ENE (cerrado)
-    55406542,   // FEB (cerrado)
-    23589905,   // MAR (cerrado)
-    20568429,   // ABR (cerrado)
-    18361708,   // MAY (cerrado)
-    32145085,   // JUN (cerrado)
-    27044831,   // JUL (cerrado)
-    19437523,   // AGO (cerrado; actualizado 30/09/2026 — el MEF lo reclasificó, antes 19,127,670)
-    21440279,   // SET (cerrado; verificado 02/11/2026 — sin cambios — antes 21,006,225 al 30/09)
-    35632237,   // OCT (cierre provisional, 02/11/2026 — revisar ~05/11 por reclasificación MEF)
-    null, null // NOV–DIC: aún no disponibles
-  ];
-  let B6M_SC_IDX_PARCIAL = 10; // Noviembre — se recalcula solo al cargar el archivo del día
+  let B6M_SC_DEVENGADO_MES = mensualSerie("sede_central");
+  let B6M_SC_IDX_PARCIAL = MENSUAL_CIERRE; // mes en curso — se recalcula solo al cargar el archivo del día
   window.B6M_SC_DEVENGADO_MES = B6M_SC_DEVENGADO_MES;
   Object.defineProperty(window, "B6M_SC_IDX_PARCIAL", {
     get: () => B6M_SC_IDX_PARCIAL, set: v => { B6M_SC_IDX_PARCIAL = v; }
@@ -3318,7 +3283,7 @@
     const notaEl = document.getElementById("b6mNotaParcialSC");
     if (notaEl) {
       notaEl.textContent = mesParcialNombre
-        ? `* ${mesParcialNombre} es dato parcial (al ${fechaCorta})`
+        ? `* ${mesParcialNombre} es dato parcial (al ${fechaCorta})` + mensualNotaProvisional()
         : "";
     }
   }

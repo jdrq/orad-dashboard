@@ -91,6 +91,7 @@ orad-dashboard/
 ├── index.html                       ← Dashboard (un solo archivo, autocontenido)
 ├── .gitignore
 ├── data/
+│   ├── mensual-actual.js            ← GENERADO por generar_mensual.py: devengado mensual Pliego/Sede (Bloques 2D, 6D, 9)
 │   ├── devengado-mensual.js         ← Bloque 2D: resuelve mes cerrado vs. parcial en vivo
 │   ├── devengado-mensual-sc.js      ← Bloque 6D: ídem, para Sede Central
 │   ├── semestre1_2026.json          ← Snapshot congelado al 30/06/2026 ("Ver Primer Semestre")
@@ -101,6 +102,8 @@ orad-dashboard/
 │   ├── descargar_xls_mef.py         ← Fase 2a: descarga automatizada (Playwright) de los 17 XLS diarios
 │   ├── actualizar_rb_hist_sc.py     ← Actualiza dev_t1/dev_t2/dev_sem/dev_ago/dev_set en rb_hist_sc_progresivo.json (Bloque 6)
 │   ├── actualizar_hist_gores.py     ← Actualiza historico_progresivo.json — ranking nacional GORES (Bloque 2)
+│   ├── generar_mensual.py           ← Genera data/mensual-actual.js desde los 2 XLS mensuales (con validaciones)
+│   ├── cierre_mensual.py            ← Orquesta el cierre mensual completo (un solo comando)
 │   └── convertir_semestral.py       ← Genera historico_semestral.json (ranking GORES) desde xls/historico/
 └── xls/
     ├── (17 archivos del día — ver tabla abajo, se suben a Git)
@@ -164,7 +167,7 @@ Esperar 1-2 minutos y abrir `https://jdrq.github.io/orad-dashboard/` (Ctrl+Shift
 
 ---
 
-## Archivos Históricos (años cerrados 2022–2025)
+## Archivos Históricos (años cerrados 2015–2025)
 
 Estos **no** forman parte de la actualización diaria — se exportan una sola vez por período (o se corrigen puntualmente, como ocurrió al extender a Julio, Agosto y Setiembre) y viven en dos subcarpetas separadas por el bloque del dashboard que alimentan:
 
@@ -193,15 +196,37 @@ Por año (2022–2025): `1T_RUBRO_{año}.xls`, `2T_RUBRO_{año}.xls`, `JULIO_RUB
 >
 > **Extender a meses futuros:** ambos scripts tienen una lista `PERIODOS` configurable al inicio del archivo. Agregar un mes nuevo es: (1) re-exportar el archivo del mes con la agrupación correcta seleccionada, (2) descomentar/agregar la línea correspondiente en `PERIODOS`, (3) correr el script. No requiere reescribir lógica.
 
-### Devengado Mensual (Bloques 2D y 6D) — un tercer mecanismo de cierre de mes, manual y separado
+### Devengado Mensual (Bloques 2D, 6D y 9) — `data/mensual-actual.js`
 
-A diferencia de los dos pipelines anteriores (JSON generado por script), los arrays `B9_REAL_BASE`, `B2M_DEVENGADO_MES` y `B6M_SC_DEVENGADO_MES` viven **hardcodeados directamente en `index.html`** y se cierran a mano cada fin de mes:
+Desde el 02/11/2026 estos valores **ya no están hardcodeados en `index.html`**. Los genera `scripts/generar_mensual.py` a partir de `xls/gore_devengado_mes.xls` (Pliego) y `xls/sede_devengado_mes.xls` (Sede Central) y quedan en `data/mensual-actual.js` (`window.MENSUAL_ACTUAL`), que `index.html` lee al cargar. Contiene: 12 valores mensuales por serie (`null` si el mes no cerró), totalizador MEF, diferencia de cuadre, `ultimo_mes_cerrado`, estado provisional y registro de `cambios` (reclasificaciones del MEF).
 
-1. Descargar `gore_devengado_mes.xls` (Pliego) y/o `sede_devengado_mes.xls` (Sede Central) — trae el Devengado **mensual no acumulado** de cada mes del año, en una tabla tipo "1: Enero", "2: Febrero", etc.
-2. Sumar progresivamente los meses no acumulados hasta el mes que se quiere cerrar, y cruzar el resultado contra el corte oficial que trae el mismo archivo en la fila "Pliego 452" / "Unidad Ejecutora 001-855" (deben coincidir, con 1 sol de tolerancia por redondeo).
-3. Reemplazar el valor del mes recién cerrado en los tres arrays (`B9_REAL_BASE`, `B2M_DEVENGADO_MES`, y si aplica `B6M_SC_DEVENGADO_MES`), y avanzar el índice de "mes actual" (`B9_MES_ACTUAL_IDX`) al mes siguiente.
+El generador **rechaza** el archivo si: es de Ingresos y no de Gasto, no es "Sólo Proyectos", el año/mes no coincide, el Pliego trae fila UE 001-855 (o la Sede no la trae), o la suma no cuadra con el totalizador del MEF (tolerancia S/5).
 
-> **⚠️ El MEF reclasifica meses "cerrados" varios días después del cierre.** Ya pasó dos veces en 2026: junio se corrigió +S/2.12M una semana después de darlo por cerrado, y agosto se corrigió +S/3.9M entre el 31/08 y el 02/09. **No dar un mes por definitivamente fijo el mismo día en que termina** — esperar unos días hábiles a que el corte se estabilice en Consulta Amigable, y estar dispuesto a corregirlo una vez más si al re-exportar el archivo el monto cambió.
+> **⚠️ El MEF reclasifica meses "cerrados" varios días después.** Por eso el último mes cerrado queda marcado como **provisional** con fecha `revisar_desde` (3 días hábiles después; no considera feriados). El dashboard muestra la nota "cierre provisional". Pasada esa fecha, re-descargar los dos archivos mensuales y correr `python scripts\cierre_mensual.py --mes N --sin-historicos`: si el monto cambió, queda registrado en `cambios`; si no, el mes pasa a confirmado.
+
+### Cierre mensual en un solo comando — `scripts/cierre_mensual.py`
+
+```powershell
+python scripts\cierre_mensual.py                  # detecta el mes y ejecuta todo
+python scripts\cierre_mensual.py --mes 10         # fuerza el mes a cerrar
+python scripts\cierre_mensual.py --dry-run        # valida y muestra, sin escribir nada
+python scripts\cierre_mensual.py --sin-historicos # solo revisa/confirma el mes provisional
+python scripts\cierre_mensual.py --descargar      # antes llama a descargar_xls_mef.py (interactivo, sin probar)
+```
+
+Hace: (1) verifica que estén todos los archivos necesarios, (2) genera `mensual-actual.js`, (3) recalcula `historico_progresivo.json` y `rb_hist_sc_progresivo.json`, (4) verifica que ningún año quedó BLOQUEADO, (5) imprime resumen y los comandos git. Códigos de salida: 0 = OK, 1 = advertencias, 2 = error.
+
+> **Regla "los históricos van un mes adelante":** al cerrar el mes N en los bloques 2D/6D/9, los históricos (Bloques 2 y 6) se calculan hasta el mes **N+1**, porque el dashboard compara el mes en curso (parcial 2026) contra el mes completo de años anteriores. Ejemplo: cerrar Octubre ⇒ históricos hasta Noviembre. Se puede ajustar con `--hist-hasta` en `cierre_mensual.py` o `--hasta N` (6–12) en cada script histórico.
+
+> **Cada enero:** agregar el año recién cerrado a la lista `AÑOS` de los dos scripts históricos y exportar sus archivos (1T, 2T, meses y anual) a `xls/historico/` y `xls/historico_rubro/`. Años cubiertos actualmente: 2015–2025.
+
+Publicar tras el cierre:
+
+```powershell
+git add index.html data\mensual-actual.js data\historico_progresivo.json data\rb_hist_sc_progresivo.json scripts xls
+git commit -m "data: cierre mensual - MM/2026"
+git push origin main
+```
 
 ---
 
@@ -220,5 +245,6 @@ El dashboard funciona igual abriendo `index.html` con doble clic y con los XLS e
 - **Cerrado (31/08–02/09/2026):** cierre de Agosto y apertura de Setiembre en los tres pipelines (Bloque 2, Bloque 6, y Devengado Mensual 2D/6D/9). Agosto tuvo que corregirse dos veces por reclasificación tardía del MEF (ver nota en la sección de Devengado Mensual arriba). Se corrigió también un bug real en el render de Bloque 6 histórico: `index.html` leía el campo estático `av_pct`/`label` en vez de recalcular en vivo desde `dev_set`/`dev_ago`/PIM, lo que habría dejado setiembre invisible en el dashboard aunque el JSON ya tuviera el dato correcto — se agregó el helper `rbHistCorte()` para que esto no se repita cada mes.
 - **Cerrado (06/10/2026):** (1) `scripts/actualizar_rb_hist_sc.py` v3 ahora acumula también el detalle por rubro (cert/comp/dev) y valida que las filas sumen el total; antes `rubros` quedaba congelado en julio. (2) La proyección a Dic 2026 (Bloques 8 y 9) se calcula como curva institucional × PIM vigente (`b9ProyAcum()`), sin montos fijos; `B9_PIM` de respaldo = 804,594,453. (3) Se retiraron los logs `[DIAG]`; la marca de oficina quedó como ORAD en scripts, JSON y README.
 - **Cerrado (31/08/2026):** corregido el rótulo "Bloque 8" mal aplicado al ranking nacional GORES en `scripts/actualizar_hist_gores.py` y en este README — el bloque correcto es **Bloque 2** (ver aviso al inicio de este documento).
-- **Próximo hito (cuando cierre Setiembre 2026):** extender `PERIODOS` en `scripts/actualizar_rb_hist_sc.py` y `scripts/actualizar_hist_gores.py` agregando Octubre, y repetir el cierre manual de Bloques 2D/6D/9 con el mismo cuidado por la reclasificación tardía del MEF.
+- **Cerrado (02/11/2026):** históricos extendidos a 2015–2025 y hasta Noviembre; los valores mensuales salieron de `index.html` hacia `data/mensual-actual.js` y el cierre se automatizó con `scripts/cierre_mensual.py`.
+- **Próximo hito:** revisar el cierre provisional de Octubre (desde 05/11/2026) con `--sin-historicos`; luego automatizar descarga masiva de históricos, programación (Task Scheduler / GitHub Actions) y reporte Word quincenal.
 - **Pendiente no urgente:** migrar los datos hardcodeados en `index.html` (constante `RB_HIST_SC`, bloque "Ver Primer Semestre") a un JSON externo en `data/`, consolidando toda la data histórica en un solo formato — hoy coexisten dos fuentes (HTML hardcodeado y JSON externo) para el mismo bloque, lo cual es deuda técnica aceptable a corto plazo pero no ideal a largo plazo.
