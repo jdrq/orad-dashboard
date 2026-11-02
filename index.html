@@ -689,7 +689,7 @@
               <canvas id="b2mChart"></canvas>
             </div>
             <div style="font-family:'Barlow';font-size:11.5px;color:var(--gris);text-align:center;margin-top:8px" id="b2mNotaParcial">
-              * Octubre es dato parcial (mes en curso)
+              * Noviembre es dato parcial (mes en curso)
             </div>
           </div>
         </div>
@@ -1015,7 +1015,7 @@
               <canvas id="b6mChartSC"></canvas>
             </div>
             <div style="font-family:'Barlow';font-size:11.5px;color:var(--gris);text-align:center;margin-top:8px" id="b6mNotaParcialSC">
-              * Octubre es dato parcial (mes en curso)
+              * Noviembre es dato parcial (mes en curso)
             </div>
           </div>
         </div>
@@ -2684,7 +2684,7 @@
   let RB_HIST_SC_PROGRESIVO = null; // se carga desde data/rb_hist_sc_progresivo.json (ver fetch más abajo)
 
   // Dado un registro histórico de un año (RB_HIST_SC o RB_HIST_SC_PROGRESIVO),
-  // determina el corte MÁS RECIENTE disponible (Oct > Set > Ago > Jul) y calcula
+  // determina el corte MÁS RECIENTE disponible (Nov > Oct > Set > Ago > Jul) y calcula
   // devengado acumulado, % de avance y etiqueta EN VIVO — en vez de depender
   // de los campos fijos "label"/"av_pct", que actualizar_rb_hist_sc.py NO
   // toca (solo escribe dev_t1..dev_oct; ver comentario en ese script).
@@ -2695,7 +2695,8 @@
     if (!d) return null;
     const tp = d.pim || 0;
     let td, mesLabel;
-    if (d.dev_oct != null)      { td = d.dev_oct; mesLabel = "Oct"; }   // agregado 01/10/2026 al activar Octubre
+    if (d.dev_nov != null)      { td = d.dev_nov; mesLabel = "Nov"; }   // agregado 02/11/2026 al activar Noviembre
+    else if (d.dev_oct != null) { td = d.dev_oct; mesLabel = "Oct"; }   // agregado 01/10/2026 al activar Octubre
     else if (d.dev_set != null) { td = d.dev_set; mesLabel = "Set"; }
     else if (d.dev_ago != null) { td = d.dev_ago; mesLabel = "Ago"; }
     else                        { td = d.dev_sem; mesLabel = "Jul"; }
@@ -3016,9 +3017,12 @@
   //   01/10/2026: 415,259,494 (mensual de setiembre = 44,210,646; suma Ene-Set
   //     de gore_devengado_mes.xls, totalizador MEF 415,259,493, dif. 1 sol de
   //     redondeo). Agosto sin cambios (371,048,848).
-  //   PENDIENTE: revisar ~05/10/2026 por posible reclasificación tardía del MEF
-  //   (ya pasó con junio y agosto).
-  // Octubre: null → se rellena en vivo con los archivos cargados cada día.
+  //   02/11/2026: setiembre VERIFICADO sin cambios (44,210,646) con el archivo del 02/11.
+  // Octubre CERRADO PROVISIONAL — 02/11/2026: 473,679,042 (mensual de octubre =
+  //   58,419,548; suma Ene-Oct de gore_devengado_mes.xls, totalizador MEF
+  //   473,679,040, dif. 2 soles de redondeo). El 31/10 fue sábado: revisar
+  //   ~05/11/2026 por posible reclasificación tardía del MEF.
+  // Noviembre: null → se rellena en vivo con los archivos cargados cada día.
   const B9_REAL_BASE = [
     18207406,    // ENE
     86795395,    // FEB
@@ -3028,13 +3032,14 @@
     258850964,   // JUN  (cerrado, corregido 14/08/2026)
     317327247,   // JUL  (cerrado)
     371048848,   // AGO  (cerrado, revisado 02/09/2026 — 2da reclasificación MEF)
-    415259494,   // SET  (cierre provisional, revisado 01/10/2026 — revisar ~05/10 por reclasificación MEF)
-    null         // OCT → se rellena en vivo con los archivos cargados
+    415259494,   // SET  (cerrado, verificado 02/11/2026 — sin cambios)
+    473679042,   // OCT  (cierre provisional, 02/11/2026 — revisar ~05/11 por reclasificación MEF)
+    null         // NOV → se rellena en vivo con los archivos cargados
   ];
-  // El mes actual es Octubre (índice 9) — setiembre cerró el 30/09/2026
-  // (provisional, 415,259,494, corte 01/10/2026). Octubre pasa a ser el mes en curso: null en
+  // El mes actual es Noviembre (índice 10) — octubre cerró el 31/10/2026
+  // (provisional, 473,679,042, corte 02/11/2026). Noviembre pasa a ser el mes en curso: null en
   // B9_REAL_BASE, se rellena en vivo con devBase (ver renderBloque9).
-  const B9_MES_ACTUAL_IDX = 9;
+  const B9_MES_ACTUAL_IDX = 10;
 
   let b9Chart=null;
   function renderBloque9(sel){
@@ -3051,8 +3056,8 @@
     // (datos en vivo del día) el mes activo es Julio.
     const mesActualIdx = MODO_SEMESTRAL ? 5 : B9_MES_ACTUAL_IDX;
 
-    // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor cerrado (Setiembre, provisional 01/10/2026)
-    const devBase = devActual>0 ? devActual : 415259494;
+    // Para el KPI, si hay datos en vivo usar esos; si no, usar el último valor cerrado (Octubre, provisional 02/11/2026)
+    const devBase = devActual>0 ? devActual : 473679042;
     const pctBase = pimVivo ? devBase/pimVivo*100 : 43.1;
 
     // Proyección calculada sobre el PIM vigente (misma fuente que el Bloque 8)
@@ -3147,10 +3152,11 @@
     54556339,   // JUN (cerrado)
     58476283,   // JUL (cerrado)
     53721601,   // AGO (cerrado, revisado 02/09/2026 — 2da reclasificación MEF, antes 49,826,352)
-    44210646,   // SET (cierre provisional, revisado 01/10/2026 — antes 43,006,899 al 30/09; revisar ~05/10)
-    null, null, null // OCT–DIC: aún no disponibles
+    44210646,   // SET (cerrado; verificado 02/11/2026 — sin cambios — antes 43,006,899 al 30/09)
+    58419548,   // OCT (cierre provisional, 02/11/2026 — revisar ~05/11 por reclasificación MEF)
+    null, null // NOV–DIC: aún no disponibles
   ];
-  let B2M_IDX_PARCIAL = 9; // Octubre — se recalcula solo al cargar el archivo del día
+  let B2M_IDX_PARCIAL = 10; // Noviembre — se recalcula solo al cargar el archivo del día
   // Exponer en window: data/devengado-mensual.js corre en su propio módulo/IIFE
   // y necesita leer/escribir estas variables y disparar el re-render.
   window.B2M_DEVENGADO_MES = B2M_DEVENGADO_MES;
@@ -3243,10 +3249,11 @@
     32145085,   // JUN (cerrado)
     27044831,   // JUL (cerrado)
     19437523,   // AGO (cerrado; actualizado 30/09/2026 — el MEF lo reclasificó, antes 19,127,670)
-    21440279,   // SET (cierre provisional, revisado 01/10/2026 — antes 21,006,225 al 30/09; revisar ~05/10)
-    null, null, null // OCT–DIC: aún no disponibles
+    21440279,   // SET (cerrado; verificado 02/11/2026 — sin cambios — antes 21,006,225 al 30/09)
+    35632237,   // OCT (cierre provisional, 02/11/2026 — revisar ~05/11 por reclasificación MEF)
+    null, null // NOV–DIC: aún no disponibles
   ];
-  let B6M_SC_IDX_PARCIAL = 9; // Octubre — se recalcula solo al cargar el archivo del día
+  let B6M_SC_IDX_PARCIAL = 10; // Noviembre — se recalcula solo al cargar el archivo del día
   window.B6M_SC_DEVENGADO_MES = B6M_SC_DEVENGADO_MES;
   Object.defineProperty(window, "B6M_SC_IDX_PARCIAL", {
     get: () => B6M_SC_IDX_PARCIAL, set: v => { B6M_SC_IDX_PARCIAL = v; }
