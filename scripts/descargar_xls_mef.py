@@ -1,4 +1,4 @@
-"""
+r"""
 descargar_xls_mef.py
 ---------------------
 Automatiza la descarga de los 17 archivos .xls de Consulta Amigable (MEF)
