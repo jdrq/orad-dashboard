@@ -40,3 +40,8 @@ error_*.png
 # historial real de versiones vía commits.
 data/*.backup
 *.json.backup
+
+# Copias de seguridad .bak que crea scripts/descargar_historicos.py al reemplazar
+# un archivo histórico, y carpeta temporal de sus descargas (antes de validarlas).
+*.bak
+xls/_tmp_historicos/

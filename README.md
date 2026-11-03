@@ -103,6 +103,7 @@ orad-dashboard/
 │   ├── actualizar_rb_hist_sc.py     ← Actualiza dev_t1/dev_t2/dev_sem/dev_ago/dev_set en rb_hist_sc_progresivo.json (Bloque 6)
 │   ├── actualizar_hist_gores.py     ← Actualiza historico_progresivo.json — ranking nacional GORES (Bloque 2)
 │   ├── generar_mensual.py           ← Genera data/mensual-actual.js desde los 2 XLS mensuales (con validaciones)
+│   ├── descargar_historicos.py      ← Descarga masiva de históricos (filtro de período calibrado por codegen)
 │   ├── cierre_mensual.py            ← Orquesta el cierre mensual completo (un solo comando)
 │   └── convertir_semestral.py       ← Genera historico_semestral.json (ranking GORES) desde xls/historico/
 └── xls/
@@ -203,6 +204,21 @@ Desde el 02/11/2026 estos valores **ya no están hardcodeados en `index.html`**.
 El generador **rechaza** el archivo si: es de Ingresos y no de Gasto, no es "Sólo Proyectos", el año/mes no coincide, el Pliego trae fila UE 001-855 (o la Sede no la trae), o la suma no cuadra con el totalizador del MEF (tolerancia S/5).
 
 > **⚠️ El MEF reclasifica meses "cerrados" varios días después.** Por eso el último mes cerrado queda marcado como **provisional** con fecha `revisar_desde` (3 días hábiles después; no considera feriados). El dashboard muestra la nota "cierre provisional". Pasada esa fecha, re-descargar los dos archivos mensuales y correr `python scripts\cierre_mensual.py --mes N --sin-historicos`: si el monto cambió, queda registrado en `cambios`; si no, el mes pasa a confirmado.
+
+### Descarga masiva de históricos — `scripts/descargar_historicos.py`
+
+Baja solos los archivos de `xls/historico/` y `xls/historico_rubro/` (1T, 2T, julio…noviembre, anual) para los años que falten, reutilizando el drill-down de `descargar_xls_mef.py` y cambiando solo el año (`y=` de la URL) y el filtro de período.
+
+```powershell
+python scripts\descargar_historicos.py --plan                  # qué hay y qué falta (sin navegador)
+python scripts\descargar_historicos.py                         # descarga lo que falta o es inválido
+python scripts\descargar_historicos.py --años 2026 --hasta 11  # acotar (cada enero: el año nuevo)
+python scripts\descargar_historicos.py --tipo rubro            # solo Bloque 6 (o: gores)
+```
+
+Cada archivo se baja a `xls/_tmp_historicos/`, se valida con los mismos parsers de los scripts históricos (año, mes, Gasto vs Ingresos, Sólo Proyectos, UE 001-855, 26 GOREs) y solo entonces se mueve a su carpeta; uno inválido nunca reemplaza a uno bueno. Se detiene tras 3 fallos seguidos. No toca Git ni los JSON.
+
+> **Filtro de período (calibrado con `playwright codegen` el 02/11/2026):** es un paso más de la cadena de clics, tras "Sector 99": trimestres = botón "Trimestre" → fila "1er/2do Trimestre"; meses = botón "Mes" → fila con el texto `: 'Julio` (el MEF antepone un apóstrofo). Verificado en vivo: 1T y 2T (datos idénticos a los archivos manuales). Los meses se calibraron con codegen pero aún no se probaron en descarga completa; agosto–diciembre asumen el mismo formato de fila. La validación rechaza cualquier archivo con el período equivocado.
 
 ### Cierre mensual en un solo comando — `scripts/cierre_mensual.py`
 

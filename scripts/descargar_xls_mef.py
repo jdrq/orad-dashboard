@@ -407,6 +407,12 @@ def procesar_archivo(page, config):
     except Exception:
         pass
 
+    # v2 (02/11/2026): gancho opcional para filtrar por período (lo usa
+    # scripts/descargar_historicos.py). Sin "hook_periodo" no hace nada, así
+    # que la descarga diaria de los 17 archivos se comporta exactamente igual.
+    if config.get("hook_periodo") and config.get("periodo_momento", "inicio") == "inicio":
+        config["hook_periodo"](page, fl)
+
     # Bajar por la jerarquía (Gobierno -> Sector/Gob.Loc./Departamento -> ...).
     # El botón se busca POR SU ETIQUETA VISIBLE en cada paso (no por ID
     # fijo) porque el ID real cambia en cada nivel: BtnTipoGobierno,
@@ -422,7 +428,7 @@ def procesar_archivo(page, config):
         clic_con_reintento(
             fl, page, rol="button", nombre=etiqueta_boton,
             selector_id=selector_id_boton, intentos=2,
-            verificar=lambda tf=texto_fila: fl.get_by_role("cell", name=tf).first.is_visible()
+            verificar=lambda tf=texto_fila: fl.get_by_role("cell", name=tf, exact=(tf in config.get("filas_exactas", ()))).first.is_visible()
         )
         time.sleep(1)  # margen extra: el servidor del MEF a veces es lento
 
@@ -434,12 +440,14 @@ def procesar_archivo(page, config):
         # ayuda manual de Juan.
         confirmado = False
         for intento in range(3):
+            _celda = fl.get_by_role("cell", name=texto_fila,
+                                    exact=(texto_fila in config.get("filas_exactas", ())))
             if intento == 0:
-                fl.get_by_role("cell", name=texto_fila).click()
+                _celda.click()
             else:
-                fl.get_by_role("cell", name=texto_fila).click()
+                _celda.click()
                 time.sleep(0.3)
-                fl.get_by_role("cell", name=texto_fila).click()
+                _celda.click()
             try:
                 page.wait_for_load_state("networkidle", timeout=5000)
             except Exception:
@@ -454,7 +462,7 @@ def procesar_archivo(page, config):
             # cambio, se marca de inmediato al clickear.
             for _ in range(15):
                 try:
-                    fila = fl.locator(f"tr:has-text('{texto_fila}')").first
+                    fila = fl.locator("tr", has_text=texto_fila).first   # sin comillas CSS: algunas filas llevan apóstrofo (": 'Julio")
                     if fila.locator("input:checked").count() > 0:
                         confirmado = True
                         break
@@ -502,7 +510,7 @@ def procesar_archivo(page, config):
     # Con polling (no un solo chequeo) para no repetir el mismo error
     # de impaciencia del primer checkpoint.
     if config["pasos"]:
-        ultimo_texto = config["pasos"][-1][1].rstrip(":")
+        ultimo_texto = config.get("texto_breadcrumb", config["pasos"][-1][1]).rstrip(":")
         confirmado_final = False
         for _ in range(15):
             try:
@@ -520,6 +528,9 @@ def procesar_archivo(page, config):
                 f"pudo haber reseteado la selección a un nivel más "
                 f"amplio. Archivo NO exportado, revisar manualmente."
             )
+
+    if config.get("hook_periodo") and config.get("periodo_momento") == "antes_exportar":
+        config["hook_periodo"](page, fl)
 
     # Clic en "Exportar" con reintento: si el primer clic no dispara la
     # descarga dentro de 15s, se reintenta con doble clic antes de rendirse
@@ -545,9 +556,12 @@ def procesar_archivo(page, config):
                     "2 intentos. Revisar manualmente."
                 )
 
-    destino = CARPETA_DESTINO / config["nombre"]
+    # v2: "destino" permite guardar en otra ruta (descargas históricas, que
+    # se validan antes de moverse a su carpeta definitiva y no usan respaldo).
+    destino = Path(config["destino"]) if config.get("destino") else CARPETA_DESTINO / config["nombre"]
+    destino.parent.mkdir(parents=True, exist_ok=True)
 
-    if destino.exists():
+    if destino.exists() and not config.get("destino"):
         respaldo = CARPETA_DESTINO / "_respaldo_anterior" / config["nombre"]
         respaldo.parent.mkdir(exist_ok=True)
         shutil.copy(destino, respaldo)
