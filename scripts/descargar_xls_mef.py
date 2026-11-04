@@ -109,16 +109,30 @@ pivotan el eje de la tabla en el nivel donde estés parado.
 """
 
 from playwright.sync_api import sync_playwright
+import hashlib
+import os
+import re
+import sys
 import time
 import shutil
+import smtplib
 import subprocess
-from datetime import date
+import urllib.request
+from datetime import date, datetime
+from email.message import EmailMessage
 from pathlib import Path
 
 # --------------------------------------------------------------------
 # CONFIGURACIÓN
 # --------------------------------------------------------------------
 CARPETA_DESTINO = Path(__file__).resolve().parent.parent / "xls"
+REPO_RAIZ = Path(__file__).resolve().parent.parent
+CARPETA_LOGS = REPO_RAIZ / "logs"          # *.log ya está en .gitignore; ALERTA_*.txt también (ver README)
+PAGES_URL = "https://jdrq.github.io/orad-dashboard"
+# Archivos que se comparan contra la página publicada para saber si GitHub Pages ya desplegó.
+ARCHIVOS_CENTINELA = ["rubro_pliego.xls", "ue_pliego.xls", "nacional_gores.xls"]
+ESPERA_PAGES_SEG = 240      # cuánto esperar a que Pages publique antes de forzar el despliegue
+INTERVALO_PAGES_SEG = 30
 ANIO = "2026"
 URL_BASE = f"https://apps5.mineco.gob.pe/transparencia/Navegador/default.aspx?y={ANIO}&ap=Proyecto"
 # Filtro "Actividades y Proyectos" (Bloque EMR — Categoría 0068). Distinto del
@@ -384,6 +398,69 @@ def clic_con_reintento(fl, page, rol=None, nombre=None, selector_id=None,
     )
 
 
+def validar_contenido(ruta, config):
+    """
+    Revisa que el archivo descargado SEA el que se pidió (v3, 04/11/2026).
+
+    Antes solo se comprobaba que existiera y pesara >5 KB. Así, el 04/11/2026,
+    rubro_pliego.xls y ue_pliego.xls llegaron con el contenido de nacional_gores
+    (26 GOREs, sin Pliego 452): pesaban 49 KB, pasaron la validación y se
+    subieron a GitHub. Ahora se lee el encabezado de la consulta y se compara
+    con los pasos del drill-down. Devuelve (True, "") o (False, motivo).
+    """
+    import html as _html
+    import re
+    crudo = Path(ruta).read_bytes().decode("latin-1", errors="replace")
+    texto = re.sub(r"\s+", " ", _html.unescape(re.sub(r"<[^>]+>", " ", crudo)))
+
+    if "Recaudado" in crudo or not re.search(r"Ejecuci.n del Gasto", texto):
+        return False, "no es una consulta de Ejecución del GASTO (¿Ingresos?)"
+
+    url = config.get("url", URL_BASE)
+    m = re.search(r"[?&]y=(\d{4})", url)
+    if m:
+        a = re.search(r"A.o de Ejecuci.n:\s*(\d{4})", texto)
+        if not a or a.group(1) != m.group(1):
+            return False, f"año del archivo = {a.group(1) if a else '?'}, se esperaba {m.group(1)}"
+
+    if "ap=ActProy" in url:
+        if not re.search(r"Incluye:\s*Actividades y Proyectos", texto):
+            return False, 'falta el filtro "Actividades y Proyectos"'
+    elif not re.search(r"Incluye:\s*S.lo Proyectos", texto):
+        return False, 'falta el filtro "Sólo Proyectos"'
+
+    hay_pliego = hay_ue = False
+    for paso in config["pasos"]:
+        fila = paso[1]
+        if fila.startswith("R:"):
+            req = r"Nivel de Gobierno R:"
+        elif fila.startswith("M: GOBIERNOS"):
+            req = r"Nivel de Gobierno M:"
+        elif re.fullmatch(r"99:", fila) or fila.startswith("99:"):
+            req = r"Sector 99:"
+        elif re.fullmatch(r"\d{3}:", fila):
+            req, hay_pliego = r"Pliego " + fila[:3] + ":", True
+        elif re.fullmatch(r"\d{3}-\d+:", fila):
+            req, hay_ue = r"Unidad Ejecutora " + fila.rstrip(":"), True
+        elif re.fullmatch(r"\d{4}:", fila):
+            req = r"Categor.a Presupuestal " + fila[:4]
+        else:
+            continue          # pasos sin rótulo fijo (período, municipalidad, etc.)
+        if not re.search(req, texto):
+            return False, (f"el encabezado no dice '{req}': el archivo está en un nivel "
+                           f"distinto al pedido (no se llegó al nivel '{fila}')")
+
+    # Un nivel de MÁS (consulta más amplia o más profunda de lo pedido)
+    if not hay_pliego and re.search(r"Pliego \d{3}:", texto):
+        return False, "trae un Pliego seleccionado pero este archivo es a nivel Sector"
+    if hay_pliego and not hay_ue and re.search(r"Unidad Ejecutora \d", texto):
+        return False, "trae una Unidad Ejecutora seleccionada pero este archivo es a nivel Pliego"
+
+    if len(re.findall(r"<tr", crudo)) < 8:
+        return False, "la tabla de detalle está vacía o incompleta"
+    return True, ""
+
+
 def procesar_archivo(page, config):
     """
     Ejecuta la secuencia completa de un archivo: navegar, filtrar,
@@ -561,12 +638,21 @@ def procesar_archivo(page, config):
     destino = Path(config["destino"]) if config.get("destino") else CARPETA_DESTINO / config["nombre"]
     destino.parent.mkdir(parents=True, exist_ok=True)
 
+    # v3: se descarga a un .tmp, se VALIDA el contenido y solo entonces reemplaza al
+    # archivo bueno. Un archivo equivocado nunca pisa al anterior.
+    tmp = destino.with_name(destino.name + ".tmp")
+    descarga.save_as(tmp)
+    ok, motivo = validar_contenido(tmp, config)
+    if not ok:
+        tmp.unlink(missing_ok=True)
+        raise RuntimeError(f"ARCHIVO INCORRECTO descartado ({config['nombre']}): {motivo}. "
+                           f"Se conserva la versión anterior.")
+
     if destino.exists() and not config.get("destino"):
         respaldo = CARPETA_DESTINO / "_respaldo_anterior" / config["nombre"]
         respaldo.parent.mkdir(exist_ok=True)
         shutil.copy(destino, respaldo)
-
-    descarga.save_as(destino)
+    tmp.replace(destino)
     print(f"  [OK] {config['nombre']} guardado en {destino}")
 
 
@@ -574,112 +660,294 @@ def procesar_archivo(page, config):
 # VALIDACIÓN Y GIT AUTO-PUSH
 # --------------------------------------------------------------------
 
+# --------------------------------------------------------------------
+# REGISTRO (log) Y AVISOS — modo desatendido (v4, 04/11/2026)
+# --------------------------------------------------------------------
+
+class _Tee:
+    """Duplica todo lo que se imprime a un archivo de registro (para revisar corridas
+    que nadie estaba mirando)."""
+    def __init__(self, *flujos):
+        self.flujos = flujos
+        self.encoding = getattr(flujos[0], "encoding", None) or "utf-8"
+
+    def write(self, texto):
+        for f in self.flujos:
+            try:
+                f.write(texto)
+                f.flush()
+            except Exception:
+                pass
+        return len(texto)
+
+    def flush(self):
+        for f in self.flujos:
+            try:
+                f.flush()
+            except Exception:
+                pass
+
+
+def iniciar_log():
+    """Guarda la salida en logs/descarga_AAAA-MM-DD.log y borra registros de más de 45 días."""
+    CARPETA_LOGS.mkdir(exist_ok=True)
+    limite = time.time() - 45 * 86400
+    for viejo in CARPETA_LOGS.glob("*"):
+        try:
+            if viejo.stat().st_mtime < limite:
+                viejo.unlink()
+        except Exception:
+            pass
+    ruta = CARPETA_LOGS / f"descarga_{date.today():%Y-%m-%d}.log"
+    f = open(ruta, "a", encoding="utf-8")
+    f.write(f"\n===== Inicio {datetime.now():%Y-%m-%d %H:%M:%S} =====\n")
+    sys.stdout = _Tee(sys.__stdout__, f)
+    sys.stderr = _Tee(sys.__stderr__, f)
+    return ruta
+
+
+def avisar(asunto, detalle):
+    """Deja constancia de un problema que el script no pudo resolver solo.
+    1) archivo logs/ALERTA_*.txt   2) mensaje en pantalla de Windows (msg.exe, si existe)
+    3) correo, SOLO si defines las variables de entorno ORAD_SMTP_HOST, ORAD_SMTP_USER,
+       ORAD_SMTP_PASS y ORAD_ALERTA_A (opcionales: ORAD_SMTP_PORT, por defecto 587).
+    Nunca escribas la contraseña dentro del script."""
+    CARPETA_LOGS.mkdir(exist_ok=True)
+    ruta = CARPETA_LOGS / f"ALERTA_{datetime.now():%Y-%m-%d_%H%M}.txt"
+    ruta.write_text(f"{asunto}\n\n{detalle}\n", encoding="utf-8")
+    print(f"\n🔔 ALERTA: {asunto}\n   Detalle guardado en: {ruta}")
+
+    if os.name == "nt":
+        try:
+            subprocess.Popen(["msg", "*", "/TIME:900", f"ORAD dashboard: {asunto}"],
+                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        except Exception:
+            pass
+
+    host, usuario, clave, destino = (os.environ.get(k) for k in
+                                     ("ORAD_SMTP_HOST", "ORAD_SMTP_USER", "ORAD_SMTP_PASS", "ORAD_ALERTA_A"))
+    if host and usuario and clave and destino:
+        try:
+            msg = EmailMessage()
+            msg["Subject"], msg["From"], msg["To"] = f"[ORAD] {asunto}", usuario, destino
+            msg.set_content(detalle)
+            with smtplib.SMTP(host, int(os.environ.get("ORAD_SMTP_PORT", "587")), timeout=30) as srv:
+                srv.starttls()
+                srv.login(usuario, clave)
+                srv.send_message(msg)
+            print("   Correo de aviso enviado.")
+        except Exception as e:
+            print(f"   (no se pudo enviar el correo de aviso: {e.__class__.__name__}: {e})")
+
+
+# --------------------------------------------------------------------
+# DESCARGA CON REINTENTOS
+# --------------------------------------------------------------------
+
+def descargar_con_reintentos(browser, config, intentos=3, pausa=5):
+    """Reintenta un archivo con una pestaña NUEVA en cada intento (estado limpio del
+    sitio del MEF). Retorna (True, None) o (False, motivo_del_último_error)."""
+    ultimo = None
+    for n in range(1, intentos + 1):
+        page = browser.new_page()
+        try:
+            procesar_archivo(page, config)
+            page.close()
+            return True, None
+        except Exception as e:
+            ultimo = str(e)
+            print(f"  [ERROR intento {n}/{intentos}] {config['nombre']}: {e}")
+            if n == intentos:
+                captura = REPO_RAIZ / f"error_{config['nombre']}.png"
+                try:
+                    page.screenshot(path=str(captura), full_page=True)
+                    print(f"  [DIAGNÓSTICO] Captura guardada en: {captura}")
+                except Exception:
+                    print("  [DIAGNÓSTICO] No se pudo guardar la captura.")
+            try:
+                page.close()
+            except Exception:
+                pass
+            if n < intentos:
+                print(f"  Reintentando en {pausa * n} s...")
+                time.sleep(pausa * n)
+    return False, ultimo
+
+
+# --------------------------------------------------------------------
+# VALIDACIÓN FINAL Y GIT AUTO-PUSH
+# --------------------------------------------------------------------
+
+_MESES = {"enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6, "julio": 7,
+          "agosto": 8, "setiembre": 9, "septiembre": 9, "octubre": 10, "noviembre": 11,
+          "diciembre": 12}
+
+
+def hoy():
+    return date.today()
+
+
+def fecha_consulta(ruta):
+    """Fecha de la consulta que trae el archivo ('04-noviembre-2026') o None."""
+    texto = Path(ruta).read_bytes().decode("latin-1", errors="replace")
+    m = re.search(r"Fecha de la Consulta:\s*(\d{1,2})-([A-Za-z]+)-(\d{4})", texto)
+    if not m or m.group(2).lower() not in _MESES:
+        return None
+    return date(int(m.group(3)), _MESES[m.group(2).lower()], int(m.group(1)))
+
+
 def validar_archivos():
     """
-    Verifica que los 17 archivos esperados existan en xls/ y tengan
-    tamaño > 0 bytes. Retorna (ok: bool, faltantes: list).
-    Un archivo descargado con error en el MEF a veces llega como HTML
-    de 1-2 KB — el tamaño mínimo de 5 KB descarta esos casos.
+    Compuerta final antes de Git (v4). Para cada uno de los 17 archivos verifica:
+      1) existe y pesa más de 5 KB;
+      2) su CONTENIDO es el pedido (año, Gasto, filtro y nivel: validar_contenido);
+      3) fue consultado HOY (un archivo de ayer no se sube como si fuera de hoy).
+    Retorna (ok: bool, problemas: list).
     """
     TAMANIO_MINIMO = 5 * 1024  # 5 KB
-    faltantes = []
+    problemas = []
 
-    for nombre in NOMBRES_ESPERADOS:
+    for config in ARCHIVOS:
+        nombre = config["nombre"]
         ruta = CARPETA_DESTINO / nombre
         if not ruta.exists():
-            faltantes.append(f"{nombre} — NO EXISTE")
-        elif ruta.stat().st_size < TAMANIO_MINIMO:
-            faltantes.append(
-                f"{nombre} — DEMASIADO PEQUEÑO "
-                f"({ruta.stat().st_size / 1024:.1f} KB, mínimo 5 KB)"
-            )
+            problemas.append(f"{nombre} — NO EXISTE")
+            continue
+        if ruta.stat().st_size < TAMANIO_MINIMO:
+            problemas.append(f"{nombre} — DEMASIADO PEQUEÑO ({ruta.stat().st_size / 1024:.1f} KB, mínimo 5 KB)")
+            continue
+        ok, motivo = validar_contenido(ruta, config)
+        if not ok:
+            problemas.append(f"{nombre} — CONTENIDO INCORRECTO: {motivo}")
+            continue
+        f = fecha_consulta(ruta)
+        if f != hoy():
+            problemas.append(f"{nombre} — DESACTUALIZADO: consultado el {f or '(fecha ilegible)'}, hoy es {hoy()}")
 
-    return len(faltantes) == 0, faltantes
+    return len(problemas) == 0, problemas
+
+
+def _git(*args):
+    return subprocess.run(["git", *args], cwd=str(REPO_RAIZ), capture_output=True,
+                          text=True, encoding="utf-8")
 
 
 def git_push_si_completo():
     """
-    Ejecuta git add xls/ → git commit → git push SOLO si los 17
-    archivos pasan la validación. Si falla cualquiera, no toca Git.
-
-    Usa subprocess con cwd apuntando a la raíz del repo (un nivel
-    arriba del script, que vive en scripts/).
+    git add xls/ → git commit → git push SOLO si los 17 archivos pasan la validación.
+    Retorna: "subido" | "sin_cambios" | "bloqueado" | "error_git".
     """
-    REPO_RAIZ = Path(__file__).resolve().parent.parent
-
     print("\n" + "=" * 60)
     print("VALIDACIÓN FINAL — verificando 17/17 archivos")
     print("=" * 60)
 
-    ok, faltantes = validar_archivos()
-
+    ok, problemas = validar_archivos()
     if not ok:
-        print(f"\n🚫 GIT PUSH BLOQUEADO — {len(faltantes)} archivo(s) con problema:\n")
-        for f in faltantes:
+        print(f"\n🚫 GIT PUSH BLOQUEADO — {len(problemas)} archivo(s) con problema:\n")
+        for f in problemas:
             print(f"   ❌ {f}")
-        print(
-            "\n⚠️  No se subió NADA a GitHub."
-            "\nResuelve los archivos marcados y vuelve a ejecutar el script,"
-            "\no haz git add / commit / push manualmente una vez corregido."
-        )
-        return
+        print("\n⚠️  No se subió NADA a GitHub.")
+        return "bloqueado", problemas
 
-    # 17/17 OK — proceder con Git
-    hoy = date.today().strftime("%d/%m/%Y")
-    mensaje_commit = f"data: actualización diaria XLS - {hoy}"
-
+    mensaje_commit = f"data: actualización diaria XLS - {hoy():%d/%m/%Y}"
     print(f"\n✅ 17/17 archivos OK — procediendo con Git...\n")
 
-    comandos = [
-        (["git", "add", "xls/"], "git add xls/"),
-        (["git", "commit", "-m", mensaje_commit], f'git commit -m "{mensaje_commit}"'),
-        (["git", "push", "origin", "main"], "git push origin main"),
-    ]
-
-    for cmd, descripcion in comandos:
+    for cmd, descripcion in (
+        (["add", "xls/"], "git add xls/"),
+        (["commit", "-m", mensaje_commit], f'git commit -m "{mensaje_commit}"'),
+        (["push", "origin", "main"], "git push origin main"),
+    ):
         print(f"  ▶ {descripcion}")
-        resultado = subprocess.run(
-            cmd,
-            cwd=str(REPO_RAIZ),
-            capture_output=True,
-            text=True,
-            encoding="utf-8",
-        )
+        r = _git(*cmd)
+        if r.stdout.strip():
+            print(f"    {r.stdout.strip()}")
+        if r.stderr.strip():
+            print(f"    {r.stderr.strip()}")
 
-        if resultado.stdout.strip():
-            print(f"    {resultado.stdout.strip()}")
-        if resultado.stderr.strip():
-            print(f"    {resultado.stderr.strip()}")
+        if r.returncode != 0:
+            salida = r.stdout + r.stderr
+            if any(t in salida for t in ("nothing to commit", "nothing added to commit",
+                                         "no changes added to commit")):
+                print("\nℹ️  Los archivos XLS no cambiaron respecto al último commit — nada nuevo que subir.")
+                return "sin_cambios", []
+            print(f"\n❌ Error en '{descripcion}' (código {r.returncode}). "
+                  f"Revisa tu conexión, credenciales de Git o el estado del repo.")
+            return "error_git", [f"'{descripcion}' falló: {salida.strip()[:300]}"]
 
-        # git commit devuelve código 1 si no hay cambios (nada que commitear).
-        # Eso NO es un error real — puede pasar si los datos del MEF no
-        # cambiaron desde el último push. Se detecta por el mensaje.
-        if resultado.returncode != 0:
-            sin_cambios = (
-                "nothing to commit" in resultado.stdout
-                or "nothing to commit" in resultado.stderr
-                or "nothing added to commit" in resultado.stdout
-                or "nothing added to commit" in resultado.stderr
-                or "no changes added to commit" in resultado.stdout
-                or "no changes added to commit" in resultado.stderr
-            )
-            if sin_cambios:
-                print(
-                    "\nℹ️  Los archivos XLS no cambiaron respecto al último"
-                    " commit — no hay nada nuevo que subir. Esto es normal."
-                )
-                return
+    print(f"\n🚀 Push exitoso. Commit: \"{mensaje_commit}\"")
+    return "subido", []
 
-            # Error real de Git
-            print(
-                f"\n❌ Error en '{descripcion}' "
-                f"(código {resultado.returncode}). "
-                f"Revisa tu conexión, credenciales de Git o el estado del repo."
-            )
-            return
 
-    print(f"\n🚀 Push exitoso — dashboard actualizado en GitHub Pages.")
-    print(f"   Commit: \"{mensaje_commit}\"")
+# --------------------------------------------------------------------
+# VERIFICACIÓN DE LA PÁGINA PUBLICADA (y reparación automática)
+# --------------------------------------------------------------------
+
+def _normalizado(b):
+    """Git en Windows convierte CRLF→LF al subir: se compara sin esa diferencia."""
+    return hashlib.sha256(b.replace(b"\r\n", b"\n")).hexdigest()
+
+
+def contenido_publicado(nombre):
+    req = urllib.request.Request(f"{PAGES_URL}/xls/{nombre}?v={int(time.time())}",
+                                 headers={"Cache-Control": "no-cache", "Pragma": "no-cache",
+                                          "User-Agent": "orad-dashboard-verificacion"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return r.read()
+
+
+def pendientes_en_pagina():
+    """Archivos centinela cuyo contenido publicado NO coincide con el local."""
+    pend = []
+    for nombre in ARCHIVOS_CENTINELA:
+        try:
+            publicado = contenido_publicado(nombre)
+        except Exception as e:
+            pend.append(f"{nombre} (no se pudo leer: {e.__class__.__name__})")
+            continue
+        if _normalizado(publicado) != _normalizado((CARPETA_DESTINO / nombre).read_bytes()):
+            pend.append(nombre)
+    return pend
+
+
+def esperar_publicacion(max_seg, cada=None):
+    cada = INTERVALO_PAGES_SEG if cada is None else cada
+    t0 = time.time()
+    while True:
+        pend = pendientes_en_pagina()
+        if not pend:
+            return True, []
+        if time.time() - t0 >= max_seg:
+            return False, pend
+        print(f"  ... la página aún no muestra los datos nuevos ({', '.join(pend)}); espero {cada} s")
+        time.sleep(cada)
+
+
+def verificar_y_reparar_publicacion():
+    """Comprueba que GitHub Pages ya sirve los archivos de hoy. Si no aparecen tras
+    ESPERA_PAGES_SEG, fuerza UN despliegue con un commit vacío (lo que se hizo a mano el
+    04/11/2026, cuando GitHub no disparó el build del último push) y vuelve a esperar."""
+    print("\n" + "=" * 60)
+    print("VERIFICANDO LA PÁGINA PUBLICADA")
+    print("=" * 60)
+    ok, pend = esperar_publicacion(ESPERA_PAGES_SEG)
+    if ok:
+        print("✅ La página ya muestra los datos de hoy.")
+        return True, []
+
+    print(f"\n⚠️  Tras {ESPERA_PAGES_SEG} s la página sigue con datos viejos ({', '.join(pend)}).")
+    print("   Fuerzo el despliegue con un commit vacío (una sola vez)...")
+    for cmd in (["commit", "--allow-empty", "-m", "chore: forzar despliegue de Pages (automático)"],
+                ["push", "origin", "main"]):
+        r = _git(*cmd)
+        print(f"  ▶ git {' '.join(cmd[:2])}: {(r.stdout + r.stderr).strip()[:200]}")
+        if r.returncode != 0:
+            return False, [f"no se pudo forzar el despliegue: {(r.stdout + r.stderr).strip()[:200]}"]
+
+    ok, pend = esperar_publicacion(ESPERA_PAGES_SEG)
+    if ok:
+        print("✅ Tras forzar el despliegue, la página ya muestra los datos de hoy.")
+        return True, []
+    return False, [f"la página sigue sin mostrar: {', '.join(pend)}"]
 
 
 # --------------------------------------------------------------------
@@ -687,53 +955,71 @@ def git_push_si_completo():
 # --------------------------------------------------------------------
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser(description="Descarga diaria de los 17 XLS del MEF.")
+    ap.add_argument("--solo", nargs="+", metavar="ARCHIVO",
+                    help="descargar solo estos archivos (ej.: --solo rubro_pliego ue_pliego)")
+    ap.add_argument("--sin-pausa", action="store_true",
+                    help="no esperar ENTER al terminar (para ejecución programada)")
+    ap.add_argument("--headless", action="store_true", help="sin ventana de navegador")
+    ap.add_argument("--reintentos", type=int, default=3, help="intentos por archivo (defecto 3)")
+    ap.add_argument("--sin-git", action="store_true", help="descargar y validar, sin tocar Git")
+    ap.add_argument("--sin-verificar-web", action="store_true",
+                    help="no comprobar la página publicada después del push")
+    args = ap.parse_args()
+
+    ruta_log = iniciar_log()
+    print(f"Registro de esta corrida: {ruta_log}")
+
+    lista = ARCHIVOS
+    if args.solo:
+        pedidos = {a.lower().removesuffix(".xls") for a in args.solo}
+        lista = [a for a in ARCHIVOS if a["nombre"].removesuffix(".xls") in pedidos]
+        desconocidos = pedidos - {a["nombre"].removesuffix(".xls") for a in lista}
+        if desconocidos:
+            raise SystemExit(f"Nombres no reconocidos: {sorted(desconocidos)}. Válidos: {NOMBRES_ESPERADOS}")
     preparar_carpeta()
-    exito_total = True
+    fallidos = []
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False, slow_mo=200)
-        page = browser.new_page()
-
-        for i, config in enumerate(ARCHIVOS, 1):
-            print(f"\n[{i}/17] Procesando {config['nombre']} ...")
-            try:
-                procesar_archivo(page, config)
-            except Exception as e:
-                print(f"  [ERROR] Falló {config['nombre']}: {e}")
-                captura = Path(__file__).resolve().parent.parent / f"error_{config['nombre']}.png"
-                try:
-                    page.screenshot(path=str(captura), full_page=True)
-                    print(f"  [DIAGNÓSTICO] Captura guardada en: {captura}")
-                except Exception:
-                    print("  [DIAGNÓSTICO] No se pudo guardar la captura.")
-                print("  Deteniendo el script para revisar manualmente.")
-                exito_total = False
-                break
-
-        input("\nDescarga terminada. Presiona ENTER para cerrar el navegador...")
+        browser = p.chromium.launch(headless=args.headless, slow_mo=0 if args.headless else 200)
+        for i, config in enumerate(lista, 1):
+            print(f"\n[{i}/{len(lista)}] Procesando {config['nombre']} ...")
+            ok, motivo = descargar_con_reintentos(browser, config, args.reintentos)
+            if not ok:
+                fallidos.append((config["nombre"], motivo))
+        if not args.sin_pausa:
+            input("\nDescarga terminada. Presiona ENTER para cerrar el navegador...")
         browser.close()
 
-    # CORREGIDO en sesión 14 (19/08/2026): antes esto se llamaba SIEMPRE,
-    # sin importar si el loop de arriba terminó con error. Como la
-    # validación de archivos solo revisa que EXISTAN y pesen > 0 (no que se
-    # hayan actualizado HOY), un archivo viejo de un día anterior pasaba la
-    # validación igual, y el script intentaba subir a Git como si todo
-    # hubiera salido bien - riesgo real de que el dashboard quedara con un
-    # bloque desactualizado sin que nadie se entere. Ahora, si algún
-    # archivo falló, NO se valida ni se sube nada - se avisa explícitamente
-    # cuál quedó con datos viejos.
-    if not exito_total:
-        print(
-            "\n⚠️  El script se detuvo por un error antes de terminar los "
-            "17 archivos (ver [ERROR] arriba). NO se ejecuta Git - los "
-            "archivos que no llegaron a descargarse hoy conservan su "
-            "versión de un día anterior en xls/, y el dashboard publicado "
-            "seguirá mostrando esos bloques con datos desactualizados "
-            "hasta que corras el script de nuevo con éxito."
-        )
+    # Si algún archivo no se pudo obtener tras los reintentos NO se sube nada: los demás
+    # quedarían de hoy y ese de ayer, con la página mezclando fechas sin que nadie lo note.
+    if fallidos:
+        detalle = "\n".join(f"- {n}: {m}" for n, m in fallidos)
+        print("\n⚠️  NO se ejecuta Git: archivos que no se pudieron descargar bien:\n" + detalle)
+        avisar(f"{len(fallidos)} archivo(s) del MEF fallaron tras {args.reintentos} intentos",
+               "Estos archivos conservan su versión anterior y NO se subió nada a GitHub:\n" + detalle +
+               f"\n\nRepetir solo esos: python scripts\\descargar_xls_mef.py --solo "
+               + " ".join(n.removesuffix('.xls') for n, _ in fallidos))
+        sys.exit(1)
+
+    if args.sin_git:
         return
 
-    git_push_si_completo()
+    estado, problemas = git_push_si_completo()
+    if estado in ("bloqueado", "error_git"):
+        avisar("No se subió la actualización diaria a GitHub", "\n".join(f"- {x}" for x in problemas))
+        sys.exit(1)
+
+    if not args.sin_verificar_web:
+        ok, problemas = verificar_y_reparar_publicacion()
+        if not ok:
+            avisar("La página publicada NO muestra los datos de hoy",
+                   "\n".join(f"- {x}" for x in problemas) +
+                   "\n\nRevisa https://github.com/jdrq/orad-dashboard/actions (¿falló el despliegue de Pages?).")
+            sys.exit(2)
+
+    print("\n🎉 Actualización diaria completa y verificada en la página publicada.")
 
 
 if __name__ == "__main__":

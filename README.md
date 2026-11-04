@@ -264,3 +264,27 @@ El dashboard funciona igual abriendo `index.html` con doble clic y con los XLS e
 - **Cerrado (02/11/2026):** históricos extendidos a 2015–2025 y hasta Noviembre; los valores mensuales salieron de `index.html` hacia `data/mensual-actual.js` y el cierre se automatizó con `scripts/cierre_mensual.py`.
 - **Próximo hito:** revisar el cierre provisional de Octubre (desde 05/11/2026) con `--sin-historicos`; luego automatizar descarga masiva de históricos, programación (Task Scheduler / GitHub Actions) y reporte Word quincenal.
 - **Pendiente no urgente:** migrar los datos hardcodeados en `index.html` (constante `RB_HIST_SC`, bloque "Ver Primer Semestre") a un JSON externo en `data/`, consolidando toda la data histórica en un solo formato — hoy coexisten dos fuentes (HTML hardcodeado y JSON externo) para el mismo bloque, lo cual es deuda técnica aceptable a corto plazo pero no ideal a largo plazo.
+
+---
+
+## Modo desatendido y autorreparación (descarga diaria)
+
+`scripts/descargar_xls_mef.py` valida y se repara solo en cada paso:
+
+| Capa | Qué hace |
+|---|---|
+| Validación de contenido | Cada archivo se descarga a `.tmp`, se verifica que sea el pedido (año, Gasto, filtro, nivel) y recién entonces reemplaza al anterior (respaldo en `xls/_respaldo_anterior`). |
+| Reintentos | Hasta 3 intentos por archivo, con pestaña nueva en cada uno (`--reintentos N`). |
+| Compuerta final | Antes de Git exige 17/17 archivos válidos **y consultados hoy**. Si falta uno, no se sube nada. |
+| Verificación de la web | Tras el push compara `rubro_pliego`, `ue_pliego` y `nacional_gores` con lo publicado en GitHub Pages; si en 4 min no aparecen, hace **un** commit vacío para forzar el despliegue. |
+| Avisos | Si no logra repararse: `logs/ALERTA_*.txt`, mensaje en pantalla de Windows y, opcionalmente, correo (variables de entorno `ORAD_SMTP_HOST`, `ORAD_SMTP_USER`, `ORAD_SMTP_PASS`, `ORAD_ALERTA_A`). |
+| Registro | `logs/descarga_AAAA-MM-DD.log` (se borran a los 45 días; la carpeta no se sube a Git). |
+
+Códigos de salida: `0` todo bien · `1` archivos fallidos o push bloqueado · `2` subido pero la página no se actualizó.
+
+Opciones: `--solo NOMBRE ...`, `--sin-pausa`, `--headless`, `--reintentos N`, `--sin-git`, `--sin-verificar-web`.
+
+### Programar con el Programador de tareas de Windows
+Ejecución diaria sin ventana:
+`python scripts\descargar_xls_mef.py --sin-pausa --headless`
+(Iniciar en: la carpeta del proyecto). El PC debe estar encendido y con la sesión iniciada. El cierre mensual sigue siendo manual.
