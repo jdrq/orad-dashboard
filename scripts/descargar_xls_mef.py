@@ -118,7 +118,7 @@ import shutil
 import smtplib
 import subprocess
 import urllib.request
-from datetime import date, datetime
+from datetime import date, datetime, timedelta, timezone
 from email.message import EmailMessage
 from pathlib import Path
 
@@ -716,6 +716,8 @@ def avisar(asunto, detalle):
     ruta = CARPETA_LOGS / f"ALERTA_{datetime.now():%Y-%m-%d_%H%M}.txt"
     ruta.write_text(f"{asunto}\n\n{detalle}\n", encoding="utf-8")
     print(f"\n🔔 ALERTA: {asunto}\n   Detalle guardado en: {ruta}")
+    if en_actions():
+        print(f"::error title=ORAD dashboard::{asunto}")   # aparece como error en la corrida de Actions
 
     if os.name == "nt":
         try:
@@ -784,7 +786,9 @@ _MESES = {"enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 
 
 
 def hoy():
-    return date.today()
+    """Fecha de hoy en Perú (UTC-5, sin horario de verano). Así la validación 'consultado hoy'
+    es igual en tu PC y en GitHub Actions, cuyos servidores trabajan en UTC."""
+    return datetime.now(timezone(timedelta(hours=-5))).date()
 
 
 def fecha_consulta(ruta):
@@ -832,6 +836,18 @@ def _git(*args):
                           text=True, encoding="utf-8")
 
 
+def en_actions():
+    """True cuando el script corre dentro de GitHub Actions (variable GITHUB_ACTIONS=true)."""
+    return os.environ.get("GITHUB_ACTIONS") == "true"
+
+
+def preparar_git_ci():
+    """En GitHub Actions no hay usuario de git configurado: se define uno para poder hacer commit."""
+    if en_actions():
+        _git("config", "user.name", "orad-bot")
+        _git("config", "user.email", "orad-bot@users.noreply.github.com")
+
+
 def git_push_si_completo():
     """
     git add xls/ → git commit → git push SOLO si los 17 archivos pasan la validación.
@@ -851,6 +867,7 @@ def git_push_si_completo():
 
     mensaje_commit = f"data: actualización diaria XLS - {hoy():%d/%m/%Y}"
     print(f"\n✅ 17/17 archivos OK — procediendo con Git...\n")
+    preparar_git_ci()
 
     for cmd, descripcion in (
         (["add", "xls/"], "git add xls/"),
@@ -863,6 +880,16 @@ def git_push_si_completo():
             print(f"    {r.stdout.strip()}")
         if r.stderr.strip():
             print(f"    {r.stderr.strip()}")
+
+        if r.returncode != 0 and cmd[0] == "push" and any(
+                t in (r.stdout + r.stderr) for t in ("rejected", "fetch first", "non-fast-forward")):
+            # Alguien (tu PC o la nube) subió algo mientras tanto: se integra y se reintenta UNA vez.
+            print("    El push fue rechazado (el repo avanzó). Integro con 'git pull --rebase' y reintento...")
+            r = _git("pull", "--rebase", "origin", "main")
+            if r.returncode == 0:
+                r = _git("push", "origin", "main")
+            if r.stdout.strip() or r.stderr.strip():
+                print(f"    {(r.stdout + r.stderr).strip()}")
 
         if r.returncode != 0:
             salida = r.stdout + r.stderr

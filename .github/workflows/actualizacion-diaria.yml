@@ -1,0 +1,48 @@
+# Actualizaci?n diaria de los 17 archivos del MEF, en la nube (lunes a viernes).
+# Descarga -> valida 17/17 -> sube a Git -> verifica que la p?gina publicada se actualiz?.
+# Si algo falla, la corrida queda en rojo y GitHub avisa por correo al due?o del repo.
+name: Actualizaci?n diaria MEF
+
+on:
+  schedule:
+    - cron: "45 13 * * 1-5"   # 13:45 UTC = 08:45 hora de Lima (UTC-5)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: actualizacion-diaria
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Traer el repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar Playwright y Chromium
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+
+      - name: Descargar, validar, subir y verificar
+        run: python scripts/descargar_xls_mef.py --sin-pausa --headless
+
+      - name: Guardar log y capturas de error
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: resultado-diario
+          path: |
+            logs/
+            error_*.png
+          if-no-files-found: ignore
+          retention-days: 30
