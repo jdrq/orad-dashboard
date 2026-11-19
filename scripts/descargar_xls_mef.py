@@ -846,6 +846,9 @@ def preparar_git_ci():
     if en_actions():
         _git("config", "user.name", "orad-bot")
         _git("config", "user.email", "orad-bot@users.noreply.github.com")
+        # Igual que Git en Windows: al hacer commit, los saltos de línea CRLF pasan a LF.
+        # Sin esto, cada archivo aparece 100% modificado aunque solo cambien unos datos.
+        _git("config", "core.autocrlf", "input")
 
 
 def git_push_si_completo():
