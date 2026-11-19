@@ -1,11 +1,12 @@
-# Actualización diaria de los 17 archivos del MEF, en la nube (lunes a viernes).
-# Descarga -> valida 17/17 -> sube a Git -> verifica que la página publicada se actualizó.
-# Si algo falla, la corrida queda en rojo y GitHub avisa por correo al dueño del repo.
-name: Actualización diaria MEF
+# ActualizaciÃ³n diaria de los 17 archivos del MEF, en la nube (todos los días).
+# Descarga -> valida 17/17 -> sube a Git -> verifica que la pÃ¡gina publicada se actualizÃ³.
+# Si algo falla, la corrida queda en rojo y GitHub avisa por correo al dueÃ±o del repo.
+name: ActualizaciÃ³n diaria MEF
 
 on:
   schedule:
-    - cron: "45 13 * * 1-5"   # 13:45 UTC = 08:45 hora de Lima (UTC-5)
+    - cron: "7 12 * * *"   # 12:07 UTC = 07:07 hora de Lima (el MEF actualiza ~06:00)
+    - cron: "7 17 * * *"   # 17:07 UTC = 12:07 hora de Lima (reintento de seguridad)
   workflow_dispatch:
 
 permissions:
