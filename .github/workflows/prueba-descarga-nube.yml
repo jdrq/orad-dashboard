@@ -1,4 +1,4 @@
-﻿# Prueba de viabilidad: ¿puede GitHub Actions descargar del MEF (Consulta Amigable)?
+# Prueba de viabilidad: ¿puede GitHub Actions descargar del MEF (Consulta Amigable)?
 # Se ejecuta SOLO a mano (Actions -> "Prueba descarga MEF en la nube" -> Run workflow).
 # Descarga UN archivo (rubro_sede_central) con --sin-git: no modifica ni sube nada al repo.
 name: Prueba descarga MEF en la nube
@@ -28,7 +28,7 @@ jobs:
           playwright install --with-deps chromium
 
       - name: Descargar un archivo de prueba del MEF
-        run: python scripts/descargar_xls_mef.py --solo rubro_sede_central --headless --sin-pausa --sin-git
+        run: python scripts/descargar_xls_mef.py --headless --sin-pausa --sin-git
 
       - name: Mostrar el registro de la corrida
         if: always()
