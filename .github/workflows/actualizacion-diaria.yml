@@ -1,7 +1,7 @@
-# ActualizaciÃ³n diaria de los 17 archivos del MEF, en la nube (todos los días).
-# Descarga -> valida 17/17 -> sube a Git -> verifica que la pÃ¡gina publicada se actualizÃ³.
-# Si algo falla, la corrida queda en rojo y GitHub avisa por correo al dueÃ±o del repo.
-name: ActualizaciÃ³n diaria MEF
+# Actualización diaria de los 17 archivos del MEF, en la nube (todos los días).
+# Descarga -> valida 17/17 -> sube a Git -> verifica que la página publicada se actualizó.
+# Si algo falla, la corrida queda en rojo y GitHub avisa por correo al dueño del repo.
+name: Actualización diaria MEF
 
 on:
   schedule:
