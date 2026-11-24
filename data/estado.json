@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "actualizado": "2026-11-24T16:19:29-05:00",
+  "fecha_consulta_mef": "2026-11-24",
+  "archivos": {
+    "esperados": 17,
+    "validos": 17
+  },
+  "anio_activo": 2026,
+  "cierre_mensual": {
+    "anio": 2026,
+    "ultimo_mes_cerrado": 10,
+    "provisional": false,
+    "revisar_desde": null,
+    "confirmado_el": "2026-11-24"
+  },
+  "origen": "manual",
+  "corrida": null,
+  "commit_datos": "dbd7b6c"
+}
