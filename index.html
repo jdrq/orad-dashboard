@@ -34,7 +34,7 @@
 
   /* ── Cabecera ── */
   /* Banner de estado de la actualización (verde = al día, ámbar = con retraso, rojo = sin actualizar) */
-  #estadoBanner{font-family:'Barlow',sans-serif;font-size:12.5px;line-height:1.35;text-align:center;padding:6px 14px;border-bottom:1px solid transparent}
+  #estadoBanner{font-family:'Barlow',sans-serif;font-size:12.5px;line-height:1.35;text-align:center;padding:6px 14px;border-top:1px solid transparent;margin-top:24px}
   #estadoBanner.ok{background:#e8f5ec;color:#1e6b3a;border-color:#c5e5cf}
   #estadoBanner.aviso{background:#fff3d6;color:#8a5a00;border-color:#f2dd9c}
   #estadoBanner.error{background:#fde8e8;color:#a11818;border-color:#f3c2c2}
@@ -399,8 +399,6 @@
   <div id="bannerSemestral" style="display:none;background:#FFD166;color:#5a1414;text-align:center;font-weight:800;padding:8px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.4px;font-size:14px">
     📌 ESTÁS VIENDO DATOS CONGELADOS DEL PRIMER SEMESTRE <span class="anio-activo">2026</span> (ENERO–JUNIO) — No se actualizan a diario. Usa "Volver a Vista Actual" para ver la ejecución de hoy.
   </div>
-  <!-- Estado de la última actualización VERIFICADA (lo escribe scripts/generar_estado.py -> data/estado.json) -->
-  <div id="estadoBanner" role="status" style="display:none"></div>
   <div class="subband"><div class="wrap">Del Gobierno Regional de Lambayeque</div></div>
   <div class="greca" id="greca" aria-hidden="true"></div>
 
@@ -1165,6 +1163,9 @@
       </div>
 
     </div>
+
+    <!-- Estado de la última actualización VERIFICADA (lo escribe scripts/generar_estado.py -> data/estado.json) -->
+    <div id="estadoBanner" role="status" style="display:none"></div>
 
     <footer><div class="wrap">
       <span><b>Fuente:</b> SIAF — Consulta Amigable / Gasto Diario BI — MEF · apps5.mineco.gob.pe</span>
