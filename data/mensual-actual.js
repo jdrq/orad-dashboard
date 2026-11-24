@@ -3,17 +3,17 @@
    Lo leen los Bloques 2D, 6D y 9 de index.html. */
 window.MENSUAL_ACTUAL = {
   "anio": 2026,
-  "generado": "2026-11-02",
+  "generado": "2026-11-24",
   "fuente": {
     "pliego": "xls/gore_devengado_mes.xls",
     "sede_central": "xls/sede_devengado_mes.xls",
-    "fecha_consulta": "2026-11-02"
+    "fecha_consulta": "2026-11-24"
   },
   "ultimo_mes_cerrado": 10,
   "estado": {
-    "provisional": true,
-    "revisar_desde": "2026-11-05",
-    "confirmado_el": null
+    "provisional": false,
+    "revisar_desde": null,
+    "confirmado_el": "2026-11-24"
   },
   "pliego": {
     "mensual": [
@@ -30,7 +30,7 @@ window.MENSUAL_ACTUAL = {
       null,
       null
     ],
-    "totalizador_mef": 473679040,
+    "totalizador_mef": 513868493,
     "diferencia_cuadre": 2
   },
   "sede_central": {
@@ -48,8 +48,8 @@ window.MENSUAL_ACTUAL = {
       null,
       null
     ],
-    "totalizador_mef": 265827248,
-    "diferencia_cuadre": 1
+    "totalizador_mef": 295638254,
+    "diferencia_cuadre": 0
   },
   "cambios": []
 };
