@@ -2697,7 +2697,8 @@
     if (!d) return null;
     const tp = d.pim || 0;
     let td, mesLabel;
-    if (d.dev_nov != null)      { td = d.dev_nov; mesLabel = "Nov"; }   // agregado 02/11/2026 al activar Noviembre
+    if (d.dev_dic != null)      { td = d.dev_dic; mesLabel = "Dic"; }   // agregado 24/11/2026 para el cierre automatico del 01/12
+    else if (d.dev_nov != null) { td = d.dev_nov; mesLabel = "Nov"; }   // agregado 02/11/2026 al activar Noviembre
     else if (d.dev_oct != null) { td = d.dev_oct; mesLabel = "Oct"; }   // agregado 01/10/2026 al activar Octubre
     else if (d.dev_set != null) { td = d.dev_set; mesLabel = "Set"; }
     else if (d.dev_ago != null) { td = d.dev_ago; mesLabel = "Ago"; }
