@@ -1,0 +1,42 @@
+{
+ "version": 1,
+ "descripcion": "Registro diario de controles de calidad (ORAD). Una entrada por fecha de consulta.",
+ "dias": [
+  {
+   "fecha": "2026-11-24",
+   "pliego": {
+    "pim": 777002099.0,
+    "certificacion": 741701197.0,
+    "devengado": 513868493.0,
+    "girado": 499534191.0,
+    "avance": 66.1
+   },
+   "ue_cantidad": 10,
+   "tamanios": {
+    "funciones_pliego.xls": 34919,
+    "gore_devengado_mes.xls": 28757,
+    "munis_emergencia.xls": 71360,
+    "nacional_gores.xls": 50785,
+    "proyecto_emergencia.xls": 20452,
+    "proyectos_sede_central.xls": 408139,
+    "rubro_agricultura.xls": 17381,
+    "rubro_h_belen.xls": 17367,
+    "rubro_h_mercedes.xls": 17383,
+    "rubro_h_regional.xls": 18892,
+    "rubro_peot.xls": 18921,
+    "rubro_pliego.xls": 21786,
+    "rubro_salud.xls": 17374,
+    "rubro_sede_central.xls": 21907,
+    "rubro_transportes.xls": 15864,
+    "sede_devengado_mes.xls": 30384,
+    "ue_pliego.xls": 27941
+   },
+   "controles": {
+    "revisados": 940,
+    "alertas": 0,
+    "avisos": 0
+   },
+   "registrado": "2026-11-24T17:50:15-05:00"
+  }
+ ]
+}
