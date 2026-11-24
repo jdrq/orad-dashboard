@@ -1,5 +1,0 @@
-{
-  "anio_activo": 2026,
-  "primer_anio_historico": 2015,
-  "nota": "UNICO lugar donde se cambia el año. En enero se sube a 2027 SOLO despues de cerrar y confirmar diciembre. Lo leen los scripts (scripts/config_orad.py) y el dashboard (data/config.js)."
-}
