@@ -1558,24 +1558,51 @@
   var MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Setiembre","Octubre","Noviembre","Diciembre"];
   function fFecha(iso){ var p = String(iso||"").slice(0,10).split("-"); return p.length === 3 ? p[2]+"/"+p[1]+"/"+p[0] : "—"; }
   function fHora(d){ return d.toLocaleString("es-PE",{timeZone:"America/Lima",day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit",hour12:false}); }
+  function plural(n, uno, varios){ return n + " " + (n === 1 ? uno : varios); }
   function pintar(e){
     var t = new Date(e.actualizado);
     if (isNaN(t.getTime())) return;
     var horas = (Date.now() - t.getTime()) / 36e5;
-    var a = e.archivos || {}, c = e.cierre_mensual || {};
-    var partes = [];
-    var nivel, icono;
-    if (horas <= 30)      { nivel = "ok";    icono = "✔"; partes.push("<b>Datos verificados</b>"); }
-    else if (horas <= 54) { nivel = "aviso"; icono = "⚠"; partes.push("<b>Actualización con retraso</b>: la última verificada fue hace " + Math.round(horas) + " h"); }
-    else                  { nivel = "error"; icono = "✖"; partes.push("<b>Datos sin actualizar</b>: la última verificación fue hace " + Math.round(horas/24) + " días"); }
+    var a = e.archivos || {}, c = e.cierre_mensual || {}, q = e.calidad || {};
+    var hayCalidad = q && !q.error && q.revisados != null;
+    var alertas = hayCalidad ? (q.alertas || 0) : 0, avisos = hayCalidad ? (q.avisos || 0) : 0;
+    var partes = [], nivel, icono;
+    if (horas <= 30) {
+      nivel = alertas ? "aviso" : "ok"; icono = alertas ? "⚠" : "✔";
+      partes.push("<b>" + (alertas ? "Datos verificados con " + plural(alertas, "alerta", "alertas") + " de calidad" : "Datos verificados") + "</b>");
+    } else if (horas <= 54) { nivel = "aviso"; icono = "⚠"; partes.push("<b>Actualización con retraso</b>: la última verificada fue hace " + Math.round(horas) + " h"); }
+    else                    { nivel = "error"; icono = "✖"; partes.push("<b>Datos sin actualizar</b>: la última verificación fue hace " + Math.round(horas/24) + " días"); }
     partes.push("Consulta MEF: " + fFecha(e.fecha_consulta_mef));
     partes.push("Actualizado: " + fHora(t) + " (hora Lima)");
     if (a.validos != null && a.esperados != null) partes.push(a.validos + "/" + a.esperados + " archivos válidos");
+    if (hayCalidad) partes.push(q.revisados.toLocaleString("es-PE") + " controles de calidad" + (alertas ? "" : " sin alertas") + (avisos ? " · " + plural(avisos, "aviso", "avisos") : ""));
     if (c.ultimo_mes_cerrado >= 1 && c.ultimo_mes_cerrado <= 12) {
       partes.push(MESES[c.ultimo_mes_cerrado-1] + " " + (c.anio||"") + ": " + (c.provisional ? "cierre provisional" + (c.revisar_desde ? " (se confirma desde el " + fFecha(c.revisar_desde) + ")" : "") : "cierre confirmado"));
     }
     el.className = nivel;
-    el.innerHTML = icono + " " + partes.join(" · ");
+    el.textContent = "";
+    var linea = document.createElement("span");
+    linea.innerHTML = icono + " " + partes.join(" · ");
+    el.appendChild(linea);
+    var det = hayCalidad && q.detalle ? q.detalle : [];
+    if (det.length) {
+      var caja = document.createElement("div");
+      caja.style.cssText = "display:none;max-width:980px;margin:6px auto 2px;text-align:left;font-size:12px";
+      var ul = document.createElement("ul");
+      ul.style.cssText = "margin:0;padding-left:20px";
+      det.forEach(function(d){
+        var li = document.createElement("li");
+        li.textContent = (d.severidad === "alerta" ? "Alerta" : "Aviso") + " " + d.id + ": " + d.mensaje;
+        ul.appendChild(li);
+      });
+      caja.appendChild(ul);
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.textContent = "ver detalle";
+      btn.style.cssText = "margin-left:8px;background:transparent;border:0;color:inherit;text-decoration:underline;cursor:pointer;font:inherit";
+      btn.onclick = function(){ var abierto = caja.style.display !== "none"; caja.style.display = abierto ? "none" : "block"; btn.textContent = abierto ? "ver detalle" : "ocultar detalle"; };
+      linea.appendChild(btn);
+      el.appendChild(caja);
+    }
     el.style.display = "";
   }
   fetch("data/estado.json?" + Date.now(), { cache: "no-store" })

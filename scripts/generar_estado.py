@@ -17,6 +17,7 @@
 # USO (desde la raíz del repo):
 #   python scripts\generar_estado.py              escribe, hace commit y push
 #   python scripts\generar_estado.py --sin-git    escribe pero no sube
+# También corre los controles de calidad (scripts/controles_calidad.py): informan, no bloquean.
 # CÓDIGOS DE SALIDA: 0 = ok · 1 = no verificado o falló Git.
 # =============================================================================
 
@@ -34,6 +35,7 @@ RUTA_ESTADO = RAIZ / "data" / "estado.json"
 import config_orad as cfg                 # noqa: E402
 import descargar_xls_mef as d             # noqa: E402  (reutiliza la compuerta 17/17 y los helpers de Git)
 import generar_mensual as gm              # noqa: E402
+import controles_calidad as cc            # noqa: E402
 
 PERU = timezone(timedelta(hours=-5))
 
@@ -61,6 +63,15 @@ def construir_estado():
     except Exception as e:                # el estado diario no debe caerse por esto
         print(f"[AVISO] No se pudo leer data/mensual-actual.js: {e}")
 
+    # Controles de calidad (informan, NO bloquean). Si fallan por un error propio, no tumban el estado.
+    try:
+        res = cc.ejecutar(guardar=True)
+        calidad = {"revisados": res["revisados"], "alertas": res["alertas"], "avisos": res["avisos"],
+                   "detalle": res["detalle"], "notas": res["notas"]}
+    except Exception as e:
+        print(f"[AVISO] Controles de calidad no disponibles: {e}")
+        calidad = {"error": str(e)[:200]}
+
     r = d._git("rev-parse", "--short", "HEAD")
     return {
         "version": 1,
@@ -69,6 +80,7 @@ def construir_estado():
         "archivos": {"esperados": total, "validos": total},
         "anio_activo": cfg.anio_activo(),
         "cierre_mensual": cierre,
+        "calidad": calidad,
         "origen": "github-actions" if d.en_actions() else "manual",
         "corrida": os.environ.get("GITHUB_RUN_NUMBER"),
         "commit_datos": r.stdout.strip() if r.returncode == 0 else None,
@@ -78,7 +90,7 @@ def construir_estado():
 def publicar():
     d.preparar_git_ci()
     mensaje = "data: estado de la actualización diaria (automático)"
-    for cmd in (["add", "data/estado.json"], ["commit", "-m", mensaje]):
+    for cmd in (["add", "data/estado.json", "data/calidad_historial.json"], ["commit", "-m", mensaje]):
         r = d._git(*cmd)
         if r.returncode != 0:
             salida = r.stdout + r.stderr
@@ -117,6 +129,13 @@ def main():
     RUTA_ESTADO.write_text(json.dumps(estado, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Estado verificado: {estado['archivos']['validos']}/{estado['archivos']['esperados']} archivos · "
           f"consulta MEF {estado['fecha_consulta_mef']} · {estado['actualizado']}")
+    cal = estado["calidad"]
+    if "error" not in cal:
+        print(f"Calidad: {cal['revisados']} verificaciones · {cal['alertas']} alerta(s) · {cal['avisos']} aviso(s)")
+        for dd in cal["detalle"]:
+            print(f"  [{dd['severidad'].upper()}] {dd['id']}: {dd['mensaje']}")
+            if d.en_actions() and dd["severidad"] == "alerta":
+                print(f"::warning title=Calidad de datos {dd['id']}::{dd['mensaje']}")
     if args.sin_git:
         return
     if not publicar():
