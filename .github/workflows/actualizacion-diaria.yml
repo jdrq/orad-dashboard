@@ -31,11 +31,14 @@ jobs:
 
       - name: Instalar Playwright y Chromium
         run: |
-          pip install playwright
+          pip install playwright beautifulsoup4
           playwright install --with-deps chromium
 
       - name: Descargar, validar, subir y verificar
         run: python scripts/descargar_xls_mef.py --sin-pausa --headless
+
+      - name: Cierre mensual automatico (solo actua si toca)
+        run: python scripts/cierre_automatico.py
 
       - name: Guardar log y capturas de error
         if: always()
