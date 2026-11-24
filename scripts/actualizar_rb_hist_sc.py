@@ -63,9 +63,10 @@ import os
 import re
 import json
 from bs4 import BeautifulSoup
+import config_orad as cfg
 
 # ---------------- CONFIGURACIÓN ----------------
-AÑOS = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+AÑOS = cfg.anios_historicos()   # 2015 .. (anio_activo - 1); se define en config.json
 CARPETA_XLS = "xls/historico_rubro"
 CARPETA_DATA = "data"
 ARCHIVO_JSON = os.path.join(CARPETA_DATA, "rb_hist_sc_progresivo.json")

@@ -44,9 +44,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import actualizar_hist_gores as g    # noqa: E402
 import actualizar_rb_hist_sc as rb   # noqa: E402
+import config_orad as cfg           # noqa: E402
 
 CARPETA_TMP = RAIZ / "xls" / "_tmp_historicos"
-AÑOS_DEFECTO = list(range(2015, 2026))     # agregar el año nuevo cada enero
+AÑOS_DEFECTO = cfg.anios_historicos()     # sale de config.json (ya no hay que editarlo cada enero)
 MAX_FALLOS_SEGUIDOS = 3
 
 # Períodos en orden. (etiqueta_gores, clave_rubro, nombre_mes_en_nombre_archivo, tipo_periodo, valor)

@@ -121,6 +121,7 @@ import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from email.message import EmailMessage
 from pathlib import Path
+import config_orad as cfg
 
 # --------------------------------------------------------------------
 # CONFIGURACIÓN
@@ -133,7 +134,7 @@ PAGES_URL = "https://jdrq.github.io/orad-dashboard"
 ARCHIVOS_CENTINELA = ["rubro_pliego.xls", "ue_pliego.xls", "nacional_gores.xls"]
 ESPERA_PAGES_SEG = 240      # cuánto esperar a que Pages publique antes de forzar el despliegue
 INTERVALO_PAGES_SEG = 30
-ANIO = "2026"
+ANIO = str(cfg.anio_activo())   # sale de config.json (raíz del repo)
 URL_BASE = f"https://apps5.mineco.gob.pe/transparencia/Navegador/default.aspx?y={ANIO}&ap=Proyecto"
 # Filtro "Actividades y Proyectos" (Bloque EMR — Categoría 0068). Distinto del
 # URL_BASE de siempre, que fija "Sólo Proyectos" (ap=Proyecto). Confirmado con
