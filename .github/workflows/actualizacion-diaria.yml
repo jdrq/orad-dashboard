@@ -40,6 +40,9 @@ jobs:
       - name: Cierre mensual automatico (solo actua si toca)
         run: python scripts/cierre_automatico.py
 
+      - name: Registrar estado verificado (banner del dashboard)
+        run: python scripts/generar_estado.py
+
       - name: Guardar log y capturas de error
         if: always()
         uses: actions/upload-artifact@v4
