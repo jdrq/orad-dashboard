@@ -385,13 +385,13 @@
       <h1>Ejecución Financiera</h1>
       <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
         <div class="update-pill">Actualizado: <span id="fechaTop">—</span></div>
-        <button id="btnSemestral" title="Congelado al 30 de junio de 2026 — no se actualiza a diario"
+        <button id="btnSemestral" title="Congelado al 30 de junio — no se actualiza a diario"
           style="background:#fff;color:var(--vino);border:2px solid var(--vino);border-radius:20px;padding:7px 16px;font-weight:700;font-size:12.5px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;letter-spacing:.3px">📅 Ver Primer Semestre (Ene–Jun)</button>
       </div>
     </div>
   </div>
   <div id="bannerSemestral" style="display:none;background:#FFD166;color:#5a1414;text-align:center;font-weight:800;padding:8px;font-family:'Barlow Condensed',sans-serif;letter-spacing:.4px;font-size:14px">
-    📌 ESTÁS VIENDO DATOS CONGELADOS DEL PRIMER SEMESTRE 2026 (ENERO–JUNIO) — No se actualizan a diario. Usa "Volver a Vista Actual" para ver la ejecución de hoy.
+    📌 ESTÁS VIENDO DATOS CONGELADOS DEL PRIMER SEMESTRE <span class="anio-activo">2026</span> (ENERO–JUNIO) — No se actualizan a diario. Usa "Volver a Vista Actual" para ver la ejecución de hoy.
   </div>
   <div class="subband"><div class="wrap">Del Gobierno Regional de Lambayeque</div></div>
   <div class="greca" id="greca" aria-hidden="true"></div>
@@ -683,7 +683,7 @@
           <!-- Gráfico de barras -->
           <div style="background:#fff;border:1px solid #e4e7ec;border-radius:10px;padding:16px 14px 10px">
             <div style="font-family:'Barlow Condensed';font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--naranja-h);text-align:center;margin-bottom:12px">
-              DEVENGADO MENSUAL (NO ACUMULADO) — ENERO A DICIEMBRE 2026
+              DEVENGADO MENSUAL (NO ACUMULADO) — ENERO A DICIEMBRE <span class="anio-activo">2026</span>
             </div>
             <div style="position:relative;height:340px;width:100%">
               <canvas id="b2mChart"></canvas>
@@ -1009,7 +1009,7 @@
           <!-- Gráfico de barras -->
           <div style="background:#fff;border:1px solid #e4e7ec;border-radius:10px;padding:16px 14px 10px">
             <div style="font-family:'Barlow Condensed';font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--naranja-h);text-align:center;margin-bottom:12px">
-              DEVENGADO MENSUAL (NO ACUMULADO) — SEDE CENTRAL — ENERO A DICIEMBRE 2026
+              DEVENGADO MENSUAL (NO ACUMULADO) — SEDE CENTRAL — ENERO A DICIEMBRE <span class="anio-activo">2026</span>
             </div>
             <div style="position:relative;height:340px;width:100%">
               <canvas id="b6mChartSC"></canvas>
@@ -1091,7 +1091,7 @@
         <div class="pdf-body" style="padding:20px 24px 24px">
           <!-- Etiqueta del año actual en vivo -->
           <div id="b8vivo" style="font-family:'Barlow Condensed';font-weight:600;color:var(--texto);font-size:13px;margin-bottom:14px">
-            El año 2026 se actualiza en tiempo real con los archivos cargados. Los datos 2015–2025 provienen del informe institucional ORAD y de Consulta Amigable MEF (2015).
+            El año <span class="anio-activo">2026</span> se actualiza en tiempo real con los archivos cargados. Los datos 2015–<span class="anio-previo">2025</span> provienen del informe institucional ORAD y de Consulta Amigable MEF (2015).
           </div>
           <!-- GRÁFICO DEVENGADO -->
           <div style="background:#fff;border:1px solid #e4e7ec;border-radius:10px;padding:16px 14px 10px;margin-bottom:20px">
@@ -1099,8 +1099,8 @@
               <div style="background:#5a1414;color:#fff;font-family:'Barlow Condensed';font-weight:800;font-size:13px;padding:5px 14px;border-radius:6px;text-transform:uppercase;letter-spacing:.06em">DEVENGADO</div>
               <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;font-family:'Barlow Condensed';font-weight:700;font-size:14px;color:var(--texto)">
                 <span style="display:flex;align-items:center;gap:6px"><span style="width:13px;height:13px;border-radius:50%;background:#5a1414;display:inline-block"></span>Devengado Real</span>
-                <span style="display:flex;align-items:center;gap:6px"><span style="width:13px;height:13px;border-radius:50%;background:#c0392b;display:inline-block"></span>Devengado 2026 (a la fecha)</span>
-                <span style="display:flex;align-items:center;gap:6px"><span style="width:13px;height:13px;border-radius:50%;background:#e8821e;display:inline-block"></span>Proyección Dic 2026</span>
+                <span style="display:flex;align-items:center;gap:6px"><span style="width:13px;height:13px;border-radius:50%;background:#c0392b;display:inline-block"></span><span>Devengado <span class="anio-activo">2026</span> (a la fecha)</span></span>
+                <span style="display:flex;align-items:center;gap:6px"><span style="width:13px;height:13px;border-radius:50%;background:#e8821e;display:inline-block"></span><span>Proyección Dic <span class="anio-activo">2026</span></span></span>
               </div>
             </div>
             <div style="position:relative;height:320px;width:100%">
@@ -1124,7 +1124,7 @@
 
       <!-- ═══════════════ BLOQUE 9: PROYECCIÓN ACUMULADA AL 31/12/2026 ═══════════════ -->
       <div class="pdf-section" id="b9secProyeccion">
-        <div class="pdf-header" style="background:#3a1a00"><div class="pdf-header-left"><h2>Proyección Acumulada al 31/12/2026</h2>
+        <div class="pdf-header" style="background:#3a1a00"><div class="pdf-header-left"><h2>Proyección Acumulada al 31/12/<span class="anio-activo">2026</span></h2>
           <div class="sub" style="color:#FFD166">Junio — Diciembre · Gobierno Regional de Lambayeque &nbsp;·&nbsp; <span id="b9fechaSub">—</span></div></div><div class="orad-stamp"><div class="os-sigla">ORAD</div><div class="os-texto">Oficina Regional de Administración</div></div></div>
         <div class="pdf-body" style="padding:20px 24px 28px">
           <!-- KPIs ejecutado a la fecha -->
@@ -1135,19 +1135,19 @@
               <div style="font-family:'Barlow Condensed';font-weight:700;font-size:15px;color:#e8c17a" id="b9pctActual">43.1%</div>
             </div>
             <div style="background:#fff;border:2px solid #e8821e;border-radius:10px;padding:14px 22px;flex:0 0 auto">
-              <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:4px">Proyección Dic 2026</div>
+              <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:4px">Proyección Dic <span class="anio-activo">2026</span></div>
               <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--naranja-h)" id="b9devProy">S/ 782,870,403</div>
               <div style="font-family:'Barlow Condensed';font-weight:700;font-size:15px;color:var(--vino)" id="b9pctProy">97.3%</div>
             </div>
             <div style="background:#fff;border:1px solid var(--linea);border-radius:10px;padding:14px 22px;flex:0 0 auto">
-              <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:4px">PIM 2026</div>
+              <div style="font-family:'Barlow Condensed';font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-bottom:4px">PIM <span class="anio-activo">2026</span></div>
               <div style="font-family:'Barlow Condensed';font-weight:800;font-size:26px;color:var(--vino)" id="b9pimActual">S/ 804,594,453</div>
             </div>
           </div>
           <!-- Gráfico de proyección -->
           <div style="background:#fff;border:1px solid #e4e7ec;border-radius:10px;padding:16px 14px 10px">
             <div style="font-family:'Barlow Condensed';font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:.06em;color:var(--naranja-h);text-align:center;margin-bottom:12px">
-              PROYECCIÓN ACUMULADA ENERO – DICIEMBRE 2026
+              PROYECCIÓN ACUMULADA ENERO – DICIEMBRE <span class="anio-activo">2026</span>
             </div>
             <div style="position:relative;height:320px;width:100%">
               <canvas id="b9Chart"></canvas>
@@ -1508,9 +1508,38 @@
 
 <!-- ====== BLOQUE 2D / 6D: parsers independientes de los archivos mensuales de devengado ====== -->
 <!-- Valores mensuales cerrados (Bloques 2D, 6D y 9): GENERADO por scripts/cierre_mensual.py, no editar a mano -->
+<!-- Año activo (UNICO lugar para cambiarlo: data/config.js) -->
+<script src="data/config.js"></script>
 <script src="data/mensual-actual.js"></script>
 <script src="data/devengado-mensual.js?v=20260817"></script>
 <script src="data/devengado-mensual-sc.js?v=20260817"></script>
+<!-- Año activo: ajusta textos visibles y botones de año según data/config.js -->
+<script>
+(function(){
+  "use strict";
+  document.querySelectorAll(".anio-activo").forEach(function(e){ e.textContent = String(ORAD_ANIO_NUM); });
+  document.querySelectorAll(".anio-previo").forEach(function(e){ e.textContent = String(ORAD_ANIO_NUM - 1); });
+  // Para cada fila de botones de año: completa los años que falten hasta el activo y marca el activo.
+  [["yr-btn-a","data-yr"],["yr-btn","data-yr"],["yr-btn-c","data-yr"],["yr-btn-rb","data-rbyr"]].forEach(function(par){
+    var cls = par[0], attr = par[1], padres = [];
+    document.querySelectorAll("button." + cls).forEach(function(b){ if (padres.indexOf(b.parentNode) < 0) padres.push(b.parentNode); });
+    padres.forEach(function(padre){
+      var botones = padre.querySelectorAll("button." + cls), ultimo = botones[botones.length - 1];
+      for (var y = ORAD_ANIO_PRIMER; y <= ORAD_ANIO_NUM; y++) {
+        var existe = Array.prototype.some.call(botones, function(b){ return b.getAttribute(attr) === String(y); });
+        if (!existe) {
+          var nb = ultimo.cloneNode(true);
+          nb.setAttribute(attr, String(y)); nb.textContent = String(y); nb.classList.remove("activo");
+          ultimo.after(nb); ultimo = nb;
+        }
+      }
+      padre.querySelectorAll("button." + cls).forEach(function(b){
+        b.classList.toggle("activo", b.getAttribute(attr) === String(ORAD_ANIO_NUM));
+      });
+    });
+  });
+})();
+</script>
 
 <!-- ====== Aplicación: consolidador + Bloque 1 ====== -->
 <script>
@@ -1555,7 +1584,8 @@
   let archivosCongelados = null;   // cache del snapshot, se descarga solo una vez
   let archivosCongeladosPromise = null; // evita descargas duplicadas si varias partes lo piden a la vez
   let MODO_SEMESTRAL = false;
-  const FECHA_CIERRE_SEMESTRE = new Date(2026, 5, 30); // 30-jun-2026 (mes 0-indexado)
+  const FECHA_CIERRE_SEMESTRE = new Date(ORAD_ANIO_NUM, 5, 30); // 30 de junio del año activo (mes 0-indexado)
+  const textoCierreSemestre = () => FECHA_CIERRE_SEMESTRE.toLocaleDateString("es-PE",{weekday:"long",day:"numeric",month:"long",year:"numeric"}) + " (cierre 1er semestre)";
   let refrescarModuloHistorico = null; // lo asigna el módulo histórico más abajo
 
   // Cargador compartido: lo usan tanto el botón "Ver Primer Semestre" como
@@ -1565,10 +1595,10 @@
   function obtenerArchivosCongelados(){
     if (archivosCongelados) return Promise.resolve(archivosCongelados);
     if (archivosCongeladosPromise) return archivosCongeladosPromise;
-    archivosCongeladosPromise = fetch("data/semestre1_2026.json", { cache:"no-store" })
+    archivosCongeladosPromise = fetch("data/semestre1_"+ORAD_ANIO+".json", { cache:"no-store" })
       .then(r => { if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
       .then(data => { archivosCongelados = data; return data; })
-      .catch(e => { console.warn("[ORAD] No se pudo cargar semestre1_2026.json:", e.message); return null; })
+      .catch(e => { console.warn("[ORAD] No se pudo cargar semestre1_"+ORAD_ANIO+".json:", e.message); return null; })
       .finally(() => { archivosCongeladosPromise = null; });
     return archivosCongeladosPromise;
   }
@@ -1752,7 +1782,7 @@
   // un año fiscal ya cerrado. El propio archivo CA declara su año en la
   // cabecera HTML ("Año de Ejecución: YYYY"), fuera de la tabla de datos,
   // por lo que se extrae con una búsqueda directa sobre el texto crudo.
-  const ANIO_ACTUAL = new Date().getFullYear();
+  const ANIO_ACTUAL = ORAD_ANIO_NUM;   // año activo de config.js (NO el del calendario: del 1 al ~8 de enero seguimos en el año anterior)
   function extraerAnioArchivo(rawText){
     const m = /A[ñn]o de Ejecuci[oó]n.*?(\d{4})/is.exec(rawText||"");
     return m ? parseInt(m[1],10) : null;
@@ -2031,14 +2061,14 @@
     try { renderBloque6Rubros(sel); }      catch(e){ console.error("Bloque 6 Rubros:", e); }
     // Si el año activo en Rubro 1 NO es 2026, restaurar la vista histórica
     try {
-      if (RB1_ANIO !== "2026") {
+      if (RB1_ANIO !== ORAD_ANIO) {
         renderRubro1(RB1_ANIO, sel); // restaura el panel histórico que renderBloque6Rubros acaba de pisar
       } else {
-        actualizarGraficoRubroSC("2026", sel);
+        actualizarGraficoRubroSC(ORAD_ANIO, sel);
         const nota26 = document.getElementById("b6rb1nota");
-        if (nota26) nota26.textContent = MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado";
+        if (nota26) nota26.textContent = MODO_SEMESTRAL ? "Primer semestre "+ORAD_ANIO+" (Ene–Jun)" : "Dato diario acumulado";
         const fecha26 = document.getElementById("b6rubro1fecha");
-        if (fecha26) fecha26.textContent = MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaMostrada();
+        if (fecha26) fecha26.textContent = MODO_SEMESTRAL ? textoCierreSemestre() : fechaMostrada();
       }
     } catch(e){ console.warn("Gráfico/Rubro SC:", e); }
     try { renderBloque7(sel); }            catch(e){ console.error("Bloque 7:", e); }
@@ -2260,7 +2290,7 @@
     let pim26=0, dev26=0;
     selUE.forEach(a=>{ const t=totalesArchivo(a,true); pim26+=t.pim; dev26+=t.devengado; });
 
-    const labels = B8_HISTORICO.map(d=>String(d.anio)).concat(["2026"]);
+    const labels = B8_HISTORICO.map(d=>String(d.anio)).concat([ORAD_ANIO]);
     const devData = B8_HISTORICO.map(d=>d.devengado).concat([dev26||null]);
     const pimData = B8_HISTORICO.map(d=>d.pim).concat([pim26||null]);
 
@@ -2269,8 +2299,8 @@
 
     const vivo=$("#b8vivo");
     if(vivo){
-      if(dev26>0) vivo.innerHTML=`El año 2026 se actualiza en tiempo real: <b>Devengado S/ ${Math.round(dev26).toLocaleString("es-PE")}</b> · <b>PIM S/ ${Math.round(pim26).toLocaleString("es-PE")}</b>. Los datos 2015–2025 provienen del informe institucional ORAD y de Consulta Amigable MEF (2015).`;
-      else vivo.innerHTML=`El año 2026 se actualiza en tiempo real: <b>Devengado S/ 250,067,360</b> · <b>PIM S/ 774,794,996</b>. Los datos 2015–2025 provienen del informe institucional ORAD y de Consulta Amigable MEF (2015).`;
+      if(dev26>0) vivo.innerHTML=`El año ${ORAD_ANIO} se actualiza en tiempo real: <b>Devengado S/ ${Math.round(dev26).toLocaleString("es-PE")}</b> · <b>PIM S/ ${Math.round(pim26).toLocaleString("es-PE")}</b>. Los datos 2015–${ORAD_ANIO-1} provienen del informe institucional ORAD y de Consulta Amigable MEF (2015).`;
+      else vivo.innerHTML=`El año ${ORAD_ANIO} se actualiza en tiempo real: <b>Devengado S/ 250,067,360</b> · <b>PIM S/ 774,794,996</b>. Los datos 2015–${ORAD_ANIO-1} provienen del informe institucional ORAD y de Consulta Amigable MEF (2015).`;
     }
 
     function makeChart(canvasId, serie, color, titulo, destroy, extraDatasets){
@@ -2372,7 +2402,7 @@
             },
             // 1 — ramal sólido hacia el real 2026
             {
-              label: dev26 ? "Devengado 2026 (a la fecha)" : null,
+              label: dev26 ? "Devengado "+ORAD_ANIO+" (a la fecha)" : null,
               data: dReal,
               borderColor:"#c0392b", backgroundColor:"#c0392b",
               tension:0, borderWidth:2.5,
@@ -2385,7 +2415,7 @@
             },
             // 2 — ramal punteado hacia la proyección
             {
-              label:"Proyección Dic 2026",
+              label:"Proyección Dic "+ORAD_ANIO,
               data: dProj,
               borderColor:"#e8821e", backgroundColor:"#e8821e",
               tension:0, borderWidth:2.5,
@@ -2593,7 +2623,7 @@
     B6_GRUPOS.forEach((grupo, idx)=>{
       // GUARD: si es el grupo 1 (Sede Central) y el año activo NO es 2026,
       // no sobreescribir — el histórico ya está renderizado por renderRubro1
-      if(idx === 0 && RB1_ANIO !== "2026") return;
+      if(idx === 0 && RB1_ANIO !== ORAD_ANIO) return;
 
       const contenedor = $("#"+grupo.panelId);
       if(!contenedor) return;
@@ -2680,8 +2710,8 @@
 
   // Estado del año activo en el bloque rubro1
   // Años del módulo histórico (Bloque 2 rankings, tendencia y Rubro Sede Central): 2015–2026
-  const ANIOS_HIST = ["2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"];
-  let RB1_ANIO = "2026";
+  const ANIOS_HIST = Array.from({length: ORAD_ANIO_NUM - ORAD_ANIO_PRIMER + 1}, (_, k) => String(ORAD_ANIO_PRIMER + k));
+  let RB1_ANIO = ORAD_ANIO;
   let chartRubroSC = null;
   let RB_HIST_SC_PROGRESIVO = null; // se carga desde data/rb_hist_sc_progresivo.json (ver fetch más abajo)
 
@@ -2713,7 +2743,7 @@
   // "Ver Primer Semestre" usa Ene-Jun (RB_HIST_SC, el de siempre). "2026" no
   // pasa por aquí — sigue su propio mecanismo de inyección en vivo.
   function rubroSCPara(anio){
-    if (anio !== "2026" && !MODO_SEMESTRAL && RB_HIST_SC_PROGRESIVO && RB_HIST_SC_PROGRESIVO[anio]) {
+    if (anio !== ORAD_ANIO && !MODO_SEMESTRAL && RB_HIST_SC_PROGRESIVO && RB_HIST_SC_PROGRESIVO[anio]) {
       return RB_HIST_SC_PROGRESIVO[anio];
     }
     return RB_HIST_SC[anio];
@@ -2818,27 +2848,27 @@
       b.classList.toggle("activo", b.dataset.rbyr === anio));
 
     // Nota
-    const cortePara = anio !== "2026" ? rbHistCorte(rubroSCPara(anio), anio) : null;
+    const cortePara = anio !== ORAD_ANIO ? rbHistCorte(rubroSCPara(anio), anio) : null;
     const nota = document.getElementById("b6rb1nota");
-    if (nota) nota.textContent = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (${cortePara ? cortePara.label.replace(/\s*\d{4}$/,"") : "Ene–Set"})`);
+    if (nota) nota.textContent = anio === ORAD_ANIO ? (MODO_SEMESTRAL ? "Primer semestre "+ORAD_ANIO+" (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (${cortePara ? cortePara.label.replace(/\s*\d{4}$/,"") : "Ene–Set"})`);
 
     // Fecha en header
     const fechaEl = document.getElementById("b6rubro1fecha");
-    if (fechaEl) fechaEl.textContent = anio === "2026"
-      ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaMostrada())
+    if (fechaEl) fechaEl.textContent = anio === ORAD_ANIO
+      ? (MODO_SEMESTRAL ? textoCierreSemestre() : fechaMostrada())
       : (cortePara?.label || rubroSCPara(anio)?.label || anio);
 
     const paneles = document.getElementById("b6rubro1Paneles");
     if (!paneles) return;
 
-    if (anio === "2026") {
+    if (anio === ORAD_ANIO) {
       // Siempre re-renderizar 2026 para que refleje los archivos actuales
       if (sel && sel.length) {
         renderBloque6Rubros(sel);
       } else {
-        paneles.innerHTML = '<div style="padding:32px;text-align:center;color:#888">Carga los archivos XLS de rubros para ver 2026.</div>';
+        paneles.innerHTML = '<div style="padding:32px;text-align:center;color:#888">Carga los archivos XLS de rubros para ver ${ORAD_ANIO}.</div>';
       }
-      actualizarGraficoRubroSC("2026", sel);
+      actualizarGraficoRubroSC(ORAD_ANIO, sel);
     } else {
       // Renderizar con datos históricos hardcodeados
       const html = ueRubrosHistoricoPanel(anio);
@@ -2859,13 +2889,13 @@
     const _MES_LARGO = {Jul:"Julio", Ago:"Agosto", Set:"Setiembre", Oct:"Octubre", Nov:"Noviembre", Dic:"Diciembre"};
 
     const años  = ANIOS_HIST;
-    const data2026 = RB_HIST_SC["2026"]; // puede no existir aún
+    const data2026 = RB_HIST_SC[ORAD_ANIO]; // puede no existir aún
     const cortes = años.map(a => {
-      const d = a === "2026" ? data2026 : rubroSCPara(a);
+      const d = a === ORAD_ANIO ? data2026 : rubroSCPara(a);
       const c = rbHistCorte(d, a);
       // 2026 trae su propio label dinámico (fecha en vivo, año en curso) —
       // no reemplazarlo por el genérico "Ene–Set 2026" de rbHistCorte.
-      if (c && a === "2026" && d && d.label) c.label = d.label;
+      if (c && a === ORAD_ANIO && d && d.label) c.label = d.label;
       return c;
     });
     const pcts   = cortes.map(c => c ? c.pct : null);
@@ -2940,7 +2970,7 @@
     // activa "Ver Primer Semestre" (ver MODO_SEMESTRAL). No se recalcula
     // de forma independiente — se recomputa en cada llamada porque `sel`
     // puede representar dos fuentes distintas según el momento.
-    if (anioActivo === "2026" && sel) {
+    if (anioActivo === ORAD_ANIO && sel) {
       try {
         const sedeFiles = sel.filter(a => {
           if (!a.res || !a.res.contexto) return false;
@@ -2966,8 +2996,8 @@
           }
         }
         if (pimVivo > 0) {
-          RB_HIST_SC["2026"] = {
-            label: MODO_SEMESTRAL ? "Ene–Ago 2026" : `2026 (año en curso)`,
+          RB_HIST_SC[ORAD_ANIO] = {
+            label: MODO_SEMESTRAL ? "Ene–Ago "+ORAD_ANIO : `${ORAD_ANIO} (año en curso)`,
             pim: pimVivo, dev_t1: devVivo, dev_t2: 0,
             dev_sem: devVivo, av_pct: devVivo/pimVivo*100
           };
@@ -3860,9 +3890,9 @@
 
     const STATE = {
       historico:     null,
-      anioA:         "2026",
-      anioB:         "2026",
-      anioC:         "2026",
+      anioA:         ORAD_ANIO,
+      anioB:         ORAD_ANIO,
+      anioC:         ORAD_ANIO,
       chartTendencia: null,
     };
 
@@ -3888,7 +3918,7 @@
         STATE.historicoProgresivo = dataProgresivo; // null si aún no existe el archivo -> fallback a Ene-Jun
         RB_HIST_SC_PROGRESIVO = rubroScProgresivo; // null si aún no existe -> fallback a Ene-Jun
         inyectar2026();
-        renderA("2026"); renderB("2026"); renderC("2026");
+        renderA(ORAD_ANIO); renderB(ORAD_ANIO); renderC(ORAD_ANIO);
         iniciarTendencia();
         // Iniciar gráfico de avance % rubro Sede Central
         try { iniciarGraficoRubroSC(); } catch(e){ console.warn("GráficoRubroSC:", e); }
@@ -3931,9 +3961,9 @@
         const lam = byDevSol.find(g=>g.es_lambayeque)||{};
         const fecha = fechaHoy();
 
-        STATE.historico.semestres["2026"] = {
-          label:         MODO_SEMESTRAL ? "Ene–Ago 2026" : `2026 (año en curso)`,
-          nota:          MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado, aún no cierra el 1er semestre",
+        STATE.historico.semestres[ORAD_ANIO] = {
+          label:         MODO_SEMESTRAL ? "Ene–Ago "+ORAD_ANIO : `${ORAD_ANIO} (año en curso)`,
+          nota:          MODO_SEMESTRAL ? "Primer semestre "+ORAD_ANIO+" (Ene–Jun)" : "Dato diario acumulado, aún no cierra el 1er semestre",
           total_gores:   byDevSol.length,
           prom_dev_pct:  Math.round(prom_dev_pct*10)/10,
           prom_cert_pct: Math.round(prom_cert_pct*10)/10,
@@ -3993,20 +4023,20 @@
 
       const thPia = document.getElementById("thPiaA");
 
-      const fuenteHist = anio === "2026" ? STATE.historico : fuenteHistorica();
+      const fuenteHist = anio === ORAD_ANIO ? STATE.historico : fuenteHistorica();
       if (!fuenteHist || !fuenteHist.semestres[anio]) {
-        if (anio === "2026") renderA_desdeArchivos();
+        if (anio === ORAD_ANIO) renderA_desdeArchivos();
         else if (tbody) { if(thPia) thPia.style.display="none"; tbody.innerHTML = `<tr><td colspan="5" style="padding:24px;text-align:center;color:#888">Histórico ${anio} no disponible.</td></tr>`; }
         return;
       }
       const sem     = fuenteHist.semestres[anio];
       const ranking = sem.ranking_dev_pct || [];
-      const conPia  = anio === "2026" || ranking.some(g => g.pia != null); // 2015–2025 traen PIA en el JSON progresivo
+      const conPia  = anio === ORAD_ANIO || ranking.some(g => g.pia != null); // 2015–2025 traen PIA en el JSON progresivo
       if (thPia) thPia.style.display = conPia ? "" : "none";
       const prom    = sem.prom_dev_pct || 0;
 
-      if (nota)   nota.textContent   = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (${b2Corte(anio).abrev})`);
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a ${b2Corte(anio).largo}`);
+      if (nota)   nota.textContent   = anio === ORAD_ANIO ? (MODO_SEMESTRAL ? "Primer semestre "+ORAD_ANIO+" (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (${b2Corte(anio).abrev})`);
+      if (fechaEl) fechaEl.textContent = anio===ORAD_ANIO ? (MODO_SEMESTRAL ? textoCierreSemestre() : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a ${b2Corte(anio).largo}`);
       if (promEl) promEl.textContent = prom.toFixed(1)+"%";
       if (metaEl) metaEl.textContent = `Ámbito: inversiones · ${ranking.length} pliegos`;
 
@@ -4076,9 +4106,9 @@
       const metaEl = document.getElementById("b2metaB");
       const fechaEl= document.getElementById("b2fechaB");
 
-      const fuenteHist = anio === "2026" ? STATE.historico : fuenteHistorica();
+      const fuenteHist = anio === ORAD_ANIO ? STATE.historico : fuenteHistorica();
       if (!fuenteHist || !fuenteHist.semestres[anio]) {
-        if (anio === "2026") renderB_desdeArchivos();
+        if (anio === ORAD_ANIO) renderB_desdeArchivos();
         else if (tbody) tbody.innerHTML = `<tr><td colspan="4" style="padding:24px;text-align:center;color:#888">Histórico ${anio} no disponible.</td></tr>`;
         return;
       }
@@ -4086,8 +4116,8 @@
       const ranking = sem.ranking_dev_sol || [];
       const maxDev  = ranking.reduce((m,g)=>Math.max(m,g.dev||0),1);
 
-      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (${b2Corte(anio).abrev})`);
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a ${b2Corte(anio).largo}`);
+      if (nota)    nota.textContent    = anio === ORAD_ANIO ? (MODO_SEMESTRAL ? "Primer semestre "+ORAD_ANIO+" (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (${b2Corte(anio).abrev})`);
+      if (fechaEl) fechaEl.textContent = anio===ORAD_ANIO ? (MODO_SEMESTRAL ? textoCierreSemestre() : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a ${b2Corte(anio).largo}`);
       if (metaEl)  metaEl.textContent  = `Ámbito: inversiones · ${ranking.length} pliegos`;
 
       if (tbody) tbody.innerHTML = ranking.map((g,i) => {
@@ -4146,20 +4176,20 @@
       const fechaEl= document.getElementById("b2fechaC");
       const thPia  = document.getElementById("thPiaC");
 
-      const fuenteHist = anio === "2026" ? STATE.historico : fuenteHistorica();
+      const fuenteHist = anio === ORAD_ANIO ? STATE.historico : fuenteHistorica();
       if (!fuenteHist || !fuenteHist.semestres[anio]) {
-        if (anio === "2026") renderC_desdeArchivos();
+        if (anio === ORAD_ANIO) renderC_desdeArchivos();
         else if (tbody) { if(thPia) thPia.style.display="none"; tbody.innerHTML = `<tr><td colspan="5" style="padding:24px;text-align:center;color:#888">Histórico ${anio} no disponible.</td></tr>`; }
         return;
       }
       const sem     = fuenteHist.semestres[anio];
       const ranking = sem.ranking_cert_pct || [];
-      const conPia  = anio === "2026" || ranking.some(g => g.pia != null);
+      const conPia  = anio === ORAD_ANIO || ranking.some(g => g.pia != null);
       if (thPia) thPia.style.display = conPia ? "" : "none";
       const prom    = sem.prom_cert_pct || 0;
 
-      if (nota)    nota.textContent    = anio === "2026" ? (MODO_SEMESTRAL ? "Primer semestre 2026 (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (${b2Corte(anio).abrev})`);
-      if (fechaEl) fechaEl.textContent = anio==="2026" ? (MODO_SEMESTRAL ? "martes, 30 de junio de 2026 (cierre 1er semestre)" : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a ${b2Corte(anio).largo}`);
+      if (nota)    nota.textContent    = anio === ORAD_ANIO ? (MODO_SEMESTRAL ? "Primer semestre "+ORAD_ANIO+" (Ene–Jun)" : "Dato diario acumulado") : (MODO_SEMESTRAL ? `Primer semestre ${anio} (Ene–Jun)` : `${anio} (${b2Corte(anio).abrev})`);
+      if (fechaEl) fechaEl.textContent = anio===ORAD_ANIO ? (MODO_SEMESTRAL ? textoCierreSemestre() : fechaHoy()) : (MODO_SEMESTRAL ? `Primer Semestre ${anio} — Enero a Junio` : `${anio} — Enero a ${b2Corte(anio).largo}`);
       if (promEl)  promEl.textContent  = prom.toFixed(1)+"%";
 
       if (tbody) tbody.innerHTML = ranking.map((g,i) => {
@@ -4227,7 +4257,7 @@
         ? "Gráfico Lineal — Devengado en Monto · Primer Semestre (Ene–Jun)"
         : `Gráfico Lineal — Devengado en Monto · Enero a ${b2Corte("2025").largo}`;
       const años  = ANIOS_HIST;
-      const fuenteDe = a => a === "2026" ? STATE.historico : fuenteHistorica();
+      const fuenteDe = a => a === ORAD_ANIO ? STATE.historico : fuenteHistorica();
       const devs  = años.map(a => fuenteDe(a)?.semestres[a]?.lambayeque?.dev || null);
       const labels = años.map(a => fuenteDe(a)?.semestres[a]?.label || `Ene–Set ${a}`);
 
@@ -4312,11 +4342,11 @@
       if ((typeof archivos !== "undefined") && archivos.find(a => a.esNacional)){
         clearInterval(_hook);
         inyectar2026();
-        if (STATE.anioA === "2026") renderA("2026");
-        if (STATE.anioB === "2026") renderB("2026");
-        if (STATE.anioC === "2026") renderC("2026");
+        if (STATE.anioA === ORAD_ANIO) renderA(ORAD_ANIO);
+        if (STATE.anioB === ORAD_ANIO) renderB(ORAD_ANIO);
+        if (STATE.anioC === ORAD_ANIO) renderC(ORAD_ANIO);
         if (STATE.chartTendencia){
-          const sem26 = STATE.historico && STATE.historico.semestres["2026"];
+          const sem26 = STATE.historico && STATE.historico.semestres[ORAD_ANIO];
           if (sem26){
             STATE.chartTendencia.data.datasets[0].data[ANIOS_HIST.length-1]  = sem26.lambayeque?.dev || null;
             STATE.chartTendencia.data.labels[ANIOS_HIST.length-1] = sem26.label;
@@ -4336,7 +4366,7 @@
       try {
         const selNow = (typeof archivos !== "undefined") ? archivos.filter(a=>a.incluir && !a.error) : null;
         actualizarGraficoRubroSC(RB1_ANIO, selNow);
-        if (RB1_ANIO !== "2026" && typeof renderRubro1 === "function") renderRubro1(RB1_ANIO, selNow);
+        if (RB1_ANIO !== ORAD_ANIO && typeof renderRubro1 === "function") renderRubro1(RB1_ANIO, selNow);
       } catch(e){ console.warn("[ORAD-Hist] refrescarModuloHistorico:", e.message); }
     };
 
@@ -4368,7 +4398,7 @@
     { query:"#b6rubro3",            titulo:"Ejecución por Rubro — H. Mercedes / H. Belén / H. Regional" },
     { query:"#b7secFunciones",      titulo:"Funciones a Nivel Pliego" },
     { query:"#b8secHistorico",      titulo:"Ejecución Presupuestal — Comparativo Histórico" },
-    { query:"#b9secProyeccion",     titulo:"Proyección Acumulada al 31/12/2026" },
+    { query:"#b9secProyeccion",     titulo:"Proyección Acumulada al 31/12/"+ORAD_ANIO },
   ];
 
   async function capturar(el){
