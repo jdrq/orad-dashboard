@@ -36,6 +36,7 @@ import config_orad as cfg                 # noqa: E402
 import descargar_xls_mef as d             # noqa: E402  (reutiliza la compuerta 17/17 y los helpers de Git)
 import generar_mensual as gm              # noqa: E402
 import controles_calidad as cc            # noqa: E402
+import generar_serie as gs               # noqa: E402
 
 PERU = timezone(timedelta(hours=-5))
 
@@ -72,6 +73,13 @@ def construir_estado():
         print(f"[AVISO] Controles de calidad no disponibles: {e}")
         calidad = {"error": str(e)[:200]}
 
+    # Capa de datos: agrega la foto del día a data/serie/*.csv (informa, NO bloquea)
+    try:
+        serie = gs.ejecutar()
+        print(f"  Serie diaria actualizada ({serie['fecha']}).")
+    except Exception as e:
+        print(f"[AVISO] Serie diaria no actualizada: {e}")
+
     r = d._git("rev-parse", "--short", "HEAD")
     return {
         "version": 1,
@@ -90,7 +98,7 @@ def construir_estado():
 def publicar():
     d.preparar_git_ci()
     mensaje = "data: estado de la actualización diaria (automático)"
-    for cmd in (["add", "data/estado.json", "data/calidad_historial.json"], ["commit", "-m", mensaje]):
+    for cmd in (["add", "data/estado.json", "data/calidad_historial.json", "data/serie"], ["commit", "-m", mensaje]):
         r = d._git(*cmd)
         if r.returncode != 0:
             salida = r.stdout + r.stderr
