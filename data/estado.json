@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "actualizado": "2026-11-25T07:15:42-05:00",
+  "actualizado": "2026-11-25T12:15:05-05:00",
   "fecha_consulta_mef": "2026-11-25",
   "archivos": {
     "esperados": 17,
@@ -28,6 +28,6 @@
     "notas": []
   },
   "origen": "github-actions",
-  "corrida": "21",
-  "commit_datos": "8a3b9fe"
+  "corrida": "22",
+  "commit_datos": "72e1205"
 }
