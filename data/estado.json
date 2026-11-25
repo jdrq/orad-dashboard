@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "actualizado": "2026-11-24T20:26:16-05:00",
-  "fecha_consulta_mef": "2026-11-24",
+  "actualizado": "2026-11-25T07:15:42-05:00",
+  "fecha_consulta_mef": "2026-11-25",
   "archivos": {
     "esperados": 17,
     "validos": 17
@@ -15,15 +15,19 @@
     "confirmado_el": "2026-11-24"
   },
   "calidad": {
-    "revisados": 940,
+    "revisados": 962,
     "alertas": 0,
-    "avisos": 0,
-    "detalle": [],
-    "notas": [
-      "Primer día registrado: aún no hay referencia anterior para C06-C11."
-    ]
+    "avisos": 1,
+    "detalle": [
+      {
+        "id": "C09",
+        "severidad": "aviso",
+        "mensaje": "El PIM del Pliego cambió -1,420,084 desde el 2026-11-24 (S/ 777,002,099 → S/ 775,582,015)."
+      }
+    ],
+    "notas": []
   },
   "origen": "github-actions",
-  "corrida": "20",
-  "commit_datos": "9c1da74"
+  "corrida": "21",
+  "commit_datos": "8a3b9fe"
 }

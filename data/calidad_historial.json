@@ -37,6 +37,42 @@
     "avisos": 0
    },
    "registrado": "2026-11-25T01:26:16+00:00"
+  },
+  {
+   "fecha": "2026-11-25",
+   "pliego": {
+    "pim": 775582015.0,
+    "certificacion": 742412113.0,
+    "devengado": 519621361.0,
+    "girado": 502448925.0,
+    "avance": 67.0
+   },
+   "ue_cantidad": 10,
+   "tamanios": {
+    "funciones_pliego.xls": 34919,
+    "gore_devengado_mes.xls": 28757,
+    "munis_emergencia.xls": 71360,
+    "nacional_gores.xls": 50785,
+    "proyecto_emergencia.xls": 20452,
+    "proyectos_sede_central.xls": 408148,
+    "rubro_agricultura.xls": 17381,
+    "rubro_h_belen.xls": 17367,
+    "rubro_h_mercedes.xls": 17383,
+    "rubro_h_regional.xls": 18892,
+    "rubro_peot.xls": 18921,
+    "rubro_pliego.xls": 21786,
+    "rubro_salud.xls": 17374,
+    "rubro_sede_central.xls": 21907,
+    "rubro_transportes.xls": 15864,
+    "sede_devengado_mes.xls": 30384,
+    "ue_pliego.xls": 27941
+   },
+   "controles": {
+    "revisados": 962,
+    "alertas": 0,
+    "avisos": 1
+   },
+   "registrado": "2026-11-25T12:15:42+00:00"
   }
  ]
 }
