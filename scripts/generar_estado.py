@@ -37,6 +37,7 @@ import descargar_xls_mef as d             # noqa: E402  (reutiliza la compuerta 
 import generar_mensual as gm              # noqa: E402
 import controles_calidad as cc            # noqa: E402
 import generar_serie as gs               # noqa: E402
+import alertas as al                     # noqa: E402
 
 PERU = timezone(timedelta(hours=-5))
 
@@ -80,6 +81,13 @@ def construir_estado():
     except Exception as e:
         print(f"[AVISO] Serie diaria no actualizada: {e}")
 
+    # Alertas de ejecución sobre la serie (informa, NO bloquea)
+    try:
+        a = al.ejecutar()
+        print(f"  Alertas de ejecución: {a['total']} ({a['altas']} de nivel alto) -> data/alertas.md")
+    except Exception as e:
+        print(f"[AVISO] Alertas de ejecución no generadas: {e}")
+
     r = d._git("rev-parse", "--short", "HEAD")
     return {
         "version": 1,
@@ -98,7 +106,9 @@ def construir_estado():
 def publicar():
     d.preparar_git_ci()
     mensaje = "data: estado de la actualización diaria (automático)"
-    for cmd in (["add", "data/estado.json", "data/calidad_historial.json", "data/serie"], ["commit", "-m", mensaje]):
+    rutas = ["data/estado.json", "data/calidad_historial.json", "data/serie"]
+    rutas += [r for r in ("data/alertas.json", "data/alertas.md") if (RAIZ / r).exists()]
+    for cmd in (["add", *rutas], ["commit", "-m", mensaje]):
         r = d._git(*cmd)
         if r.returncode != 0:
             salida = r.stdout + r.stderr

@@ -16,7 +16,7 @@ concurrency:
 jobs:
   actualizar:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 25        # red de seguridad de todo el job
     steps:
       - name: Traer el repositorio
         uses: actions/checkout@v4
@@ -32,6 +32,8 @@ jobs:
           playwright install --with-deps chromium
 
       - name: Descargar, validar, subir y verificar
+        id: descarga
+        timeout-minutes: 18      # lo normal son ~8 min; si el MEF se cuelga, se corta y se avisa
         run: python scripts/descargar_xls_mef.py --sin-pausa --headless
 
       - name: Cierre mensual automatico (solo actua si toca)
@@ -39,6 +41,12 @@ jobs:
 
       - name: Registrar estado verificado (banner del dashboard)
         run: python scripts/generar_estado.py
+
+      - name: Registrar el fallo (aviso en el banner)
+        if: failure()
+        env:
+          RESULTADO_DESCARGA: ${{ steps.descarga.outcome }}
+        run: python scripts/registrar_fallo.py
 
       - name: Guardar log y capturas de error
         if: always()

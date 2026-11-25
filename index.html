@@ -1560,7 +1560,7 @@
   function fFecha(iso){ var p = String(iso||"").slice(0,10).split("-"); return p.length === 3 ? p[2]+"/"+p[1]+"/"+p[0] : "—"; }
   function fHora(d){ return d.toLocaleString("es-PE",{timeZone:"America/Lima",day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit",hour12:false}); }
   function plural(n, uno, varios){ return n + " " + (n === 1 ? uno : varios); }
-  function pintar(e){
+  function pintar(e, intento){
     var t = new Date(e.actualizado);
     if (isNaN(t.getTime())) return;
     var horas = (Date.now() - t.getTime()) / 36e5;
@@ -1579,6 +1579,14 @@
     if (hayCalidad) partes.push(q.revisados.toLocaleString("es-PE") + " controles de calidad" + (alertas ? "" : " sin alertas") + (avisos ? " · " + plural(avisos, "aviso", "avisos") : ""));
     if (c.ultimo_mes_cerrado >= 1 && c.ultimo_mes_cerrado <= 12) {
       partes.push(MESES[c.ultimo_mes_cerrado-1] + " " + (c.anio||"") + ": " + (c.provisional ? "cierre provisional" + (c.revisar_desde ? " (se confirma desde el " + fFecha(c.revisar_desde) + ")" : "") : "cierre confirmado"));
+    }
+    // Intento fallido MÁS RECIENTE que la última verificación (data/ultimo_intento.json)
+    var ti = intento && new Date(intento.fecha);
+    if (ti && ti.getTime() > t.getTime()) {
+      if (nivel === "ok") { nivel = "aviso"; icono = "⚠"; }
+      partes.unshift("<b>La actualización del " + fHora(ti) + " no se completó</b>: " +
+        String(intento.mensaje || "error no identificado").replace(/[<>&]/g, "") +
+        ". Se muestran los últimos datos verificados");
     }
     el.className = nivel;
     el.textContent = "";
@@ -1606,9 +1614,13 @@
     }
     el.style.display = "";
   }
-  fetch("data/estado.json?" + Date.now(), { cache: "no-store" })
-    .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-    .then(pintar)
+  function leerJson(ruta){
+    return fetch(ruta + "?" + Date.now(), { cache: "no-store" })
+      .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.json(); });
+  }
+  Promise.all([leerJson("data/estado.json"),
+               leerJson("data/ultimo_intento.json").catch(function(){ return null; })])   // no existe si nunca falló
+    .then(function(v){ pintar(v[0], v[1]); })
     .catch(function(err){ console.warn("[ORAD] estado.json no disponible:", err.message); });   // sin archivo: el banner queda oculto
 })();
 </script>

@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "fecha_consulta_mef": "2026-11-25",
+  "avance_pliego_pct": 67.0,
+  "ranking_gores": {
+    "actual": {
+      "fecha": "2026-11-25",
+      "puesto": 20,
+      "total": 26,
+      "avance_pct": 67.0
+    },
+    "anterior": {
+      "fecha": "2026-10-26",
+      "puesto": 20,
+      "total": 26,
+      "avance_pct": 57.2
+    }
+  },
+  "total": 12,
+  "altas": 4,
+  "alertas": [
+    {
+      "regla": "A1",
+      "nivel": "alta",
+      "ambito": "304-1697 GOB. REG. DPTO. LAMBAYEQUE - GERENCIA REGIONAL DE EDUCACIÓN LAMBAYEQUE",
+      "mensaje": "Avance 52.2%, 14.8 puntos por debajo del Pliego (67.0%).",
+      "saldo_por_devengar": 76500
+    },
+    {
+      "regla": "A4",
+      "nivel": "alta",
+      "ambito": "2678085 MEJORAMIENTO DE LOS SERVICIOS OPERATIVOS O MISIONALES INSTITUCIONALES EN SECCION DE ADMINISTRACION DE BIENES (MAESTRANZA) DE LA UE 028 REGION POLICIAL LAMBAYEQUE DISTRITO DE JOSE LEONARDO ORTIZ DE LA PROVINCIA DE CHICLAYO DEL DEPARTAMENTO DE LAMBAYEQUE",
+      "mensaje": "PIM S/ 4,818,630 sin ningún devengado.",
+      "saldo_por_devengar": 4818630
+    },
+    {
+      "regla": "A4",
+      "nivel": "alta",
+      "ambito": "2685086 CREACION DEL SERVICIO DE PRACTICA DEPORTIVA Y/O RECREATIVA EN LA HABILITACION URBANA MUNICIPAL DISTRITO DE LA VICTORIA DE LA PROVINCIA DE CHICLAYO DEL DEPARTAMENTO DE LAMBAYEQUE",
+      "mensaje": "PIM S/ 1,387,707 sin ningún devengado.",
+      "saldo_por_devengar": 1387707
+    },
+    {
+      "regla": "A4",
+      "nivel": "alta",
+      "ambito": "2708429 ADQUISICION DE CAMIONETA Y MOTOCICLETA; EN EL(LA) GOBIERNO REGIONAL DE LAMBAYEQUE DISTRITO DE CHICLAYO, PROVINCIA CHICLAYO, DEPARTAMENTO LAMBAYEQUE",
+      "mensaje": "PIM S/ 1,028,715 sin ningún devengado.",
+      "saldo_por_devengar": 1028715
+    },
+    {
+      "regla": "A1",
+      "nivel": "media",
+      "ambito": "200-857 REGION LAMBAYEQUE-TRANSPORTES",
+      "mensaje": "Avance 61.7%, 5.3 puntos por debajo del Pliego (67.0%).",
+      "saldo_por_devengar": 1769655
+    },
+    {
+      "regla": "A2",
+      "nivel": "media",
+      "ambito": "400-860 REGION LAMBAYEQUE-SALUD",
+      "mensaje": "Sin nuevo devengado desde el 18/11/2026; quedan S/ 3,235,386 por devengar.",
+      "saldo_por_devengar": 3235386
+    },
+    {
+      "regla": "A2",
+      "nivel": "media",
+      "ambito": "200-857 REGION LAMBAYEQUE-TRANSPORTES",
+      "mensaje": "Sin nuevo devengado desde el 18/11/2026; quedan S/ 1,769,655 por devengar.",
+      "saldo_por_devengar": 1769655
+    },
+    {
+      "regla": "A2",
+      "nivel": "media",
+      "ambito": "304-1697 GOB. REG. DPTO. LAMBAYEQUE - GERENCIA REGIONAL DE EDUCACIÓN LAMBAYEQUE",
+      "mensaje": "Sin nuevo devengado desde el 18/11/2026; quedan S/ 76,500 por devengar.",
+      "saldo_por_devengar": 76500
+    },
+    {
+      "regla": "A5",
+      "nivel": "media",
+      "ambito": "2578422 MEJORAMIENTO DEL SERVICIO DE EDUCACION SUPERIOR ARTISTICA EN ERNESTO LOPEZ MINDREAU DISTRITO DE CHICLAYO DE LA PROVINCIA DE CHICLAYO DEL DEPARTAMENTO DE LAMBAYEQUE",
+      "mensaje": "Avance 23.8% y sin nuevo devengado desde el 26/10/2026.",
+      "saldo_por_devengar": 5114816
+    },
+    {
+      "regla": "A5",
+      "nivel": "media",
+      "ambito": "2336699 CREACION DE LOS SERVICIOS DE EDUCACION SECUNDARIA ESCOLARIZADA EN LA I.E N 11134 DE LA LOCALIDAD DE CAPOTE DEL DISTRITO DE PICSI, PROVINCIA DE CHICLAYO, DEPARTAMENTO DE LAMBAYEQUE",
+      "mensaje": "Avance 45.6% y sin nuevo devengado desde el 26/10/2026.",
+      "saldo_por_devengar": 2498523
+    },
+    {
+      "regla": "A5",
+      "nivel": "media",
+      "ambito": "2358882 MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E FEDERICO VILLARREAL DISTRITO DE CHICLAYO - PROVINCIA DE CHICLAYO - DEPARTAMENTO DE LAMBAYEQUE",
+      "mensaje": "Avance 11.4% y sin nuevo devengado desde el 26/10/2026.",
+      "saldo_por_devengar": 1801732
+    },
+    {
+      "regla": "A5",
+      "nivel": "media",
+      "ambito": "2676344 MEJORAMIENTO DEL SERVICIO DE TRANSITABILIDAD VIAL INTERURBANA EN LA-103 EMP. PE-1NJ (ILLIMO) -LA ZARANDA -TAMBO REAL -BATAN GRANDE -PAPAYO -MOCHUMI VIEJO -LAQUIPAMPA - MOYAN RIOPAMPA -UYURPAMPA -DV. KONGACHA -MAMAJPAMPA-CAÑARIS -PANDACHI -HUACAPAMPA (L.D. CAJAMARC, DISTRITO DE CAÑARIS DISTRITOS DE PITIPO, INCAHUASI DE LA PROVINCIA DE FERREÑAFE DEL DEPARTAMENTO DE LAMBAYEQUE",
+      "mensaje": "Avance 5.6% y sin nuevo devengado desde el 26/10/2026.",
+      "saldo_por_devengar": 1774700
+    }
+  ]
+}
