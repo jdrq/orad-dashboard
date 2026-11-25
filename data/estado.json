@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "actualizado": "2026-11-24T17:50:14-05:00",
+  "actualizado": "2026-11-24T20:26:16-05:00",
   "fecha_consulta_mef": "2026-11-24",
   "archivos": {
     "esperados": 17,
@@ -23,7 +23,7 @@
       "Primer día registrado: aún no hay referencia anterior para C06-C11."
     ]
   },
-  "origen": "manual",
-  "corrida": null,
-  "commit_datos": "d087e86"
+  "origen": "github-actions",
+  "corrida": "20",
+  "commit_datos": "9c1da74"
 }
