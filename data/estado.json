@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "actualizado": "2026-11-25T12:15:05-05:00",
-  "fecha_consulta_mef": "2026-11-25",
+  "actualizado": "2026-11-26T07:17:27-05:00",
+  "fecha_consulta_mef": "2026-11-26",
   "archivos": {
     "esperados": 17,
     "validos": 17
@@ -22,12 +22,12 @@
       {
         "id": "C09",
         "severidad": "aviso",
-        "mensaje": "El PIM del Pliego cambió -1,420,084 desde el 2026-11-24 (S/ 777,002,099 → S/ 775,582,015)."
+        "mensaje": "El PIM del Pliego cambió -5,535,383 desde el 2026-11-25 (S/ 775,582,015 → S/ 770,046,632)."
       }
     ],
     "notas": []
   },
   "origen": "github-actions",
-  "corrida": "22",
-  "commit_datos": "72e1205"
+  "corrida": "25",
+  "commit_datos": "521a8db"
 }
