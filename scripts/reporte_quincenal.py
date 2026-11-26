@@ -29,6 +29,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import alertas as al                       # noqa: E402
+import generar_cierres as gc               # noqa: E402
 
 try:
     import matplotlib
@@ -245,6 +246,17 @@ def leer_firma():
     return datos
 
 
+def ajustar_a_cierre(foto, cierres, mes):
+    """Reemplaza los acumulados de una consulta diaria por los del cierre mensual (el PIM no cambia).
+    La consulta de fin de mes no recoge lo que el MEF registra después con fecha de ese mes."""
+    ac = gc.acumulado(cierres, "pliego", mes)
+    return dict(foto, **{c: str(v) for c, v in ac.items()})
+
+
+def cierre_disponible(cierres, anio, mes):
+    return bool(cierres) and cierres["anio"] == anio and 1 <= mes <= cierres["ultimo_mes_cerrado"]
+
+
 # ---------------------------------------------------------------- informe
 def generar(desde, hasta, carpeta=al.SERIE, salida=None):
     leer = lambda nombre: al.leer(nombre, carpeta)
@@ -255,6 +267,25 @@ def generar(desde, hasta, carpeta=al.SERIE, salida=None):
     ue, rubro = leer("fact_ue_diario"), leer("fact_rubro_diario")
     funcion, proy = leer("fact_funcion_diario"), leer("fact_proyecto_diario")
     a0, a1 = al.calcular(carpeta, hasta=base), al.calcular(carpeta, hasta=cierre)
+
+    # s0/s1 = consultas diarias (tablas de detalle); p0/p1 = cifras del Pliego, ajustadas
+    # al cierre mensual cuando el periodo empieza o termina en un límite de mes.
+    s0, s1 = p0, p1
+    rot0, rot1 = f_fecha(base), f_fecha(cierre)
+    try:
+        cierres = gc.calcular()
+    except Exception as e:
+        cierres = None
+        print(f"[AVISO] Sin cierres mensuales ({e}); se usan solo las consultas diarias.")
+    ajustes = []
+    if desde.day == 1 and cierre_disponible(cierres, desde.year, desde.month - 1):
+        p0 = ajustar_a_cierre(s0, cierres, desde.month - 1)
+        rot0 = f"Cierre {MESES[desde.month - 2]}"
+        ajustes.append((desde.month - 1, n(p0, "devengado") - n(s0, "devengado"), base))
+    if hasta.day == calendar.monthrange(hasta.year, hasta.month)[1] and cierre_disponible(cierres, hasta.year, hasta.month):
+        p1 = ajustar_a_cierre(s1, cierres, hasta.month)
+        rot1 = f"Cierre {MESES[hasta.month - 1]}"
+        ajustes.append((hasta.month, n(p1, "devengado") - n(s1, "devengado"), cierre))
 
     dev_q = n(p1, "devengado") - n(p0, "devengado")
     pim_q = n(p1, "pim") - n(p0, "pim")
@@ -285,8 +316,13 @@ def generar(desde, hasta, carpeta=al.SERIE, salida=None):
     doc.add_paragraph(
         f"Informar la ejecución presupuestal de las inversiones del Gobierno Regional de Lambayeque (Pliego 452) "
         f"{nombre_periodo}. Las cifras corresponden a la consulta de Ejecución del Gasto, filtro «Sólo Proyectos», "
-        f"de Consulta Amigable del MEF. Se comparan la consulta del {f_fecha(base)} (base) y la del "
-        f"{f_fecha(cierre)} (cierre del periodo).")
+        f"de Consulta Amigable del MEF. Las tablas de detalle comparan la consulta del {f_fecha(base)} (base) "
+        f"con la del {f_fecha(cierre)} (cierre del periodo).")
+    for mes, dif, fecha in ajustes:
+        doc.add_paragraph(
+            f"Las cifras del Pliego de {MESES[mes - 1]} se toman del cierre mensual (consulta del "
+            f"{f_fecha(cierres['fecha_consulta'])}), que difiere en S/ {mill(dif, True)} millones de devengado "
+            f"respecto de la consulta del {f_fecha(fecha)}.")
 
     doc.add_heading("2. Resumen ejecutivo", 1)
     act, ant = a1["ranking_gores"]["actual"], al.calcular(carpeta, hasta=base)["ranking_gores"]["actual"]
@@ -308,13 +344,17 @@ def generar(desde, hasta, carpeta=al.SERIE, salida=None):
                             ("Devengado", "devengado"), ("Girado", "girado")):
         filas.append([etiqueta, mill(n(p0, campo)), mill(n(p1, campo)), mill(n(p1, campo) - n(p0, campo), True)])
     filas.append(["Avance (Devengado / PIM)", pct(avance(p0)), pct(avance(p1)), f"{avance(p1) - avance(p0):+.1f} pts"])
-    tabla(doc, ["Millones de S/", f_fecha(base), f_fecha(cierre), "Variación"], filas, [6, 3.3, 3.3, 3.3])
+    tabla(doc, ["Millones de S/", rot0, rot1, "Variación"], filas, [6, 3.3, 3.3, 3.3])
 
     doc.add_heading("3. Evolución diaria del devengado", 1)
     serie = [f for f in pliego if f["fecha"] <= cierre]
     doc.add_picture(grafico(serie, base, cierre), width=Cm(16))
 
     doc.add_heading("4. Ejecución por unidad ejecutora", 1)
+    if ajustes:
+        doc.add_paragraph(
+            "Nota para las secciones 4 a 7: «Dev. periodo» es la diferencia entre las dos consultas diarias. "
+            "Puede incluir registros de otro mes, por lo que su total no coincide con el del resumen ejecutivo.")
     u0 = indice(ue, base, "ue_codigo")
     u1 = sorted((f for f in ue if f["fecha"] == cierre), key=lambda f: -n(f, "pim"))
     filas = []
@@ -323,8 +363,8 @@ def generar(desde, hasta, carpeta=al.SERIE, salida=None):
         filas.append([f"{f['ue_codigo']} {corto(f['ue_nombre'], 46)}", mill(n(f, "pim")), mill(n(f, "devengado")),
                       pct(avance(f)), mill(n(f, "devengado") - (n(x, "devengado") if x else 0), True),
                       mill(n(f, "pim") - (n(x, "pim") if x else 0), True)])
-    filas.append(["TOTAL PLIEGO", mill(n(p1, "pim")), mill(n(p1, "devengado")), pct(avance(p1)),
-                  mill(dev_q, True), mill(pim_q, True)])
+    filas.append(["TOTAL PLIEGO", mill(n(s1, "pim")), mill(n(s1, "devengado")), pct(avance(s1)),
+                  mill(n(s1, "devengado") - n(s0, "devengado"), True), mill(pim_q, True)])
     tabla(doc, ["Unidad ejecutora (millones de S/)", "PIM", "Devengado", "Avance", "Dev. periodo", "Var. PIM"],
           filas, [6.6, 1.9, 2, 1.6, 2.2, 1.9], total=True)
 

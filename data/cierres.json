@@ -1,0 +1,210 @@
+{
+ "version": 1,
+ "anio": 2026,
+ "ultimo_mes_cerrado": 10,
+ "pliego": [
+  {
+   "mes": 1,
+   "certificacion": 631109277,
+   "compromiso_anual": 220979940,
+   "atencion_mensual": 81258535,
+   "devengado": 18207406,
+   "girado": 12493142,
+   "pim": null,
+   "pim_origen": null
+  },
+  {
+   "mes": 2,
+   "certificacion": 49259485,
+   "compromiso_anual": 194962527,
+   "atencion_mensual": 119955541,
+   "devengado": 68587989,
+   "girado": 71415737,
+   "pim": null,
+   "pim_origen": null
+  },
+  {
+   "mes": 3,
+   "certificacion": 33522914,
+   "compromiso_anual": 27006105,
+   "atencion_mensual": 38380655,
+   "devengado": 46356317,
+   "girado": 42120786,
+   "pim": null,
+   "pim_origen": null
+  },
+  {
+   "mes": 4,
+   "certificacion": 2754455,
+   "compromiso_anual": 68661479,
+   "atencion_mensual": 56745255,
+   "devengado": 34496874,
+   "girado": 38549835,
+   "pim": null,
+   "pim_origen": null
+  },
+  {
+   "mes": 5,
+   "certificacion": 1842742,
+   "compromiso_anual": 49043767,
+   "atencion_mensual": 54513393,
+   "devengado": 36646039,
+   "girado": 34784788,
+   "pim": null,
+   "pim_origen": null
+  },
+  {
+   "mes": 6,
+   "certificacion": 12348332,
+   "compromiso_anual": 42738846,
+   "atencion_mensual": 77952426,
+   "devengado": 54556339,
+   "girado": 42384235,
+   "pim": 774794996.0,
+   "pim_origen": "consulta del 30/06/2026 (referencial)"
+  },
+  {
+   "mes": 7,
+   "certificacion": -7807404,
+   "compromiso_anual": 28137177,
+   "atencion_mensual": 45176343,
+   "devengado": 58476283,
+   "girado": 67970162,
+   "pim": 765160863.0,
+   "pim_origen": "consulta del 31/07/2026 (referencial)"
+  },
+  {
+   "mes": 8,
+   "certificacion": -11929819,
+   "compromiso_anual": -6633832,
+   "atencion_mensual": 24548825,
+   "devengado": 53721601,
+   "girado": 56513621,
+   "pim": 756925857.0,
+   "pim_origen": "consulta del 31/08/2026 (referencial)"
+  },
+  {
+   "mes": 9,
+   "certificacion": 59905019,
+   "compromiso_anual": 11707630,
+   "atencion_mensual": 48899363,
+   "devengado": 44210646,
+   "girado": 46120488,
+   "pim": 807879992.0,
+   "pim_origen": "consulta del 30/09/2026 (referencial)"
+  },
+  {
+   "mes": 10,
+   "certificacion": -22831343,
+   "compromiso_anual": 605195,
+   "atencion_mensual": 39951289,
+   "devengado": 58419548,
+   "girado": 57677577,
+   "pim": 783649396.0,
+   "pim_origen": "consulta del 30/10/2026 (referencial)"
+  }
+ ],
+ "fecha_consulta": "2026-11-26",
+ "sede_central": [
+  {
+   "mes": 1,
+   "certificacion": 330228814,
+   "compromiso_anual": 162243455,
+   "atencion_mensual": 48634199,
+   "devengado": 12200710,
+   "girado": 9278081,
+   "pim": null,
+   "pim_origen": null
+  },
+  {
+   "mes": 2,
+   "certificacion": 59115486,
+   "compromiso_anual": 86164905,
+   "atencion_mensual": 106036105,
+   "devengado": 55406542,
+   "girado": 55487396,
+   "pim": null,
+   "pim_origen": null
+  },
+  {
+   "mes": 3,
+   "certificacion": 7370608,
+   "compromiso_anual": 9823446,
+   "atencion_mensual": 20560811,
+   "devengado": 23589905,
+   "girado": 23482607,
+   "pim": null,
+   "pim_origen": null
+  },
+  {
+   "mes": 4,
+   "certificacion": 15194787,
+   "compromiso_anual": 60506472,
+   "atencion_mensual": 46075402,
+   "devengado": 20568429,
+   "girado": 22311076,
+   "pim": null,
+   "pim_origen": null
+  },
+  {
+   "mes": 5,
+   "certificacion": 810237,
+   "compromiso_anual": 37320705,
+   "atencion_mensual": 33980765,
+   "devengado": 18361708,
+   "girado": 16162051,
+   "pim": null,
+   "pim_origen": null
+  },
+  {
+   "mes": 6,
+   "certificacion": 6074139,
+   "compromiso_anual": 7273759,
+   "atencion_mensual": 15154814,
+   "devengado": 32145085,
+   "girado": 21223923,
+   "pim": 456977622.0,
+   "pim_origen": "consulta del 30/06/2026 (referencial)"
+  },
+  {
+   "mes": 7,
+   "certificacion": 938180,
+   "compromiso_anual": -17781493,
+   "atencion_mensual": 17227422,
+   "devengado": 27044831,
+   "girado": 35483669,
+   "pim": 452860068.0,
+   "pim_origen": "consulta del 31/07/2026 (referencial)"
+  },
+  {
+   "mes": 8,
+   "certificacion": -8497429,
+   "compromiso_anual": 10693631,
+   "atencion_mensual": 11931648,
+   "devengado": 19437523,
+   "girado": 24329965,
+   "pim": 447583263.0,
+   "pim_origen": "consulta del 31/08/2026 (referencial)"
+  },
+  {
+   "mes": 9,
+   "certificacion": 65505209,
+   "compromiso_anual": 11649350,
+   "atencion_mensual": 15692834,
+   "devengado": 21440279,
+   "girado": 20249874,
+   "pim": 497728995.0,
+   "pim_origen": "consulta del 30/09/2026 (referencial)"
+  },
+  {
+   "mes": 10,
+   "certificacion": -22788616,
+   "compromiso_anual": -4591974,
+   "atencion_mensual": 23421526,
+   "devengado": 35632237,
+   "girado": 35753367,
+   "pim": 471798171.0,
+   "pim_origen": "consulta del 30/10/2026 (referencial)"
+  }
+ ]
+}

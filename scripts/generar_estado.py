@@ -38,6 +38,7 @@ import generar_mensual as gm              # noqa: E402
 import controles_calidad as cc            # noqa: E402
 import generar_serie as gs               # noqa: E402
 import alertas as al                     # noqa: E402
+import generar_cierres as gc             # noqa: E402
 
 PERU = timezone(timedelta(hours=-5))
 
@@ -88,6 +89,13 @@ def construir_estado():
     except Exception as e:
         print(f"[AVISO] Alertas de ejecución no generadas: {e}")
 
+    # Cómo cerró cada mes (selector del dashboard). Informa, NO bloquea.
+    try:
+        c = gc.ejecutar()
+        print(f"  Cierres mensuales actualizados (enero a mes {c['ultimo_mes_cerrado']}).")
+    except Exception as e:
+        print(f"[AVISO] data/cierres.json no actualizado: {e}")
+
     r = d._git("rev-parse", "--short", "HEAD")
     return {
         "version": 1,
@@ -107,7 +115,7 @@ def publicar():
     d.preparar_git_ci()
     mensaje = "data: estado de la actualización diaria (automático)"
     rutas = ["data/estado.json", "data/calidad_historial.json", "data/serie"]
-    rutas += [r for r in ("data/alertas.json", "data/alertas.md") if (RAIZ / r).exists()]
+    rutas += [r for r in ("data/alertas.json", "data/alertas.md", "data/cierres.json") if (RAIZ / r).exists()]
     for cmd in (["add", *rutas], ["commit", "-m", mensaje]):
         r = d._git(*cmd)
         if r.returncode != 0:
