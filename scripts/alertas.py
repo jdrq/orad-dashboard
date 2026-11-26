@@ -66,11 +66,15 @@ def soles(v):
     return f"S/ {v:,.0f}"
 
 
-def calcular(carpeta=SERIE):
-    ue = leer("fact_ue_diario", carpeta)
-    pliego = leer("fact_pliego_diario", carpeta)
-    proy = leer("fact_proyecto_diario", carpeta)
-    gore = leer("fact_gore_diario", carpeta)
+def calcular(carpeta=SERIE, hasta=None):
+    """hasta='AAAA-MM-DD' calcula las alertas como se veían en esa fecha (para comparar cortes)."""
+    def cargar(nombre):
+        return [f for f in leer(nombre, carpeta) if hasta is None or f["fecha"] <= hasta]
+
+    ue = cargar("fact_ue_diario")
+    pliego = cargar("fact_pliego_diario")
+    proy = cargar("fact_proyecto_diario")
+    gore = cargar("fact_gore_diario")
 
     corte = max(f["fecha"] for f in ue)
     hoy_ue = foto(ue, corte)

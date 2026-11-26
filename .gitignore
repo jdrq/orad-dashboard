@@ -44,3 +44,7 @@ data/*.backup
 # Registros y alertas del modo desatendido
 logs/
 error_*.png
+
+
+# Informes quincenales: borradores sin firmar, no se publican
+reportes/
