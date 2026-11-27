@@ -1,23 +1,22 @@
-# Alertas de ejecución — consulta MEF 26/11/2026
+# Alertas de ejecución — consulta MEF 27/11/2026
 
-Avance del Pliego 452 (solo proyectos): **68.4%** · 10 alertas (3 de nivel alto).
+Avance del Pliego 452 (solo proyectos): **69.2%** · 9 alertas (3 de nivel alto).
 
-Puesto entre gobiernos regionales por avance: **19 de 26** (el 27/10/2026: 20).
+Puesto entre gobiernos regionales por avance: **19 de 26** (el 28/10/2026: 19).
 
 ## A1 · Unidades ejecutoras por debajo del avance del Pliego (2)
 
 | Nivel | Ámbito | Detalle |
 |---|---|---|
-| alta | 304-1697 GOB. REG. DPTO. LAMBAYEQUE - GERENCIA REGIONAL DE EDUCACIÓN LAMBAYEQUE | Avance 52.2%, 16.2 puntos por debajo del Pliego (68.4%). |
-| media | 200-857 REGION LAMBAYEQUE-TRANSPORTES | Avance 61.7%, 6.7 puntos por debajo del Pliego (68.4%). |
+| alta | 304-1697 GOB. REG. DPTO. LAMBAYEQUE - GERENCIA REGIONAL DE EDUCACIÓN LAMBAYEQUE | Avance 52.2%, 17.0 puntos por debajo del Pliego (69.2%). |
+| media | 200-857 REGION LAMBAYEQUE-TRANSPORTES | Avance 61.7%, 7.5 puntos por debajo del Pliego (69.2%). |
 
-## A2 · Unidades ejecutoras sin nuevo devengado (3)
+## A2 · Unidades ejecutoras sin nuevo devengado (2)
 
 | Nivel | Ámbito | Detalle |
 |---|---|---|
-| media | 400-860 REGION LAMBAYEQUE-SALUD | Sin nuevo devengado desde el 19/11/2026; quedan S/ 3,235,386 por devengar. |
-| media | 200-857 REGION LAMBAYEQUE-TRANSPORTES | Sin nuevo devengado desde el 19/11/2026; quedan S/ 1,769,655 por devengar. |
-| media | 304-1697 GOB. REG. DPTO. LAMBAYEQUE - GERENCIA REGIONAL DE EDUCACIÓN LAMBAYEQUE | Sin nuevo devengado desde el 19/11/2026; quedan S/ 76,500 por devengar. |
+| media | 200-857 REGION LAMBAYEQUE-TRANSPORTES | Sin nuevo devengado desde el 20/11/2026; quedan S/ 1,769,655 por devengar. |
+| media | 304-1697 GOB. REG. DPTO. LAMBAYEQUE - GERENCIA REGIONAL DE EDUCACIÓN LAMBAYEQUE | Sin nuevo devengado desde el 20/11/2026; quedan S/ 76,500 por devengar. |
 
 ## A4 · Proyectos grandes sin devengado (2)
 
@@ -30,8 +29,8 @@ Puesto entre gobiernos regionales por avance: **19 de 26** (el 27/10/2026: 20).
 
 | Nivel | Ámbito | Detalle |
 |---|---|---|
-| media | 2578422 MEJORAMIENTO DEL SERVICIO DE EDUCACION SUPERIOR ARTISTICA EN ERNESTO LOPEZ MINDREAU DISTRITO DE CHICLAYO DE LA PROVINCIA DE CHICLAYO DEL DEPARTAMENTO DE LAMBAYEQUE | Avance 23.8% y sin nuevo devengado desde el 27/10/2026. |
-| media | 2358882 MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E FEDERICO VILLARREAL DISTRITO DE CHICLAYO - PROVINCIA DE CHICLAYO - DEPARTAMENTO DE LAMBAYEQUE | Avance 11.4% y sin nuevo devengado desde el 27/10/2026. |
-| media | 2676344 MEJORAMIENTO DEL SERVICIO DE TRANSITABILIDAD VIAL INTERURBANA EN LA-103 EMP. PE-1NJ (ILLIMO) -LA ZARANDA -TAMBO REAL -BATAN GRANDE -PAPAYO -MOCHUMI VIEJO -LAQUIPAMPA - MOYAN RIOPAMPA -UYURPAMPA -DV. KONGACHA -MAMAJPAMPA-CAÑARIS -PANDACHI -HUACAPAMPA (L.D. CAJAMARC, DISTRITO DE CAÑARIS DISTRITOS DE PITIPO, INCAHUASI DE LA PROVINCIA DE FERREÑAFE DEL DEPARTAMENTO DE LAMBAYEQUE | Avance 5.6% y sin nuevo devengado desde el 27/10/2026. |
+| media | 2578422 MEJORAMIENTO DEL SERVICIO DE EDUCACION SUPERIOR ARTISTICA EN ERNESTO LOPEZ MINDREAU DISTRITO DE CHICLAYO DE LA PROVINCIA DE CHICLAYO DEL DEPARTAMENTO DE LAMBAYEQUE | Avance 46.7% y sin nuevo devengado desde el 28/10/2026. |
+| media | 2358882 MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E FEDERICO VILLARREAL DISTRITO DE CHICLAYO - PROVINCIA DE CHICLAYO - DEPARTAMENTO DE LAMBAYEQUE | Avance 11.4% y sin nuevo devengado desde el 28/10/2026. |
+| media | 2676344 MEJORAMIENTO DEL SERVICIO DE TRANSITABILIDAD VIAL INTERURBANA EN LA-103 EMP. PE-1NJ (ILLIMO) -LA ZARANDA -TAMBO REAL -BATAN GRANDE -PAPAYO -MOCHUMI VIEJO -LAQUIPAMPA - MOYAN RIOPAMPA -UYURPAMPA -DV. KONGACHA -MAMAJPAMPA-CAÑARIS -PANDACHI -HUACAPAMPA (L.D. CAJAMARC, DISTRITO DE CAÑARIS DISTRITOS DE PITIPO, INCAHUASI DE LA PROVINCIA DE FERREÑAFE DEL DEPARTAMENTO DE LAMBAYEQUE | Avance 5.6% y sin nuevo devengado desde el 28/10/2026. |
 
 _Umbrales propuestos, pendientes de validar con la jefatura (ver scripts/alertas.py)._

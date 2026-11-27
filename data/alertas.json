@@ -1,29 +1,29 @@
 {
   "version": 1,
-  "fecha_consulta_mef": "2026-11-26",
-  "avance_pliego_pct": 68.4,
+  "fecha_consulta_mef": "2026-11-27",
+  "avance_pliego_pct": 69.2,
   "ranking_gores": {
     "actual": {
-      "fecha": "2026-11-26",
+      "fecha": "2026-11-27",
       "puesto": 19,
       "total": 26,
-      "avance_pct": 68.4
+      "avance_pct": 69.2
     },
     "anterior": {
-      "fecha": "2026-10-27",
-      "puesto": 20,
+      "fecha": "2026-10-28",
+      "puesto": 19,
       "total": 26,
-      "avance_pct": 58.2
+      "avance_pct": 58.8
     }
   },
-  "total": 10,
+  "total": 9,
   "altas": 3,
   "alertas": [
     {
       "regla": "A1",
       "nivel": "alta",
       "ambito": "304-1697 GOB. REG. DPTO. LAMBAYEQUE - GERENCIA REGIONAL DE EDUCACIÓN LAMBAYEQUE",
-      "mensaje": "Avance 52.2%, 16.2 puntos por debajo del Pliego (68.4%).",
+      "mensaje": "Avance 52.2%, 17.0 puntos por debajo del Pliego (69.2%).",
       "saldo_por_devengar": 76500
     },
     {
@@ -44,49 +44,42 @@
       "regla": "A1",
       "nivel": "media",
       "ambito": "200-857 REGION LAMBAYEQUE-TRANSPORTES",
-      "mensaje": "Avance 61.7%, 6.7 puntos por debajo del Pliego (68.4%).",
+      "mensaje": "Avance 61.7%, 7.5 puntos por debajo del Pliego (69.2%).",
       "saldo_por_devengar": 1769655
     },
     {
       "regla": "A2",
       "nivel": "media",
-      "ambito": "400-860 REGION LAMBAYEQUE-SALUD",
-      "mensaje": "Sin nuevo devengado desde el 19/11/2026; quedan S/ 3,235,386 por devengar.",
-      "saldo_por_devengar": 3235386
-    },
-    {
-      "regla": "A2",
-      "nivel": "media",
       "ambito": "200-857 REGION LAMBAYEQUE-TRANSPORTES",
-      "mensaje": "Sin nuevo devengado desde el 19/11/2026; quedan S/ 1,769,655 por devengar.",
+      "mensaje": "Sin nuevo devengado desde el 20/11/2026; quedan S/ 1,769,655 por devengar.",
       "saldo_por_devengar": 1769655
     },
     {
       "regla": "A2",
       "nivel": "media",
       "ambito": "304-1697 GOB. REG. DPTO. LAMBAYEQUE - GERENCIA REGIONAL DE EDUCACIÓN LAMBAYEQUE",
-      "mensaje": "Sin nuevo devengado desde el 19/11/2026; quedan S/ 76,500 por devengar.",
+      "mensaje": "Sin nuevo devengado desde el 20/11/2026; quedan S/ 76,500 por devengar.",
       "saldo_por_devengar": 76500
     },
     {
       "regla": "A5",
       "nivel": "media",
       "ambito": "2578422 MEJORAMIENTO DEL SERVICIO DE EDUCACION SUPERIOR ARTISTICA EN ERNESTO LOPEZ MINDREAU DISTRITO DE CHICLAYO DE LA PROVINCIA DE CHICLAYO DEL DEPARTAMENTO DE LAMBAYEQUE",
-      "mensaje": "Avance 23.8% y sin nuevo devengado desde el 27/10/2026.",
-      "saldo_por_devengar": 5114816
+      "mensaje": "Avance 46.7% y sin nuevo devengado desde el 28/10/2026.",
+      "saldo_por_devengar": 1826874
     },
     {
       "regla": "A5",
       "nivel": "media",
       "ambito": "2358882 MEJORAMIENTO DEL SERVICIO EDUCATIVO EN LA I.E FEDERICO VILLARREAL DISTRITO DE CHICLAYO - PROVINCIA DE CHICLAYO - DEPARTAMENTO DE LAMBAYEQUE",
-      "mensaje": "Avance 11.4% y sin nuevo devengado desde el 27/10/2026.",
+      "mensaje": "Avance 11.4% y sin nuevo devengado desde el 28/10/2026.",
       "saldo_por_devengar": 1801732
     },
     {
       "regla": "A5",
       "nivel": "media",
       "ambito": "2676344 MEJORAMIENTO DEL SERVICIO DE TRANSITABILIDAD VIAL INTERURBANA EN LA-103 EMP. PE-1NJ (ILLIMO) -LA ZARANDA -TAMBO REAL -BATAN GRANDE -PAPAYO -MOCHUMI VIEJO -LAQUIPAMPA - MOYAN RIOPAMPA -UYURPAMPA -DV. KONGACHA -MAMAJPAMPA-CAÑARIS -PANDACHI -HUACAPAMPA (L.D. CAJAMARC, DISTRITO DE CAÑARIS DISTRITOS DE PITIPO, INCAHUASI DE LA PROVINCIA DE FERREÑAFE DEL DEPARTAMENTO DE LAMBAYEQUE",
-      "mensaje": "Avance 5.6% y sin nuevo devengado desde el 27/10/2026.",
+      "mensaje": "Avance 5.6% y sin nuevo devengado desde el 28/10/2026.",
       "saldo_por_devengar": 1774700
     }
   ]
