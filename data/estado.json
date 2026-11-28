@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "actualizado": "2026-11-27T12:14:01-05:00",
-  "fecha_consulta_mef": "2026-11-27",
+  "actualizado": "2026-11-28T07:14:53-05:00",
+  "fecha_consulta_mef": "2026-11-28",
   "archivos": {
     "esperados": 17,
     "validos": 17
@@ -16,18 +16,23 @@
   },
   "calidad": {
     "revisados": 974,
-    "alertas": 0,
+    "alertas": 1,
     "avisos": 1,
     "detalle": [
       {
+        "id": "C01",
+        "severidad": "alerta",
+        "mensaje": "munis_emergencia.xls · 140201-301232: MUNICIPALIDAD PROVINCIAL DE FERREÑAFE: Compromiso > Certificación"
+      },
+      {
         "id": "C09",
         "severidad": "aviso",
-        "mensaje": "El PIM del Pliego cambió -7,566,705 desde el 2026-11-26 (S/ 770,046,632 → S/ 762,479,927)."
+        "mensaje": "El PIM del Pliego cambió -972,371 desde el 2026-11-27 (S/ 762,479,927 → S/ 761,507,556)."
       }
     ],
     "notas": []
   },
   "origen": "github-actions",
-  "corrida": "28",
-  "commit_datos": "a127ba4"
+  "corrida": "29",
+  "commit_datos": "95db349"
 }
